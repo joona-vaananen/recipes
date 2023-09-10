@@ -1,0 +1,44 @@
+{
+  "name": "recipes",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "clean": "turbo run clean",
+    "dev": "turbo run dev",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint": "turbo run lint",
+    "test": "turbo run test"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/**/*"
+  ],
+  "engines": {
+    "node": "^18",
+    "npm": "^9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joona-vaananen/recipes.git"
+  },
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/joona-vaananen/recipes/issues"
+  },
+  "homepage": "https://github.com/joona-vaananen/recipes#readme",
+  "devDependencies": {
+    "@recipes/eslint-config": "^1.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.6.0",
+    "@typescript-eslint/parser": "^6.6.0",
+    "eslint": "^8.49.0",
+    "eslint-config-next": "^13.4.19",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-import-resolver-typescript": "^3.6.0",
+    "eslint-plugin-import": "^2.28.1",
+    "prettier": "^3.0.3",
+    "turbo": "^1.10.15",
+    "typescript": "^5.2.2"
+  },
+  "packageManager": "npm@9.8.1"
+}

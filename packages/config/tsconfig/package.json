@@ -1,0 +1,11 @@
+{
+  "name": "@recipes/tsconfig",
+  "version": "1.0.0",
+  "private": true,
+  "files": [
+    "base.json",
+    "next.json",
+    "strapi-admin.json",
+    "strapi-server.json"
+  ]
+}

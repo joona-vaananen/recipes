@@ -1,0 +1,35 @@
+FROM node:18-alpine AS base
+
+FROM base AS builder
+RUN apk add --no-cache libc6-compat
+RUN apk update
+
+WORKDIR /app
+RUN npm install --global turbo
+COPY . .
+RUN npx turbo prune @recipes/api --docker
+
+FROM base AS installer
+RUN apk add --no-cache libc6-compat
+RUN apk update
+WORKDIR /app
+
+COPY .gitignore .gitignore
+COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/package-lock.json ./package-lock.json
+RUN npm ci
+
+COPY --from=builder /app/out/full/ .
+COPY turbo.json turbo.json
+
+RUN npx turbo run build --filter=@recipes/api...
+
+FROM base AS runner
+WORKDIR /app
+
+COPY --from=installer /app .
+
+RUN chown -R node:node /app/apps/api
+USER node
+
+CMD npx turbo run dev --filter=@recipes/api...

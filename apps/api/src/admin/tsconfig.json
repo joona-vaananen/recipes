@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "API Admin",
+  "extends": "@recipes/tsconfig/strapi-admin.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["../plugins/**/admin/src/**/*", "./"],
+  "exclude": ["node_modules/", "build/", "dist/", "**/*.test.ts"]
+}

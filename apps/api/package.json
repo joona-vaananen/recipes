@@ -1,0 +1,24 @@
+{
+  "name": "@recipes/api",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "strapi develop",
+    "build": "strapi build",
+    "start": "strapi start",
+    "lint": "eslint config/"
+  },
+  "dependencies": {
+    "@strapi/plugin-i18n": "4.13.6",
+    "@strapi/plugin-users-permissions": "4.13.6",
+    "@strapi/strapi": "4.13.6",
+    "pg": "8.8.0"
+  },
+  "devDependencies": {
+    "@recipes/eslint-config": "^1.0.0",
+    "@recipes/tsconfig": "^1.0.0"
+  },
+  "strapi": {
+    "uuid": "c957b087-8de5-4da6-8696-5c12b92f7c8b"
+  }
+}
