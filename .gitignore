@@ -1,39 +1,165 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+############################
+# OS X
+############################
 
-# dependencies
-node_modules
-.pnp
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+.Spotlight-V100
+.Trashes
+._*
+
+
+############################
+# Linux
+############################
+
+*~
+
+
+############################
+# Windows
+############################
+
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+
+
+############################
+# Packages
+############################
+
+*.7z
+*.csv
+*.dat
+*.dmg
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.seed
+*.so
+*.swo
+*.swp
+*.swn
+*.swm
+*.out
+*.pid
+
+
+############################
+# Logs and databases
+############################
+
+.tmp
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+
+
+############################
+# Misc.
+############################
+
+*#
+ssl
+.idea
+nbproject
+**/public/uploads
+/.pnp
 .pnp.js
+*.pem
+.turbo
 
-# testing
+
+############################
+# Node.js
+############################
+
+lib-cov
+lcov.info
+pids
+logs
+results
+node_modules
+.node_history
+
+
+############################
+# Tests
+############################
+
+testApp
 coverage
 
-# next.js
+
+############################
+# Strapi
+############################
+
+.env
+license.txt
+exports
+*.cache
+dist
+.strapi-updater.json
+
+
+############################
+# Next.js
+############################
+
 .next
 out
 
-# production
+
+############################
+# Production
+############################
+
 build
-dist
 
-# misc
-.DS_Store
-*.pem
 
-# debug
+############################
+# Debug
+############################
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
+
+############################
+# Env files
+############################
+
 .env*.local
+.env.development
+.env.production
 
-# vercel
-.vercel
+############################
+# TypeScript
+############################
 
-# turborepo
-.turbo
-
-# typescript
 *.tsbuildinfo
 next-env.d.ts
+
+############################
+# Storybook
+############################
+
+storybook-static
