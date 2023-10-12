@@ -3,13 +3,25 @@ import { notFound } from 'next/navigation';
 
 import { apiClient } from '@/lib/api/client';
 
-const Page = async () => {
+interface PageProps {
+  params: {
+    slug: string;
+  };
+}
+
+const Page = async ({ params }: PageProps) => {
+  const { slug } = params;
+
+  if (slug === 'home') {
+    notFound();
+  }
+
   const {
     data: [page],
   } = await apiClient.getMany(
     {
       contentType: 'pages',
-      parameters: { filters: { slug: 'home' } },
+      parameters: { filters: { slug } },
     },
     { next: { revalidate: 600 } }
   );

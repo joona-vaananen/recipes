@@ -24,7 +24,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html className={`${robotoSlab.variable} ${raleway.variable}`} lang={'en'}>
       <body>
-        <Theme accentColor={'ruby'} radius={'full'}>
+        <Theme accentColor={'ruby'}>
           <Box>
             <Link asChild>
               <NextLink href={'/'}>

@@ -7,20 +7,19 @@ services:
     build:
       context: .
       dockerfile: ./apps/api/Dockerfile.development
-    environment:
-      API_ADMIN_JWT_SECRET: ${API_ADMIN_JWT_SECRET}
-      API_APP_KEYS: ${API_APP_KEYS}
-      API_HOST: ${API_HOST}
-      API_JWT_SECRET: ${API_JWT_SECRET}
-      API_PORT: ${API_PORT}
-      API_TOKEN_SALT: ${API_TOKEN_SALT}
-      API_TRANSFER_TOKEN_SALT: ${API_TRANSFER_TOKEN_SALT}
-      DB_HOST: ${DB_HOST}
-      DB_NAME: ${DB_NAME}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_PORT: ${DB_PORT}
-      DB_USERNAME: ${DB_USERNAME}
-      NODE_ENV: ${NODE_ENV}
+      args:
+        API_ADMIN_JWT_SECRET: ${API_ADMIN_JWT_SECRET}
+        API_APP_KEYS: ${API_APP_KEYS}
+        API_HOST: ${API_HOST}
+        API_JWT_SECRET: ${API_JWT_SECRET}
+        API_PORT: ${API_PORT}
+        API_TOKEN_SALT: ${API_TOKEN_SALT}
+        API_TRANSFER_TOKEN_SALT: ${API_TRANSFER_TOKEN_SALT}
+        DB_HOST: ${DB_HOST}
+        DB_NAME: ${DB_NAME}
+        DB_PASSWORD: ${DB_PASSWORD}
+        DB_PORT: ${DB_PORT}
+        DB_USERNAME: ${DB_USERNAME}
     volumes:
       - ./apps/api/config:/app/apps/api/config
       - ./apps/api/public/uploads:/app/apps/api/public/uploads
@@ -54,12 +53,17 @@ services:
     build:
       context: .
       dockerfile: ./apps/web/Dockerfile.development
-    environment:
-      NEXT_TELEMETRY_DISABLED: ${NEXT_TELEMETRY_DISABLED}
-      NODE_ENV: ${NODE_ENV}
+      args:
+        API_HOST: ${API_HOST}
+        API_PORT: ${API_PORT}
+        API_PROTOCOL: ${API_PROTOCOL}
+        API_TOKEN: ${API_TOKEN}
+        NEXT_TELEMETRY_DISABLED: ${NEXT_TELEMETRY_DISABLED}
     volumes:
       - ./apps/web/public:/app/apps/web/public
       - ./apps/web/src:/app/apps/web/src
+      - ./packages/api-client/src:/app/packages/api-client/src
+      - ./packages/ui/src:/app/packages/ui/src
     restart: always
     ports:
       - 3000:3000

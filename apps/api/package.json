@@ -12,7 +12,8 @@
     "@strapi/plugin-i18n": "4.13.6",
     "@strapi/plugin-users-permissions": "4.13.6",
     "@strapi/strapi": "4.13.6",
-    "pg": "8.8.0"
+    "pg": "8.8.0",
+    "strapi-plugin-schemas-to-ts": "1.1.10"
   },
   "devDependencies": {
     "@recipes/eslint-config": "^1.0.0",

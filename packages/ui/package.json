@@ -1,0 +1,26 @@
+{
+  "name": "@recipes/ui",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "scripts": {},
+  "dependencies": {
+    "@radix-ui/themes": "2.0.0"
+  },
+  "devDependencies": {
+    "@recipes/eslint-config": "^1.0.0",
+    "@recipes/tsconfig": "^1.0.0",
+    "@recipes/api": "^1.0.0",
+    "@types/node": "^20.6.0",
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
+    "next": "13.5.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "peerDependencies": {
+    "next": "13.5.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  }
+}

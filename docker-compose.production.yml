@@ -20,7 +20,6 @@ services:
         DB_PASSWORD: ${DB_PASSWORD}
         DB_PORT: ${DB_PORT}
         DB_USERNAME: ${DB_USERNAME}
-        NODE_ENV: ${NODE_ENV}
     volumes:
       - ./apps/api/config:/app/apps/api/config
       - ./apps/api/public/uploads:/app/apps/api/public/uploads
@@ -55,11 +54,16 @@ services:
       context: .
       dockerfile: ./apps/web/Dockerfile.production
       args:
+        API_HOST: ${API_HOST}
+        API_PORT: ${API_PORT}
+        API_PROTOCOL: ${API_PROTOCOL}
+        API_TOKEN: ${API_TOKEN}
         NEXT_TELEMETRY_DISABLED: ${NEXT_TELEMETRY_DISABLED}
-        NODE_ENV: ${NODE_ENV}
     volumes:
       - ./apps/web/public:/app/apps/web/public
       - ./apps/web/src:/app/apps/web/src
+      - ./packages/api-client/src:/app/packages/api-client/src
+      - ./packages/ui/src:/app/packages/ui/src
     restart: always
     ports:
       - 3000:3000
