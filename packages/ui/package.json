@@ -5,18 +5,27 @@
   "main": "./src/index.ts",
   "scripts": {},
   "dependencies": {
-    "@radix-ui/themes": "2.0.0"
+    "@radix-ui/themes": "2.0.0",
+    "clsx": "2.0.0"
   },
   "devDependencies": {
-    "@recipes/eslint-config": "^1.0.0",
-    "@recipes/tsconfig": "^1.0.0",
     "@recipes/api": "^1.0.0",
+    "@recipes/eslint-config": "^1.0.0",
+    "@recipes/postcss-config": "^1.0.0",
+    "@recipes/tailwind-config": "^1.0.0",
+    "@recipes/tsconfig": "^1.0.0",
     "@types/node": "^20.6.0",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
+    "autoprefixer": "^10.4.16",
     "next": "13.5.4",
+    "postcss": "^8.4.31",
+    "radix-themes-tw": "^0.0.8",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "tailwind-merge": "^1.14.0",
+    "tailwindcss": "^3.3.3",
+    "tailwindcss-animate": "^1.0.7"
   },
   "peerDependencies": {
     "next": "13.5.4",

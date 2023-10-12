@@ -1,7 +1,7 @@
-import { Container, Heading } from '@radix-ui/themes';
 import { notFound } from 'next/navigation';
 
 import { apiClient } from '@/lib/api/client';
+import { DynamicZone, Hero } from '@recipes/ui';
 
 interface PageProps {
   params: {
@@ -18,25 +18,31 @@ const Page = async ({ params }: PageProps) => {
 
   const {
     data: [page],
-  } = await apiClient.getMany(
-    {
-      contentType: 'pages',
-      parameters: { filters: { slug } },
+  } = await apiClient.getMany({
+    contentType: 'pages',
+    parameters: {
+      filters: { slug },
+      populate: {
+        content: { on: { 'ui.hero': { populate: { backgroundImage: true } } } },
+      },
     },
-    { next: { revalidate: 600 } }
-  );
+  });
 
   if (!page) {
     notFound();
   }
 
   return (
-    <Container>
-      <Heading mb={'2'} size={'4'}>
-        {page.attributes.title}
-      </Heading>
+    <>
+      <DynamicZone
+        components={{
+          'ui.hero': Hero,
+        }}
+      >
+        {page.attributes.content}
+      </DynamicZone>
       <pre>{JSON.stringify(page, null, 2)}</pre>
-    </Container>
+    </>
   );
 };
 

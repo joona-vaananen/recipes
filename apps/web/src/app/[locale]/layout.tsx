@@ -1,12 +1,12 @@
-import { Box, Heading, Link, Theme } from '@radix-ui/themes';
+import { Theme } from '@radix-ui/themes';
 import '@radix-ui/themes/styles.css';
 import type { Metadata } from 'next';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { Raleway, Roboto_Slab } from 'next/font/google';
-import NextLink from 'next/link';
 import { notFound } from 'next/navigation';
 
 import { locales } from '@/i18n';
+import './globals.css';
 import './theme-config.css';
 
 const robotoSlab = Roboto_Slab({
@@ -19,7 +19,7 @@ const raleway = Raleway({
   variable: '--font-raleway',
 });
 
-export const generateStaticParams = () => locales.map((locale) => ({ locale }));
+// export const generateStaticParams = () => locales.map((locale) => ({ locale }));
 
 export const metadata: Metadata = {
   title: 'Recipes',
@@ -45,16 +45,7 @@ const Layout = ({ children, params }: LayoutProps) => {
       lang={locale}
     >
       <body>
-        <Theme accentColor={'ruby'}>
-          <Box>
-            <Link asChild>
-              <NextLink href={'/'}>
-                <Heading>Recipes</Heading>
-              </NextLink>
-            </Link>
-          </Box>
-          {children}
-        </Theme>
+        <Theme accentColor={'ruby'}>{children}</Theme>
       </body>
     </html>
   );

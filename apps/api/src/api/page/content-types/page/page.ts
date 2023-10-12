@@ -5,6 +5,7 @@ export interface Page {
   attributes: {
     createdAt: Date;    updatedAt: Date;    publishedAt?: Date;    title: string;
     slug: string;
+    content?: any;
     locale: string;
     localizations?: { data: Page[] };
   };
@@ -13,6 +14,7 @@ export interface Page_Plain {
   id: number;
   createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  title: string;
   slug: string;
+  content?: any;
   locale: string;
   localizations?: Page[];
 }
@@ -21,6 +23,7 @@ export interface Page_NoRelations {
   id: number;
   createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  title: string;
   slug: string;
+  content?: any;
   locale: string;
   localizations?: Page[];
 }
@@ -29,6 +32,7 @@ export interface Page_AdminPanelLifeCycle {
   id: number;
   createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  title: string;
   slug: string;
+  content?: any;
   locale: string;
   localizations?: Page[];
 }

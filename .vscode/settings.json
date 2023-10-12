@@ -5,7 +5,16 @@
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
   "prettier.configPath": "prettier.config.js",
+  "tailwindCSS.experimental.classRegex": [
+    ["cn\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
+  ],
   "typescript.enablePromptUseWorkspaceTsdk": false,
   "typescript.tsdk": "./node_modules/typescript/lib"
 }

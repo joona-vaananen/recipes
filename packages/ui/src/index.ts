@@ -1,1 +1,2 @@
-export const foo = 'bar';
+export { DynamicZone, Hero } from './components';
+export { cn } from './lib';

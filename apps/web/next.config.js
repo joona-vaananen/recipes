@@ -11,7 +11,15 @@ const nextConfig = {
     outputFileTracingRoot: path.join(__dirname, '../../'),
   },
   output: 'standalone',
-  transpilePackages: ['@recipes/api-client'],
+  rewrites: () => ({
+    beforeFiles: [
+      {
+        source: '/uploads/:path',
+        destination: `${process.env.API_PROTOCOL}://${process.env.API_HOST}:${process.env.API_PORT}/uploads/:path`,
+      },
+    ],
+  }),
+  transpilePackages: ['@recipes/api-client', '@recipes/ui'],
 };
 
 module.exports = withNextIntl(nextConfig);
