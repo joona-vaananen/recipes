@@ -6,7 +6,8 @@
   "scripts": {},
   "dependencies": {
     "@radix-ui/themes": "2.0.0",
-    "clsx": "2.0.0"
+    "clsx": "2.0.0",
+    "embla-carousel-react": "8.0.0-rc14"
   },
   "devDependencies": {
     "@recipes/api": "^1.0.0",

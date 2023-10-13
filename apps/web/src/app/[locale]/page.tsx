@@ -1,17 +1,62 @@
 import { notFound } from 'next/navigation';
 
 import { apiClient } from '@/lib/api/client';
-import { DynamicZone, Hero } from '@recipes/ui';
+import { Container } from '@radix-ui/themes';
+import { DynamicZone, Hero, RecipeCarousel } from '@recipes/ui';
 
-const Page = async () => {
+interface PageProps {
+  params: { locale: string };
+}
+
+const Page = async ({ params }: PageProps) => {
+  const page = await getPageData({ params });
+
+  return (
+    <>
+      <DynamicZone
+        components={{
+          'ui.hero': Hero,
+          'ui.recipe-carousel': RecipeCarousel,
+        }}
+      >
+        {page.attributes.content}
+      </DynamicZone>
+      <Container className={'container'} px={'4'}>
+        <pre className={'whitespace-pre-wrap'}>
+          {JSON.stringify(page, null, 2)}
+        </pre>
+      </Container>
+    </>
+  );
+};
+
+export default Page;
+
+const getPageData = async ({ params }: PageProps) => {
+  const { locale } = params;
+
   const {
     data: [page],
   } = await apiClient.getMany({
     contentType: 'pages',
     parameters: {
+      fields: ['id', 'slug', 'title'],
       filters: { slug: 'home' },
+      locale,
+      pagination: { limit: 1 },
       populate: {
-        content: { on: { 'ui.hero': { populate: { backgroundImage: true } } } },
+        content: {
+          on: {
+            'ui.hero': {
+              populate: {
+                backgroundImage: {
+                  fields: ['height', 'id', 'placeholder', 'url', 'width'],
+                },
+              },
+            },
+            'ui.recipe-carousel': true,
+          },
+        },
       },
     },
   });
@@ -20,18 +65,5 @@ const Page = async () => {
     notFound();
   }
 
-  return (
-    <>
-      <DynamicZone
-        components={{
-          'ui.hero': Hero,
-        }}
-      >
-        {page.attributes.content}
-      </DynamicZone>
-      <pre>{JSON.stringify(page, null, 2)}</pre>
-    </>
-  );
+  return page;
 };
-
-export default Page;

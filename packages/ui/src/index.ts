@@ -1,2 +1,2 @@
-export { DynamicZone, Hero } from './components';
+export { DynamicZone, Hero, RecipeCard, RecipeCarousel } from './components';
 export { cn } from './lib';

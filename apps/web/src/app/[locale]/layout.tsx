@@ -22,7 +22,10 @@ const raleway = Raleway({
 // export const generateStaticParams = () => locales.map((locale) => ({ locale }));
 
 export const metadata: Metadata = {
-  title: 'Recipes',
+  title: {
+    default: 'Olisipa',
+    template: '%s | Olisipa',
+  },
 };
 
 interface LayoutProps {

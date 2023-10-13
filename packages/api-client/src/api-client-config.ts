@@ -1,6 +1,6 @@
 import * as z from 'zod';
 
-export const apiClientConfig = z.object({
+export const apiClientConfigSchema = z.object({
   host: z.string().min(1),
   port: z
     .union([z.string(), z.number()])
@@ -9,6 +9,6 @@ export const apiClientConfig = z.object({
   token: z.string().min(1),
 });
 
-export type APIClientConfigInput = z.input<typeof apiClientConfig>;
+export type APIClientConfigInput = z.input<typeof apiClientConfigSchema>;
 
-export type APIClientConfigOutput = z.output<typeof apiClientConfig>;
+export type APIClientConfigOutput = z.output<typeof apiClientConfigSchema>;

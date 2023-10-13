@@ -3,18 +3,18 @@
 import { Media } from '../../../common/interfaces/Media';
 
 export interface Hero {
-  title: string;
+  title?: string;
   description?: string;
   backgroundImage?: { data: Media };
 }
 export interface Hero_Plain {
-  title: string;
+  title?: string;
   description?: string;
   backgroundImage?: Media;
 }
 
 export interface Hero_NoRelations {
-  title: string;
+  title?: string;
   description?: string;
   backgroundImage?: number;
 }

@@ -12,11 +12,13 @@
     "@radix-ui/themes": "2.0.0",
     "@recipes/api-client": "^1.0.0",
     "@recipes/ui": "^1.0.0",
+    "meilisearch": "0.35.0",
     "next": "13.5.4",
     "next-intl": "3.0.0-rc.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "sharp": "0.32.6"
+    "sharp": "0.32.6",
+    "zod": "3.22.4"
   },
   "devDependencies": {
     "@recipes/eslint-config": "^1.0.0",

@@ -20,6 +20,10 @@ services:
         DB_PASSWORD: ${DB_PASSWORD}
         DB_PORT: ${DB_PORT}
         DB_USERNAME: ${DB_USERNAME}
+        SEARCH_HOST: ${SEARCH_HOST}
+        SEARCH_MASTER_KEY: ${SEARCH_MASTER_KEY}
+        SEARCH_PORT: ${SEARCH_PORT}
+        SEARCH_PROTOCOL: ${SEARCH_PROTOCOL}
     volumes:
       - ./apps/api/config:/app/apps/api/config
       - ./apps/api/public/uploads:/app/apps/api/public/uploads
@@ -31,6 +35,7 @@ services:
       - recipes-network
     depends_on:
       - recipes-db
+      - recipes-search
 
   recipes-db:
     container_name: recipes-db
@@ -48,6 +53,20 @@ services:
     networks:
       - recipes-network
 
+  recipes-search:
+    container_name: recipes-search
+    image: getmeili/meilisearch:v1.4.1
+    command: meilisearch
+    environment:
+      MEILI_MASTER_KEY: ${SEARCH_MASTER_KEY}
+    volumes:
+      - ../meilisearch/data.ms:/data.ms
+    restart: unless-stopped
+    ports:
+      - '7700:7700'
+    networks:
+      - recipes-network
+
   recipes-web:
     container_name: recipes-web
     build:
@@ -59,6 +78,10 @@ services:
         API_PROTOCOL: ${API_PROTOCOL}
         API_TOKEN: ${API_TOKEN}
         NEXT_TELEMETRY_DISABLED: ${NEXT_TELEMETRY_DISABLED}
+        SEARCH_HOST: ${SEARCH_HOST}
+        SEARCH_MASTER_KEY: ${SEARCH_MASTER_KEY}
+        SEARCH_PORT: ${SEARCH_PORT}
+        SEARCH_PROTOCOL: ${SEARCH_PROTOCOL}
     volumes:
       - ./apps/web/public:/app/apps/web/public
       - ./apps/web/src:/app/apps/web/src

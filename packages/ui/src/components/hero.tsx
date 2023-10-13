@@ -1,12 +1,17 @@
-import { Container, Flex, Heading, Section, Text } from '@radix-ui/themes';
+import {
+  Container,
+  Flex,
+  Heading,
+  Section,
+  Text,
+  Theme,
+} from '@radix-ui/themes';
 import Image from 'next/image';
 
-import type { MediaWithPlaceholder } from '@recipes/api/src/common/interfaces/MediaWithPlaceholder';
 import type { Hero as IHero } from '@recipes/api/src/components/ui/interfaces/Hero';
 import { cn } from '../lib/utils/cn';
 
-type HeroProps = React.ComponentPropsWithoutRef<typeof Section> &
-  IHero & { backgroundImage: MediaWithPlaceholder };
+type HeroProps = React.ComponentPropsWithoutRef<typeof Section> & IHero;
 
 export const Hero = ({
   className,
@@ -15,33 +20,23 @@ export const Hero = ({
   title,
   ...props
 }: HeroProps) => {
-  const hasBackgroundImage = !!backgroundImage?.data;
-
-  return (
-    <Section className={cn('relative', className)} {...props}>
-      <Container px={'4'}>
-        <Flex direction={'column'} gap={'9'}>
-          <Heading
-            className={cn({ 'text-accent-1': hasBackgroundImage })}
-            size={{
-              initial: '8',
-              md: '9',
-            }}
-          >
-            {title}
-          </Heading>
+  const hero = (
+    <Section
+      position={'relative'}
+      className={cn('h-[50vh]', className)}
+      {...props}
+    >
+      <Flex align={'center'} height={'100%'}>
+        <Container className={'container'}>
+          {title ? <Heading size={'9'}>{title}</Heading> : null}
           {description ? (
-            <Text
-              as={'p'}
-              className={cn({ 'text-accent-1': hasBackgroundImage })}
-              size={'5'}
-            >
+            <Text as={'p'} mt={'9'} size={'5'}>
               {description}
             </Text>
           ) : null}
-        </Flex>
-      </Container>
-      {hasBackgroundImage ? (
+        </Container>
+      </Flex>
+      {backgroundImage?.data ? (
         <>
           <Image
             className={'absolute left-0 top-0 -z-20 h-full w-full object-cover'}
@@ -51,16 +46,33 @@ export const Hero = ({
             height={backgroundImage.data.attributes.height}
             sizes={'100vw'}
             quality={100}
-            placeholder={'blur'}
-            blurDataURL={backgroundImage.data.attributes.placeholder}
+            placeholder={
+              'placeholder' in backgroundImage.data.attributes
+                ? 'blur'
+                : 'empty'
+            }
+            blurDataURL={
+              'placeholder' in backgroundImage.data.attributes
+                ? (backgroundImage.data.attributes.placeholder as string)
+                : undefined
+            }
+            priority
           />
           <div
             className={
-              'absolute left-0 top-0 -z-10 h-full w-full bg-gradient-to-b from-transparent from-50% to-gray-12'
+              'absolute left-0 top-0 -z-10 h-full w-full bg-gradient-to-b from-transparent to-accent-1'
             }
           />
         </>
       ) : null}
     </Section>
+  );
+
+  return backgroundImage?.data ? (
+    <Theme appearance={'dark'} hasBackground={false}>
+      {hero}
+    </Theme>
+  ) : (
+    hero
   );
 };

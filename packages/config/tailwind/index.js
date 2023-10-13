@@ -7,6 +7,10 @@ module.exports = {
   plugins: [require('tailwindcss-animate')],
   presets: [require('radix-themes-tw').radixThemePreset],
   theme: {
+    container: {
+      center: true,
+      padding: '16px',
+    },
     fontFamily: {
       sans: ['var(--font-raleway)'],
       serif: ['var(--font-roboto-slab)'],

@@ -1,14 +1,16 @@
-import type { Page } from '@recipes/api/src/api/page/content-types/page/page';
 import { stringify } from 'qs';
 
+import type { Page } from '@recipes/api/src/api/page/content-types/page/page';
+import type { Recipe } from '@recipes/api/src/api/recipe/content-types/recipe/recipe';
 import {
-  apiClientConfig,
+  apiClientConfigSchema,
   type APIClientConfigInput,
   type APIClientConfigOutput,
 } from './api-client-config';
 
 interface ContentTypes {
   pages: Page;
+  recipes: Recipe;
 }
 
 interface Parameters {
@@ -29,7 +31,7 @@ export class APIClient {
   config: APIClientConfigOutput;
 
   constructor(config: APIClientConfigInput) {
-    this.config = apiClientConfig.parse(config);
+    this.config = apiClientConfigSchema.parse(config);
   }
 
   async getOne<K extends keyof ContentTypes>(

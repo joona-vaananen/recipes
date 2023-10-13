@@ -9,13 +9,14 @@
     "lint": "eslint config/"
   },
   "dependencies": {
+    "@recipes/api-upload-provider": "^1.0.0",
     "@strapi/plugin-i18n": "4.13.6",
     "@strapi/plugin-users-permissions": "4.13.6",
     "@strapi/strapi": "4.13.6",
     "pg": "8.8.0",
     "sharp": "0.32.6",
-    "strapi-plugin-schemas-to-ts": "1.1.10",
-    "@recipes/api-upload-provider": "^1.0.0"
+    "strapi-plugin-meilisearch": "0.10.0",
+    "strapi-plugin-schemas-to-ts": "1.1.10"
   },
   "devDependencies": {
     "@recipes/eslint-config": "^1.0.0",

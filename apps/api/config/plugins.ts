@@ -1,4 +1,18 @@
 const plugins = ({ env }: { env: any }) => ({
+  meilisearch: {
+    config: {
+      apiKey: env('SEARCH_MASTER_KEY'),
+      host: `${env('SEARCH_PROTOCOL')}://${env('SEARCH_HOST')}:${env(
+        'SEARCH_PORT'
+      )}`,
+      recipe: {
+        settings: {
+          filterableAttributes: [],
+          sortableAttributes: ['publishedAt'],
+        },
+      },
+    },
+  },
   'schemas-to-ts': {
     config: {
       acceptedNodeEnvs: ['development'],

@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "pages",
+  "collectionName": "recipes",
   "info": {
-    "singularName": "page",
-    "pluralName": "pages",
-    "displayName": "Page",
+    "singularName": "recipe",
+    "pluralName": "recipes",
+    "displayName": "Recipe",
     "description": ""
   },
   "options": {
@@ -35,17 +35,26 @@
       "targetField": "title",
       "required": true
     },
-    "content": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "description": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "type": "dynamiczone",
-      "components": [
-        "ui.hero",
-        "ui.recipe-carousel"
-      ]
+      "type": "text"
     }
   }
 }
