@@ -1,10 +1,12 @@
 import { Container, Flex, Heading, Section, Text } from '@radix-ui/themes';
 import Image from 'next/image';
 
+import type { MediaWithPlaceholder } from '@recipes/api/src/common/interfaces/MediaWithPlaceholder';
 import type { Hero as IHero } from '@recipes/api/src/components/ui/interfaces/Hero';
 import { cn } from '../lib/utils/cn';
 
-type HeroProps = React.ComponentPropsWithoutRef<typeof Section> & IHero;
+type HeroProps = React.ComponentPropsWithoutRef<typeof Section> &
+  IHero & { backgroundImage: MediaWithPlaceholder };
 
 export const Hero = ({
   className,
@@ -49,7 +51,8 @@ export const Hero = ({
             height={backgroundImage.data.attributes.height}
             sizes={'100vw'}
             quality={100}
-            priority
+            placeholder={'blur'}
+            blurDataURL={backgroundImage.data.attributes.placeholder}
           />
           <div
             className={

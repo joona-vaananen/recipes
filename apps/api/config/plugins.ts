@@ -8,6 +8,16 @@ const plugins = ({ env }: { env: any }) => ({
     },
     enabled: true,
   },
+  upload: {
+    config: {
+      provider: '@recipes/api-upload-provider',
+      providerOptions: {
+        placeholder: {
+          size: 10,
+        },
+      },
+    },
+  },
   'users-permissions': {
     config: {
       jwtSecret: env('API_JWT_SECRET'),
