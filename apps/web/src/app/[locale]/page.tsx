@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation';
 
+import { components } from '@/components/components';
 import { apiClient } from '@/lib/api/client';
 import { Container } from '@radix-ui/themes';
-import { DynamicZone, Hero, RecipeCarousel } from '@recipes/ui';
+import { DynamicZone } from '@recipes/ui';
 
 interface PageProps {
   params: { locale: string };
@@ -13,12 +14,7 @@ const Page = async ({ params }: PageProps) => {
 
   return (
     <>
-      <DynamicZone
-        components={{
-          'ui.hero': Hero,
-          'ui.recipe-carousel': RecipeCarousel,
-        }}
-      >
+      <DynamicZone components={components}>
         {page.attributes.content}
       </DynamicZone>
       <Container className={'container'} px={'4'}>

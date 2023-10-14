@@ -3,7 +3,9 @@ import {
   Pathnames,
 } from 'next-intl/navigation';
 
-import { locales } from '@/i18n';
+export const defaultLocale = 'en';
+
+export const locales = ['en'];
 
 export const pathnames = {
   '/recipes': {

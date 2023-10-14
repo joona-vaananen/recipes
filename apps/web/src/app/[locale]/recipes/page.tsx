@@ -2,19 +2,18 @@ import { Container, Grid } from '@radix-ui/themes';
 
 import { BREAKPOINTS } from '@/constants';
 import { searchClient } from '@/lib/search/client';
-import { getPathname } from '@/navigation';
 import type { Recipe_Plain } from '@recipes/api/src/api/recipe/content-types/recipe/recipe';
 import type { Media } from '@recipes/api/src/common/interfaces/Media';
 import { RecipeCard } from '@recipes/ui';
 
+/*
 interface PageProps {
   params: { locale: string };
 }
+*/
 
-const Page = async ({ params }: PageProps) => {
-  const { locale } = params;
-
-  const searchResponse = await searchRecipes();
+const Page = async (/* { params }: PageProps*/) => {
+  const searchResults = await searchRecipes();
 
   return (
     <Container className={'container'} px={'4'}>
@@ -28,7 +27,7 @@ const Page = async ({ params }: PageProps) => {
         gap={'3'}
       >
         <ol>
-          {searchResponse.hits.map(({ id, image, title, slug }) => (
+          {searchResults.hits.map(({ id, image, title, slug }) => (
             <li key={id}>
               <RecipeCard
                 image={image}
@@ -39,20 +38,13 @@ const Page = async ({ params }: PageProps) => {
                 ].join(', ')}
                 slug={slug}
                 title={title}
-                url={getPathname({
-                  href: {
-                    pathname: '/recipes/[slug]',
-                    params: { slug },
-                  },
-                  locale,
-                })}
               />
             </li>
           ))}
         </ol>
       </Grid>
       <pre className={'whitespace-pre-wrap'}>
-        {JSON.stringify(searchResponse, null, 2)}
+        {JSON.stringify(searchResults, null, 2)}
       </pre>
     </Container>
   );
@@ -61,7 +53,7 @@ const Page = async ({ params }: PageProps) => {
 export default Page;
 
 const searchRecipes = async (/* { params }: PageProps */) => {
-  const searchResponse = await searchClient
+  const searchResults = await searchClient
     .index<Recipe_Plain & { image: Media['attributes'] }>('recipe')
     .searchGet('', {
       facets: ['*'],
@@ -71,9 +63,5 @@ const searchRecipes = async (/* { params }: PageProps */) => {
       sort: ['publishedAt:desc'],
     });
 
-  if ('message' in searchResponse && process.env.NODE_ENV === 'development') {
-    throw new Error(JSON.stringify(searchResponse, null, 2));
-  }
-
-  return searchResponse;
+  return searchResults;
 };

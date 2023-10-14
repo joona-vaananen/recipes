@@ -2,12 +2,15 @@
 
 export interface RecipeCarousel {
   limit: number;
+  title?: string;
 }
 export interface RecipeCarousel_Plain {
   limit: number;
+  title?: string;
 }
 
 export interface RecipeCarousel_NoRelations {
   limit: number;
+  title?: string;
 }
 

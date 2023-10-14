@@ -1,36 +1,61 @@
-'use client';
+import { Container, Heading, Section } from '@radix-ui/themes';
+import { MeiliSearch } from 'meilisearch';
 
-import { Container, Section } from '@radix-ui/themes';
-import useEmblaCarousel from 'embla-carousel-react';
+import type { Recipe_Plain } from '@recipes/api/src/api/recipe/content-types/recipe/recipe';
+import type { Media } from '@recipes/api/src/common/interfaces/Media';
+import type { RecipeCarousel as IRecipeCarousel } from '@recipes/api/src/components/ui/interfaces/RecipeCarousel';
+import { BREAKPOINTS } from '../constants';
+import { RecipeCard } from './recipe-card';
+import { RecipeCarouselClient } from './recipe-carousel-client';
 
-export const RecipeCarousel = () => {
-  const [ref] = useEmblaCarousel();
+type RecipeCarouselProps = IRecipeCarousel & { searchClient: any };
+
+export const RecipeCarousel = async ({
+  limit,
+  searchClient,
+  title,
+}: RecipeCarouselProps) => {
+  const searchResults = await (searchClient as InstanceType<typeof MeiliSearch>)
+    .index<Recipe_Plain & { image: Media['attributes'] }>('recipe')
+    .searchGet('', {
+      facets: ['*'],
+      filter: '',
+      hitsPerPage: limit ?? 15,
+      page: 1,
+      sort: ['publishedAt:desc'],
+    });
 
   return (
-    <Section>
+    <Section className={'overflow-hidden'}>
       <Container className={'container'}>
-        <div className={'embla overflow-hidden'} ref={ref}>
-          <div className={'embla__container flex gap-3'}>
-            <div className={'embla__slide h-[300px] min-w-[300px] bg-gray-4'}>
-              {'Slide 1'}
-            </div>
-            <div className={'embla__slide h-[300px] min-w-[300px] bg-gray-4'}>
-              {'Slide 2'}
-            </div>
-            <div className={'embla__slide h-[300px] min-w-[300px] bg-gray-4'}>
-              {'Slide 3'}
-            </div>
-            <div className={'embla__slide h-[300px] min-w-[300px] bg-gray-4'}>
-              {'Slide 4'}
-            </div>
-            <div className={'embla__slide h-[300px] min-w-[300px] bg-gray-4'}>
-              {'Slide 5'}
-            </div>
-            <div className={'embla__slide h-[300px] min-w-[300px] bg-gray-4'}>
-              {'Slide 6'}
-            </div>
-          </div>
-        </div>
+        {title ? (
+          <Heading as={'h2'} mb={'6'} size={'7'}>
+            {title}
+          </Heading>
+        ) : null}
+        <RecipeCarouselClient>
+          <ol className={'embla__container -ml-3 flex'}>
+            {searchResults.hits.map(({ id, image, slug, title }) => (
+              <li
+                className={
+                  'embla__slide min-w-0 flex-shrink-0 flex-grow-0 basis-full pl-3 sm:basis-1/2 md:basis-1/3'
+                }
+                key={id}
+              >
+                <RecipeCard
+                  image={image}
+                  sizes={[
+                    `(max-width: ${BREAKPOINTS.sm - 1}px) 100vw`,
+                    `(max-width: ${BREAKPOINTS.md - 1}px) 50vw`,
+                    '33vw',
+                  ].join(', ')}
+                  slug={slug}
+                  title={title}
+                />
+              </li>
+            ))}
+          </ol>
+        </RecipeCarouselClient>
       </Container>
     </Section>
   );

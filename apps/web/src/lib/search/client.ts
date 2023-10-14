@@ -6,8 +6,13 @@ const httpClient = async (
   init?: RequestInit | undefined
 ) => {
   const response = await fetch(input, init);
+  const data = await response.json();
 
-  return response.json();
+  if ('message' in data && process.env.NODE_ENV === 'development') {
+    throw new Error(JSON.stringify(data, null, 2));
+  }
+
+  return data;
 };
 
 const meiliSearchConfigSchema = z

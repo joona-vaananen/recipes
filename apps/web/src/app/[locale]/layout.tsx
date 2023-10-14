@@ -5,7 +5,8 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import { Raleway, Roboto_Slab } from 'next/font/google';
 import { notFound } from 'next/navigation';
 
-import { locales } from '@/i18n';
+import { locales } from '@recipes/ui';
+
 import './globals.css';
 import './theme-config.css';
 

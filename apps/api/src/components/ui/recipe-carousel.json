@@ -2,7 +2,8 @@
   "collectionName": "components_ui_recipe_carousels",
   "info": {
     "displayName": "Recipe Carousel",
-    "icon": "seed"
+    "icon": "seed",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -10,6 +11,9 @@
       "type": "integer",
       "default": 15,
       "required": true
+    },
+    "title": {
+      "type": "string"
     }
   }
 }
