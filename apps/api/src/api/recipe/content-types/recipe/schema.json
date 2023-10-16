@@ -55,6 +55,48 @@
         }
       },
       "type": "text"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "inversedBy": "recipes"
+    },
+    "mealTypes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::meal-type.meal-type",
+      "inversedBy": "recipes"
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::course.course",
+      "inversedBy": "recipes"
+    },
+    "diets": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::diet.diet",
+      "inversedBy": "recipes"
+    },
+    "seasons": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::season.season",
+      "inversedBy": "recipes"
+    },
+    "methods": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::method.method",
+      "inversedBy": "recipes"
+    },
+    "ingredients": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::ingredient.ingredient",
+      "inversedBy": "recipes"
     }
   }
 }

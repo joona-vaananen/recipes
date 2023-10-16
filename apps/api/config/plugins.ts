@@ -7,7 +7,16 @@ const plugins = ({ env }: { env: any }) => ({
       )}`,
       recipe: {
         settings: {
-          filterableAttributes: [],
+          filterableAttributes: [
+            'categories',
+            'courses',
+            'cuisines',
+            'diets',
+            'ingredients',
+            'mealTypes',
+            'methods',
+            'seasons',
+          ],
           sortableAttributes: ['publishedAt'],
         },
       },
