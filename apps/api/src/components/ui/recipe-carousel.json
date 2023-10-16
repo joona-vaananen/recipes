@@ -14,6 +14,46 @@
     },
     "title": {
       "type": "string"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category.category"
+    },
+    "courses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::course.course"
+    },
+    "cuisines": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cuisine.cuisine"
+    },
+    "diets": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::diet.diet"
+    },
+    "ingredients": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ingredient.ingredient"
+    },
+    "mealTypes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::meal-type.meal-type"
+    },
+    "methods": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::method.method"
+    },
+    "seasons": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::season.season"
     }
   }
 }
