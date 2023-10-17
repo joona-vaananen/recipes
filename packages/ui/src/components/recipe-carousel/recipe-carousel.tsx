@@ -4,8 +4,8 @@ import { MeiliSearch } from 'meilisearch';
 import type { Recipe_Plain } from '@recipes/api/src/api/recipe/content-types/recipe/recipe';
 import type { Media } from '@recipes/api/src/common/interfaces/Media';
 import type { RecipeCarousel as IRecipeCarousel } from '@recipes/api/src/components/ui/interfaces/RecipeCarousel';
-import { BREAKPOINTS } from '../constants';
-import { RecipeCard } from './recipe-card';
+import { BREAKPOINTS } from '../../constants';
+import { RecipeCard } from '../recipe-card';
 import { RecipeCarouselClient } from './recipe-carousel-client';
 
 type RecipeCarouselProps = IRecipeCarousel & { searchClient: any };

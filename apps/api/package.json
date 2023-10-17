@@ -13,6 +13,7 @@
     "@strapi/plugin-i18n": "4.13.6",
     "@strapi/plugin-users-permissions": "4.13.6",
     "@strapi/strapi": "4.13.6",
+    "lodash.shuffle": "4.2.0",
     "pg": "8.8.0",
     "sharp": "0.32.6",
     "slugify": "1.6.6",
@@ -21,7 +22,8 @@
   },
   "devDependencies": {
     "@recipes/eslint-config": "^1.0.0",
-    "@recipes/tsconfig": "^1.0.0"
+    "@recipes/tsconfig": "^1.0.0",
+    "@types/lodash.shuffle": "^4.2.7"
   },
   "strapi": {
     "uuid": "c957b087-8de5-4da6-8696-5c12b92f7c8b"

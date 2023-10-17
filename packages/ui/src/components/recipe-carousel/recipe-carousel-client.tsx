@@ -2,7 +2,7 @@
 
 import useEmblaCarousel from 'embla-carousel-react';
 
-import { cn } from '../lib/utils/cn';
+import { cn } from '../../lib/utils/cn';
 
 type RecipeCarouselClientProps = React.HTMLAttributes<HTMLDivElement>;
 

@@ -39,6 +39,11 @@
       "relation": "manyToMany",
       "target": "api::recipe.recipe",
       "mappedBy": "courses"
+    },
+    "icon": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::icon.icon"
     }
   }
 }

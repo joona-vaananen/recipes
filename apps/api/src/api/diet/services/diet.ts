@@ -18,14 +18,19 @@ export default factories.createCoreService(
         return [];
       }
 
+      const randomIcons = await strapi
+        .service('api::icon.icon')!
+        .findRandom({ fields: ['id'], limit: DIETS.length });
+
       const createdDiets = await Promise.all(
         DIETS.map(
-          (name) =>
+          (name, index) =>
             strapi.entityService.create('api::diet.diet', {
               data: {
                 name,
                 publishedAt: Date.now(),
                 slug: slugify(name),
+                icon: randomIcons[index].id,
               },
             }) as Promise<Diet_Plain>
         )

@@ -8,6 +8,7 @@ import { Diet } from '../../../diet/content-types/diet/diet';
 import { Season } from '../../../season/content-types/season/season';
 import { Method } from '../../../method/content-types/method/method';
 import { Ingredient } from '../../../ingredient/content-types/ingredient/ingredient';
+import { Cuisine } from '../../../cuisine/content-types/cuisine/cuisine';
 import { Category_Plain } from '../../../category/content-types/category/category';
 import { MealType_Plain } from '../../../meal-type/content-types/meal-type/meal-type';
 import { Course_Plain } from '../../../course/content-types/course/course';
@@ -15,6 +16,7 @@ import { Diet_Plain } from '../../../diet/content-types/diet/diet';
 import { Season_Plain } from '../../../season/content-types/season/season';
 import { Method_Plain } from '../../../method/content-types/method/method';
 import { Ingredient_Plain } from '../../../ingredient/content-types/ingredient/ingredient';
+import { Cuisine_Plain } from '../../../cuisine/content-types/cuisine/cuisine';
 import { AdminPanelRelationPropertyModification } from '../../../../common/interfaces/AdminPanelRelationPropertyModification';
 
 export interface Recipe {
@@ -31,6 +33,7 @@ export interface Recipe {
     seasons?: { data: Season[] };
     methods?: { data: Method[] };
     ingredients?: { data: Ingredient[] };
+    cuisines?: { data: Cuisine[] };
     locale: string;
     localizations?: { data: Recipe[] };
   };
@@ -48,6 +51,7 @@ export interface Recipe_Plain {
   seasons?: Season_Plain[];
   methods?: Method_Plain[];
   ingredients?: Ingredient_Plain[];
+  cuisines?: Cuisine_Plain[];
   locale: string;
   localizations?: Recipe[];
 }
@@ -65,6 +69,7 @@ export interface Recipe_NoRelations {
   seasons?: number[];
   methods?: number[];
   ingredients?: number[];
+  cuisines?: number[];
   locale: string;
   localizations?: Recipe[];
 }
@@ -82,6 +87,7 @@ export interface Recipe_AdminPanelLifeCycle {
   seasons?: AdminPanelRelationPropertyModification<Season_Plain>;
   methods?: AdminPanelRelationPropertyModification<Method_Plain>;
   ingredients?: AdminPanelRelationPropertyModification<Ingredient_Plain>;
+  cuisines?: AdminPanelRelationPropertyModification<Cuisine_Plain>;
   locale: string;
   localizations?: Recipe[];
 }

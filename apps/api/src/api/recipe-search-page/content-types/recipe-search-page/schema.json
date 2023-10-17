@@ -1,0 +1,41 @@
+{
+  "kind": "singleType",
+  "collectionName": "recipe_search_pages",
+  "info": {
+    "singularName": "recipe-search-page",
+    "pluralName": "recipe-search-pages",
+    "displayName": "Recipe Search Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "filters": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "dynamiczone",
+      "components": [
+        "recipe-search.select-filter"
+      ],
+      "required": true
+    }
+  }
+}

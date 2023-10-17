@@ -33,6 +33,17 @@
       "type": "uid",
       "targetField": "name",
       "required": true
+    },
+    "recipes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::recipe.recipe",
+      "mappedBy": "cuisines"
+    },
+    "icon": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::icon.icon"
     }
   }
 }

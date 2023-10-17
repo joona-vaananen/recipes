@@ -1,4 +1,10 @@
-export { DynamicZone, Hero, RecipeCard, RecipeCarousel } from './components';
+export {
+  DynamicZone,
+  Hero,
+  RecipeCard,
+  RecipeCarousel,
+  RecipeSearch,
+} from './components';
 export {
   Link,
   cn,

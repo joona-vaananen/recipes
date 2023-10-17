@@ -18,14 +18,19 @@ export default factories.createCoreService(
         return [];
       }
 
+      const randomIcons = await strapi
+        .service('api::icon.icon')!
+        .findRandom({ fields: ['id'], limit: METHODS.length });
+
       const createdMethods = await Promise.all(
         METHODS.map(
-          (name) =>
+          (name, index) =>
             strapi.entityService.create('api::method.method', {
               data: {
                 name,
                 publishedAt: Date.now(),
                 slug: slugify(name),
+                icon: randomIcons[index].id,
               },
             }) as Promise<Method_Plain>
         )

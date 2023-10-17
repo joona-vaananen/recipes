@@ -97,6 +97,12 @@
       "relation": "manyToMany",
       "target": "api::ingredient.ingredient",
       "inversedBy": "recipes"
+    },
+    "cuisines": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::cuisine.cuisine",
+      "inversedBy": "recipes"
     }
   }
 }

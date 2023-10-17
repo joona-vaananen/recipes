@@ -1,45 +1,54 @@
+import { Container } from '@radix-ui/themes';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { components } from '@/components/components';
 import { apiClient } from '@/lib/api/client';
-import { Container } from '@radix-ui/themes';
 import { DynamicZone } from '@recipes/ui';
 
-interface PageProps {
+interface HomePageProps {
   params: { locale: string };
 }
 
-const Page = async ({ params }: PageProps) => {
-  const page = await getPageData({ params });
+const HomePage = async ({ params }: HomePageProps) => {
+  const homePage = await getHomePageData({ params });
 
   return (
     <>
       <DynamicZone components={components}>
-        {page.attributes.content}
+        {homePage.attributes.content}
       </DynamicZone>
       <Container className={'container'} px={'4'}>
         <pre className={'whitespace-pre-wrap'}>
-          {JSON.stringify(page, null, 2)}
+          {JSON.stringify(homePage, null, 2)}
         </pre>
       </Container>
     </>
   );
 };
 
-export default Page;
+export default HomePage;
 
-const getPageData = async ({ params }: PageProps) => {
+export const generateMetadata = async ({
+  params,
+}: HomePageProps): Promise<Metadata> => {
+  const homePage = await getHomePageData({ params });
+
+  return {
+    title: homePage.attributes.title,
+  };
+};
+
+const getHomePageData = async ({ params }: HomePageProps) => {
   const { locale } = params;
 
   const {
-    data: [page],
+    data: [homePage],
   } = await apiClient.getMany({
-    contentType: 'pages',
+    contentType: 'home-page',
     parameters: {
-      fields: ['id', 'slug', 'title'],
-      filters: { slug: 'home' },
+      fields: ['id', 'title'],
       locale,
-      pagination: { limit: 1 },
       populate: {
         content: {
           on: {
@@ -68,9 +77,9 @@ const getPageData = async ({ params }: PageProps) => {
     },
   });
 
-  if (!page) {
+  if (!homePage) {
     notFound();
   }
 
-  return page;
+  return homePage;
 };

@@ -7,6 +7,7 @@ const app = {
     };
   },
   bootstrap: async ({ strapi }: { strapi: Strapi }) => {
+    await strapi.service('api::icon.icon')!.bootstrap();
     await strapi.service('api::category.category')!.bootstrap();
     await strapi.service('api::course.course')!.bootstrap();
     await strapi.service('api::cuisine.cuisine')!.bootstrap();

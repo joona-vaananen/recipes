@@ -20,14 +20,19 @@ export default factories.createCoreService(
         return [];
       }
 
+      const randomIcons = await strapi
+        .service('api::icon.icon')!
+        .findRandom({ fields: ['id'], limit: CATEGORIES.length });
+
       const createdCategories = await Promise.all(
         CATEGORIES.map(
-          (name) =>
+          (name, index) =>
             strapi.entityService.create('api::category.category', {
               data: {
                 name,
                 publishedAt: Date.now(),
                 slug: slugify(name),
+                icon: randomIcons[index].id,
               },
             }) as Promise<Category_Plain>
         )

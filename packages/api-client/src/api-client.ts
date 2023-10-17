@@ -1,6 +1,8 @@
 import { stringify } from 'qs';
 
+import type { HomePage } from '@recipes/api/src/api/home-page/content-types/home-page/home-page';
 import type { Page } from '@recipes/api/src/api/page/content-types/page/page';
+import type { RecipeSearchPage } from '@recipes/api/src/api/recipe-search-page/content-types/recipe-search-page/recipe-search-page';
 import type { Recipe } from '@recipes/api/src/api/recipe/content-types/recipe/recipe';
 import {
   apiClientConfigSchema,
@@ -9,8 +11,10 @@ import {
 } from './api-client-config';
 
 interface ContentTypes {
+  'home-page': HomePage;
   pages: Page;
   recipes: Recipe;
+  'recipe-search-page': RecipeSearchPage;
 }
 
 interface Parameters {
@@ -70,7 +74,9 @@ export class APIClient {
     },
     init?: RequestInit | undefined
   ) {
-    const { data, error, meta } = await this.request<ContentTypes[K][]>(
+    const { data, error, meta } = await this.request<
+      ContentTypes[K] | ContentTypes[K][]
+    >(
       `/${contentType}${stringify(parameters, {
         addQueryPrefix: true,
         encodeValuesOnly: true,
@@ -78,7 +84,15 @@ export class APIClient {
       init
     );
 
-    return { data: data ?? [], error, meta };
+    if (data === null) {
+      return { data: [], error, meta };
+    }
+
+    if (!Array.isArray(data)) {
+      return { data: [data], error, meta };
+    }
+
+    return { data, error, meta };
   }
 
   async create<K extends keyof ContentTypes>(
