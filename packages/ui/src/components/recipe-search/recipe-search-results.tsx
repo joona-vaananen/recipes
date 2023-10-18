@@ -23,7 +23,7 @@ export const RecipeSearchResults = ({ hits }: RecipeSearchResultsProps) => {
         sm: '2',
         md: '3',
       }}
-      gap={'3'}
+      gap={'4'}
     >
       <ol>
         {hits.map(({ id, image, title, slug }) => (
