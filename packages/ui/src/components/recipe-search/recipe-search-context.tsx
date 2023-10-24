@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { stringify } from 'qs';
 import { createContext, useContext, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -15,17 +15,18 @@ const RecipeSearchContext = createContext<undefined>(undefined);
 
 interface RecipeSearchProviderProps {
   children: React.ReactNode;
+  searchParams: Record<string, string | string[] | undefined>;
 }
 
 export const RecipeSearchProvider = ({
   children,
+  searchParams,
 }: RecipeSearchProviderProps) => {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   const recipeSearchForm = useForm<RecipeSearchFormSchema>({
-    defaultValues: Object.fromEntries(searchParams.entries()),
+    defaultValues: recipeSearchFormSchema.parse(searchParams),
     mode: 'onChange',
     resolver: zodResolver(recipeSearchFormSchema),
   });

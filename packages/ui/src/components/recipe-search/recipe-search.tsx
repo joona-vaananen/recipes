@@ -1,90 +1,56 @@
-'use client';
+import { MeiliSearch } from 'meilisearch';
 
-import { SearchResponse } from 'meilisearch';
-
-import { Flex, Select, TextField } from '@radix-ui/themes';
+import { Flex } from '@radix-ui/themes';
 import type { Recipe_Plain } from '@recipes/api/src/api/recipe/content-types/recipe/recipe';
 import type { Media } from '@recipes/api/src/common/interfaces/Media';
-import type { SelectFilter } from '@recipes/api/src/components/recipe-search/interfaces/SelectFilter';
-import { Search } from 'lucide-react';
-import { DynamicZone } from '../dynamic-zone';
+import { recipeSearchConfig as searchConfig } from './recipe-search-config';
 import { RecipeSearchProvider } from './recipe-search-context';
+import { RecipeSearchFilters } from './recipe-search-filters';
 import { RecipeSearchResults } from './recipe-search-results';
-import { RecipeSearchSelectFilter } from './recipe-search-select-filter';
 
-interface RecipeSearchProps
-  extends SearchResponse<
-    Recipe_Plain & {
-      image: Media['attributes'];
-    },
-    {
-      facets: string[];
-      filter: string;
-      hitsPerPage: number;
-      page: number;
-      sort: string[];
-    }
-  > {
+interface RecipeSearchProps {
   children: React.ReactNode;
   filters: any;
+  searchClient: any;
+  searchParams: Record<string, string | string[] | undefined>;
 }
 
-export const RecipeSearch = ({
+export const RecipeSearch = async ({
   children,
-  facetDistribution,
   filters,
-  hits,
+  searchClient,
+  searchParams,
 }: RecipeSearchProps) => {
+  const searchResults = await (searchClient as InstanceType<typeof MeiliSearch>)
+    .index<Recipe_Plain & { image: Media['attributes'] }>('recipe')
+    .searchGet(
+      '',
+      {
+        facets: ['*'],
+        filter: '',
+        hitsPerPage: 15,
+        page: 1,
+        sort: ['publishedAt:desc'],
+      },
+      { cache: 'no-store' }
+    );
+
+  const { facetDistribution, hits } = searchResults;
+
   return (
-    <RecipeSearchProvider>
+    <RecipeSearchProvider searchParams={searchParams}>
       <Flex gap={'4'} p={'4'}>
-        <Flex
-          className={'w-[300px]'}
-          direction={'column'}
-          gap={'4'}
-          shrink={'0'}
-        >
-          <Select.Root defaultValue="apple">
-            <Select.Trigger />
-            <Select.Content>
-              <Select.Group>
-                <Select.Label>Fruits</Select.Label>
-                <Select.Item value="orange">Orange</Select.Item>
-                <Select.Item value="apple">Apple</Select.Item>
-                <Select.Item value="grape" disabled>
-                  Grape
-                </Select.Item>
-              </Select.Group>
-              <Select.Separator />
-              <Select.Group>
-                <Select.Label>Vegetables</Select.Label>
-                <Select.Item value="carrot">Carrot</Select.Item>
-                <Select.Item value="potato">Potato</Select.Item>
-              </Select.Group>
-            </Select.Content>
-          </Select.Root>
-          <TextField.Root>
-            <TextField.Slot>
-              <Search size={16} />
-            </TextField.Slot>
-            <TextField.Input placeholder="Search the docs…" />
-          </TextField.Root>
-          <DynamicZone
-            components={{
-              'recipe-search.select-filter': (props: SelectFilter) => (
-                <RecipeSearchSelectFilter
-                  {...props}
-                  facetDistribution={facetDistribution}
-                />
-              ),
-            }}
-          >
-            {filters}
-          </DynamicZone>
-        </Flex>
+        <RecipeSearchFilters
+          searchConfig={searchConfig}
+          facetDistribution={facetDistribution}
+          filters={filters}
+        />
         <RecipeSearchResults hits={hits} />
       </Flex>
       {children}
+      <pre className={'whitespace-pre-wrap'}>
+        {JSON.stringify(searchResults, null, 2)}
+      </pre>
     </RecipeSearchProvider>
   );
 };

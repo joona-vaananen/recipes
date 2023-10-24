@@ -5,7 +5,7 @@ interface DynamicZoneProps {
   }[];
   components: Record<
     string,
-    (props: any) => JSX.Element | Promise<JSX.Element>
+    (props: any) => JSX.Element | Promise<JSX.Element> | null
   >;
 }
 

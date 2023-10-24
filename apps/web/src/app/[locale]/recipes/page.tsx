@@ -3,25 +3,31 @@ import { notFound } from 'next/navigation';
 
 import { apiClient } from '@/lib/api/client';
 import { searchClient } from '@/lib/search/client';
-import type { Recipe_Plain } from '@recipes/api/src/api/recipe/content-types/recipe/recipe';
-import type { Media } from '@recipes/api/src/common/interfaces/Media';
 import { RecipeSearch } from '@recipes/ui';
 
 interface RecipeSearchPageProps {
   params: { locale: string };
+  searchParams: Record<string, string | string[] | undefined>;
 }
 
-const RecipeSearchPage = async ({ params }: RecipeSearchPageProps) => {
-  const recipeSearchPage = await getRecipeSearchPageData({ params });
-  const searchResults = await searchRecipes();
+const RecipeSearchPage = async ({
+  params,
+  searchParams,
+}: RecipeSearchPageProps) => {
+  const recipeSearchPage = await getRecipeSearchPageData({
+    params,
+    searchParams,
+  });
+  const { filters } = recipeSearchPage.attributes;
 
   return (
     <RecipeSearch
-      filters={recipeSearchPage.attributes.filters}
-      {...searchResults}
+      filters={filters}
+      searchClient={searchClient}
+      searchParams={searchParams}
     >
       <pre className={'whitespace-pre-wrap'}>
-        {JSON.stringify({ recipeSearchPage, searchResults }, null, 2)}
+        {JSON.stringify(recipeSearchPage, null, 2)}
       </pre>
     </RecipeSearch>
   );
@@ -31,8 +37,12 @@ export default RecipeSearchPage;
 
 export const generateMetadata = async ({
   params,
+  searchParams,
 }: RecipeSearchPageProps): Promise<Metadata> => {
-  const recipeSearchPage = await getRecipeSearchPageData({ params });
+  const recipeSearchPage = await getRecipeSearchPageData({
+    params,
+    searchParams,
+  });
 
   return {
     title: recipeSearchPage.attributes.title,
@@ -64,18 +74,4 @@ const getRecipeSearchPageData = async ({ params }: RecipeSearchPageProps) => {
   }
 
   return recipeSearchPage;
-};
-
-const searchRecipes = async (/* { params }: PageProps */) => {
-  const searchResults = await searchClient
-    .index<Recipe_Plain & { image: Media['attributes'] }>('recipe')
-    .searchGet('', {
-      facets: ['*'],
-      filter: '',
-      hitsPerPage: 15,
-      page: 1,
-      sort: ['publishedAt:desc'],
-    });
-
-  return searchResults;
 };

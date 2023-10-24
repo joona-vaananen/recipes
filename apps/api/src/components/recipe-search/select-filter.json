@@ -2,7 +2,8 @@
   "collectionName": "components_recipe_search_select_filters",
   "info": {
     "displayName": "Select Filter",
-    "icon": "bulletList"
+    "icon": "bulletList",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -15,17 +16,17 @@
       "default": true,
       "required": true
     },
-    "attribute": {
+    "name": {
       "type": "enumeration",
       "enum": [
-        "categories",
-        "courses",
-        "cuisines",
-        "diets",
-        "ingredients",
-        "mealTypes",
-        "methods",
-        "seasons"
+        "category",
+        "course",
+        "cuisine",
+        "diet",
+        "ingredient",
+        "mealType",
+        "method",
+        "season"
       ],
       "required": true
     }
