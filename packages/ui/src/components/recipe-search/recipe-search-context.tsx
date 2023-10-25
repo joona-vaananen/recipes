@@ -15,18 +15,18 @@ const RecipeSearchContext = createContext<undefined>(undefined);
 
 interface RecipeSearchProviderProps {
   children: React.ReactNode;
-  searchParams: Record<string, string | string[] | undefined>;
+  defaultValues: RecipeSearchFormSchema;
 }
 
 export const RecipeSearchProvider = ({
   children,
-  searchParams,
+  defaultValues,
 }: RecipeSearchProviderProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
   const recipeSearchForm = useForm<RecipeSearchFormSchema>({
-    defaultValues: recipeSearchFormSchema.parse(searchParams),
+    defaultValues,
     mode: 'onChange',
     resolver: zodResolver(recipeSearchFormSchema),
   });
@@ -40,7 +40,6 @@ export const RecipeSearchProvider = ({
           addQueryPrefix: true,
           arrayFormat: 'repeat',
           encodeValuesOnly: true,
-          skipNulls: true,
         })}`,
         { scroll: false }
       );

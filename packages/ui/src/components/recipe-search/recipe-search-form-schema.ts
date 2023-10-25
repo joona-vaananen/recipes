@@ -3,28 +3,28 @@ import * as z from 'zod';
 export const recipeSearchFormSchema = z.object({
   category: z
     .union([z.string().transform((value) => [value]), z.string().array()])
-    .nullish(),
+    .default([]),
   course: z
     .union([z.string().transform((value) => [value]), z.string().array()])
-    .nullish(),
+    .default([]),
   cuisine: z
     .union([z.string().transform((value) => [value]), z.string().array()])
-    .nullish(),
+    .default([]),
   diet: z
     .union([z.string().transform((value) => [value]), z.string().array()])
-    .nullish(),
+    .default([]),
   ingredient: z
     .union([z.string().transform((value) => [value]), z.string().array()])
-    .nullish(),
+    .default([]),
   mealType: z
     .union([z.string().transform((value) => [value]), z.string().array()])
-    .nullish(),
+    .default([]),
   method: z
     .union([z.string().transform((value) => [value]), z.string().array()])
-    .nullish(),
+    .default([]),
   season: z
     .union([z.string().transform((value) => [value]), z.string().array()])
-    .nullish(),
+    .default([]),
 });
 
 export type RecipeSearchFormSchema = z.infer<typeof recipeSearchFormSchema>;

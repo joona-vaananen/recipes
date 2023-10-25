@@ -1,1 +1,7 @@
-{}
+{
+  "RecipeSearch": {
+    "nextPage": "Seuraava sivu",
+    "page": "Sivu {page} / {totalPages}",
+    "previousPage": "Edellinen sivu"
+  }
+}
