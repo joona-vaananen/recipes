@@ -22,7 +22,7 @@ export const RecipeCarousel = async ({
       filter: '',
       hitsPerPage: limit ?? 15,
       page: 1,
-      sort: ['publishedAt:desc'],
+      sort: ['createdAt:desc'],
     });
 
   return (

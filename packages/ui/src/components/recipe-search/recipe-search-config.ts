@@ -9,6 +9,10 @@ export const recipeSearchConfig = {
     method: { attribute: 'methods', field: 'methods.slug' },
     season: { attribute: 'seasons', field: 'seasons.slug' },
   },
+  sort: {
+    'created-at': { field: 'createdAt' },
+    title: { field: 'title' },
+  },
 };
 
 export type RecipeSearchConfig = typeof recipeSearchConfig;

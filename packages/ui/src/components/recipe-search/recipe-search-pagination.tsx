@@ -8,7 +8,7 @@ import { stringify } from 'qs';
 
 interface RecipeSearchPaginationProps {
   page: number;
-  searchParams: Record<string, string[]>;
+  searchParams: Record<string, string | string[] | null>;
   totalHits: number;
   totalPages: number;
   translations: {
@@ -45,6 +45,7 @@ export const RecipeSearchPagination = ({
                 addQueryPrefix: true,
                 arrayFormat: 'repeat',
                 encodeValuesOnly: true,
+                skipNulls: true,
               }
             )}`}
           >

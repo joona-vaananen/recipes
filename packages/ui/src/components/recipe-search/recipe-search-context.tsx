@@ -7,15 +7,15 @@ import { createContext, useContext, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import {
-  recipeSearchFormSchema,
-  type RecipeSearchFormSchema,
-} from './recipe-search-form-schema';
+  recipeSearchParamsSchema,
+  type RecipeSearchParamsSchema,
+} from './recipe-search-schemas';
 
 const RecipeSearchContext = createContext<undefined>(undefined);
 
 interface RecipeSearchProviderProps {
   children: React.ReactNode;
-  defaultValues: RecipeSearchFormSchema;
+  defaultValues: RecipeSearchParamsSchema;
 }
 
 export const RecipeSearchProvider = ({
@@ -25,16 +25,16 @@ export const RecipeSearchProvider = ({
   const router = useRouter();
   const pathname = usePathname();
 
-  const recipeSearchForm = useForm<RecipeSearchFormSchema>({
+  const recipeSearchForm = useForm<RecipeSearchParamsSchema>({
     defaultValues,
     mode: 'onChange',
-    resolver: zodResolver(recipeSearchFormSchema),
+    resolver: zodResolver(recipeSearchParamsSchema),
   });
 
   const { handleSubmit, watch } = recipeSearchForm;
 
   useEffect(() => {
-    const onSubmit = (values: RecipeSearchFormSchema) => {
+    const onSubmit = (values: RecipeSearchParamsSchema) => {
       router.push(
         `${pathname}${stringify(values, {
           addQueryPrefix: true,

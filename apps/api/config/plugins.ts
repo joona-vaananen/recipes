@@ -17,7 +17,7 @@ const plugins = ({ env }: { env: any }) => ({
             'methods',
             'seasons',
           ],
-          sortableAttributes: ['publishedAt'],
+          sortableAttributes: ['createdAt', 'title'],
         },
       },
     },

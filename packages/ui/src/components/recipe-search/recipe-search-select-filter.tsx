@@ -12,7 +12,7 @@ import type { FacetDistribution } from 'meilisearch';
 
 import type { SelectFilter } from '@recipes/api/src/components/recipe-search/interfaces/SelectFilter';
 import { useController, useFormContext } from 'react-hook-form';
-import { RecipeSearchFormSchema } from '.';
+import { RecipeSearchParamsSchema } from './recipe-search-schemas';
 
 interface RecipeSearchSelectFilterProps extends SelectFilter {
   attribute: string;
@@ -25,7 +25,7 @@ export const RecipeSearchSelectFilter = ({
   label,
   name,
 }: RecipeSearchSelectFilterProps) => {
-  const { control, setValue } = useFormContext<RecipeSearchFormSchema>();
+  const { control, setValue } = useFormContext<RecipeSearchParamsSchema>();
   const { field } = useController({ name, control });
   const { disabled, ref, value: values } = field;
 
@@ -36,19 +36,17 @@ export const RecipeSearchSelectFilter = ({
     checked: boolean | 'indeterminate',
     slug: string
   ) => {
-    if (values) {
-      const hasValue = values.includes(slug);
+    const hasValue = values?.includes(slug) ?? false;
 
-      if (checked) {
-        if (!hasValue) {
-          setValue(name, [...values, slug]);
-        }
-      } else if (hasValue) {
-        setValue(
-          name,
-          values.filter((value) => value !== slug)
-        );
+    if (checked) {
+      if (!hasValue) {
+        setValue(name, [...(values ?? []), slug]);
       }
+    } else if (hasValue) {
+      setValue(
+        name,
+        values!.filter((value) => value !== slug)
+      );
     }
   };
 
@@ -72,7 +70,7 @@ export const RecipeSearchSelectFilter = ({
                   <Text as={'label'} key={slug} size={'2'}>
                     <Flex gap={'2'}>
                       <Checkbox
-                        checked={values.includes(slug)}
+                        checked={values?.includes(slug) ?? false}
                         disabled={disabled}
                         name={name}
                         onCheckedChange={(checked) =>

@@ -1,20 +1,19 @@
-type SearchParams = Record<string, string[]>;
+type SearchParams = Record<string, string[] | null>;
 
-interface SearchConfig {
-  filters: Record<string, { field: string }>;
-}
+type FilterConfig = Record<string, { field: string }>;
 
 export const buildSearchFilter = (
   searchParams: SearchParams,
-  searchConfig: SearchConfig
+  filterConfig: FilterConfig
 ) => {
   return Object.entries(searchParams)
     .reduce((accumulatedSearchFilters, [searchParamKey, searchParamValues]) => {
       if (
-        searchParamKey in searchConfig.filters &&
+        searchParamKey in filterConfig &&
+        Array.isArray(searchParamValues) &&
         searchParamValues.length > 0
       ) {
-        const { field } = searchConfig.filters[searchParamKey];
+        const { field } = filterConfig[searchParamKey];
 
         accumulatedSearchFilters.push(
           `${field} IN [${searchParamValues

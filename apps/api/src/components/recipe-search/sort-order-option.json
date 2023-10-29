@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_recipe_search_sort_order_options",
+  "info": {
+    "displayName": "Sort Order Option",
+    "icon": "check",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "value": {
+      "type": "enumeration",
+      "enum": [
+        "created-at-asc",
+        "created-at-desc",
+        "title-asc",
+        "title-desc"
+      ],
+      "required": true
+    }
+  }
+}

@@ -18,13 +18,17 @@ const RecipeSearchPage = async ({
     params,
     searchParams,
   });
-  const { filters } = recipeSearchPage.attributes;
+
+  const { filters, pageSize, sortOrder, title } = recipeSearchPage.attributes;
 
   return (
     <RecipeSearch
       filters={filters}
+      pageSize={pageSize}
       searchClient={searchClient}
       searchParams={searchParams}
+      sortOrder={sortOrder}
+      title={title}
     >
       <pre className={'whitespace-pre-wrap'}>
         {JSON.stringify(recipeSearchPage, null, 2)}
@@ -57,12 +61,17 @@ const getRecipeSearchPageData = async ({ params }: RecipeSearchPageProps) => {
   } = await apiClient.getMany({
     contentType: 'recipe-search-page',
     parameters: {
-      fields: ['id', 'title'],
+      fields: ['id', 'pageSize', 'title'],
       locale,
       populate: {
         filters: {
           on: {
             'recipe-search.select-filter': true,
+          },
+        },
+        sortOrder: {
+          populate: {
+            options: true,
           },
         },
       },

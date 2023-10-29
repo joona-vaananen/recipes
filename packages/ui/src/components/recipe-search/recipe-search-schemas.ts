@@ -1,30 +1,53 @@
 import * as z from 'zod';
 
-export const recipeSearchFormSchema = z.object({
+export const recipeSearchParamsSchema = z.object({
   category: z
     .union([z.string().transform((value) => [value]), z.string().array()])
-    .default([]),
+    .nullish(),
   course: z
     .union([z.string().transform((value) => [value]), z.string().array()])
-    .default([]),
+    .nullish(),
   cuisine: z
     .union([z.string().transform((value) => [value]), z.string().array()])
-    .default([]),
+    .nullish(),
   diet: z
     .union([z.string().transform((value) => [value]), z.string().array()])
-    .default([]),
+    .nullish(),
   ingredient: z
     .union([z.string().transform((value) => [value]), z.string().array()])
-    .default([]),
+    .nullish(),
   mealType: z
     .union([z.string().transform((value) => [value]), z.string().array()])
-    .default([]),
+    .nullish(),
   method: z
     .union([z.string().transform((value) => [value]), z.string().array()])
-    .default([]),
+    .nullish(),
   season: z
     .union([z.string().transform((value) => [value]), z.string().array()])
-    .default([]),
+    .nullish(),
+  sort: z
+    .union([
+      z.string(),
+      z
+        .string()
+        .array()
+        .transform(([value]) => value),
+    ])
+    .nullish()
+    .default('created-at-desc'),
 });
 
-export type RecipeSearchFormSchema = z.infer<typeof recipeSearchFormSchema>;
+export type RecipeSearchParamsSchema = z.infer<typeof recipeSearchParamsSchema>;
+
+export const recipeSearchPageSchema = z
+  .union([
+    z.string(),
+    z
+      .string()
+      .array()
+      .transform(([value]) => value),
+  ])
+  .default('1')
+  .transform((value) => Math.max(Number(value), 1));
+
+export type RecipeSearchPageSchema = z.infer<typeof recipeSearchPageSchema>;

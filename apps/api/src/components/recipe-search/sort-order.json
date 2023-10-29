@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_recipe_search_sort_orders",
+  "info": {
+    "displayName": "Sort Order",
+    "icon": "filter",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "options": {
+      "type": "component",
+      "repeatable": true,
+      "component": "recipe-search.sort-order-option",
+      "required": true
+    }
+  }
+}

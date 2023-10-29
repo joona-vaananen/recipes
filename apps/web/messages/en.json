@@ -2,6 +2,7 @@
   "RecipeSearch": {
     "nextPage": "Next page",
     "page": "Page {page} / {totalPages}",
-    "previousPage": "Previous page"
+    "previousPage": "Previous page",
+    "reset": "Reset"
   }
 }

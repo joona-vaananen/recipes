@@ -2,6 +2,7 @@
   "RecipeSearch": {
     "nextPage": "Seuraava sivu",
     "page": "Sivu {page} / {totalPages}",
-    "previousPage": "Edellinen sivu"
+    "previousPage": "Edellinen sivu",
+    "reset": "Tyhjennä"
   }
 }
