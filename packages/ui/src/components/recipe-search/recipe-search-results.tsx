@@ -1,4 +1,4 @@
-import { Grid } from '@radix-ui/themes';
+import { Grid, Text } from '@radix-ui/themes';
 import type { Hits } from 'meilisearch';
 
 import type { Recipe_Plain } from '@recipes/api/src/api/recipe/content-types/recipe/recipe';
@@ -12,10 +12,16 @@ interface RecipeSearchResultsProps {
       image: Media['attributes'];
     }
   >;
+  translations: {
+    noResults: string;
+  };
 }
 
-export const RecipeSearchResults = ({ hits }: RecipeSearchResultsProps) => {
-  return (
+export const RecipeSearchResults = ({
+  hits,
+  translations,
+}: RecipeSearchResultsProps) => {
+  return hits.length > 0 ? (
     <Grid
       asChild
       columns={{
@@ -42,5 +48,9 @@ export const RecipeSearchResults = ({ hits }: RecipeSearchResultsProps) => {
         ))}
       </ol>
     </Grid>
+  ) : (
+    <Text as={'p'} size={'5'}>
+      {translations.noResults}
+    </Text>
   );
 };

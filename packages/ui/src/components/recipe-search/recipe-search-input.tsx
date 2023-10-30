@@ -1,6 +1,7 @@
 'use client';
 
 import { TextField } from '@radix-ui/themes';
+import debounce from 'lodash.debounce';
 import { Search } from 'lucide-react';
 import { useController, useFormContext } from 'react-hook-form';
 
@@ -13,9 +14,9 @@ interface RecipeSearchInputProps {
 }
 
 export const RecipeSearchInput = ({ translations }: RecipeSearchInputProps) => {
-  const { control } = useFormContext<RecipeSearchParamsSchema>();
+  const { control, setValue } = useFormContext<RecipeSearchParamsSchema>();
   const { field } = useController({ name: 'search', control });
-  const { disabled, name, onBlur, onChange, ref, value } = field;
+  const { disabled, name, onBlur, ref, value } = field;
 
   return (
     <TextField.Root>
@@ -23,13 +24,15 @@ export const RecipeSearchInput = ({ translations }: RecipeSearchInputProps) => {
         <Search size={16} />
       </TextField.Slot>
       <TextField.Input
+        defaultValue={value ?? ''}
         disabled={disabled}
         name={name}
         onBlur={onBlur}
-        onChange={onChange}
+        onChange={(event) => {
+          debounce(() => setValue(name, event.target.value), 250)();
+        }}
         placeholder={translations.inputPlaceholder}
         ref={ref}
-        value={value ?? ''}
       />
     </TextField.Root>
   );

@@ -3,6 +3,7 @@
     "filters": "Search filters",
     "inputPlaceholder": "Search recipes...",
     "nextPage": "Next page",
+    "noResults": "No recipes found",
     "openFilters": "Filter",
     "page": "Page {page} / {totalPages}",
     "previousPage": "Previous page",

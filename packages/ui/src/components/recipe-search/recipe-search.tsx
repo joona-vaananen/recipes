@@ -118,7 +118,9 @@ export const RecipeSearch = ({
             />
           ) : null}
         </Flex>
-        <RecipeSearchResults hits={hits} />
+        <RecipeSearchResults hits={hits} translations={{
+          noResults: t('noResults'),
+        }} />
         <Flex justify={'center'}>
           <RecipeSearchPagination
             page={page}

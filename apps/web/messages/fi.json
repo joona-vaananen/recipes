@@ -3,6 +3,7 @@
     "filters": "Hakuehdot",
     "inputPlaceholder": "Etsi reseptejä...",
     "nextPage": "Seuraava sivu",
+    "noResults": "Yhtään reseptiä ei löytynyt",
     "openFilters": "Rajaa",
     "page": "Sivu {page} / {totalPages}",
     "previousPage": "Edellinen sivu",

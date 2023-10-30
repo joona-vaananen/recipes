@@ -1,7 +1,6 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import debounce from 'lodash.debounce';
 import { usePathname, useRouter } from 'next/navigation';
 import { stringify } from 'qs';
 import { createContext, useContext, useEffect } from 'react';
@@ -48,7 +47,7 @@ export const RecipeSearchProvider = ({
     };
 
     const subscription = watch(() => {
-      void debounce(handleSubmit(onSubmit), 250)();
+      void handleSubmit(onSubmit)();
     });
 
     return () => subscription.unsubscribe();

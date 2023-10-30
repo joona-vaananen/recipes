@@ -1,4 +1,4 @@
-import { Heading, Text } from '@radix-ui/themes';
+import { Flex, Heading } from '@radix-ui/themes';
 
 interface RecipeSearchTitleProps {
   hitsPerPage: number;
@@ -14,12 +14,16 @@ export const RecipeSearchTitle = ({
   totalHits,
 }: RecipeSearchTitleProps) => {
   return (
-    <Heading size={'7'}>
-      {`${title} `}
-      <Text as={'span'} color={'ruby'}>{`${Math.min(
-        hitsPerPage * page,
-        totalHits
-      )} / ${totalHits}`}</Text>
-    </Heading>
+    <Flex align={'center'} gap={'4'}>
+      <Heading size={'7'}>{title}</Heading>
+      {totalHits > 0 ? (
+        <Heading asChild color={'ruby'}>
+          <span>{`${Math.min(
+            hitsPerPage * page,
+            totalHits
+          )} / ${totalHits}`}</span>
+        </Heading>
+      ) : null}
+    </Flex>
   );
 };
