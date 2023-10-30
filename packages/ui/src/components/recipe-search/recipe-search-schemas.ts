@@ -8,6 +8,15 @@ export const recipeSearchParamsSchema = z.object({
   ingredient: z.union([z.string(), z.string().array()]).nullish(),
   mealType: z.union([z.string(), z.string().array()]).nullish(),
   method: z.union([z.string(), z.string().array()]).nullish(),
+  search: z
+    .union([
+      z.string().transform((value) => (value ? value.trim() : null)),
+      z
+        .string()
+        .array()
+        .transform(([value]) => (value ? value.trim() : null)),
+    ])
+    .nullish(),
   season: z.union([z.string(), z.string().array()]).nullish(),
   sort: z
     .union([

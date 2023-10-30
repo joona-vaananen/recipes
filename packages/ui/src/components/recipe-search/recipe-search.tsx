@@ -11,19 +11,20 @@ import { recipeSearchConfig as searchConfig } from './recipe-search-config';
 import { RecipeSearchProvider } from './recipe-search-context';
 import { RecipeSearchDialog } from './recipe-search-dialog';
 import { RecipeSearchFilters } from './recipe-search-filters';
+import { RecipeSearchInput } from './recipe-search-input';
 import { RecipeSearchPagination } from './recipe-search-pagination';
 import { RecipeSearchResults } from './recipe-search-results';
 import {
   recipeSearchPageSchema,
   recipeSearchParamsSchema,
 } from './recipe-search-schemas';
+import { RecipeSearchSelectedFilters } from './recipe-search-selected-filters';
 import { RecipeSearchSortOrder } from './recipe-search-sort-order';
 import { RecipeSearchTitle } from './recipe-search-title';
 
 const DEFAULT_PAGE_SIZE = 15;
 
 interface RecipeSearchProps {
-  children: React.ReactNode;
   filters: any;
   pageSize: number;
   searchClient: any;
@@ -33,7 +34,6 @@ interface RecipeSearchProps {
 }
 
 export const RecipeSearch = ({
-  children,
   filters,
   pageSize,
   searchClient,
@@ -44,7 +44,11 @@ export const RecipeSearch = ({
   const t = useTranslations('RecipeSearch');
 
   const parsedSearchParams = recipeSearchParamsSchema.parse(searchParams);
-  const { sort: parsedSort, ...parsedFilters } = parsedSearchParams;
+  const {
+    search: parsedSearch,
+    sort: parsedSort,
+    ...parsedFilters
+  } = parsedSearchParams;
 
   const parsedPage = recipeSearchPageSchema.parse(searchParams.page);
 
@@ -52,7 +56,7 @@ export const RecipeSearch = ({
     (searchClient as InstanceType<typeof MeiliSearch>)
       .index<Recipe_Plain & { image: Media['attributes'] }>('recipe')
       .searchGet(
-        '',
+        parsedSearch,
         {
           facets: ['*'],
           filter: buildSearchFilter(parsedFilters, searchConfig.filters),
@@ -80,22 +84,33 @@ export const RecipeSearch = ({
           totalHits={totalHits}
         />
         <Flex align={'center'} justify={'between'}>
-          <RecipeSearchDialog
-            translations={{
-              filters: t('filters'),
-              openFilters: t('openFilters'),
-              resetFilters: t('resetFilters'),
-              showResults: t('showResults', { totalHits }),
-            }}
-          >
-            <Flex direction={'column'} gap={'4'}>
-              <RecipeSearchFilters
-                searchConfig={searchConfig}
-                facetDistribution={facetDistribution}
-                filters={filters}
-              />
-            </Flex>
-          </RecipeSearchDialog>
+          <Flex gap={'4'}>
+            <RecipeSearchDialog
+              translations={{
+                filters: t('filters'),
+                openFilters: t('openFilters'),
+                resetFilters: t('resetFilters'),
+                showResults: t('showResults', { totalHits }),
+              }}
+            >
+              <Flex direction={'column'} gap={'4'}>
+                <RecipeSearchFilters
+                  searchConfig={searchConfig}
+                  facetDistribution={facetDistribution}
+                  filters={filters}
+                />
+              </Flex>
+            </RecipeSearchDialog>
+            <RecipeSearchInput
+              translations={{
+                inputPlaceholder: t('inputPlaceholder'),
+              }}
+            />
+            <RecipeSearchSelectedFilters
+              facetDistribution={facetDistribution}
+              searchFilters={parsedFilters}
+            />
+          </Flex>
           {sortOrder ? (
             <RecipeSearchSortOrder
               label={sortOrder.label}
@@ -118,10 +133,6 @@ export const RecipeSearch = ({
           />
         </Flex>
       </Flex>
-      {children}
-      <pre className={'whitespace-pre-wrap'}>
-        {JSON.stringify(searchResults, null, 2)}
-      </pre>
     </RecipeSearchProvider>
   );
 };

@@ -59,6 +59,7 @@ export const RecipeSearchDialog = ({
                 ingredient: null,
                 mealType: null,
                 method: null,
+                search: null,
                 season: null,
                 sort: null,
               })

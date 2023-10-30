@@ -1,6 +1,7 @@
 {
   "RecipeSearch": {
     "filters": "Search filters",
+    "inputPlaceholder": "Search recipes...",
     "nextPage": "Next page",
     "openFilters": "Filter",
     "page": "Page {page} / {totalPages}",

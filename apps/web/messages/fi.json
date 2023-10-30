@@ -1,6 +1,7 @@
 {
   "RecipeSearch": {
     "filters": "Hakuehdot",
+    "inputPlaceholder": "Etsi reseptejä...",
     "nextPage": "Seuraava sivu",
     "openFilters": "Rajaa",
     "page": "Sivu {page} / {totalPages}",

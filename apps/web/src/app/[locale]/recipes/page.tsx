@@ -29,11 +29,7 @@ const RecipeSearchPage = async ({
       searchParams={searchParams}
       sortOrder={sortOrder}
       title={title}
-    >
-      <pre className={'whitespace-pre-wrap'}>
-        {JSON.stringify(recipeSearchPage, null, 2)}
-      </pre>
-    </RecipeSearch>
+    />
   );
 };
 
