@@ -50,7 +50,7 @@ export const RecipeSearchPagination = ({
             )}`}
           >
             <AccessibleIcon label={translations.previousPage}>
-              <ChevronLeft />
+              <ChevronLeft size={16} />
             </AccessibleIcon>
           </Link>
         </IconButton>
@@ -70,7 +70,7 @@ export const RecipeSearchPagination = ({
             )}`}
           >
             <AccessibleIcon label={translations.nextPage}>
-              <ChevronRight />
+              <ChevronRight size={16} />
             </AccessibleIcon>
           </Link>
         </IconButton>

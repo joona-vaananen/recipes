@@ -9,9 +9,9 @@ import { buildSearchSort } from '../../lib';
 import { buildSearchFilter } from '../../lib/utils/build-search-filter';
 import { recipeSearchConfig as searchConfig } from './recipe-search-config';
 import { RecipeSearchProvider } from './recipe-search-context';
+import { RecipeSearchDialog } from './recipe-search-dialog';
 import { RecipeSearchFilters } from './recipe-search-filters';
 import { RecipeSearchPagination } from './recipe-search-pagination';
-import { RecipeSearchResetButton } from './recipe-search-reset-button';
 import { RecipeSearchResults } from './recipe-search-results';
 import {
   recipeSearchPageSchema,
@@ -72,48 +72,50 @@ export const RecipeSearch = ({
 
   return (
     <RecipeSearchProvider defaultValues={parsedSearchParams}>
-      <Flex gap={'4'} p={'4'}>
-        <Flex direction={'column'} gap={'4'}>
-          <RecipeSearchResetButton
+      <Flex direction={'column'} gap={'4'} p={'4'}>
+        <RecipeSearchTitle
+          hitsPerPage={hitsPerPage}
+          page={page}
+          title={title}
+          totalHits={totalHits}
+        />
+        <Flex align={'center'} justify={'between'}>
+          <RecipeSearchDialog
             translations={{
-              reset: t('reset'),
+              filters: t('filters'),
+              openFilters: t('openFilters'),
+              resetFilters: t('resetFilters'),
+              showResults: t('showResults', { totalHits }),
+            }}
+          >
+            <Flex direction={'column'} gap={'4'}>
+              <RecipeSearchFilters
+                searchConfig={searchConfig}
+                facetDistribution={facetDistribution}
+                filters={filters}
+              />
+            </Flex>
+          </RecipeSearchDialog>
+          {sortOrder ? (
+            <RecipeSearchSortOrder
+              label={sortOrder.label}
+              options={sortOrder.options}
+            />
+          ) : null}
+        </Flex>
+        <RecipeSearchResults hits={hits} />
+        <Flex justify={'center'}>
+          <RecipeSearchPagination
+            page={page}
+            searchParams={parsedSearchParams}
+            totalHits={totalHits}
+            totalPages={totalPages}
+            translations={{
+              nextPage: t('nextPage'),
+              page: t('page', { page, totalPages }),
+              previousPage: t('previousPage'),
             }}
           />
-          <RecipeSearchFilters
-            searchConfig={searchConfig}
-            facetDistribution={facetDistribution}
-            filters={filters}
-          />
-        </Flex>
-        <Flex direction={'column'} gap={'4'}>
-          <Flex align={'center'} justify={'between'}>
-            <RecipeSearchTitle
-              hitsPerPage={hitsPerPage}
-              page={page}
-              title={title}
-              totalHits={totalHits}
-            />
-            {sortOrder ? (
-              <RecipeSearchSortOrder
-                label={sortOrder.label}
-                options={sortOrder.options}
-              />
-            ) : null}
-          </Flex>
-          <RecipeSearchResults hits={hits} />
-          <Flex justify={'center'}>
-            <RecipeSearchPagination
-              page={page}
-              searchParams={parsedSearchParams}
-              totalHits={totalHits}
-              totalPages={totalPages}
-              translations={{
-                nextPage: t('nextPage'),
-                page: t('page', { page, totalPages }),
-                previousPage: t('previousPage'),
-              }}
-            />
-          </Flex>
         </Flex>
       </Flex>
       {children}

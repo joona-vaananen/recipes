@@ -1,8 +1,11 @@
 {
   "RecipeSearch": {
+    "filters": "Search filters",
     "nextPage": "Next page",
+    "openFilters": "Filter",
     "page": "Page {page} / {totalPages}",
     "previousPage": "Previous page",
-    "reset": "Reset"
+    "resetFilters": "Reset filters",
+    "showResults": "Show results ({totalHits})"
   }
 }

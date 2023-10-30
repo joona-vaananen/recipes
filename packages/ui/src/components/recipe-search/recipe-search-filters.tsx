@@ -18,7 +18,7 @@ export const RecipeSearchFilters = ({
   searchConfig,
 }: RecipeSearchFiltersProps) => {
   return (
-    <Flex className={'w-[300px]'} direction={'column'} gap={'4'} shrink={'0'}>
+    <Flex direction={'column'} gap={'4'} p={'6'} shrink={'0'}>
       <DynamicZone
         components={{
           'recipe-search.select-filter': (props: SelectFilter) => {

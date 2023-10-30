@@ -1,8 +1,11 @@
 {
   "RecipeSearch": {
+    "filters": "Hakuehdot",
     "nextPage": "Seuraava sivu",
+    "openFilters": "Rajaa",
     "page": "Sivu {page} / {totalPages}",
     "previousPage": "Edellinen sivu",
-    "reset": "Tyhjennä"
+    "resetFilters": "Tyhjennä ehdot",
+    "showResults": "Näytä tulokset ({totalHits})"
   }
 }

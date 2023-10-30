@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  Box,
   Card,
   Checkbox,
   Flex,
@@ -52,18 +53,18 @@ export const RecipeSearchSelectFilter = ({
   };
 
   return (
-    <Flex asChild direction={'column'} gap={'3'}>
-      <fieldset>
-        <Text asChild weight={'bold'}>
-          <legend>{label}</legend>
-        </Text>
-        <Card>
-          <Inset clip={'padding-box'} py={'current'}>
-            <ScrollArea
-              className={'max-h-[200px] px-3'}
-              scrollbars={'vertical'}
-              type={'auto'}
-            >
+    <fieldset>
+      <Text asChild mb={'1'} weight={'bold'}>
+        <legend>{label}</legend>
+      </Text>
+      <Card>
+        <Inset clip={'padding-box'}>
+          <ScrollArea
+            className={'max-h-[200px]'}
+            scrollbars={'vertical'}
+            type={'auto'}
+          >
+            <Box p={'3'}>
               {names.map(([name, count], index) => {
                 const [slug] = slugs[index];
 
@@ -86,10 +87,10 @@ export const RecipeSearchSelectFilter = ({
                   </Text>
                 );
               })}
-            </ScrollArea>
-          </Inset>
-        </Card>
-      </fieldset>
-    </Flex>
+            </Box>
+          </ScrollArea>
+        </Inset>
+      </Card>
+    </fieldset>
   );
 };
