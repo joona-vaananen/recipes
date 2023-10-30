@@ -1,6 +1,7 @@
 'use client';
 
-import { Flex, Select, Text } from '@radix-ui/themes';
+import { Button, DropdownMenu, Flex, Text } from '@radix-ui/themes';
+import { ChevronDown } from 'lucide-react';
 import { useController, useFormContext } from 'react-hook-form';
 
 import { RecipeSearchParamsSchema } from './recipe-search-schemas';
@@ -21,7 +22,7 @@ export const RecipeSearchSortOrder = ({
   const { field } = useController({ name: 'sort', control });
   const { disabled, name, ref, value } = field;
 
-  const onValueChange = (value: string) => {
+  const onCheckedChange = (_checked: boolean, value: string) => {
     setValue(name, value);
   };
 
@@ -29,20 +30,28 @@ export const RecipeSearchSortOrder = ({
     <Text as={'label'} size={'2'}>
       <Flex align={'center'} gap={'2'}>
         {label}
-        <Select.Root
-          disabled={disabled}
-          onValueChange={onValueChange}
-          value={value ?? undefined}
-        >
-          <Select.Trigger ref={ref} />
-          <Select.Content>
-            {options.map((option) => (
-              <Select.Item key={option.value} value={option.value}>
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger disabled={disabled} ref={ref}>
+            <Button variant={'outline'}>
+              {options.find((option) => option.value === value)?.name ??
+                options[0].name}
+              <ChevronDown size={16} />
+            </Button>
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content>
+            {options.map((option, index) => (
+              <DropdownMenu.CheckboxItem
+                checked={value ? option.value === value : index === 0}
+                key={option.value}
+                onCheckedChange={(checked) =>
+                  onCheckedChange(checked, option.value)
+                }
+              >
                 {option.name}
-              </Select.Item>
+              </DropdownMenu.CheckboxItem>
             ))}
-          </Select.Content>
-        </Select.Root>
+          </DropdownMenu.Content>
+        </DropdownMenu.Root>
       </Flex>
     </Text>
   );

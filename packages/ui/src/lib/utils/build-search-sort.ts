@@ -8,7 +8,7 @@ export const buildSearchSort = (
   searchParamValue: SearchParamValue,
   sortConfig: SortConfig
 ) => {
-  if (typeof searchParamValue !== 'string' || searchParamValue.length === 0) {
+  if (typeof searchParamValue !== 'string') {
     return;
   }
 

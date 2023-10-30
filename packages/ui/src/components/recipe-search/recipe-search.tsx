@@ -58,7 +58,10 @@ export const RecipeSearch = ({
           filter: buildSearchFilter(parsedFilters, searchConfig.filters),
           hitsPerPage: pageSize ?? DEFAULT_PAGE_SIZE,
           page: parsedPage,
-          sort: buildSearchSort(parsedSort, searchConfig.sort),
+          sort: buildSearchSort(
+            parsedSort ?? sortOrder?.options[0].value,
+            searchConfig.sort
+          ) ?? ['createdAt:desc'],
         },
         { cache: 'no-store' }
       )

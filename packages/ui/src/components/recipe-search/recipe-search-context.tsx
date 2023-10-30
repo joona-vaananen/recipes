@@ -40,6 +40,7 @@ export const RecipeSearchProvider = ({
           addQueryPrefix: true,
           arrayFormat: 'repeat',
           encodeValuesOnly: true,
+          skipNulls: true,
         })}`,
         { scroll: false }
       );

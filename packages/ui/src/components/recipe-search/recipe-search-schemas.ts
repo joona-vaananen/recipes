@@ -1,30 +1,14 @@
 import * as z from 'zod';
 
 export const recipeSearchParamsSchema = z.object({
-  category: z
-    .union([z.string().transform((value) => [value]), z.string().array()])
-    .nullish(),
-  course: z
-    .union([z.string().transform((value) => [value]), z.string().array()])
-    .nullish(),
-  cuisine: z
-    .union([z.string().transform((value) => [value]), z.string().array()])
-    .nullish(),
-  diet: z
-    .union([z.string().transform((value) => [value]), z.string().array()])
-    .nullish(),
-  ingredient: z
-    .union([z.string().transform((value) => [value]), z.string().array()])
-    .nullish(),
-  mealType: z
-    .union([z.string().transform((value) => [value]), z.string().array()])
-    .nullish(),
-  method: z
-    .union([z.string().transform((value) => [value]), z.string().array()])
-    .nullish(),
-  season: z
-    .union([z.string().transform((value) => [value]), z.string().array()])
-    .nullish(),
+  category: z.union([z.string(), z.string().array()]).nullish(),
+  course: z.union([z.string(), z.string().array()]).nullish(),
+  cuisine: z.union([z.string(), z.string().array()]).nullish(),
+  diet: z.union([z.string(), z.string().array()]).nullish(),
+  ingredient: z.union([z.string(), z.string().array()]).nullish(),
+  mealType: z.union([z.string(), z.string().array()]).nullish(),
+  method: z.union([z.string(), z.string().array()]).nullish(),
+  season: z.union([z.string(), z.string().array()]).nullish(),
   sort: z
     .union([
       z.string(),
@@ -33,8 +17,7 @@ export const recipeSearchParamsSchema = z.object({
         .array()
         .transform(([value]) => value),
     ])
-    .nullish()
-    .default('created-at-desc'),
+    .nullish(),
 });
 
 export type RecipeSearchParamsSchema = z.infer<typeof recipeSearchParamsSchema>;

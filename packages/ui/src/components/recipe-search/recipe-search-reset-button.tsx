@@ -17,15 +17,15 @@ export const RecipeSearchResetButton = ({
 
   const onClick = () => {
     reset({
-      category: [],
-      course: [],
-      cuisine: [],
-      diet: [],
-      ingredient: [],
-      mealType: [],
-      method: [],
-      season: [],
-      sort: 'created-at-desc',
+      category: null,
+      course: null,
+      cuisine: null,
+      diet: null,
+      ingredient: null,
+      mealType: null,
+      method: null,
+      season: null,
+      sort: null,
     });
   };
 

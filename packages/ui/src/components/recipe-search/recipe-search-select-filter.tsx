@@ -27,7 +27,8 @@ export const RecipeSearchSelectFilter = ({
 }: RecipeSearchSelectFilterProps) => {
   const { control, setValue } = useFormContext<RecipeSearchParamsSchema>();
   const { field } = useController({ name, control });
-  const { disabled, ref, value: values } = field;
+  const { disabled, ref, value } = field;
+  const values = typeof value === 'string' ? [value] : value;
 
   const names = Object.entries(facetDistribution?.[`${attribute}.name`] ?? {});
   const slugs = Object.entries(facetDistribution?.[`${attribute}.slug`] ?? {});
