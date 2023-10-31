@@ -2,9 +2,10 @@ import type { Strapi } from '@strapi/strapi';
 
 const app = {
   register: ({ strapi }: { strapi: Strapi }) => {
-    strapi.plugin('upload').contentTypes.file.attributes.placeholder = {
-      type: 'text',
-    };
+    (strapi.plugin('upload').contentTypes.file as any).attributes.placeholder =
+      {
+        type: 'text',
+      };
   },
   bootstrap: async ({ strapi }: { strapi: Strapi }) => {
     await strapi.service('api::icon.icon')!.bootstrap();

@@ -12,7 +12,7 @@ export default factories.createCoreService(
   'api::icon.icon',
   ({ strapi }: { strapi: Strapi }) => ({
     bootstrap: async () => {
-      const iconCount = await strapi.db.query('api::icon.icon').count({});
+      const iconCount = await strapi.db!.query('api::icon.icon').count({});
 
       if (iconCount > 0) {
         return [];
@@ -21,11 +21,11 @@ export default factories.createCoreService(
       const createdIcons = await Promise.all(
         ICONS.map(
           (name) =>
-            strapi.entityService.create('api::icon.icon', {
+            strapi.entityService!.create('api::icon.icon', {
               data: {
                 name,
               },
-            }) as Promise<Icon_Plain>
+            }) as unknown as Promise<Icon_Plain>
         )
       );
 
@@ -34,11 +34,14 @@ export default factories.createCoreService(
     findRandom: async ({
       limit,
       ...params
-    }: Parameters<typeof strapi.entityService.findMany>[1] = {}) => {
-      const icons = (await strapi.entityService.findMany(
+    }: {
+      limit?: number;
+      [key: string]: any;
+    }) => {
+      const icons = (await strapi.entityService!.findMany(
         'api::icon.icon',
         params
-      )) as Icon_Plain[];
+      )) as unknown as Icon_Plain[];
 
       const randomIcons = shuffle(icons).slice(0, limit ?? icons.length);
 

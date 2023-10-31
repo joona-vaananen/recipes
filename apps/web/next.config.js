@@ -4,11 +4,13 @@ const withNextIntl = require('next-intl/plugin')();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    logging: {
-      fullUrl: true,
-      level: 'verbose',
-    },
+    optimizePackageImports: ['@recipes/api-client', '@recipes/ui'],
     outputFileTracingRoot: path.join(__dirname, '../../'),
+  },
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
   },
   output: 'standalone',
   rewrites: () => ({

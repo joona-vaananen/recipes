@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { components } from '@/components/components';
+import { components } from '@/components';
 import { apiClient } from '@/lib/api/client';
 import { Container } from '@radix-ui/themes';
 import { DynamicZone } from '@recipes/ui';
@@ -75,6 +75,9 @@ const getPageData = async ({ params }: PageProps) => {
                 methods: true,
                 seasons: true,
               },
+            },
+            'ui.rich-text': {
+              fields: ['blocks', 'id'],
             },
           },
         },

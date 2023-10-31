@@ -4,7 +4,8 @@
   "info": {
     "singularName": "home-page",
     "pluralName": "home-pages",
-    "displayName": "Home Page"
+    "displayName": "Home Page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -31,7 +32,11 @@
         }
       },
       "type": "dynamiczone",
-      "components": ["ui.hero", "ui.recipe-carousel"]
+      "components": [
+        "ui.hero",
+        "ui.rich-text",
+        "ui.recipe-carousel"
+      ]
     }
   }
 }

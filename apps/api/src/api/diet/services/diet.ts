@@ -12,7 +12,7 @@ export default factories.createCoreService(
   'api::diet.diet',
   ({ strapi }: { strapi: Strapi }) => ({
     bootstrap: async () => {
-      const dietCount = await strapi.db.query('api::diet.diet').count({});
+      const dietCount = await strapi.db!.query('api::diet.diet').count({});
 
       if (dietCount > 0) {
         return [];
@@ -25,14 +25,14 @@ export default factories.createCoreService(
       const createdDiets = await Promise.all(
         DIETS.map(
           (name, index) =>
-            strapi.entityService.create('api::diet.diet', {
+            strapi.entityService!.create('api::diet.diet', {
               data: {
                 name,
                 publishedAt: Date.now(),
                 slug: slugify(name),
                 icon: randomIcons[index].id,
               },
-            }) as Promise<Diet_Plain>
+            }) as unknown as Promise<Diet_Plain>
         )
       );
 

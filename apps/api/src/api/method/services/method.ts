@@ -12,7 +12,9 @@ export default factories.createCoreService(
   'api::method.method',
   ({ strapi }: { strapi: Strapi }) => ({
     bootstrap: async () => {
-      const methodCount = await strapi.db.query('api::method.method').count({});
+      const methodCount = await strapi
+        .db!.query('api::method.method')
+        .count({});
 
       if (methodCount > 0) {
         return [];
@@ -25,14 +27,14 @@ export default factories.createCoreService(
       const createdMethods = await Promise.all(
         METHODS.map(
           (name, index) =>
-            strapi.entityService.create('api::method.method', {
+            strapi.entityService!.create('api::method.method', {
               data: {
                 name,
                 publishedAt: Date.now(),
                 slug: slugify(name),
                 icon: randomIcons[index].id,
               },
-            }) as Promise<Method_Plain>
+            }) as unknown as Promise<Method_Plain>
         )
       );
 

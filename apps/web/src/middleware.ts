@@ -1,6 +1,10 @@
 import createMiddleware from 'next-intl/middleware';
 
-import { defaultLocale, locales, pathnames } from '@recipes/ui';
+import {
+  defaultLocale,
+  locales,
+  pathnames,
+} from '@recipes/ui/src/lib/utils/navigation';
 
 export default createMiddleware({ defaultLocale, locales, pathnames });
 

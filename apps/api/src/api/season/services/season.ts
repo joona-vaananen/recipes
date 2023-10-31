@@ -12,7 +12,9 @@ export default factories.createCoreService(
   'api::season.season',
   ({ strapi }: { strapi: Strapi }) => ({
     bootstrap: async () => {
-      const seasonCount = await strapi.db.query('api::season.season').count({});
+      const seasonCount = await strapi
+        .db!.query('api::season.season')
+        .count({});
 
       if (seasonCount > 0) {
         return [];
@@ -25,14 +27,14 @@ export default factories.createCoreService(
       const createdSeasons = await Promise.all(
         SEASONS.map(
           (name, index) =>
-            strapi.entityService.create('api::season.season', {
+            strapi.entityService!.create('api::season.season', {
               data: {
                 name,
                 publishedAt: Date.now(),
                 slug: slugify(name),
                 icon: randomIcons[index].id,
               },
-            }) as Promise<Season_Plain>
+            }) as unknown as Promise<Season_Plain>
         )
       );
 

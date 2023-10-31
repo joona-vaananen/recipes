@@ -10,7 +10,7 @@ import {
 } from '@radix-ui/themes';
 import { Filter, RotateCcw } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
-import { useRecipeSearch } from '.';
+import { useRecipeSearch } from './recipe-search-context';
 
 interface RecipeSearchDialogProps {
   children: React.ReactNode;

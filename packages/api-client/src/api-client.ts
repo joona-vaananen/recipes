@@ -185,18 +185,20 @@ export class APIClient {
   }
 
   async request<T>(input: RequestInfo | URL, init?: RequestInit | undefined) {
-    const response = await fetch(
+    const url =
       typeof input === 'string' && input.startsWith('/')
         ? `${this.config.protocol}://${this.config.host}:${this.config.port}/api${input}`
-        : input,
-      {
-        ...init,
-        headers: {
-          ...init?.headers,
-          Authorization: `Bearer ${this.config.token}`,
-        },
-      }
-    );
+        : input;
+
+    console.log({ url });
+
+    const response = await fetch(url, {
+      ...init,
+      headers: {
+        ...init?.headers,
+        Authorization: `Bearer ${this.config.token}`,
+      },
+    });
 
     const { data, error, meta } = (await response.json()) as {
       data: T | null;

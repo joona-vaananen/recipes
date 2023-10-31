@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "@recipes/api-upload-provider": "^1.0.0",
-    "@strapi/plugin-i18n": "4.13.6",
-    "@strapi/plugin-users-permissions": "4.13.6",
-    "@strapi/strapi": "4.13.6",
+    "@strapi/plugin-i18n": "4.15.0",
+    "@strapi/plugin-users-permissions": "4.15.0",
+    "@strapi/strapi": "4.15.0",
     "lodash.shuffle": "4.2.0",
     "pg": "8.8.0",
     "sharp": "0.32.6",

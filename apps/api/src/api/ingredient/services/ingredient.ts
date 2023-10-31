@@ -12,8 +12,8 @@ export default factories.createCoreService(
   'api::ingredient.ingredient',
   ({ strapi }: { strapi: Strapi }) => ({
     bootstrap: async () => {
-      const ingredientCount = await strapi.db
-        .query('api::ingredient.ingredient')
+      const ingredientCount = await strapi
+        .db!.query('api::ingredient.ingredient')
         .count({});
 
       if (ingredientCount > 0) {
@@ -27,14 +27,14 @@ export default factories.createCoreService(
       const createdIngredients = await Promise.all(
         INGREDIENTS.map(
           (name, index) =>
-            strapi.entityService.create('api::ingredient.ingredient', {
+            strapi.entityService!.create('api::ingredient.ingredient', {
               data: {
                 name,
                 publishedAt: Date.now(),
                 slug: slugify(name),
                 icon: randomIcons[index].id,
               },
-            }) as Promise<Ingredient_Plain>
+            }) as unknown as Promise<Ingredient_Plain>
         )
       );
 

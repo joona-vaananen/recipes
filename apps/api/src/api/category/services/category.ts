@@ -12,8 +12,8 @@ export default factories.createCoreService(
   'api::category.category',
   ({ strapi }: { strapi: Strapi }) => ({
     bootstrap: async () => {
-      const categoryCount = await strapi.db
-        .query('api::category.category')
+      const categoryCount = await strapi
+        .db!.query('api::category.category')
         .count({});
 
       if (categoryCount > 0) {
@@ -27,14 +27,14 @@ export default factories.createCoreService(
       const createdCategories = await Promise.all(
         CATEGORIES.map(
           (name, index) =>
-            strapi.entityService.create('api::category.category', {
+            strapi.entityService!.create('api::category.category', {
               data: {
                 name,
                 publishedAt: Date.now(),
                 slug: slugify(name),
                 icon: randomIcons[index].id,
               },
-            }) as Promise<Category_Plain>
+            }) as unknown as Promise<Category_Plain>
         )
       );
 

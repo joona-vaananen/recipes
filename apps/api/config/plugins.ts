@@ -29,7 +29,7 @@ const plugins = ({ env }: { env: any }) => ({
       commonInterfacesFolderName: 'interfaces',
       verboseLogs: false,
     },
-    enabled: true,
+    enabled: false,
   },
   upload: {
     config: {

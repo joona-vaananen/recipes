@@ -4,6 +4,7 @@ export {
   RecipeCard,
   RecipeCarousel,
   RecipeSearch,
+  RichText,
 } from './components';
 export {
   Link,

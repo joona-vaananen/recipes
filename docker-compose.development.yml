@@ -3,7 +3,7 @@ version: '3'
 services:
   recipes-api:
     container_name: recipes-api
-    image: strapi:4.13.6
+    image: strapi:4.15.0
     build:
       context: .
       dockerfile: ./apps/api/Dockerfile.development
@@ -82,6 +82,7 @@ services:
         SEARCH_MASTER_KEY: ${SEARCH_MASTER_KEY}
         SEARCH_PORT: ${SEARCH_PORT}
         SEARCH_PROTOCOL: ${SEARCH_PROTOCOL}
+        WEB_BASE_URL: ${WEB_BASE_URL}
     volumes:
       - ./apps/web/messages:/app/apps/web/messages
       - ./apps/web/public:/app/apps/web/public

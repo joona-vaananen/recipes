@@ -2,7 +2,7 @@ import { Container } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { components } from '@/components/components';
+import { components } from '@/components';
 import { apiClient } from '@/lib/api/client';
 import { DynamicZone } from '@recipes/ui';
 
@@ -70,6 +70,9 @@ const getHomePageData = async ({ params }: HomePageProps) => {
                 methods: true,
                 seasons: true,
               },
+            },
+            'ui.rich-text': {
+              fields: ['blocks', 'id'],
             },
           },
         },

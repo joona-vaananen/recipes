@@ -12,8 +12,8 @@ export default factories.createCoreService(
   'api::meal-type.meal-type',
   ({ strapi }: { strapi: Strapi }) => ({
     bootstrap: async () => {
-      const mealTypeCount = await strapi.db
-        .query('api::meal-type.meal-type')
+      const mealTypeCount = await strapi
+        .db!.query('api::meal-type.meal-type')
         .count({});
 
       if (mealTypeCount > 0) {
@@ -27,14 +27,14 @@ export default factories.createCoreService(
       const createdMealTypes = await Promise.all(
         MEAL_TYPES.map(
           (name, index) =>
-            strapi.entityService.create('api::meal-type.meal-type', {
+            strapi.entityService!.create('api::meal-type.meal-type', {
               data: {
                 name,
                 publishedAt: Date.now(),
                 slug: slugify(name),
                 icon: randomIcons[index].id,
               },
-            }) as Promise<MealType_Plain>
+            }) as unknown as Promise<MealType_Plain>
         )
       );
 
