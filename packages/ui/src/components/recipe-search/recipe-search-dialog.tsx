@@ -10,6 +10,7 @@ import {
 } from '@radix-ui/themes';
 import { Filter, RotateCcw } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
+import { useRecipeSearch } from '.';
 
 interface RecipeSearchDialogProps {
   children: React.ReactNode;
@@ -26,6 +27,7 @@ export const RecipeSearchDialog = ({
   translations,
 }: RecipeSearchDialogProps) => {
   const { reset } = useFormContext();
+  const { setIsSearching } = useRecipeSearch();
 
   return (
     <Dialog.Root>
@@ -50,7 +52,9 @@ export const RecipeSearchDialog = ({
         </Inset>
         <Flex gap="3" mt="4" justify="end">
           <Button
-            onClick={() =>
+            onClick={() => {
+              setIsSearching(true);
+
               reset({
                 category: null,
                 course: null,
@@ -62,8 +66,8 @@ export const RecipeSearchDialog = ({
                 search: null,
                 season: null,
                 sort: null,
-              })
-            }
+              });
+            }}
             variant={'outline'}
           >
             {translations.resetFilters}

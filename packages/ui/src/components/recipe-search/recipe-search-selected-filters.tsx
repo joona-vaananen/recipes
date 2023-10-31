@@ -1,5 +1,6 @@
 import { FacetDistribution } from 'meilisearch';
 
+import { Flex } from '@radix-ui/themes';
 import { recipeSearchConfig as searchConfig } from './recipe-search-config';
 import type { RecipeSearchParamsSchema } from './recipe-search-schemas';
 import { RecipeSearchSelectedFilter } from './recipe-search-selected-filter';
@@ -13,7 +14,7 @@ export const RecipeSearchSelectedFilters = ({
   facetDistribution,
   searchFilters,
 }: RecipeSearchSelectedFiltersProps) => {
-  return Object.entries(searchFilters).flatMap(
+  const selectedFilters = Object.entries(searchFilters).flatMap(
     ([searchParamKey, searchParamValue]) => {
       if (
         !(searchParamKey in searchConfig.filters) ||
@@ -63,4 +64,10 @@ export const RecipeSearchSelectedFilters = ({
     },
     [] as React.ReactNode[]
   );
+
+  return selectedFilters.length > 0 ? (
+    <Flex gap={'4'} wrap={'wrap'}>
+      {selectedFilters}
+    </Flex>
+  ) : null;
 };

@@ -22,17 +22,21 @@ export const RecipeCard = ({
     <Card {...props}>
       {image ? (
         <Inset clip={'padding-box'} side={'top'} pb={'current'}>
-          <Image
-            src={image.url}
-            alt={''}
-            width={image.width}
-            height={image.height}
-            sizes={sizes ?? '100vw'}
-            placeholder={'placeholder' in image ? 'blur' : 'empty'}
-            blurDataURL={
-              'placeholder' in image ? (image.placeholder as string) : undefined
-            }
-          />
+          <div className={'relative pb-[calc(100%/(3/2))]'}>
+            <Image
+              alt={''}
+              blurDataURL={
+                'placeholder' in image
+                  ? (image.placeholder as string)
+                  : undefined
+              }
+              className={'object-cover'}
+              fill
+              placeholder={'placeholder' in image ? 'blur' : 'empty'}
+              sizes={sizes ?? '100vw'}
+              src={image.url}
+            />
+          </div>
         </Inset>
       ) : null}
       <Link

@@ -18,6 +18,12 @@ export const RecipeSearchInput = ({ translations }: RecipeSearchInputProps) => {
   const { field } = useController({ name: 'search', control });
   const { disabled, name, onBlur, ref, value } = field;
 
+  const onChange = debounce(
+    (event: React.ChangeEvent<HTMLInputElement>) =>
+      setValue(name, event.target.value),
+    500
+  );
+
   return (
     <TextField.Root>
       <TextField.Slot>
@@ -28,9 +34,7 @@ export const RecipeSearchInput = ({ translations }: RecipeSearchInputProps) => {
         disabled={disabled}
         name={name}
         onBlur={onBlur}
-        onChange={(event) => {
-          debounce(() => setValue(name, event.target.value), 250)();
-        }}
+        onChange={onChange}
         placeholder={translations.inputPlaceholder}
         ref={ref}
       />

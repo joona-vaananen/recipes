@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { usePathname, useRouter } from 'next/navigation';
 import { stringify } from 'qs';
-import { createContext, useContext, useEffect } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import {
@@ -11,7 +11,13 @@ import {
   type RecipeSearchParamsSchema,
 } from './recipe-search-schemas';
 
-const RecipeSearchContext = createContext<undefined>(undefined);
+const RecipeSearchContext = createContext<
+  | {
+      isSearching: boolean;
+      setIsSearching: React.Dispatch<React.SetStateAction<boolean>>;
+    }
+  | undefined
+>(undefined);
 
 interface RecipeSearchProviderProps {
   children: React.ReactNode;
@@ -22,6 +28,7 @@ export const RecipeSearchProvider = ({
   children,
   defaultValues,
 }: RecipeSearchProviderProps) => {
+  const [isSearching, setIsSearching] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -35,6 +42,8 @@ export const RecipeSearchProvider = ({
 
   useEffect(() => {
     const onSubmit = (values: RecipeSearchParamsSchema) => {
+      setIsSearching(true);
+
       router.push(
         `${pathname}${stringify(values, {
           addQueryPrefix: true,
@@ -53,8 +62,12 @@ export const RecipeSearchProvider = ({
     return () => subscription.unsubscribe();
   }, [router, pathname, watch, handleSubmit]);
 
+  useEffect(() => {
+    setIsSearching(false);
+  }, [defaultValues]);
+
   return (
-    <RecipeSearchContext.Provider value={undefined}>
+    <RecipeSearchContext.Provider value={{ isSearching, setIsSearching }}>
       <FormProvider {...recipeSearchForm}>{children}</FormProvider>
     </RecipeSearchContext.Provider>
   );

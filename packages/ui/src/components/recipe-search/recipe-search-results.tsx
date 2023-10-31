@@ -1,3 +1,5 @@
+'use client';
+
 import { Grid, Text } from '@radix-ui/themes';
 import type { Hits } from 'meilisearch';
 
@@ -5,6 +7,8 @@ import type { Recipe_Plain } from '@recipes/api/src/api/recipe/content-types/rec
 import type { Media } from '@recipes/api/src/common/interfaces/Media';
 import { BREAKPOINTS } from '../../constants';
 import { RecipeCard } from '../recipe-card';
+import { RecipeCardSkeleton } from '../recipe-card-skeleton';
+import { useRecipeSearch } from './recipe-search-context';
 
 interface RecipeSearchResultsProps {
   hits: Hits<
@@ -12,6 +16,8 @@ interface RecipeSearchResultsProps {
       image: Media['attributes'];
     }
   >;
+  hitsPerPage: number;
+  totalHits: number;
   translations: {
     noResults: string;
   };
@@ -19,9 +25,47 @@ interface RecipeSearchResultsProps {
 
 export const RecipeSearchResults = ({
   hits,
+  hitsPerPage,
+  totalHits,
   translations,
 }: RecipeSearchResultsProps) => {
-  return hits.length > 0 ? (
+  const { isSearching } = useRecipeSearch();
+  const isEmpty = hits.length === 0;
+
+  if (isSearching) {
+    return (
+      <Grid
+        asChild
+        columns={{
+          initial: '1',
+          sm: '2',
+          md: '3',
+        }}
+        gap={'4'}
+      >
+        <ol>
+          {Array.from(
+            { length: Math.min(hitsPerPage, totalHits) },
+            (_, index) => (
+              <li key={index}>
+                <RecipeCardSkeleton />
+              </li>
+            )
+          )}
+        </ol>
+      </Grid>
+    );
+  }
+
+  if (isEmpty) {
+    return (
+      <Text as={'p'} size={'5'}>
+        {translations.noResults}
+      </Text>
+    );
+  }
+
+  return (
     <Grid
       asChild
       columns={{
@@ -48,9 +92,5 @@ export const RecipeSearchResults = ({
         ))}
       </ol>
     </Grid>
-  ) : (
-    <Text as={'p'} size={'5'}>
-      {translations.noResults}
-    </Text>
   );
 };

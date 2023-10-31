@@ -44,6 +44,7 @@ export const RecipeSearch = ({
   const t = useTranslations('RecipeSearch');
 
   const parsedSearchParams = recipeSearchParamsSchema.parse(searchParams);
+
   const {
     search: parsedSearch,
     sort: parsedSort,
@@ -106,10 +107,6 @@ export const RecipeSearch = ({
                 inputPlaceholder: t('inputPlaceholder'),
               }}
             />
-            <RecipeSearchSelectedFilters
-              facetDistribution={facetDistribution}
-              searchFilters={parsedFilters}
-            />
           </Flex>
           {sortOrder ? (
             <RecipeSearchSortOrder
@@ -118,9 +115,18 @@ export const RecipeSearch = ({
             />
           ) : null}
         </Flex>
-        <RecipeSearchResults hits={hits} translations={{
-          noResults: t('noResults'),
-        }} />
+        <RecipeSearchSelectedFilters
+          facetDistribution={facetDistribution}
+          searchFilters={parsedFilters}
+        />
+        <RecipeSearchResults
+          hits={hits}
+          hitsPerPage={hitsPerPage}
+          totalHits={totalHits}
+          translations={{
+            noResults: t('noResults'),
+          }}
+        />
         <Flex justify={'center'}>
           <RecipeSearchPagination
             page={page}
