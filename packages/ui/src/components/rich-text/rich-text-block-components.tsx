@@ -15,7 +15,7 @@ import type { RichTextBlockComponents } from './rich-text-block-types';
 
 export const richTextBlockComponents = {
   code: ({ children }) => (
-    <pre className={'mb-4 whitespace-pre-wrap break-all last:mb-0'}>
+    <pre className={'my-4 whitespace-pre-wrap break-all first:mt-0 last:mb-0'}>
       <Code>{children}</Code>
     </pre>
   ),
@@ -101,13 +101,20 @@ export const richTextBlockComponents = {
     }
 
     return (
-      <NextImage
-        alt={image.alternativeText ?? ''}
-        className={'mb-4 last:mb-0'}
-        height={image.height}
-        src={pathname}
-        width={image.width}
-      />
+      <figure className={'my-4 first:mt-0 last:mb-0'}>
+        <NextImage
+          alt={image.alternativeText ?? ''}
+          className={'my-4 first:mt-0 last:mb-0'}
+          height={image.height}
+          src={pathname}
+          width={image.width}
+        />
+        {image.caption ? (
+          <Text asChild className={'my-4 first:mt-0 last:mb-0'} size={'2'}>
+            <figcaption>{image.caption}</figcaption>
+          </Text>
+        ) : null}
+      </figure>
     );
   },
   link: ({ children, url }) => {
@@ -136,12 +143,22 @@ export const richTextBlockComponents = {
   list: ({ children, format }) => {
     const components = {
       ordered: ({ children }: { children: React.ReactNode }) => (
-        <ol className={'mb-4 list-inside list-decimal last:mb-0'}>
+        <ol
+          className={
+            'my-4 list-inside list-decimal marker:text-accent-9 first:mt-0 last:mb-0'
+          }
+        >
           {children}
         </ol>
       ),
       unordered: ({ children }: { children: React.ReactNode }) => (
-        <ul className={'mb-4 list-inside list-disc last:mb-0'}>{children}</ul>
+        <ul
+          className={
+            'my-4 list-inside list-disc marker:text-accent-9 first:mt-0 last:mb-0'
+          }
+        >
+          {children}
+        </ul>
       ),
     };
 
