@@ -62,7 +62,7 @@ const getRecipeSearchPageData = async ({ params }: RecipeSearchPageProps) => {
       populate: {
         filters: {
           on: {
-            'recipe-search.select-filter': true,
+            'recipe-search.checkbox-filter': true,
           },
         },
         sortOrder: {

@@ -1,19 +1,14 @@
 {
-  "collectionName": "components_recipe_search_select_filters",
+  "collectionName": "components_recipe_search_checkbox_filters",
   "info": {
-    "displayName": "Select Filter",
-    "icon": "bulletList",
+    "displayName": "Checkbox Filter",
+    "icon": "check",
     "description": ""
   },
   "options": {},
   "attributes": {
     "label": {
       "type": "string",
-      "required": true
-    },
-    "multiple": {
-      "type": "boolean",
-      "default": true,
       "required": true
     },
     "name": {

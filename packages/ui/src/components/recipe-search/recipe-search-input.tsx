@@ -23,6 +23,9 @@ export const RecipeSearchInput = ({ translations }: RecipeSearchInputProps) => {
         <Search size={16} />
       </TextField.Slot>
       <TextField.Input
+        className={
+          '[&::-webkit-search-cancel-button]:appearance-none [&::-webkit-search-decoration]:appearance-none'
+        }
         defaultValue={value ?? ''}
         disabled={disabled}
         name={name}
@@ -30,6 +33,7 @@ export const RecipeSearchInput = ({ translations }: RecipeSearchInputProps) => {
         onChange={onChange}
         placeholder={translations.inputPlaceholder}
         ref={ref}
+        type={'search'}
       />
     </TextField.Root>
   );

@@ -1,10 +1,9 @@
 import { Flex } from '@radix-ui/themes';
 import type { FacetDistribution } from 'meilisearch';
 
-import type { SelectFilter } from '@recipes/api/src/components/recipe-search/interfaces/SelectFilter';
 import { DynamicZone } from '../dynamic-zone';
+import { RecipeSearchCheckboxFilter } from './recipe-search-checkbox-filter';
 import type { RecipeSearchConfig } from './recipe-search-config';
-import { RecipeSearchSelectFilter } from './recipe-search-select-filter';
 
 interface RecipeSearchFiltersProps {
   facetDistribution: FacetDistribution | undefined;
@@ -21,16 +20,18 @@ export const RecipeSearchFilters = ({
     <Flex direction={'column'} gap={'4'} p={'6'} shrink={'0'}>
       <DynamicZone
         components={{
-          'recipe-search.select-filter': (props: SelectFilter) => {
+          'recipe-search.checkbox-filter': (props: any) => {
             const { name } = props;
-            const attribute = searchConfig.filters[name]?.attribute;
 
-            if (!attribute) {
+            if (!(name in searchConfig.filters)) {
               return null;
             }
 
+            const { attribute } =
+              searchConfig.filters[name as keyof typeof searchConfig.filters];
+
             return (
-              <RecipeSearchSelectFilter
+              <RecipeSearchCheckboxFilter
                 {...props}
                 attribute={attribute}
                 facetDistribution={facetDistribution}

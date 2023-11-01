@@ -17,7 +17,7 @@ WORKDIR /app
 COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/package-lock.json ./package-lock.json
-RUN npm ci
+RUN npm config set --global fetch-retry-maxtimeout 600000 && npm ci
 
 COPY --from=builder /app/out/full/ .
 COPY turbo.json turbo.json
@@ -55,7 +55,7 @@ ENV SEARCH_PORT=${SEARCH_PORT}
 ARG SEARCH_PROTOCOL
 ENV SEARCH_PROTOCOL=${SEARCH_PROTOCOL}
 
-RUN npx turbo run build --filter=@recipes/api...
+RUN npx turbo run build --filter=@recipes/api
 
 FROM base AS runner
 WORKDIR /app

@@ -32,9 +32,7 @@
         }
       },
       "type": "dynamiczone",
-      "components": [
-        "recipe-search.select-filter"
-      ],
+      "components": ["recipe-search.checkbox-filter"],
       "required": true
     },
     "sortOrder": {

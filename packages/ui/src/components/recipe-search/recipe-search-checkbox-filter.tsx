@@ -11,21 +11,30 @@ import {
 } from '@radix-ui/themes';
 import type { FacetDistribution } from 'meilisearch';
 
-import type { SelectFilter } from '@recipes/api/src/components/recipe-search/interfaces/SelectFilter';
 import { useController, useFormContext } from 'react-hook-form';
 import { RecipeSearchParamsSchema } from './recipe-search-schemas';
 
-interface RecipeSearchSelectFilterProps extends SelectFilter {
+interface RecipeSearchCheckboxFilterProps {
   attribute: string;
   facetDistribution: FacetDistribution | undefined;
+  label: string;
+  name:
+    | 'category'
+    | 'course'
+    | 'cuisine'
+    | 'diet'
+    | 'ingredient'
+    | 'mealType'
+    | 'method'
+    | 'season';
 }
 
-export const RecipeSearchSelectFilter = ({
+export const RecipeSearchCheckboxFilter = ({
   attribute,
   facetDistribution,
   label,
   name,
-}: RecipeSearchSelectFilterProps) => {
+}: RecipeSearchCheckboxFilterProps) => {
   const { control, setValue } = useFormContext<RecipeSearchParamsSchema>();
   const { field } = useController({ name, control });
   const { disabled, ref, value } = field;

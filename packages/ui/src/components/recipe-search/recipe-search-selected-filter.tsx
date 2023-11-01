@@ -6,7 +6,7 @@ import { useController, useFormContext } from 'react-hook-form';
 import { X } from 'lucide-react';
 import type { RecipeSearchParamsSchema } from './recipe-search-schemas';
 
-interface RecipeSearchSelectFilterProps {
+interface RecipeSearchSelectedFilterProps {
   name: string;
   searchParamKey: string;
   slug: string;
@@ -16,7 +16,7 @@ export const RecipeSearchSelectedFilter = ({
   name,
   searchParamKey,
   slug,
-}: RecipeSearchSelectFilterProps) => {
+}: RecipeSearchSelectedFilterProps) => {
   const { control, setValue } = useFormContext<RecipeSearchParamsSchema>();
   const { field } = useController({ name: searchParamKey as any, control });
   const { value } = field;
