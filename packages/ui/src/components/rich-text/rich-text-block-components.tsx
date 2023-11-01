@@ -136,12 +136,12 @@ export const richTextBlockComponents = {
   list: ({ children, format }) => {
     const components = {
       ordered: ({ children }: { children: React.ReactNode }) => (
-        <ul className={'mb-4 list-inside list-disc last:mb-0'}>{children}</ul>
-      ),
-      unordered: ({ children }: { children: React.ReactNode }) => (
         <ol className={'mb-4 list-inside list-decimal last:mb-0'}>
           {children}
         </ol>
+      ),
+      unordered: ({ children }: { children: React.ReactNode }) => (
+        <ul className={'mb-4 list-inside list-disc last:mb-0'}>{children}</ul>
       ),
     };
 
