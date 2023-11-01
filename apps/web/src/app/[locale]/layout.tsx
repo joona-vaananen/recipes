@@ -1,5 +1,4 @@
 import { Theme } from '@radix-ui/themes';
-import '@radix-ui/themes/styles.css';
 import type { Metadata } from 'next';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { Raleway, Roboto_Slab } from 'next/font/google';
@@ -8,7 +7,6 @@ import { notFound } from 'next/navigation';
 import { locales } from '@recipes/ui';
 
 import './globals.css';
-import './theme-config.css';
 
 const robotoSlab = Roboto_Slab({
   subsets: ['latin'],

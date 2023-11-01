@@ -1,4 +1,3 @@
-import { Container } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -18,11 +17,11 @@ const HomePage = async ({ params }: HomePageProps) => {
       <DynamicZone components={components}>
         {homePage.attributes.content}
       </DynamicZone>
-      <Container className={'container'} px={'4'}>
+      {/* <Container className={'container'} px={'4'}>
         <pre className={'whitespace-pre-wrap'}>
           {JSON.stringify(homePage, null, 2)}
         </pre>
-      </Container>
+      </Container> */}
     </>
   );
 };

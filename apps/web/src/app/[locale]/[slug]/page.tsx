@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 
 import { components } from '@/components';
 import { apiClient } from '@/lib/api/client';
-import { Container } from '@radix-ui/themes';
 import { DynamicZone } from '@recipes/ui';
 
 interface PageProps {
@@ -21,11 +20,11 @@ const Page = async ({ params }: PageProps) => {
       <DynamicZone components={components}>
         {page.attributes.content}
       </DynamicZone>
-      <Container className={'container'} px={'4'}>
+      {/* <Container className={'container'} px={'4'}>
         <pre className={'whitespace-pre-wrap'}>
           {JSON.stringify(page, null, 2)}
         </pre>
-      </Container>
+      </Container> */}
     </>
   );
 };

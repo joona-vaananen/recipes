@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { apiClient } from '@/lib/api/client';
-import { Container } from '@radix-ui/themes';
 import { Hero } from '@recipes/ui';
 
 interface PageProps {
@@ -22,11 +21,11 @@ const Page = async ({ params }: PageProps) => {
         description={recipe.attributes.description}
         title={recipe.attributes.title}
       />
-      <Container className={'container'} px={'4'}>
+      {/* <Container className={'container'} px={'4'}>
         <pre className={'whitespace-pre-wrap'}>
           {JSON.stringify(recipe, null, 2)}
         </pre>
-      </Container>
+      </Container> */}
     </>
   );
 };
