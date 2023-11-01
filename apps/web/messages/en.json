@@ -5,9 +5,9 @@
     "nextPage": "Next page",
     "noResults": "No recipes found",
     "openFilters": "Filter",
-    "page": "Page {page} / {totalPages}",
+    "page": "Page",
     "previousPage": "Previous page",
     "resetFilters": "Reset filters",
-    "showResults": "Show results ({totalHits})"
+    "showResults": "Show results"
   }
 }

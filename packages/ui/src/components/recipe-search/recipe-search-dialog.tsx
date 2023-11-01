@@ -8,12 +8,13 @@ import {
   ScrollArea,
   Separator,
 } from '@radix-ui/themes';
-import { Filter, RotateCcw } from 'lucide-react';
+import { Filter, Loader2, RotateCcw } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
 import { useRecipeSearch } from './recipe-search-context';
 
 interface RecipeSearchDialogProps {
   children: React.ReactNode;
+  totalHits: number;
   translations: {
     filters: string;
     openFilters: string;
@@ -24,10 +25,11 @@ interface RecipeSearchDialogProps {
 
 export const RecipeSearchDialog = ({
   children,
+  totalHits,
   translations,
 }: RecipeSearchDialogProps) => {
   const { reset } = useFormContext();
-  const { setIsSearching } = useRecipeSearch();
+  const { isSearching, setIsSearching } = useRecipeSearch();
 
   return (
     <Dialog.Root>
@@ -74,7 +76,14 @@ export const RecipeSearchDialog = ({
             <RotateCcw size={16} />
           </Button>
           <Dialog.Close>
-            <Button>{translations.showResults}</Button>
+            <Button>
+              {translations.showResults}
+              {isSearching ? (
+                <Loader2 className={'animate-spin'} size={16} />
+              ) : (
+                ` (${totalHits})`
+              )}
+            </Button>
           </Dialog.Close>
         </Flex>
       </Dialog.Content>

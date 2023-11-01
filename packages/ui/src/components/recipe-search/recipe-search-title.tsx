@@ -1,4 +1,9 @@
+'use client';
+
 import { Flex, Heading } from '@radix-ui/themes';
+
+import { Skeleton } from '../skeleton';
+import { useRecipeSearch } from './recipe-search-context';
 
 interface RecipeSearchTitleProps {
   hitsPerPage: number;
@@ -13,17 +18,33 @@ export const RecipeSearchTitle = ({
   title,
   totalHits,
 }: RecipeSearchTitleProps) => {
+  const { isSearching } = useRecipeSearch();
+  const isEmpty = totalHits === 0;
+
+  if (isSearching) {
+    return (
+      <Flex align={'center'} gap={'4'}>
+        <Heading size={'7'}>{title}</Heading>
+        <Skeleton className={'h-[30px] w-14'} />
+      </Flex>
+    );
+  }
+
+  if (isEmpty) {
+    <Flex align={'center'} gap={'4'}>
+      <Heading size={'7'}>{title}</Heading>
+    </Flex>;
+  }
+
   return (
     <Flex align={'center'} gap={'4'}>
       <Heading size={'7'}>{title}</Heading>
-      {totalHits > 0 ? (
-        <Heading asChild color={'ruby'}>
-          <span>{`${Math.min(
-            hitsPerPage * page,
-            totalHits
-          )} / ${totalHits}`}</span>
-        </Heading>
-      ) : null}
+      <Heading asChild color={'ruby'}>
+        <span>{`${Math.min(
+          hitsPerPage * page,
+          totalHits
+        )} / ${totalHits}`}</span>
+      </Heading>
     </Flex>
   );
 };

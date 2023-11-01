@@ -87,11 +87,12 @@ export const RecipeSearch = ({
         <Flex align={'center'} justify={'between'}>
           <Flex gap={'4'}>
             <RecipeSearchDialog
+              totalHits={totalHits}
               translations={{
                 filters: t('filters'),
                 openFilters: t('openFilters'),
                 resetFilters: t('resetFilters'),
-                showResults: t('showResults', { totalHits }),
+                showResults: t('showResults'),
               }}
             >
               <Flex direction={'column'} gap={'4'}>
@@ -135,7 +136,7 @@ export const RecipeSearch = ({
             totalPages={totalPages}
             translations={{
               nextPage: t('nextPage'),
-              page: t('page', { page, totalPages }),
+              page: t('page'),
               previousPage: t('previousPage'),
             }}
           />

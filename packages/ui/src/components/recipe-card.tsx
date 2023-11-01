@@ -1,4 +1,4 @@
-import { Card, Inset, Text } from '@radix-ui/themes';
+import { AspectRatio, Card, Inset, Text } from '@radix-ui/themes';
 import Image from 'next/image';
 
 import type { Recipe_Plain } from '@recipes/api/src/api/recipe/content-types/recipe/recipe';
@@ -22,7 +22,7 @@ export const RecipeCard = ({
     <Card {...props}>
       {image ? (
         <Inset clip={'padding-box'} side={'top'} pb={'current'}>
-          <div className={'relative pb-[calc(100%/(3/2))]'}>
+          <AspectRatio ratio={3 / 2}>
             <Image
               alt={''}
               blurDataURL={
@@ -36,7 +36,7 @@ export const RecipeCard = ({
               sizes={sizes ?? '100vw'}
               src={image.url}
             />
-          </div>
+          </AspectRatio>
         </Inset>
       ) : null}
       <Link

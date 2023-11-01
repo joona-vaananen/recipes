@@ -5,9 +5,9 @@
     "nextPage": "Seuraava sivu",
     "noResults": "Yhtään reseptiä ei löytynyt",
     "openFilters": "Rajaa",
-    "page": "Sivu {page} / {totalPages}",
+    "page": "Sivu",
     "previousPage": "Edellinen sivu",
     "resetFilters": "Tyhjennä ehdot",
-    "showResults": "Näytä tulokset ({totalHits})"
+    "showResults": "Näytä tulokset"
   }
 }

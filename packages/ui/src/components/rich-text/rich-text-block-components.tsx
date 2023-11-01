@@ -190,11 +190,7 @@ export const richTextBlockComponents = {
     }
 
     if (underline) {
-      return (
-        <Text asChild className={'underline'}>
-          <strong>{text}</strong>
-        </Text>
-      );
+      return <Text className={'underline'}>{text}</Text>;
     }
 
     return <Text>{text}</Text>;

@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import debounce from 'lodash.debounce';
 import { usePathname, useRouter } from 'next/navigation';
 import { stringify } from 'qs';
 import { createContext, useContext, useEffect, useState } from 'react';
@@ -41,7 +42,7 @@ export const RecipeSearchProvider = ({
   const { handleSubmit, watch } = recipeSearchForm;
 
   useEffect(() => {
-    const onSubmit = (values: RecipeSearchParamsSchema) => {
+    const onSubmit = debounce((values: RecipeSearchParamsSchema) => {
       setIsSearching(true);
 
       router.push(
@@ -53,7 +54,7 @@ export const RecipeSearchProvider = ({
         })}`,
         { scroll: false }
       );
-    };
+    }, 500);
 
     const subscription = watch(() => {
       void handleSubmit(onSubmit)();
