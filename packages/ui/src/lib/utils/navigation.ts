@@ -17,4 +17,7 @@ export const pathnames = {
 } satisfies Pathnames<typeof locales>;
 
 export const { Link, redirect, usePathname, useRouter, getPathname } =
-  createLocalizedPathnamesNavigation({ locales, pathnames });
+  createLocalizedPathnamesNavigation({
+    locales,
+    pathnames: pathnames as typeof pathnames & Record<string & {}, string>, // eslint-disable-line
+  });

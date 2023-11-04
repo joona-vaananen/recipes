@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_header_page_items",
+  "info": {
+    "displayName": "Page Item",
+    "icon": "cursor"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "page": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::page.page"
+    }
+  }
+}

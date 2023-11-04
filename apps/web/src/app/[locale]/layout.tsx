@@ -4,7 +4,9 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import { Raleway, Roboto_Slab } from 'next/font/google';
 import { notFound } from 'next/navigation';
 
+import { apiClient } from '@/lib/api/client';
 import { locales } from '@recipes/ui';
+import { Header } from '@recipes/ui/src/components';
 
 import './globals.css';
 
@@ -32,7 +34,7 @@ interface LayoutProps {
   params: { locale: string };
 }
 
-const Layout = ({ children, params }: LayoutProps) => {
+const Layout = async ({ children, params }: LayoutProps) => {
   const { locale } = params;
 
   if (!locales.includes(locale)) {
@@ -41,16 +43,61 @@ const Layout = ({ children, params }: LayoutProps) => {
 
   unstable_setRequestLocale(locale);
 
+  const header = await getHeaderData({ params });
+
   return (
     <html
       className={`${robotoSlab.variable} ${raleway.variable}`}
       lang={locale}
     >
       <body>
-        <Theme accentColor={'ruby'}>{children}</Theme>
+        <Theme accentColor={'ruby'}>
+          <Header
+            items={header.attributes.items}
+            logo={header.attributes.logo}
+          />
+          {children}
+        </Theme>
       </body>
     </html>
   );
 };
 
 export default Layout;
+
+const getHeaderData = async ({ params }: Pick<LayoutProps, 'params'>) => {
+  const { locale } = params;
+
+  const {
+    data: [header],
+  } = await apiClient.getMany({
+    contentType: 'header',
+    parameters: {
+      fields: ['id'],
+      locale,
+      populate: {
+        items: {
+          on: {
+            'header.home-page-item': {
+              fields: ['id', 'label'],
+            },
+            'header.page-item': {
+              fields: ['label'],
+              populate: {
+                page: {
+                  fields: ['id', 'slug'],
+                },
+              },
+            },
+            'header.recipe-search-page-item': {
+              fields: ['id', 'label'],
+            },
+          },
+        },
+        logo: true,
+      },
+    },
+  });
+
+  return header;
+};

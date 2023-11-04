@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import debounce from 'lodash.debounce';
+import throttle from 'lodash.throttle';
 import { usePathname, useRouter } from 'next/navigation';
 import { stringify } from 'qs';
 import { createContext, useContext, useEffect, useState } from 'react';
@@ -41,27 +41,33 @@ export const RecipeSearchProvider = ({
 
   const { handleSubmit, watch } = recipeSearchForm;
 
+  const onSubmit = throttle((values: RecipeSearchParamsSchema) => {
+    setIsSearching(true);
+
+    router.push(
+      `${pathname}${stringify(values, {
+        addQueryPrefix: true,
+        arrayFormat: 'repeat',
+        encodeValuesOnly: true,
+        skipNulls: true,
+      })}`,
+      { scroll: false }
+    );
+  }, 500);
+
   useEffect(() => {
-    const onSubmit = debounce((values: RecipeSearchParamsSchema) => {
-      setIsSearching(true);
-
-      router.push(
-        `${pathname}${stringify(values, {
-          addQueryPrefix: true,
-          arrayFormat: 'repeat',
-          encodeValuesOnly: true,
-          skipNulls: true,
-        })}`,
-        { scroll: false }
-      );
-    }, 500);
-
     const subscription = watch(() => {
       void handleSubmit(onSubmit)();
     });
 
     return () => subscription.unsubscribe();
-  }, [router, pathname, watch, handleSubmit]);
+  }, [handleSubmit, onSubmit, watch]);
+
+  useEffect(() => {
+    return () => {
+      onSubmit.cancel();
+    };
+  }, [onSubmit]);
 
   useEffect(() => {
     setIsSearching(false);

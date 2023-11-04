@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_header_home_page_items",
+  "info": {
+    "displayName": "Home Page Item",
+    "icon": "house"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

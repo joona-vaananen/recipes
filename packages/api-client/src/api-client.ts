@@ -11,6 +11,7 @@ import {
 } from './api-client-config';
 
 interface ContentTypes {
+  header: any; // TODO: Provide proper type
   'home-page': HomePage;
   pages: Page;
   recipes: Recipe;

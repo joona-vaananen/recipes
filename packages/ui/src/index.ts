@@ -1,5 +1,6 @@
 export {
   DynamicZone,
+  Header,
   Hero,
   RecipeCard,
   RecipeCarousel,

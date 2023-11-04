@@ -1,4 +1,5 @@
 export * from './dynamic-zone';
+export * from './header';
 export * from './hero';
 export * from './recipe-card';
 export * from './recipe-carousel';

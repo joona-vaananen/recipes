@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_header_recipe_search_page_items",
+  "info": {
+    "displayName": "Recipe Search Page Item",
+    "icon": "search"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    }
+  }
+}
