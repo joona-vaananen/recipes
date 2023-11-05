@@ -1,4 +1,7 @@
 {
+  "RecipeCarousel": {
+    "viewMore": "View more"
+  },
   "RecipeSearch": {
     "filters": "Search filters",
     "inputPlaceholder": "Search recipes...",

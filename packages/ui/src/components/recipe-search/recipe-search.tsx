@@ -1,4 +1,4 @@
-import { Flex } from '@radix-ui/themes';
+import { Container, Flex, Section } from '@radix-ui/themes';
 import { MeiliSearch } from 'meilisearch';
 import { useTranslations } from 'next-intl';
 import { use } from 'react';
@@ -77,71 +77,75 @@ export const RecipeSearch = ({
 
   return (
     <RecipeSearchProvider defaultValues={parsedSearchParams}>
-      <Flex direction={'column'} gap={'4'} p={'4'}>
-        <RecipeSearchTitle
-          hitsPerPage={hitsPerPage}
-          page={page}
-          title={title}
-          totalHits={totalHits}
-        />
-        <Flex align={'center'} justify={'between'}>
-          <Flex gap={'4'}>
-            <RecipeSearchDialog
+      <Section>
+        <Container className={'container'}>
+          <Flex direction={'column'} gap={'4'}>
+            <RecipeSearchTitle
+              hitsPerPage={hitsPerPage}
+              page={page}
+              title={title}
               totalHits={totalHits}
-              translations={{
-                filters: t('filters'),
-                openFilters: t('openFilters'),
-                resetFilters: t('resetFilters'),
-                showResults: t('showResults'),
-              }}
-            >
-              <Flex direction={'column'} gap={'4'}>
-                <RecipeSearchFilters
-                  searchConfig={searchConfig}
-                  facetDistribution={facetDistribution}
-                  filters={filters}
+            />
+            <Flex align={'center'} justify={'between'}>
+              <Flex gap={'4'}>
+                <RecipeSearchDialog
+                  totalHits={totalHits}
+                  translations={{
+                    filters: t('filters'),
+                    openFilters: t('openFilters'),
+                    resetFilters: t('resetFilters'),
+                    showResults: t('showResults'),
+                  }}
+                >
+                  <Flex direction={'column'} gap={'4'}>
+                    <RecipeSearchFilters
+                      searchConfig={searchConfig}
+                      facetDistribution={facetDistribution}
+                      filters={filters}
+                    />
+                  </Flex>
+                </RecipeSearchDialog>
+                <RecipeSearchInput
+                  translations={{
+                    inputPlaceholder: t('inputPlaceholder'),
+                  }}
                 />
               </Flex>
-            </RecipeSearchDialog>
-            <RecipeSearchInput
+              {sortOrder ? (
+                <RecipeSearchSortOrder
+                  label={sortOrder.label}
+                  options={sortOrder.options}
+                />
+              ) : null}
+            </Flex>
+            <RecipeSearchSelectedFilters
+              facetDistribution={facetDistribution}
+              searchFilters={parsedFilters}
+            />
+            <RecipeSearchResults
+              hits={hits}
+              hitsPerPage={hitsPerPage}
+              totalHits={totalHits}
               translations={{
-                inputPlaceholder: t('inputPlaceholder'),
+                noResults: t('noResults'),
               }}
             />
+            <Flex justify={'center'}>
+              <RecipeSearchPagination
+                page={page}
+                searchParams={parsedSearchParams}
+                totalHits={totalHits}
+                totalPages={totalPages}
+                translations={{
+                  nextPage: t('nextPage'),
+                  page: t('page'),
+                  previousPage: t('previousPage'),
+                }}
+              />
+            </Flex>
           </Flex>
-          {sortOrder ? (
-            <RecipeSearchSortOrder
-              label={sortOrder.label}
-              options={sortOrder.options}
-            />
-          ) : null}
-        </Flex>
-        <RecipeSearchSelectedFilters
-          facetDistribution={facetDistribution}
-          searchFilters={parsedFilters}
-        />
-        <RecipeSearchResults
-          hits={hits}
-          hitsPerPage={hitsPerPage}
-          totalHits={totalHits}
-          translations={{
-            noResults: t('noResults'),
-          }}
-        />
-        <Flex justify={'center'}>
-          <RecipeSearchPagination
-            page={page}
-            searchParams={parsedSearchParams}
-            totalHits={totalHits}
-            totalPages={totalPages}
-            translations={{
-              nextPage: t('nextPage'),
-              page: t('page'),
-              previousPage: t('previousPage'),
-            }}
-          />
-        </Flex>
-      </Flex>
+        </Container>
+      </Section>
     </RecipeSearchProvider>
   );
 };

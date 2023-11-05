@@ -1,4 +1,4 @@
-import { Container, Flex, Link } from '@radix-ui/themes';
+import { Container, Flex, Link, Separator } from '@radix-ui/themes';
 import Image from 'next/image';
 
 import type { Media } from '@recipes/api/src/common/interfaces/Media';
@@ -82,6 +82,7 @@ export const Header = ({ items, logo, ...props }: HeaderProps) => {
           </nav>
         </Flex>
       </Container>
+      <Separator decorative size={'4'} />
     </header>
   );
 };

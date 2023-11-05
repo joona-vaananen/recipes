@@ -54,6 +54,17 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::season.season"
+    },
+    "sort": {
+      "type": "enumeration",
+      "enum": [
+        "created-at-asc",
+        "created-at-desc",
+        "title-asc",
+        "title-desc"
+      ],
+      "required": true,
+      "default": "created-at-desc"
     }
   }
 }

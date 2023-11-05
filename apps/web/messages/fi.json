@@ -1,4 +1,7 @@
 {
+  "RecipeCarousel": {
+    "viewMore": "Katso lisää"
+  },
   "RecipeSearch": {
     "filters": "Hakuehdot",
     "inputPlaceholder": "Etsi reseptejä...",

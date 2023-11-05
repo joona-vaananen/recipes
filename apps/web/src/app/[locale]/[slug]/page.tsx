@@ -64,6 +64,7 @@ const getPageData = async ({ params }: PageProps) => {
               },
             },
             'ui.recipe-carousel': {
+              fields: ['id', 'limit', 'title', 'sort'],
               populate: {
                 categories: true,
                 courses: true,

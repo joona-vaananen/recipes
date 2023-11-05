@@ -1,4 +1,4 @@
-import { Theme } from '@radix-ui/themes';
+import { Flex, Theme } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { Raleway, Roboto_Slab } from 'next/font/google';
@@ -55,15 +55,17 @@ const Layout = async ({ children, params }: LayoutProps) => {
     >
       <body>
         <Theme accentColor={'ruby'}>
-          <Header
-            items={header.attributes.items}
-            logo={header.attributes.logo}
-          />
-          {children}
-          <Footer
-            copyright={footer.attributes.copyright}
-            logo={footer.attributes.logo}
-          />
+          <Flex className={'min-h-screen'} direction={'column'}>
+            <Header
+              items={header.attributes.items}
+              logo={header.attributes.logo}
+            />
+            <main className={'flex-grow'}>{children}</main>
+            <Footer
+              copyright={footer.attributes.copyright}
+              logo={footer.attributes.logo}
+            />
+          </Flex>
         </Theme>
       </body>
     </html>

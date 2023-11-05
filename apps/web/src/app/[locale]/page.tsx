@@ -59,6 +59,7 @@ const getHomePageData = async ({ params }: HomePageProps) => {
               },
             },
             'ui.recipe-carousel': {
+              fields: ['id', 'limit', 'title', 'sort'],
               populate: {
                 categories: true,
                 courses: true,
