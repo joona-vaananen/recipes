@@ -103,6 +103,37 @@
       "relation": "manyToMany",
       "target": "api::cuisine.cuisine",
       "inversedBy": "recipes"
+    },
+    "content": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "dynamiczone",
+      "components": [
+        "ui.rich-text"
+      ]
+    },
+    "ingredientList": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "recipe.ingredient-list",
+      "required": true
+    },
+    "servings": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "integer",
+      "required": true
     }
   }
 }

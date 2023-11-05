@@ -34,7 +34,9 @@ export const generateMetadata = async ({
   const homePage = await getHomePageData({ params });
 
   return {
-    title: homePage.attributes.title,
+    title: homePage.attributes.title
+      ? `${homePage.attributes.title} | Olisipa`
+      : 'Olisipa',
   };
 };
 

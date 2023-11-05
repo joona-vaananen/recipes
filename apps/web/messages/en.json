@@ -1,4 +1,8 @@
 {
+  "IngredientList": {
+    "servings": "Servings",
+    "title": "Ingredients"
+  },
   "RecipeCarousel": {
     "viewMore": "View more"
   },

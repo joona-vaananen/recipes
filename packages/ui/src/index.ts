@@ -2,6 +2,7 @@ export {
   DynamicZone,
   Header,
   Hero,
+  IngredientList,
   RecipeCard,
   RecipeCarousel,
   RecipeSearch,

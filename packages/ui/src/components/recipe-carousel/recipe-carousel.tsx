@@ -69,7 +69,7 @@ export const RecipeCarousel = ({
       <Container className={'container'}>
         <Flex justify={'between'}>
           {title ? (
-            <Heading as={'h2'} mb={'6'} size={'7'}>
+            <Heading as={'h2'} mb={'7'} size={'7'}>
               {title}
             </Heading>
           ) : null}

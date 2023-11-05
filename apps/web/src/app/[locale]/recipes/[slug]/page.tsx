@@ -1,8 +1,10 @@
+import { Container } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { apiClient } from '@/lib/api/client';
-import { Hero } from '@recipes/ui';
+import { DynamicZone, Hero, RichText } from '@recipes/ui';
+import { IngredientList } from '@recipes/ui/src/components';
 
 interface PageProps {
   params: {
@@ -21,11 +23,17 @@ const Page = async ({ params }: PageProps) => {
         description={recipe.attributes.description}
         title={recipe.attributes.title}
       />
-      {/* <Container className={'container'} px={'4'}>
-        <pre className={'whitespace-pre-wrap'}>
-          {JSON.stringify(recipe, null, 2)}
-        </pre>
-      </Container> */}
+      <DynamicZone
+        components={{
+          'ui.rich-text': RichText,
+        }}
+      >
+        {recipe.attributes.content}
+      </DynamicZone>
+      <IngredientList
+        items={recipe.attributes.ingredientList}
+        servings={recipe.attributes.servings}
+      />
     </>
   );
 };
@@ -50,12 +58,29 @@ const getRecipeData = async ({ params }: PageProps) => {
   } = await apiClient.getMany({
     contentType: 'recipes',
     parameters: {
-      fields: ['id', 'description', 'slug', 'title'],
+      fields: ['id', 'description', 'servings', 'slug', 'title'],
       filters: { slug },
       locale,
       pagination: { limit: 1 },
       populate: {
-        image: { fields: ['height', 'id', 'placeholder', 'url', 'width'] },
+        content: {
+          on: {
+            'ui.rich-text': {
+              fields: ['blocks', 'id'],
+            },
+          },
+        },
+        image: {
+          fields: ['height', 'id', 'placeholder', 'url', 'width'],
+        },
+        ingredientList: {
+          fields: ['id', 'title'],
+          populate: {
+            items: {
+              fields: ['amount', 'id', 'label', 'unit'],
+            },
+          },
+        },
       },
     },
   });

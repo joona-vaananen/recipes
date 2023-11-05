@@ -1,4 +1,8 @@
 {
+  "IngredientList": {
+    "servings": "Annoksia",
+    "title": "Ainekset"
+  },
   "RecipeCarousel": {
     "viewMore": "Katso lisää"
   },
