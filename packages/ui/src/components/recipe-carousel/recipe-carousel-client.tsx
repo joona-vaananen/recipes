@@ -11,7 +11,7 @@ export const RecipeCarouselClient = ({
   className,
   ...props
 }: RecipeCarouselClientProps) => {
-  const [ref] = useEmblaCarousel();
+  const [ref] = useEmblaCarousel({ dragFree: true });
 
   return (
     <div className={cn('embla', className)} {...props} ref={ref}>

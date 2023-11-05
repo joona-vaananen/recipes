@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 
 import { apiClient } from '@/lib/api/client';
 import { locales } from '@recipes/ui';
-import { Header } from '@recipes/ui/src/components';
+import { Footer, Header } from '@recipes/ui/src/components';
 
 import './globals.css';
 
@@ -43,7 +43,10 @@ const Layout = async ({ children, params }: LayoutProps) => {
 
   unstable_setRequestLocale(locale);
 
-  const header = await getHeaderData({ params });
+  const [header, footer] = await Promise.all([
+    getHeaderData({ params }),
+    getFooterData({ params }),
+  ]);
 
   return (
     <html
@@ -57,6 +60,10 @@ const Layout = async ({ children, params }: LayoutProps) => {
             logo={header.attributes.logo}
           />
           {children}
+          <Footer
+            copyright={footer.attributes.copyright}
+            logo={footer.attributes.logo}
+          />
         </Theme>
       </body>
     </html>
@@ -100,4 +107,23 @@ const getHeaderData = async ({ params }: Pick<LayoutProps, 'params'>) => {
   });
 
   return header;
+};
+
+const getFooterData = async ({ params }: Pick<LayoutProps, 'params'>) => {
+  const { locale } = params;
+
+  const {
+    data: [footer],
+  } = await apiClient.getMany({
+    contentType: 'footer',
+    parameters: {
+      fields: ['copyright', 'id'],
+      locale,
+      populate: {
+        logo: true,
+      },
+    },
+  });
+
+  return footer;
 };

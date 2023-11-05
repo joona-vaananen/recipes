@@ -10,8 +10,10 @@ import {
   type APIClientConfigOutput,
 } from './api-client-config';
 
+// TODO: Provide proper types
 interface ContentTypes {
-  header: any; // TODO: Provide proper type
+  footer: any; 
+  header: any;
   'home-page': HomePage;
   pages: Page;
   recipes: Recipe;
