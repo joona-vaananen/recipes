@@ -83,6 +83,7 @@ services:
         SEARCH_PORT: ${SEARCH_PORT}
         SEARCH_PROTOCOL: ${SEARCH_PROTOCOL}
         WEB_BASE_URL: ${WEB_BASE_URL}
+        WEB_TIME_ZONE: ${WEB_TIME_ZONE}
     volumes:
       - ./apps/web/messages:/app/apps/web/messages
       - ./apps/web/public:/app/apps/web/public

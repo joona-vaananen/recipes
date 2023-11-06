@@ -1,5 +1,6 @@
 import { Flex, Theme } from '@radix-ui/themes';
 import type { Metadata } from 'next';
+import { NextIntlClientProvider } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { Raleway, Roboto_Slab } from 'next/font/google';
 import { notFound } from 'next/navigation';
@@ -8,6 +9,7 @@ import { apiClient } from '@/lib/api/client';
 import { locales } from '@recipes/ui';
 import { Footer, Header } from '@recipes/ui/src/components';
 
+import { TIME_ZONE } from '@/constants';
 import './globals.css';
 
 const robotoSlab = Roboto_Slab({
@@ -54,19 +56,21 @@ const Layout = async ({ children, params }: LayoutProps) => {
       lang={locale}
     >
       <body>
-        <Theme accentColor={'ruby'}>
-          <Flex className={'min-h-screen'} direction={'column'}>
-            <Header
-              items={header.attributes.items}
-              logo={header.attributes.logo}
-            />
-            <main className={'flex-grow'}>{children}</main>
-            <Footer
-              copyright={footer.attributes.copyright}
-              logo={footer.attributes.logo}
-            />
-          </Flex>
-        </Theme>
+        <NextIntlClientProvider>
+          <Theme accentColor={'ruby'}>
+            <Flex className={'min-h-screen'} direction={'column'}>
+              <Header
+                items={header.attributes.items}
+                logo={header.attributes.logo}
+              />
+              <main className={'flex-grow'}>{children}</main>
+              <Footer
+                copyright={footer.attributes.copyright}
+                logo={footer.attributes.logo}
+              />
+            </Flex>
+          </Theme>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
