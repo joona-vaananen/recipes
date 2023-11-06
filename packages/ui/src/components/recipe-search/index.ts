@@ -5,7 +5,6 @@ export * from './recipe-search-context';
 export * from './recipe-search-dialog';
 export * from './recipe-search-filters';
 export * from './recipe-search-input';
-export * from './recipe-search-pagination';
 export * from './recipe-search-results';
 export * from './recipe-search-schemas';
 export * from './recipe-search-selected-filter';

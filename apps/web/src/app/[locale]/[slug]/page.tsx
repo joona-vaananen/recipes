@@ -70,7 +70,7 @@ const getPageData = async ({ params }: PageProps) => {
                 courses: true,
                 cuisines: true,
                 diets: true,
-                ingredients: true,
+                mainIngredients: true,
                 mealTypes: true,
                 methods: true,
                 seasons: true,

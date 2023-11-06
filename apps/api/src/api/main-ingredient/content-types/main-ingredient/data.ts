@@ -1,4 +1,4 @@
-export const INGREDIENTS = [
+export const MAIN_INGREDIENTS = [
   'Avocado',
   'Bacon',
   'Bell Pepper',

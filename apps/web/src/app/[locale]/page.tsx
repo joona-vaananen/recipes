@@ -67,7 +67,7 @@ const getHomePageData = async ({ params }: HomePageProps) => {
                 courses: true,
                 cuisines: true,
                 diets: true,
-                ingredients: true,
+                mainIngredients: true,
                 mealTypes: true,
                 methods: true,
                 seasons: true,

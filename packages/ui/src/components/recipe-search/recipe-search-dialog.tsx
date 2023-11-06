@@ -62,7 +62,7 @@ export const RecipeSearchDialog = ({
                 course: null,
                 cuisine: null,
                 diet: null,
-                ingredient: null,
+                mainIngredient: null,
                 mealType: null,
                 method: null,
                 search: null,

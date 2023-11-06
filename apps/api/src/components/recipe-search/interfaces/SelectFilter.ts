@@ -5,10 +5,11 @@ export enum Name {
   Course = 'course',
   Cuisine = 'cuisine',
   Diet = 'diet',
-  Ingredient = 'ingredient',
+  MainIngredient = 'mainIngredient',
   MealType = 'mealType',
   Method = 'method',
-  Season = 'season',}
+  Season = 'season',
+}
 
 export interface SelectFilter {
   label: string;
@@ -26,4 +27,3 @@ export interface SelectFilter_NoRelations {
   multiple: boolean;
   name: Name;
 }
-

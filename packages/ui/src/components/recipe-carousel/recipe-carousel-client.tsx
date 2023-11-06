@@ -1,6 +1,7 @@
 'use client';
 
 import useEmblaCarousel from 'embla-carousel-react';
+import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
 
 import { cn } from '../../lib/utils/cn';
 
@@ -11,7 +12,7 @@ export const RecipeCarouselClient = ({
   className,
   ...props
 }: RecipeCarouselClientProps) => {
-  const [ref] = useEmblaCarousel({ dragFree: true });
+  const [ref] = useEmblaCarousel({ dragFree: true }, [WheelGesturesPlugin()]);
 
   return (
     <div className={cn('embla', className)} {...props} ref={ref}>

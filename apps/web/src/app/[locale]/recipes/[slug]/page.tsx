@@ -1,4 +1,3 @@
-import { Container } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -31,7 +30,7 @@ const Page = async ({ params }: PageProps) => {
         {recipe.attributes.content}
       </DynamicZone>
       <IngredientList
-        items={recipe.attributes.ingredientList}
+        items={recipe.attributes.ingredients}
         servings={recipe.attributes.servings}
       />
     </>
@@ -73,7 +72,7 @@ const getRecipeData = async ({ params }: PageProps) => {
         image: {
           fields: ['height', 'id', 'placeholder', 'url', 'width'],
         },
-        ingredientList: {
+        ingredients: {
           fields: ['id', 'title'],
           populate: {
             items: {

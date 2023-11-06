@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "ingredients",
+  "collectionName": "main_ingredients",
   "info": {
-    "singularName": "ingredient",
-    "pluralName": "ingredients",
-    "displayName": "Ingredient"
+    "singularName": "main-ingredient",
+    "pluralName": "main-ingredients",
+    "displayName": "Main Ingredient"
   },
   "options": {
     "draftAndPublish": true
@@ -38,7 +38,7 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::recipe.recipe",
-      "mappedBy": "ingredients"
+      "mappedBy": "mainIngredients"
     },
     "icon": {
       "type": "relation",

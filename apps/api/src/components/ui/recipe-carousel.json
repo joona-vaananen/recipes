@@ -35,10 +35,10 @@
       "relation": "oneToMany",
       "target": "api::diet.diet"
     },
-    "ingredients": {
+    "mainIngredients": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::ingredient.ingredient"
+      "target": "api::main-ingredient.main-ingredient"
     },
     "mealTypes": {
       "type": "relation",
@@ -57,12 +57,7 @@
     },
     "sort": {
       "type": "enumeration",
-      "enum": [
-        "created-at-asc",
-        "created-at-desc",
-        "title-asc",
-        "title-desc"
-      ],
+      "enum": ["created-at-asc", "created-at-desc", "title-asc", "title-desc"],
       "required": true,
       "default": "created-at-desc"
     }

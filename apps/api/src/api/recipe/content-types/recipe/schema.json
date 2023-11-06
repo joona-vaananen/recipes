@@ -92,10 +92,10 @@
       "target": "api::method.method",
       "inversedBy": "recipes"
     },
-    "ingredients": {
+    "mainIngredients": {
       "type": "relation",
       "relation": "manyToMany",
-      "target": "api::ingredient.ingredient",
+      "target": "api::main-ingredient.main-ingredient",
       "inversedBy": "recipes"
     },
     "cuisines": {
@@ -115,7 +115,7 @@
         "ui.rich-text"
       ]
     },
-    "ingredientList": {
+    "ingredients": {
       "type": "component",
       "repeatable": true,
       "pluginOptions": {

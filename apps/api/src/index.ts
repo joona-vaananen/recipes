@@ -13,7 +13,7 @@ const app = {
     await strapi.service('api::course.course')!.bootstrap();
     await strapi.service('api::cuisine.cuisine')!.bootstrap();
     await strapi.service('api::diet.diet')!.bootstrap();
-    await strapi.service('api::ingredient.ingredient')!.bootstrap();
+    await strapi.service('api::main-ingredient.main-ingredient')!.bootstrap();
     await strapi.service('api::meal-type.meal-type')!.bootstrap();
     await strapi.service('api::method.method')!.bootstrap();
     await strapi.service('api::season.season')!.bootstrap();

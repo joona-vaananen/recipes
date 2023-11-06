@@ -5,10 +5,11 @@ export enum Attribute {
   Courses = 'courses',
   Cuisines = 'cuisines',
   Diets = 'diets',
-  Ingredients = 'ingredients',
+  MainIngredients = 'mainIngredients',
   MealTypes = 'mealTypes',
   Methods = 'methods',
-  Seasons = 'seasons',}
+  Seasons = 'seasons',
+}
 
 export interface RecipeSearchSelectFilter {
   label: string;
@@ -26,4 +27,3 @@ export interface RecipeSearchSelectFilter_NoRelations {
   multiple: boolean;
   attribute: Attribute;
 }
-

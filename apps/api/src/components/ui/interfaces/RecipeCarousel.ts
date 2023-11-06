@@ -14,9 +14,9 @@ import {
 } from '../../../api/cuisine/content-types/cuisine/cuisine';
 import { Diet, Diet_Plain } from '../../../api/diet/content-types/diet/diet';
 import {
-  Ingredient,
-  Ingredient_Plain,
-} from '../../../api/ingredient/content-types/ingredient/ingredient';
+  MainIngredient,
+  MainIngredient_Plain,
+} from '../../../api/main-ingredient/content-types/main-ingredient/main-ingredient';
 import {
   MealType,
   MealType_Plain,
@@ -37,7 +37,7 @@ export interface RecipeCarousel {
   courses: { data: Course[] };
   cuisines: { data: Cuisine[] };
   diets: { data: Diet[] };
-  ingredients: { data: Ingredient[] };
+  mainIngredients: { data: MainIngredient[] };
   mealTypes: { data: MealType[] };
   methods: { data: Method[] };
   seasons: { data: Season[] };
@@ -50,7 +50,7 @@ export interface RecipeCarousel_Plain {
   courses: Course_Plain[];
   cuisines: Cuisine_Plain[];
   diets: Diet_Plain[];
-  ingredients: Ingredient_Plain[];
+  mainIngredients: MainIngredient_Plain[];
   mealTypes: MealType_Plain[];
   methods: Method_Plain[];
   seasons: Season_Plain[];
@@ -64,7 +64,7 @@ export interface RecipeCarousel_NoRelations {
   courses: number[];
   cuisines: number[];
   diets: number[];
-  ingredients: number[];
+  mainIngredients: number[];
   mealTypes: number[];
   methods: number[];
   seasons: number[];

@@ -23,7 +23,7 @@ interface RecipeSearchCheckboxFilterProps {
     | 'course'
     | 'cuisine'
     | 'diet'
-    | 'ingredient'
+    | 'mainIngredient'
     | 'mealType'
     | 'method'
     | 'season';

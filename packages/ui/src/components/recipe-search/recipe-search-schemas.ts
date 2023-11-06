@@ -5,7 +5,7 @@ export const recipeSearchParamsSchema = z.object({
   course: z.union([z.string(), z.string().array()]).nullish(),
   cuisine: z.union([z.string(), z.string().array()]).nullish(),
   diet: z.union([z.string(), z.string().array()]).nullish(),
-  ingredient: z.union([z.string(), z.string().array()]).nullish(),
+  mainIngredient: z.union([z.string(), z.string().array()]).nullish(),
   mealType: z.union([z.string(), z.string().array()]).nullish(),
   method: z.union([z.string(), z.string().array()]).nullish(),
   search: z

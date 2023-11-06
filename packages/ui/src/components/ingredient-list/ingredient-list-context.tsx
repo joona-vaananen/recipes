@@ -15,7 +15,7 @@ const IngredientListContext = createContext<
 
 interface IngredientListProviderProps {
   children: React.ReactNode;
-  defaultValues: IngredientListSchema;
+  defaultValues: { servings: number };
 }
 
 export const IngredientListProvider = ({
@@ -30,7 +30,7 @@ export const IngredientListProvider = ({
 
   const { watch } = ingredientListForm;
   const servings = watch('servings');
-  const ingredientMultiplier = servings / defaultValues.servings;
+  const ingredientMultiplier = servings! / defaultValues.servings;
 
   return (
     <IngredientListContext.Provider value={{ ingredientMultiplier }}>

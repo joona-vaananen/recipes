@@ -4,7 +4,10 @@ export const recipeSearchConfig = {
     course: { attribute: 'courses', field: 'courses.slug' },
     cuisine: { attribute: 'cuisines', field: 'cuisines.slug' },
     diet: { attribute: 'diets', field: 'diets.slug' },
-    ingredient: { attribute: 'ingredients', field: 'ingredients.slug' },
+    mainIngredient: {
+      attribute: 'mainIngredients',
+      field: 'mainIngredients.slug',
+    },
     mealType: { attribute: 'mealTypes', field: 'mealTypes.slug' },
     method: { attribute: 'methods', field: 'methods.slug' },
     season: { attribute: 'seasons', field: 'seasons.slug' },

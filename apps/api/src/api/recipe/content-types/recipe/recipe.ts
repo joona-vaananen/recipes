@@ -16,9 +16,9 @@ import {
 } from '../../../cuisine/content-types/cuisine/cuisine';
 import { Diet, Diet_Plain } from '../../../diet/content-types/diet/diet';
 import {
-  Ingredient,
-  Ingredient_Plain,
-} from '../../../ingredient/content-types/ingredient/ingredient';
+  MainIngredient,
+  MainIngredient_Plain,
+} from '../../../main-ingredient/content-types/main-ingredient/main-ingredient';
 import {
   MealType,
   MealType_Plain,
@@ -48,12 +48,12 @@ export interface Recipe {
     diets?: { data: Diet[] };
     seasons?: { data: Season[] };
     methods?: { data: Method[] };
-    ingredients?: { data: Ingredient[] };
+    mainIngredients?: { data: MainIngredient[] };
     cuisines?: { data: Cuisine[] };
     locale: string;
     localizations?: { data: Recipe[] };
     content: any;
-    ingredientList: any;
+    ingredients: any;
     servings: number;
   };
 }
@@ -72,12 +72,12 @@ export interface Recipe_Plain {
   diets?: Diet_Plain[];
   seasons?: Season_Plain[];
   methods?: Method_Plain[];
-  ingredients?: Ingredient_Plain[];
+  mainIngredients?: MainIngredient_Plain[];
   cuisines?: Cuisine_Plain[];
   locale: string;
   localizations?: Recipe[];
   content: any;
-  ingredientList: any;
+  ingredients: any;
   servings: number;
 }
 
@@ -96,12 +96,12 @@ export interface Recipe_NoRelations {
   diets?: number[];
   seasons?: number[];
   methods?: number[];
-  ingredients?: number[];
+  mainIngredients?: number[];
   cuisines?: number[];
   locale: string;
   localizations?: Recipe[];
   content: any;
-  ingredientList: any;
+  ingredients: any;
   servings: number;
 }
 
@@ -120,11 +120,11 @@ export interface Recipe_AdminPanelLifeCycle {
   diets?: AdminPanelRelationPropertyModification<Diet_Plain>;
   seasons?: AdminPanelRelationPropertyModification<Season_Plain>;
   methods?: AdminPanelRelationPropertyModification<Method_Plain>;
-  ingredients?: AdminPanelRelationPropertyModification<Ingredient_Plain>;
+  mainIngredients?: AdminPanelRelationPropertyModification<MainIngredient_Plain>;
   cuisines?: AdminPanelRelationPropertyModification<Cuisine_Plain>;
   locale: string;
   localizations?: Recipe[];
   content: any;
-  ingredientList: any;
+  ingredients: any;
   servings: number;
 }
