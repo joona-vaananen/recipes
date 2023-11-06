@@ -9,7 +9,6 @@ import { apiClient } from '@/lib/api/client';
 import { locales } from '@recipes/ui';
 import { Footer, Header } from '@recipes/ui/src/components';
 
-import { TIME_ZONE } from '@/constants';
 import './globals.css';
 
 const robotoSlab = Roboto_Slab({
