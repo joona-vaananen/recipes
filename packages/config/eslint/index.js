@@ -43,6 +43,7 @@ module.exports = {
     '@typescript-eslint/no-unsafe-member-access': 'off',
     '@typescript-eslint/no-unsafe-return': 'off',
     '@typescript-eslint/prefer-nullish-coalescing': 'off',
+    'no-empty': 'off',
   },
   root: true,
 };

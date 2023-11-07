@@ -1,10 +1,18 @@
-import { Container, Grid, Section } from '@radix-ui/themes';
+import { Container, Grid } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { apiClient } from '@/lib/api/client';
-import { DynamicZone, Hero, RichText } from '@recipes/ui';
-import { IngredientList, InstructionList } from '@recipes/ui/src/components';
+import {
+  CommentForm,
+  CommentList,
+  DynamicZone,
+  Hero,
+  IngredientList,
+  InstructionList,
+  RichText,
+} from '@recipes/ui/src/components';
+import { Suspense } from 'react';
 
 interface PageProps {
   params: {
@@ -14,6 +22,7 @@ interface PageProps {
 }
 
 const Page = async ({ params }: PageProps) => {
+  const { locale } = params;
   const recipe = await getRecipeData({ params });
 
   return (
@@ -30,24 +39,25 @@ const Page = async ({ params }: PageProps) => {
       >
         {recipe.attributes.content}
       </DynamicZone>
-      <Section>
-        <Container className={'container'}>
-          <Grid
-            gapX={'4'}
-            gapY={'8'}
-            columns={{
-              initial: '1',
-              sm: '2',
-            }}
-          >
-            <IngredientList
-              items={recipe.attributes.ingredients}
-              servings={recipe.attributes.servings}
-            />
-            <InstructionList items={recipe.attributes.instructions} />
-          </Grid>
-        </Container>
-      </Section>
+      <Container className={'container'}>
+        <Grid
+          gap={'4'}
+          columns={{
+            initial: '1',
+            sm: '2',
+          }}
+        >
+          <IngredientList
+            items={recipe.attributes.ingredients}
+            servings={recipe.attributes.servings}
+          />
+          <InstructionList items={recipe.attributes.instructions} />
+        </Grid>
+      </Container>
+      <CommentForm apiClient={apiClient} locale={locale} recipe={recipe.id} />
+      <Suspense>
+        <CommentList apiClient={apiClient} locale={locale} recipe={recipe.id} />
+      </Suspense>
     </>
   );
 };

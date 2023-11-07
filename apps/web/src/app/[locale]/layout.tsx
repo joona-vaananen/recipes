@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 
 import { apiClient } from '@/lib/api/client';
 import { locales } from '@recipes/ui';
-import { Footer, Header } from '@recipes/ui/src/components';
+import { Footer, Header, UserProvider } from '@recipes/ui/src/components';
 
 import './globals.css';
 
@@ -55,21 +55,23 @@ const Layout = async ({ children, params }: LayoutProps) => {
       lang={locale}
     >
       <body>
-        <NextIntlClientProvider>
-          <Theme accentColor={'ruby'}>
-            <Flex className={'min-h-screen'} direction={'column'}>
-              <Header
-                items={header.attributes.items}
-                logo={header.attributes.logo}
-              />
-              <main className={'flex-grow'}>{children}</main>
-              <Footer
-                copyright={footer.attributes.copyright}
-                logo={footer.attributes.logo}
-              />
-            </Flex>
-          </Theme>
-        </NextIntlClientProvider>
+        <UserProvider>
+          <NextIntlClientProvider>
+            <Theme accentColor={'ruby'}>
+              <Flex className={'min-h-screen'} direction={'column'}>
+                <Header
+                  items={header.attributes.items}
+                  logo={header.attributes.logo}
+                />
+                <main className={'flex-grow'}>{children}</main>
+                <Footer
+                  copyright={footer.attributes.copyright}
+                  logo={footer.attributes.logo}
+                />
+              </Flex>
+            </Theme>
+          </NextIntlClientProvider>
+        </UserProvider>
       </body>
     </html>
   );

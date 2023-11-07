@@ -1,3 +1,5 @@
+export * from './comment-form';
+export * from './comment-list';
 export * from './dynamic-zone';
 export * from './footer';
 export * from './header';
@@ -11,3 +13,4 @@ export * from './recipe-carousel';
 export * from './recipe-search';
 export * from './rich-text';
 export * from './unordered-list';
+export * from './user-context';

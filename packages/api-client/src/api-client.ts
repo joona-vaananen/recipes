@@ -10,12 +10,16 @@ import {
   type APIClientConfigOutput,
 } from './api-client-config';
 
+export type APIClientInstance = InstanceType<typeof APIClient>;
+
 // TODO: Provide proper types
 interface ContentTypes {
-  footer: any; 
+  comments: any;
+  footer: any;
   header: any;
   'home-page': HomePage;
   pages: Page;
+  ratings: any;
   recipes: Recipe;
   'recipe-search-page': RecipeSearchPage;
 }

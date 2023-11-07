@@ -1,12 +1,17 @@
 export {
+  CommentForm,
+  CommentList,
   DynamicZone,
+  Footer,
   Header,
   Hero,
   IngredientList,
+  InstructionList,
   RecipeCard,
   RecipeCarousel,
   RecipeSearch,
   RichText,
+  UserProvider,
 } from './components';
 export {
   Link,
