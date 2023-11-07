@@ -11,13 +11,12 @@ export interface RichTextProps {
   blocks: RichTextBlock[];
   components?: RichTextBlockComponents;
   wrapper?:
-    | false
     | (({
         children,
       }: {
         children: React.ReactNode;
       }) => JSX.Element | Promise<JSX.Element>)
-    | null;
+    | false;
 }
 
 export const RichText = ({

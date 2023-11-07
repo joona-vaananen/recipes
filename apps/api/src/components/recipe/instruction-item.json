@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_recipe_instruction_items",
+  "info": {
+    "displayName": "Instruction Item",
+    "icon": "information"
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "blocks",
+      "required": true
+    }
+  }
+}

@@ -1,9 +1,10 @@
+import { Container, Grid, Section } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { apiClient } from '@/lib/api/client';
 import { DynamicZone, Hero, RichText } from '@recipes/ui';
-import { IngredientList } from '@recipes/ui/src/components';
+import { IngredientList, InstructionList } from '@recipes/ui/src/components';
 
 interface PageProps {
   params: {
@@ -29,10 +30,24 @@ const Page = async ({ params }: PageProps) => {
       >
         {recipe.attributes.content}
       </DynamicZone>
-      <IngredientList
-        items={recipe.attributes.ingredients}
-        servings={recipe.attributes.servings}
-      />
+      <Section>
+        <Container className={'container'}>
+          <Grid
+            gapX={'4'}
+            gapY={'8'}
+            columns={{
+              initial: '1',
+              sm: '2',
+            }}
+          >
+            <IngredientList
+              items={recipe.attributes.ingredients}
+              servings={recipe.attributes.servings}
+            />
+            <InstructionList items={recipe.attributes.instructions} />
+          </Grid>
+        </Container>
+      </Section>
     </>
   );
 };
@@ -76,7 +91,15 @@ const getRecipeData = async ({ params }: PageProps) => {
           fields: ['id', 'title'],
           populate: {
             items: {
-              fields: ['amount', 'id', 'label', 'unit'],
+              fields: ['amount', 'content', 'id', 'unit'],
+            },
+          },
+        },
+        instructions: {
+          fields: ['id', 'title'],
+          populate: {
+            items: {
+              fields: ['content', 'id'],
             },
           },
         },

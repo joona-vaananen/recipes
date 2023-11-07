@@ -134,6 +134,17 @@
       },
       "type": "integer",
       "required": true
+    },
+    "instructions": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "recipe.instruction-list",
+      "required": true
     }
   }
 }

@@ -11,6 +11,9 @@ import NextImage from 'next/image';
 import NextLink from 'next/link';
 
 import { BASE_URL } from '../../constants';
+import { ListItem } from '../list-item';
+import { OrderedList } from '../ordered-list';
+import { UnorderedList } from '../unordered-list';
 import type { RichTextBlockComponents } from './rich-text-block-types';
 
 export const richTextBlockComponents = {
@@ -143,22 +146,14 @@ export const richTextBlockComponents = {
   list: ({ children, format }) => {
     const components = {
       ordered: ({ children }: { children: React.ReactNode }) => (
-        <ol
-          className={
-            'my-4 list-inside list-decimal marker:text-accent-9 first:mt-0 last:mb-0'
-          }
-        >
+        <OrderedList className={'my-4 first:mt-0 last:mb-0'}>
           {children}
-        </ol>
+        </OrderedList>
       ),
       unordered: ({ children }: { children: React.ReactNode }) => (
-        <ul
-          className={
-            'my-4 list-inside list-disc marker:text-accent-9 first:mt-0 last:mb-0'
-          }
-        >
+        <UnorderedList className={'my-4 first:mt-0 last:mb-0'}>
           {children}
-        </ul>
+        </UnorderedList>
       ),
     };
 
@@ -170,7 +165,7 @@ export const richTextBlockComponents = {
 
     return <Component>{children}</Component>;
   },
-  'list-item': ({ children }) => <li>{children}</li>,
+  'list-item': ({ children }) => <ListItem>{children}</ListItem>,
   paragraph: ({ children }) => (
     <Text as={'p'} className={'last:mb-0'} mb={'4'}>
       {children}
@@ -183,7 +178,7 @@ export const richTextBlockComponents = {
   ),
   text: ({ bold, code, italic, strikethrough, text, underline }) => {
     if (!text) {
-      return <br />;
+      return null;
     }
 
     if (bold) {

@@ -3,6 +3,9 @@
     "servings": "Servings",
     "title": "Ingredients"
   },
+  "InstructionList": {
+    "title": "Instructions"
+  },
   "RecipeCarousel": {
     "viewMore": "View more"
   },

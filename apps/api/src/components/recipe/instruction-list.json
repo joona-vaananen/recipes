@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_recipe_instruction_lists",
+  "info": {
+    "displayName": "Instruction List",
+    "icon": "bulletList",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "recipe.instruction-item",
+      "required": true
+    }
+  }
+}

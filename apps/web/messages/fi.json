@@ -3,6 +3,9 @@
     "servings": "Annoksia",
     "title": "Ainekset"
   },
+  "InstructionList": {
+    "title": "Ohjeet"
+  },
   "RecipeCarousel": {
     "viewMore": "Katso lisää"
   },

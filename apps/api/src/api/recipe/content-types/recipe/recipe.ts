@@ -55,6 +55,7 @@ export interface Recipe {
     content: any;
     ingredients: any;
     servings: number;
+    instructions: any;
   };
 }
 export interface Recipe_Plain {
@@ -79,6 +80,7 @@ export interface Recipe_Plain {
   content: any;
   ingredients: any;
   servings: number;
+  instructions: any;
 }
 
 export interface Recipe_NoRelations {
@@ -103,6 +105,7 @@ export interface Recipe_NoRelations {
   content: any;
   ingredients: any;
   servings: number;
+  instructions: any;
 }
 
 export interface Recipe_AdminPanelLifeCycle {
@@ -127,4 +130,5 @@ export interface Recipe_AdminPanelLifeCycle {
   content: any;
   ingredients: any;
   servings: number;
+  instructions: any;
 }
