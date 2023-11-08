@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import * as z from 'zod';
 
 import { apiClient } from '@/lib/api/client';
-import { ContentTypes } from '@recipes/api-client/src/api-client';
+import { APIContentTypes } from '@recipes/api-client';
 import { locales } from '@recipes/ui';
 
 const paramsSchema = z.object({
@@ -13,18 +13,22 @@ const paramsSchema = z.object({
 });
 
 const searchParamsSchema = z.object({
-  limit: z.coerce.number({
-    invalid_type_error: 'Limit is invalid',
-    required_error: 'Limit is required',
-  }),
   locale: z.enum(locales, {
     invalid_type_error: 'Locale is invalid',
     required_error: 'Locale is required',
   }),
-  start: z.coerce.number({
-    invalid_type_error: 'Start is invalid',
-    required_error: 'Start is required',
-  }),
+  page: z.coerce
+    .number({
+      invalid_type_error: 'Page is invalid',
+      required_error: 'Page is required',
+    })
+    .min(1, { message: 'Page is invalid' }),
+  pageSize: z.coerce
+    .number({
+      invalid_type_error: 'Page size is invalid',
+      required_error: 'Page size is required',
+    })
+    .min(1, { message: 'Page size is invalid' }),
 });
 
 interface Context {
@@ -53,15 +57,16 @@ export const GET = async (request: NextRequest, context: Context) => {
   }
 
   const { searchParams } = request.nextUrl;
-  let limit: number;
+
   let locale: string;
-  let start: number;
+  let page: number;
+  let pageSize: number;
 
   try {
-    ({ limit, locale, start } = searchParamsSchema.parse({
-      limit: searchParams.get('limit'),
+    ({ locale, page, pageSize } = searchParamsSchema.parse({
       locale: searchParams.get('locale'),
-      start: searchParams.get('start'),
+      page: searchParams.get('page'),
+      pageSize: searchParams.get('pageSize'),
     }));
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -79,7 +84,7 @@ export const GET = async (request: NextRequest, context: Context) => {
     }
   }
 
-  let data: ContentTypes['comments'][];
+  let data: APIContentTypes['comments'][];
   let meta: Record<string, any>;
 
   try {
@@ -94,8 +99,8 @@ export const GET = async (request: NextRequest, context: Context) => {
         },
         locale,
         pagination: {
-          limit,
-          start,
+          page,
+          pageSize,
         },
         populate: {
           rating: {

@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation';
 
 import { apiClient } from '@/lib/api/client';
 import {
-  CommentForm,
   CommentList,
   DynamicZone,
   Hero,
@@ -12,7 +11,6 @@ import {
   InstructionList,
   RichText,
 } from '@recipes/ui/src/components';
-import { Suspense } from 'react';
 
 interface PageProps {
   params: {
@@ -54,10 +52,8 @@ const Page = async ({ params }: PageProps) => {
           <InstructionList items={recipe.attributes.instructions} />
         </Grid>
       </Container>
-      <CommentForm apiClient={apiClient} locale={locale} recipe={recipe.id} />
-      <Suspense>
-        <CommentList apiClient={apiClient} locale={locale} recipe={recipe.id} />
-      </Suspense>
+      {/* <CommentForm apiClient={apiClient} locale={locale} recipe={recipe.id} /> */}
+      <CommentList apiClient={apiClient} locale={locale} recipe={recipe.id} />
     </>
   );
 };

@@ -12,8 +12,7 @@ import {
 
 export type APIClientInstance = InstanceType<typeof APIClient>;
 
-// TODO: Provide proper types
-export interface ContentTypes {
+export interface APIContentTypes {
   comments: any;
   footer: any;
   header: any;
@@ -38,6 +37,17 @@ interface Parameters {
   sort?: string | string[];
 }
 
+export interface APIResponse<T> {
+  data: T | null;
+  error?: {
+    status: string;
+    name: string;
+    message: string;
+    details: Record<string, any>;
+  };
+  meta: Record<string, any>;
+}
+
 export class APIClient {
   config: APIClientConfigOutput;
 
@@ -45,7 +55,7 @@ export class APIClient {
     this.config = apiClientConfigSchema.parse(config);
   }
 
-  async getOne<K extends keyof ContentTypes>(
+  async getOne<K extends keyof APIContentTypes>(
     {
       contentType,
       id,
@@ -60,7 +70,7 @@ export class APIClient {
     },
     init?: RequestInit | undefined
   ) {
-    const { data, error, meta } = await this.request<ContentTypes[K]>(
+    const { data, error, meta } = await this.request<APIContentTypes[K]>(
       `/${contentType}/${id}${stringify(parameters, {
         addQueryPrefix: true,
         encodeValuesOnly: true,
@@ -71,7 +81,7 @@ export class APIClient {
     return { data, error, meta };
   }
 
-  async getMany<K extends keyof ContentTypes>(
+  async getMany<K extends keyof APIContentTypes>(
     {
       contentType,
       parameters,
@@ -82,7 +92,7 @@ export class APIClient {
     init?: RequestInit | undefined
   ) {
     const { data, error, meta } = await this.request<
-      ContentTypes[K] | ContentTypes[K][]
+      APIContentTypes[K] | APIContentTypes[K][]
     >(
       `/${contentType}${stringify(parameters, {
         addQueryPrefix: true,
@@ -102,7 +112,7 @@ export class APIClient {
     return { data, error, meta };
   }
 
-  async create<K extends keyof ContentTypes>(
+  async create<K extends keyof APIContentTypes>(
     {
       contentType,
       parameters,
@@ -115,7 +125,7 @@ export class APIClient {
     },
     init?: RequestInit | undefined
   ) {
-    const { data, error, meta } = await this.request<ContentTypes[K]>(
+    const { data, error, meta } = await this.request<APIContentTypes[K]>(
       `/${contentType}${stringify(parameters, {
         addQueryPrefix: true,
         encodeValuesOnly: true,
@@ -131,7 +141,7 @@ export class APIClient {
     return { data, error, meta };
   }
 
-  async update<K extends keyof ContentTypes>(
+  async update<K extends keyof APIContentTypes>(
     {
       contentType,
       id,
@@ -146,7 +156,7 @@ export class APIClient {
     },
     init?: RequestInit | undefined
   ) {
-    const { data, error, meta } = await this.request<ContentTypes[K]>(
+    const { data, error, meta } = await this.request<APIContentTypes[K]>(
       `/${contentType}/${id}${stringify(parameters, {
         addQueryPrefix: true,
         encodeValuesOnly: true,
@@ -162,7 +172,7 @@ export class APIClient {
     return { data, error, meta };
   }
 
-  async delete<K extends keyof ContentTypes>(
+  async delete<K extends keyof APIContentTypes>(
     {
       contentType,
       id,
@@ -177,7 +187,7 @@ export class APIClient {
     },
     init?: RequestInit | undefined
   ) {
-    const { data, error, meta } = await this.request<ContentTypes[K]>(
+    const { data, error, meta } = await this.request<APIContentTypes[K]>(
       `/${contentType}/${id}${stringify(parameters, {
         addQueryPrefix: true,
         encodeValuesOnly: true,
@@ -205,16 +215,7 @@ export class APIClient {
       }
     );
 
-    const { data, error, meta } = (await response.json()) as {
-      data: T | null;
-      error?: {
-        status: string;
-        name: string;
-        message: string;
-        details: Record<string, any>;
-      };
-      meta: Record<string, any>;
-    };
+    const { data, error, meta } = (await response.json()) as APIResponse<T>;
 
     if (error) {
       return {

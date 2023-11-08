@@ -7,6 +7,7 @@ import { notFound } from 'next/navigation';
 
 import { TIME_ZONE } from '@/constants';
 import { apiClient } from '@/lib/api/client';
+// import { fetcher } from '@/lib/utils/fetcher';
 import { locales } from '@recipes/ui';
 import { Footer, Header, UserProvider } from '@recipes/ui/src/components';
 
@@ -37,12 +38,11 @@ interface LayoutProps {
 }
 
 const Layout = async ({ children, params }: LayoutProps) => {
-  const { locale } = params;
-
-  if (!locales.includes(locale)) {
+  if (!locales.some((locale) => locale === params.locale)) {
     notFound();
   }
 
+  const { locale } = params;
   unstable_setRequestLocale(locale);
 
   const [header, footer] = await Promise.all([

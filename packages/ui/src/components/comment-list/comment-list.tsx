@@ -5,8 +5,6 @@ import { use } from 'react';
 import type { APIClientInstance } from '@recipes/api-client';
 import { CommentListItems } from './comment-list-items';
 
-const COMMENTS_PAGINATION_LIMIT = 1;
-
 interface CommentListProps {
   apiClient: APIClientInstance;
   locale: string;
@@ -20,7 +18,7 @@ export const CommentList = ({
 }: CommentListProps) => {
   const t = useTranslations('CommentList');
 
-  const { data: comments, meta } = use(
+  const { data, meta } = use(
     apiClient.getMany({
       contentType: 'comments',
       parameters: {
@@ -32,7 +30,8 @@ export const CommentList = ({
         },
         locale,
         pagination: {
-          limit: COMMENTS_PAGINATION_LIMIT,
+          page: 1,
+          pageSize: 1,
         },
         populate: {
           rating: {
@@ -43,7 +42,7 @@ export const CommentList = ({
     })
   );
 
-  if (comments.length === 0) {
+  if (data.length === 0) {
     return null;
   }
 
@@ -54,18 +53,13 @@ export const CommentList = ({
           {t('title')}
         </Heading>
         <CommentListItems
-          items={comments}
-          limit={COMMENTS_PAGINATION_LIMIT}
+          comments={{ data, meta }}
           locale={locale}
           recipe={recipe}
-          total={meta.pagination.total}
           translations={{
             viewMore: t('viewMore'),
           }}
         />
-        <pre className={'mt-4 whitespace-pre-wrap break-all'}>
-          {JSON.stringify(comments, null, 2)}
-        </pre>
       </Container>
     </Section>
   );

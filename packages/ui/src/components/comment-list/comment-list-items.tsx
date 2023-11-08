@@ -1,119 +1,113 @@
 'use client';
 
 import { Button, Card, Flex, Text } from '@radix-ui/themes';
-import { Star } from 'lucide-react';
+import { Loader2, Star } from 'lucide-react';
 import { useFormatter } from 'next-intl';
 import { stringify } from 'qs';
 import { useState } from 'react';
 
-import { ContentTypes } from '@recipes/api-client/src/api-client';
+import type { APIContentTypes, APIResponse } from '@recipes/api-client';
 import { cn } from '../../lib/utils/cn';
+import { fetcher } from '../../lib/utils/fetcher';
+
+type Comments = APIResponse<APIContentTypes['comments'][]>;
 
 interface CommentListItemsProps {
-  items: any[];
-  limit: number;
+  comments: Comments;
   locale: string;
   recipe: number;
-  total: number;
   translations: {
     viewMore: string;
   };
 }
 
 export const CommentListItems = ({
-  items: initialItems,
-  limit,
+  comments: initialComments,
   locale,
   recipe,
-  total: initialTotal,
   translations,
 }: CommentListItemsProps) => {
-  const [items, setItems] = useState(initialItems);
-  const [offset, setOffset] = useState(0);
-  const [total, setTotal] = useState(initialTotal);
+  const [comments, setComments] = useState(initialComments);
+  const [isLoading, setIsLoading] = useState(false);
   const format = useFormatter();
 
-  const onButtonClick = async () => {
-    const newOffset = offset + limit;
+  const { page, pageSize, total } = comments.meta.pagination;
 
-    const response = await fetch(
+  const onViewMoreButtonClick = async () => {
+    if (isLoading) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    const newComments = (await fetcher(
       `/api/comments/${recipe}${stringify(
-        { limit, locale, start: newOffset },
+        { locale, page: page + 1, pageSize },
         { addQueryPrefix: true, encodeValuesOnly: true }
       )}`
-    );
+    )) as Comments;
 
-    if (!response.ok) {
+    setIsLoading(false);
+
+    if (!Array.isArray(newComments.data) || newComments.data.length === 0) {
       return;
     }
 
-    const { data: newItems, meta } = (await response.json()) as {
-      data: ContentTypes['comments'][];
-      meta: Record<string, any>;
-    };
-
-    if (!Array.isArray(newItems) || newItems.length === 0) {
-      return;
-    }
-
-    setItems((prevItems) => prevItems.concat(newItems));
-    setOffset(newOffset);
-
-    if (typeof meta.pagination.total === 'number') {
-      setTotal(meta.pagination.total as number);
-    }
+    setComments((prevComments) => ({
+      data: prevComments.data!.concat(newComments.data),
+      meta: newComments.meta,
+    }));
   };
 
   return (
     <Flex align={'center'} direction={'column'} gap={'4'}>
       <Flex asChild direction={'column'} gap={'4'} width={'100%'}>
         <ol>
-          {items.map((item) => (
-            <li key={item.id}>
+          {comments.data!.map((comment) => (
+            <li key={comment.id}>
               <Card>
                 <Flex direction={'column'} gap={'4'}>
                   <Flex gap={'4'} justify={'between'}>
                     <Flex direction={'column'} gap={'2'}>
                       <Text size={'5'} weight={'bold'}>
-                        {item.attributes.name}
+                        {comment.attributes.name}
                       </Text>
                       <Text color={'gray'} size={'2'}>
                         {format.dateTime(
-                          new Date(item.attributes.createdAt as string),
+                          new Date(comment.attributes.createdAt as string),
                           { dateStyle: 'long', timeStyle: 'short' }
                         )}
                       </Text>
                     </Flex>
-                    {item.attributes.rating.data ? (
+                    {comment.attributes.rating.data ? (
                       <Flex>
-                        {Array.from(
-                          {
-                            length: 5,
-                          },
-                          (_, index) => (
-                            <Star
-                              className={cn({
-                                'h-4 w-4': true,
-                                'fill-accent-9 stroke-accent-9':
-                                  index <
-                                  item.attributes.rating.data.attributes.score,
-                              })}
-                              key={index}
-                            />
-                          )
-                        )}
+                        {Array.from({ length: 5 }, (_, index) => (
+                          <Star
+                            className={cn({
+                              'h-4 w-4': true,
+                              'fill-accent-9 stroke-accent-9':
+                                index <
+                                comment.attributes.rating.data.attributes.score,
+                            })}
+                            key={index}
+                          />
+                        ))}
                       </Flex>
                     ) : null}
                   </Flex>
+                  <Text as={'p'} className={'whitespace-pre-line'}>
+                    {comment.attributes.comment}
+                  </Text>
                 </Flex>
               </Card>
             </li>
           ))}
         </ol>
       </Flex>
-      {items.length < total ? (
-        <Button onClick={() => void onButtonClick()}>
+      {total > comments.data!.length ? (
+        <Button onClick={() => void onViewMoreButtonClick()}>
           {translations.viewMore}
+          {isLoading ? <Loader2 className={'h-4 w-4 animate-spin'} /> : null}
         </Button>
       ) : null}
     </Flex>

@@ -23,4 +23,5 @@ export {
   redirect,
   usePathname,
   useRouter,
+  type Locale,
 } from './lib';
