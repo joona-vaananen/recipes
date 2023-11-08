@@ -1,6 +1,7 @@
 {
   "CommentList": {
-    "title": "Comments"
+    "title": "Comments",
+    "viewMore": "View more"
   },
   "IngredientList": {
     "servings": "Servings",

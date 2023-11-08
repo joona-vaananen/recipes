@@ -5,6 +5,7 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import { Raleway, Roboto_Slab } from 'next/font/google';
 import { notFound } from 'next/navigation';
 
+import { TIME_ZONE } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { locales } from '@recipes/ui';
 import { Footer, Header, UserProvider } from '@recipes/ui/src/components';
@@ -56,7 +57,7 @@ const Layout = async ({ children, params }: LayoutProps) => {
     >
       <body>
         <UserProvider>
-          <NextIntlClientProvider>
+          <NextIntlClientProvider timeZone={TIME_ZONE}>
             <Theme accentColor={'ruby'}>
               <Flex className={'min-h-screen'} direction={'column'}>
                 <Header

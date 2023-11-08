@@ -13,7 +13,7 @@ import {
 export type APIClientInstance = InstanceType<typeof APIClient>;
 
 // TODO: Provide proper types
-interface ContentTypes {
+export interface ContentTypes {
   comments: any;
   footer: any;
   header: any;

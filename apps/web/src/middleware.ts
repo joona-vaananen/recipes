@@ -9,5 +9,5 @@ import {
 export default createMiddleware({ defaultLocale, locales, pathnames });
 
 export const config = {
-  matcher: ['/((?!_next|.*\\..*).*)'],
+  matcher: ['/((?!_next|api|.*\\..*).*)'],
 };

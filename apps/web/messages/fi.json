@@ -1,6 +1,7 @@
 {
   "CommentList": {
-    "title": "Kommentit"
+    "title": "Kommentit",
+    "viewMore": "Katso lisää"
   },
   "IngredientList": {
     "servings": "Annoksia",

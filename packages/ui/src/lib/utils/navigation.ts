@@ -5,7 +5,7 @@ import {
 
 export const defaultLocale = 'en';
 
-export const locales = ['en'];
+export const locales = ['en'] as const;
 
 export const pathnames = {
   '/recipes': {
