@@ -45,7 +45,14 @@ export interface APIResponse<T> {
     message: string;
     details: Record<string, any>;
   };
-  meta: Record<string, any>;
+  meta: {
+    pagination?: {
+      page: number;
+      pageCount: number;
+      pageSize: number;
+      total: number;
+    };
+  };
 }
 
 export class APIClient {

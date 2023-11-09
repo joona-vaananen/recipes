@@ -5,16 +5,18 @@ import { Loader2, Star } from 'lucide-react';
 import { useFormatter } from 'next-intl';
 import { stringify } from 'qs';
 import { useState } from 'react';
+import useSWRInfinite from 'swr/infinite';
 
 import type { APIContentTypes, APIResponse } from '@recipes/api-client';
 import { cn } from '../../lib/utils/cn';
-import { fetcher } from '../../lib/utils/fetcher';
+import { COMMENTS_PAGE_SIZE } from './comment-list';
 
 type Comments = APIResponse<APIContentTypes['comments'][]>;
 
 interface CommentListItemsProps {
-  comments: Comments;
+  comments: Comments['data'];
   locale: string;
+  pagination: Comments['meta']['pagination'];
   recipe: number;
   translations: {
     viewMore: string;
@@ -24,46 +26,66 @@ interface CommentListItemsProps {
 export const CommentListItems = ({
   comments: initialComments,
   locale,
+  pagination: initialPagination,
   recipe,
   translations,
 }: CommentListItemsProps) => {
-  const [comments, setComments] = useState(initialComments);
-  const [isLoading, setIsLoading] = useState(false);
+  const [pagination, setPagination] = useState(initialPagination);
   const format = useFormatter();
 
-  const { page, pageSize, total } = comments.meta.pagination;
+  const pageSize = pagination?.pageSize ?? COMMENTS_PAGE_SIZE;
+  const total = pagination?.total ?? 0;
 
-  const onViewMoreButtonClick = async () => {
-    if (isLoading) {
-      return;
-    }
-
-    setIsLoading(true);
-
-    const newComments = (await fetcher(
-      `/api/comments/${recipe}${stringify(
-        { locale, page: page + 1, pageSize },
-        { addQueryPrefix: true, encodeValuesOnly: true }
-      )}`
-    )) as Comments;
-
-    setIsLoading(false);
-
-    if (!Array.isArray(newComments.data) || newComments.data.length === 0) {
-      return;
-    }
-
-    setComments((prevComments) => ({
-      data: prevComments.data!.concat(newComments.data),
-      meta: newComments.meta,
-    }));
+  const getKey = (index: number) => {
+    return `/api/comments/${recipe}${stringify(
+      { locale, page: index + 1, pageSize },
+      { addQueryPrefix: true, encodeValuesOnly: true }
+    )}`;
   };
+
+  const fetchComments = async (
+    input: RequestInfo | URL,
+    init?: RequestInit | undefined
+  ) => {
+    const response = await fetch(input, init);
+    const { data, meta } = (await response.json()) as Comments;
+
+    if (!Array.isArray(data) || data.length === 0) {
+      return [];
+    }
+
+    const { pagination } = meta;
+    setPagination(pagination);
+
+    return data;
+  };
+
+  const {
+    data: pages,
+    isValidating,
+    setSize,
+  } = useSWRInfinite(getKey, fetchComments, {
+    fallback: {
+      [getKey(0)]: [initialComments],
+    },
+    fallbackData: [initialComments],
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnMount: false,
+    revalidateOnReconnect: false,
+  });
+
+  if (!Array.isArray(pages) || pages.length === 0) {
+    return null;
+  }
+
+  const comments = pages.flat();
 
   return (
     <Flex align={'center'} direction={'column'} gap={'4'}>
       <Flex asChild direction={'column'} gap={'4'} width={'100%'}>
         <ol>
-          {comments.data!.map((comment) => (
+          {comments.map((comment) => (
             <li key={comment.id}>
               <Card>
                 <Flex direction={'column'} gap={'4'}>
@@ -104,10 +126,10 @@ export const CommentListItems = ({
           ))}
         </ol>
       </Flex>
-      {total > comments.data!.length ? (
-        <Button onClick={() => void onViewMoreButtonClick()}>
+      {total > comments.length ? (
+        <Button onClick={() => void setSize((prevSize) => prevSize + 1)}>
           {translations.viewMore}
-          {isLoading ? <Loader2 className={'h-4 w-4 animate-spin'} /> : null}
+          {isValidating ? <Loader2 className={'h-4 w-4 animate-spin'} /> : null}
         </Button>
       ) : null}
     </Flex>
