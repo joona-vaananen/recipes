@@ -5,55 +5,50 @@ import { createContext, useContext, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { useUser } from '../user-context';
-import type { PostComment } from './comment-form-action';
 import {
   commentFormSchema,
   type CommentFormSchema,
 } from './comment-form-schema';
 
-const CommentFormContext = createContext<undefined>(undefined);
+const CommentFormContext = createContext<
+  { locale: string; recipe: number } | undefined
+>(undefined);
 
 interface CommentFormProviderProps {
   children: React.ReactNode;
-  postComment: PostComment;
+  locale: string;
+  recipe: number;
 }
 
 export const CommentFormProvider = ({
   children,
-  postComment,
+  locale,
+  recipe,
 }: CommentFormProviderProps) => {
   const { userId } = useUser();
 
-  const defaultValues: Partial<CommentFormSchema> = {};
-
-  if (typeof userId === 'string') {
-    defaultValues.userId = userId;
-  }
+  const defaultValues: Partial<CommentFormSchema> = {
+    name: '',
+    comment: '',
+  };
 
   const commentForm = useForm<CommentFormSchema>({
     defaultValues,
-    mode: 'onChange',
     resolver: zodResolver(commentFormSchema),
   });
 
-  const { handleSubmit, watch } = commentForm;
+  const { setValue } = commentForm;
 
   useEffect(() => {
-    const onSubmit = async (values: CommentFormSchema) => {
-      const { data: comment, error } = await postComment(values);
+    if (!userId) {
+      return;
+    }
 
-      console.log({ data: comment, error });
-    };
-
-    const subscription = watch(() => {
-      void handleSubmit(onSubmit)();
-    });
-
-    return () => subscription.unsubscribe();
-  }, [handleSubmit, postComment, watch]);
+    setValue('userId', userId);
+  }, [setValue, userId]);
 
   return (
-    <CommentFormContext.Provider value={undefined}>
+    <CommentFormContext.Provider value={{ locale, recipe }}>
       <FormProvider {...commentForm}>{children}</FormProvider>
     </CommentFormContext.Provider>
   );

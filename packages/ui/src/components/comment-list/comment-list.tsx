@@ -1,11 +1,11 @@
-import { Container, Heading, Section } from '@radix-ui/themes';
+import { Heading, Section } from '@radix-ui/themes';
 import { useTranslations } from 'next-intl';
 import { use } from 'react';
 
 import type { APIClientInstance } from '@recipes/api-client';
 import { CommentListItems } from './comment-list-items';
 
-export const COMMENTS_PAGE_SIZE = 1;
+export const COMMENTS_PAGE_SIZE = 15;
 
 interface CommentListProps {
   apiClient: APIClientInstance;
@@ -40,6 +40,7 @@ export const CommentList = ({
             fields: ['id', 'score'],
           },
         },
+        sort: 'createdAt:desc',
       },
     })
   );
@@ -52,20 +53,18 @@ export const CommentList = ({
 
   return (
     <Section>
-      <Container className={'container'}>
-        <Heading as={'h2'} mb={'4'} size={'7'}>
-          {t('title')}
-        </Heading>
-        <CommentListItems
-          comments={comments}
-          locale={locale}
-          pagination={pagination}
-          recipe={recipe}
-          translations={{
-            viewMore: t('viewMore'),
-          }}
-        />
-      </Container>
+      <Heading as={'h2'} mb={'4'} size={'7'}>
+        {t('title')}
+      </Heading>
+      <CommentListItems
+        comments={comments}
+        locale={locale}
+        pagination={pagination}
+        recipe={recipe}
+        translations={{
+          viewMore: t('viewMore'),
+        }}
+      />
     </Section>
   );
 };

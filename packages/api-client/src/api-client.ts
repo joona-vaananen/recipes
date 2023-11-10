@@ -66,7 +66,7 @@ export class APIClient {
     {
       contentType,
       id,
-      parameters,
+      parameters: query,
     }: {
       contentType: K;
       id: number;
@@ -78,7 +78,7 @@ export class APIClient {
     init?: RequestInit | undefined
   ) {
     const { data, error, meta } = await this.request<APIContentTypes[K]>(
-      `/${contentType}/${id}${stringify(parameters, {
+      `/${contentType}/${id}${stringify(query, {
         addQueryPrefix: true,
         encodeValuesOnly: true,
       })}`,
@@ -91,7 +91,7 @@ export class APIClient {
   async getMany<K extends keyof APIContentTypes>(
     {
       contentType,
-      parameters,
+      parameters: query,
     }: {
       contentType: K;
       parameters?: Omit<Parameters, 'data'>;
@@ -101,7 +101,7 @@ export class APIClient {
     const { data, error, meta } = await this.request<
       APIContentTypes[K] | APIContentTypes[K][]
     >(
-      `/${contentType}${stringify(parameters, {
+      `/${contentType}${stringify(query, {
         addQueryPrefix: true,
         encodeValuesOnly: true,
       })}`,
@@ -122,10 +122,10 @@ export class APIClient {
   async create<K extends keyof APIContentTypes>(
     {
       contentType,
-      parameters,
+      parameters: { data: payload, ...query },
     }: {
       contentType: K;
-      parameters?: Pick<
+      parameters: Pick<
         Parameters,
         'data' | 'fields' | 'locale' | 'populate' | 'publicationState'
       >;
@@ -133,13 +133,13 @@ export class APIClient {
     init?: RequestInit | undefined
   ) {
     const { data, error, meta } = await this.request<APIContentTypes[K]>(
-      `/${contentType}${stringify(parameters, {
+      `/${contentType}${stringify(query, {
         addQueryPrefix: true,
         encodeValuesOnly: true,
       })}`,
       {
         ...init,
-        body: JSON.stringify(parameters?.data),
+        body: JSON.stringify({ data: payload }),
         headers: { ...init?.headers, 'Content-Type': 'application/json' },
         method: 'POST',
       }
@@ -152,11 +152,11 @@ export class APIClient {
     {
       contentType,
       id,
-      parameters,
+      parameters: { data: payload, ...query },
     }: {
       contentType: K;
       id: number;
-      parameters?: Pick<
+      parameters: Pick<
         Parameters,
         'data' | 'fields' | 'locale' | 'populate' | 'publicationState'
       >;
@@ -164,13 +164,13 @@ export class APIClient {
     init?: RequestInit | undefined
   ) {
     const { data, error, meta } = await this.request<APIContentTypes[K]>(
-      `/${contentType}/${id}${stringify(parameters, {
+      `/${contentType}/${id}${stringify(query, {
         addQueryPrefix: true,
         encodeValuesOnly: true,
       })}`,
       {
         ...init,
-        body: JSON.stringify(parameters?.data),
+        body: JSON.stringify({ data: payload }),
         headers: { ...init?.headers, 'Content-Type': 'application/json' },
         method: 'PUT',
       }
@@ -183,7 +183,7 @@ export class APIClient {
     {
       contentType,
       id,
-      parameters,
+      parameters: query,
     }: {
       contentType: K;
       id: number;
@@ -195,7 +195,7 @@ export class APIClient {
     init?: RequestInit | undefined
   ) {
     const { data, error, meta } = await this.request<APIContentTypes[K]>(
-      `/${contentType}/${id}${stringify(parameters, {
+      `/${contentType}/${id}${stringify(query, {
         addQueryPrefix: true,
         encodeValuesOnly: true,
       })}`,

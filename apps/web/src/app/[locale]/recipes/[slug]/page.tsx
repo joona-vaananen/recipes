@@ -40,11 +40,11 @@ const Page = async ({ params }: PageProps) => {
       </DynamicZone>
       <Container className={'container'}>
         <Grid
-          gap={'4'}
           columns={{
             initial: '1',
             sm: '2',
           }}
+          gap={'4'}
         >
           <IngredientList
             items={recipe.attributes.ingredients}
@@ -53,8 +53,18 @@ const Page = async ({ params }: PageProps) => {
           <InstructionList items={recipe.attributes.instructions} />
         </Grid>
       </Container>
-      <CommentForm apiClient={apiClient} locale={locale} recipe={recipe.id} />
-      <CommentList apiClient={apiClient} locale={locale} recipe={recipe.id} />
+      <Container className={'container'}>
+        <Grid
+          columns={{
+            initial: '1',
+            sm: '2',
+          }}
+          gap={'4'}
+        >
+          <CommentForm locale={locale} recipe={recipe.id} />
+        </Grid>
+        <CommentList apiClient={apiClient} locale={locale} recipe={recipe.id} />
+      </Container>
     </>
   );
 };

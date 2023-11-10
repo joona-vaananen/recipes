@@ -27,6 +27,7 @@ export const CommentFormCommentTextArea = ({
           onBlur={onBlur}
           onChange={onChange}
           ref={ref}
+          size={'3'}
           value={value}
         />
       </Flex>

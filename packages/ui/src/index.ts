@@ -12,6 +12,8 @@ export {
   RecipeSearch,
   RichText,
   UserProvider,
+  commentFormSchema,
+  type CommentFormSchema,
 } from './components';
 export {
   Link,

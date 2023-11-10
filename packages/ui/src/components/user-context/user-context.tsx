@@ -29,9 +29,9 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       try {
         window.localStorage.setItem(USER_ID_LOCAL_STORAGE_ITEM_KEY, userId);
       } catch {}
-
-      setUserId(userId);
     }
+
+    setUserId(userId);
   }, []);
 
   return (

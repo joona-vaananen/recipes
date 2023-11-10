@@ -2,6 +2,8 @@
   "CommentForm": {
     "comment": "Comment",
     "name": "Name",
+    "rating": "Rating",
+    "scoreUnit": "stars",
     "submit": "Submit",
     "title": "Leave a comment"
   },

@@ -2,6 +2,8 @@
   "CommentForm": {
     "comment": "Kommentti",
     "name": "Nimi",
+    "rating": "Arvosana",
+    "scoreUnit": "tähteä",
     "submit": "Lähetä",
     "title": "Jätä kommentti"
   },

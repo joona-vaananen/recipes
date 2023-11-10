@@ -9,6 +9,7 @@ import useSWRInfinite from 'swr/infinite';
 
 import type { APIContentTypes, APIResponse } from '@recipes/api-client';
 import { cn } from '../../lib/utils/cn';
+import { fetcher } from '../../lib/utils/fetcher';
 import { COMMENTS_PAGE_SIZE } from './comment-list';
 
 type Comments = APIResponse<APIContentTypes['comments'][]>;
@@ -47,8 +48,7 @@ export const CommentListItems = ({
     input: RequestInfo | URL,
     init?: RequestInit | undefined
   ) => {
-    const response = await fetch(input, init);
-    const { data, meta } = (await response.json()) as Comments;
+    const { data, meta } = (await fetcher(input, init)) as Comments;
 
     if (!Array.isArray(data) || data.length === 0) {
       return [];
@@ -69,6 +69,7 @@ export const CommentListItems = ({
       [getKey(0)]: [initialComments],
     },
     fallbackData: [initialComments],
+    revalidateAll: true,
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnMount: false,

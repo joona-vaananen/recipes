@@ -9,5 +9,9 @@ interface CommentFormSubmitButtonProps {
 export const CommentFormSubmitButton = ({
   translations,
 }: CommentFormSubmitButtonProps) => {
-  return <Button type={'submit'}>{translations.submit}</Button>;
+  return (
+    <Button className={'w-fit'} type={'submit'}>
+      {translations.submit}
+    </Button>
+  );
 };
