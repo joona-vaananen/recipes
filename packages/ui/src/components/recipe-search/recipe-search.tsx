@@ -97,12 +97,14 @@ export const RecipeSearch = ({
                     showResults: t('showResults'),
                   }}
                 >
-                  <Flex direction={'column'} gap={'4'}>
-                    <RecipeSearchFilters
-                      searchConfig={searchConfig}
-                      facetDistribution={facetDistribution}
-                      filters={filters}
-                    />
+                  <Flex asChild direction={'column'} gap={'4'}>
+                    <form>
+                      <RecipeSearchFilters
+                        searchConfig={searchConfig}
+                        facetDistribution={facetDistribution}
+                        filters={filters}
+                      />
+                    </form>
                   </Flex>
                 </RecipeSearchDialog>
                 <RecipeSearchInput

@@ -1,4 +1,10 @@
 {
+  "CommentForm": {
+    "comment": "Kommentti",
+    "name": "Nimi",
+    "submit": "Lähetä",
+    "title": "Jätä kommentti"
+  },
   "CommentList": {
     "title": "Kommentit",
     "viewMore": "Katso lisää"

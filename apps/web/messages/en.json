@@ -1,4 +1,10 @@
 {
+  "CommentForm": {
+    "comment": "Comment",
+    "name": "Name",
+    "submit": "Submit",
+    "title": "Leave a comment"
+  },
   "CommentList": {
     "title": "Comments",
     "viewMore": "View more"

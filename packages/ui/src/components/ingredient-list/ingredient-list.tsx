@@ -29,11 +29,13 @@ export const IngredientList = ({ items, servings }: IngredientListProps) => {
           {t('title')}
         </Heading>
         <Flex direction={'column'} gap={'4'}>
-          <IngredientListServingsInput
-            translations={{
-              servings: t('servings'),
-            }}
-          />
+          <form>
+            <IngredientListServingsInput
+              translations={{
+                servings: t('servings'),
+              }}
+            />
+          </form>
           <IngredientListItems items={items} />
         </Flex>
       </Section>

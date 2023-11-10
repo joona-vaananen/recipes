@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 
 import { apiClient } from '@/lib/api/client';
 import {
+  CommentForm,
   CommentList,
   DynamicZone,
   Hero,
@@ -52,7 +53,7 @@ const Page = async ({ params }: PageProps) => {
           <InstructionList items={recipe.attributes.instructions} />
         </Grid>
       </Container>
-      {/* <CommentForm apiClient={apiClient} locale={locale} recipe={recipe.id} /> */}
+      <CommentForm apiClient={apiClient} locale={locale} recipe={recipe.id} />
       <CommentList apiClient={apiClient} locale={locale} recipe={recipe.id} />
     </>
   );
