@@ -7,6 +7,7 @@ import type { CommentFormSchema } from './comment-form-schema';
 interface CommentFormNameInputProps {
   translations: {
     name: string;
+    required: string;
   };
 }
 
@@ -20,10 +21,15 @@ export const CommentFormNameInput = ({
   return (
     <Text as={'label'} size={'2'}>
       <Flex direction={'column'} gap={'2'}>
-        {translations.name}
+        <Flex gap={'2'}>
+          {translations.name}
+          <Text color={'gray'}>{`(${translations.required})`}</Text>
+        </Flex>
         <TextField.Root>
           <TextField.Input
             disabled={disabled}
+            maxLength={50}
+            minLength={1}
             name={name}
             onBlur={onBlur}
             onChange={onChange}

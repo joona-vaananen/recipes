@@ -5,26 +5,43 @@ import { useFormContext } from 'react-hook-form';
 import { useSWRConfig } from 'swr';
 import { INFINITE_PREFIX } from 'swr/_internal';
 
-import { ERROR_NAMES } from '../../constants';
+import { Button, Callout } from '@radix-ui/themes';
+import { AlertTriangle, Loader2 } from 'lucide-react';
 import { fetcher } from '../../lib/utils/fetcher';
 import { useCommentForm } from './comment-form-context';
 import type { CommentFormSchema } from './comment-form-schema';
 
-type CommentFormClientProps = React.HTMLAttributes<HTMLFormElement>;
+interface CommentFormClientProps extends React.HTMLAttributes<HTMLFormElement> {
+  translations: {
+    serverError: string;
+    submit: string;
+  };
+}
 
 export const CommentFormClient = ({
   children,
+  translations,
   ...props
 }: CommentFormClientProps) => {
   const { locale, recipe } = useCommentForm();
-  const { handleSubmit, reset } = useFormContext<CommentFormSchema>();
+
+  const { formState, handleSubmit, reset, setError, getValues } =
+    useFormContext<CommentFormSchema>();
+
+  const { errors, isSubmitting } = formState;
   const { cache, mutate } = useSWRConfig();
 
   const onSubmit = async (
     values: CommentFormSchema,
     event?: React.BaseSyntheticEvent<object, any, any>
   ) => {
+    console.log('submit');
+
     event?.preventDefault();
+
+    if (isSubmitting) {
+      return;
+    }
 
     const { error } = (await fetcher(
       `/api/comments/${recipe}${stringify(
@@ -39,14 +56,13 @@ export const CommentFormClient = ({
     )) as { error?: { name: string } };
 
     if (error) {
-      if (error.name === ERROR_NAMES.UNIQUE_CONSTRAINT_ERROR) {
-      } else {
-      }
-
-      return;
+      setError('root.serverError', {
+        message: translations.serverError,
+        type: 'server',
+      });
     }
 
-    reset();
+    reset({ userId: getValues('userId') });
 
     Array.from(cache.keys()).forEach((key) => {
       if (
@@ -66,6 +82,22 @@ export const CommentFormClient = ({
   return (
     <form onSubmit={(event) => void handleSubmit(onSubmit)(event)} {...props}>
       {children}
+      {errors.root?.serverError ? (
+        <Callout.Root>
+          <Callout.Icon>
+            <AlertTriangle
+              className={'h-4 w-4 stroke-[var(--accent-a11)]'}
+              color={'red'}
+              role={'alert'}
+            />
+          </Callout.Icon>
+          <Callout.Text>{errors.root.serverError.message}</Callout.Text>
+        </Callout.Root>
+      ) : null}
+      <Button className={'w-fit'} type={'submit'}>
+        {translations.submit}
+        {isSubmitting ? <Loader2 className={'h-4 w-4 animate-spin'} /> : null}
+      </Button>
     </form>
   );
 };

@@ -6,7 +6,6 @@ import { CommentFormCommentTextArea } from './comment-form-comment-text-area';
 import { CommentFormProvider } from './comment-form-context';
 import { CommentFormNameInput } from './comment-form-name-input';
 import { CommentFormRatingField } from './comment-form-rating-field';
-import { CommentFormSubmitButton } from './comment-form-submit-button';
 
 interface CommentFormProps {
   locale: string;
@@ -18,12 +17,22 @@ export const CommentForm = ({ locale, recipe }: CommentFormProps) => {
 
   return (
     <CommentFormProvider locale={locale} recipe={recipe}>
-      <Section>
+      <Section
+        size={{
+          initial: '2',
+          sm: '3',
+        }}
+      >
         <Heading as={'h2'} mb={'4'} size={'7'}>
           {t('title')}
         </Heading>
         <Flex asChild direction={'column'} gap={'4'}>
-          <CommentFormClient>
+          <CommentFormClient
+            translations={{
+              serverError: t('serverError'),
+              submit: t('submit'),
+            }}
+          >
             <CommentFormRatingField
               translations={{
                 rating: t('rating'),
@@ -33,16 +42,13 @@ export const CommentForm = ({ locale, recipe }: CommentFormProps) => {
             <CommentFormNameInput
               translations={{
                 name: t('name'),
+                required: t('required'),
               }}
             />
             <CommentFormCommentTextArea
               translations={{
                 comment: t('comment'),
-              }}
-            />
-            <CommentFormSubmitButton
-              translations={{
-                submit: t('submit'),
+                required: t('required'),
               }}
             />
           </CommentFormClient>

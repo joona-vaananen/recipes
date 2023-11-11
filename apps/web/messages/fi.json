@@ -3,7 +3,9 @@
     "comment": "Kommentti",
     "name": "Nimi",
     "rating": "Arvosana",
+    "required": "pakollinen",
     "scoreUnit": "tähteä",
+    "serverError": "Jotain meni pieleen! Yritäthän myöhemmin uudelleen.",
     "submit": "Lähetä",
     "title": "Jätä kommentti"
   },

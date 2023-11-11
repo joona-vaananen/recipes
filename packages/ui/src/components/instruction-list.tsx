@@ -20,7 +20,12 @@ export const InstructionList = ({ items }: InstructionListProps) => {
   const t = useTranslations('InstructionList');
 
   return (
-    <Section>
+    <Section
+      size={{
+        initial: '2',
+        sm: '3',
+      }}
+    >
       <Heading as={'h2'} mb={'4'} size={'7'}>
         {t('title')}
       </Heading>

@@ -157,6 +157,16 @@
       "relation": "oneToMany",
       "target": "api::rating.rating",
       "mappedBy": "recipe"
+    },
+    "rating": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "decimal",
+      "max": 5,
+      "min": 1
     }
   }
 }

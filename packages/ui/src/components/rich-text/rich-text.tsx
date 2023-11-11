@@ -38,7 +38,12 @@ export const RichText = ({
 };
 
 const DefaultWrapper = ({ children }: { children: React.ReactNode }) => (
-  <Section>
+  <Section
+    size={{
+      initial: '2',
+      sm: '3',
+    }}
+  >
     <Container className={'container'} size={'3'}>
       {children}
     </Container>

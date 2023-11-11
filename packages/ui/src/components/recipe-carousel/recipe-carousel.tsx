@@ -65,7 +65,13 @@ export const RecipeCarousel = ({
   }
 
   return (
-    <Section className={'overflow-hidden'}>
+    <Section
+      className={'overflow-hidden'}
+      size={{
+        initial: '2',
+        sm: '3',
+      }}
+    >
       <Container className={'container'}>
         <Flex justify={'between'}>
           {title ? (

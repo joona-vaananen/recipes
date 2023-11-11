@@ -1,13 +1,13 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import * as z from 'zod';
 
+import { ERROR_NAMES } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { locales } from '@recipes/ui';
 import {
   commentFormSchema,
   type CommentFormSchema,
 } from '@recipes/ui/src/components/comment-form/comment-form-schema';
-import { ERROR_NAMES } from '@/constants';
 
 const paramsSchema = z.object({
   recipe: z.coerce.number(),
@@ -99,7 +99,8 @@ export const postComment = async (request: NextRequest, context: Context) => {
   let rating: { id: number } | null = null;
 
   if (typeof parsedValues.rating === 'number') {
-    ({
+    // Duplicate rating check
+    /* ({
       data: [rating],
     } = await apiClient.getMany({
       contentType: 'ratings',
@@ -127,7 +128,7 @@ export const postComment = async (request: NextRequest, context: Context) => {
         },
         { status: 400 }
       );
-    }
+    } */
 
     ({ data: rating } = await apiClient.create({
       contentType: 'ratings',

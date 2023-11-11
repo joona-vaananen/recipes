@@ -7,6 +7,7 @@ import type { CommentFormSchema } from './comment-form-schema';
 interface CommentFormCommentTextAreaProps {
   translations: {
     comment: string;
+    required: string;
   };
 }
 
@@ -20,9 +21,14 @@ export const CommentFormCommentTextArea = ({
   return (
     <Text as={'label'} size={'2'}>
       <Flex direction={'column'} gap={'2'}>
-        {translations.comment}
+        <Flex gap={'2'}>
+          {translations.comment}
+          <Text color={'gray'}>{`(${translations.required})`}</Text>
+        </Flex>
         <TextArea
           disabled={disabled}
+          maxLength={500}
+          minLength={1}
           name={name}
           onBlur={onBlur}
           onChange={onChange}

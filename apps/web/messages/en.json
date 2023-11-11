@@ -3,7 +3,9 @@
     "comment": "Comment",
     "name": "Name",
     "rating": "Rating",
+    "required": "required",
     "scoreUnit": "stars",
+    "serverError": "Something went wrong! Please try again later.",
     "submit": "Submit",
     "title": "Leave a comment"
   },
