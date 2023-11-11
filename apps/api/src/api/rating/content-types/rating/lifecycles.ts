@@ -26,11 +26,36 @@ const lifecycles = {
 
     await strapi.service('api::recipe.recipe').updateRating(recipe.id);
   },
-  afterCreateMany(event: AfterRunEvent<Record<string, any>, { id: number }>) {
-    // TODO: Implement lifecycle hook
-    console.log('afterCreateMany');
-    console.log(JSON.stringify(event, null, 2));
-  },
+  afterCreateMany: async () =>
+    // event: AfterRunEvent<Record<string, any>, { id: number }>
+    {
+      // const ids = event.params.where?.$and?.[0]?.id?.$in as number[] | undefined;
+      // if (!Array.isArray(ids) || ids.length === 0) {
+      //   return;
+      // }
+      // await Promise.all(
+      //   ids.map(async (id) => {
+      //     const { recipe } = (await strapi.entityService.findOne(
+      //       'api::rating.rating',
+      //       id,
+      //       {
+      //         fields: ['id'],
+      //         populate: {
+      //           recipe: {
+      //             fields: ['id'],
+      //           },
+      //         },
+      //       }
+      //     )) as unknown as { id: number; recipe?: { id: number } };
+      //     if (typeof recipe?.id !== 'number') {
+      //       return;
+      //     }
+      //     return await strapi
+      //       .service('api::recipe.recipe')
+      //       .updateRating(recipe.id);
+      //   })
+      // );
+    },
   afterDelete: async (
     event: AfterRunEvent<{ recipe?: { id: number } }, { id: number }>
   ) => {
@@ -42,10 +67,20 @@ const lifecycles = {
 
     await strapi.service('api::recipe.recipe').updateRating(recipe.id);
   },
-  afterDeleteMany(event: AfterRunEvent<Record<string, any>, { id: number }>) {
-    // TODO: Implement lifecycle hook
-    console.log('afterDeleteMany');
-    console.log(JSON.stringify(event, null, 2));
+  afterDeleteMany: async (
+    event: AfterRunEvent<{ recipes: { id: number }[] }, { id: number }>
+  ) => {
+    const recipes = event.state.recipes;
+
+    if (recipes.length === 0) {
+      return;
+    }
+
+    await Promise.all(
+      recipes.map((recipe) =>
+        strapi.service('api::recipe.recipe').updateRating(recipe.id)
+      )
+    );
   },
   afterUpdate: async (
     event: AfterRunEvent<Record<string, any>, { id: number }>
@@ -71,11 +106,36 @@ const lifecycles = {
 
     await strapi.service('api::recipe.recipe').updateRating(recipe.id);
   },
-  afterUpdateMany(event: AfterRunEvent<Record<string, any>, { id: number }>) {
-    // TODO: Implement lifecycle hook
-    console.log('afterUpdateMany');
-    console.log(JSON.stringify(event, null, 2));
-  },
+  afterUpdateMany: async () =>
+    // event: AfterRunEvent<Record<string, any>, { id: number }>
+    {
+      // const ids = event.params.where?.$and?.[0]?.id?.$in as number[] | undefined;
+      // if (!Array.isArray(ids) || ids.length === 0) {
+      //   return;
+      // }
+      // await Promise.all(
+      //   ids.map(async (id) => {
+      //     const { recipe } = (await strapi.entityService.findOne(
+      //       'api::rating.rating',
+      //       id,
+      //       {
+      //         fields: ['id'],
+      //         populate: {
+      //           recipe: {
+      //             fields: ['id'],
+      //           },
+      //         },
+      //       }
+      //     )) as unknown as { id: number; recipe?: { id: number } };
+      //     if (typeof recipe?.id !== 'number') {
+      //       return;
+      //     }
+      //     return await strapi
+      //       .service('api::recipe.recipe')
+      //       .updateRating(recipe.id);
+      //   })
+      // );
+    },
   beforeDelete: async (event: BeforeRunEvent<Record<string, any>>) => {
     const id = event.params.where.id as number;
 
@@ -93,6 +153,47 @@ const lifecycles = {
     )) as unknown as { id: number; recipe?: { id: number } };
 
     event.state = { recipe };
+  },
+  beforeDeleteMany: async (event: BeforeRunEvent<Record<string, any>>) => {
+    const ids = event.params.where?.$and?.[0]?.id?.$in as number[] | undefined;
+
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return;
+    }
+
+    const ratings = (await strapi.entityService.findMany('api::rating.rating', {
+      fields: ['id'],
+      filters: {
+        id: {
+          $in: ids,
+        },
+      },
+      populate: {
+        recipe: {
+          fields: ['id'],
+        },
+      },
+    })) as unknown as { id: number; recipe?: { id: number } }[];
+
+    const recipes = Object.values(
+      ratings.reduce(
+        (accumulatedRecipes, rating) => {
+          const { recipe } = rating;
+
+          if (
+            typeof recipe?.id === 'number' &&
+            !(recipe.id in accumulatedRecipes)
+          ) {
+            accumulatedRecipes[recipe.id] = recipe;
+          }
+
+          return accumulatedRecipes;
+        },
+        {} as Record<number, { id: number }>
+      )
+    );
+
+    event.state = { recipes };
   },
 };
 
