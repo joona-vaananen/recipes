@@ -7,6 +7,10 @@ const lifecycles = {
   ) => {
     const id = event.result.id;
 
+    if (typeof id !== 'number') {
+      return;
+    }
+
     const { recipe } = (await strapi.entityService.findOne(
       'api::rating.rating',
       id,
@@ -26,36 +30,46 @@ const lifecycles = {
 
     await strapi.service('api::recipe.recipe').updateRating(recipe.id);
   },
-  afterCreateMany: async () =>
-    // event: AfterRunEvent<Record<string, any>, { id: number }>
-    {
-      // const ids = event.params.where?.$and?.[0]?.id?.$in as number[] | undefined;
-      // if (!Array.isArray(ids) || ids.length === 0) {
-      //   return;
-      // }
-      // await Promise.all(
-      //   ids.map(async (id) => {
-      //     const { recipe } = (await strapi.entityService.findOne(
-      //       'api::rating.rating',
-      //       id,
-      //       {
-      //         fields: ['id'],
-      //         populate: {
-      //           recipe: {
-      //             fields: ['id'],
-      //           },
-      //         },
-      //       }
-      //     )) as unknown as { id: number; recipe?: { id: number } };
-      //     if (typeof recipe?.id !== 'number') {
-      //       return;
-      //     }
-      //     return await strapi
-      //       .service('api::recipe.recipe')
-      //       .updateRating(recipe.id);
-      //   })
-      // );
-    },
+  afterCreateMany: async (
+    event: AfterRunEvent<Record<string, any>, { id: number }>
+  ) => {
+    const ids = event.params.where?.$and?.[0]?.id?.$in as number[] | undefined;
+
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return;
+    }
+
+    const ratings = (await strapi.entityService.findMany('api::rating.rating', {
+      fields: ['id'],
+      filters: {
+        id: {
+          $in: ids,
+        },
+        recipe: {
+          id: {
+            $notNull: true,
+          },
+        },
+      },
+      populate: {
+        recipe: {
+          fields: ['id'],
+        },
+      },
+    })) as unknown as { id: number; recipe: { id: number } }[];
+
+    const recipes = resolveRecipes(ratings);
+
+    if (recipes.length === 0) {
+      return;
+    }
+
+    await Promise.all(
+      recipes.map((recipe) => {
+        return strapi.service('api::recipe.recipe').updateRating(recipe.id);
+      })
+    );
+  },
   afterDelete: async (
     event: AfterRunEvent<{ recipe?: { id: number } }, { id: number }>
   ) => {
@@ -72,20 +86,24 @@ const lifecycles = {
   ) => {
     const recipes = event.state.recipes;
 
-    if (recipes.length === 0) {
+    if (!Array.isArray(recipes) || recipes.length === 0) {
       return;
     }
 
     await Promise.all(
-      recipes.map((recipe) =>
-        strapi.service('api::recipe.recipe').updateRating(recipe.id)
-      )
+      recipes.map((recipe) => {
+        return strapi.service('api::recipe.recipe').updateRating(recipe.id);
+      })
     );
   },
   afterUpdate: async (
     event: AfterRunEvent<Record<string, any>, { id: number }>
   ) => {
     const id = event.result.id;
+
+    if (typeof id !== 'number') {
+      return;
+    }
 
     const { recipe } = (await strapi.entityService.findOne(
       'api::rating.rating',
@@ -106,38 +124,52 @@ const lifecycles = {
 
     await strapi.service('api::recipe.recipe').updateRating(recipe.id);
   },
-  afterUpdateMany: async () =>
-    // event: AfterRunEvent<Record<string, any>, { id: number }>
-    {
-      // const ids = event.params.where?.$and?.[0]?.id?.$in as number[] | undefined;
-      // if (!Array.isArray(ids) || ids.length === 0) {
-      //   return;
-      // }
-      // await Promise.all(
-      //   ids.map(async (id) => {
-      //     const { recipe } = (await strapi.entityService.findOne(
-      //       'api::rating.rating',
-      //       id,
-      //       {
-      //         fields: ['id'],
-      //         populate: {
-      //           recipe: {
-      //             fields: ['id'],
-      //           },
-      //         },
-      //       }
-      //     )) as unknown as { id: number; recipe?: { id: number } };
-      //     if (typeof recipe?.id !== 'number') {
-      //       return;
-      //     }
-      //     return await strapi
-      //       .service('api::recipe.recipe')
-      //       .updateRating(recipe.id);
-      //   })
-      // );
-    },
+  afterUpdateMany: async (
+    event: AfterRunEvent<Record<string, any>, { id: number }>
+  ) => {
+    const ids = event.params.where?.$and?.[0]?.id?.$in as number[] | undefined;
+
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return;
+    }
+
+    const ratings = (await strapi.entityService.findMany('api::rating.rating', {
+      fields: ['id'],
+      filters: {
+        id: {
+          $in: ids,
+        },
+        recipe: {
+          id: {
+            $notNull: true,
+          },
+        },
+      },
+      populate: {
+        recipe: {
+          fields: ['id'],
+        },
+      },
+    })) as unknown as { id: number; recipe: { id: number } }[];
+
+    const recipes = resolveRecipes(ratings);
+
+    if (recipes.length === 0) {
+      return;
+    }
+
+    await Promise.all(
+      recipes.map((recipe) => {
+        return strapi.service('api::recipe.recipe').updateRating(recipe.id);
+      })
+    );
+  },
   beforeDelete: async (event: BeforeRunEvent<Record<string, any>>) => {
     const id = event.params.where.id as number;
+
+    if (typeof id !== 'number') {
+      return;
+    }
 
     const { recipe } = (await strapi.entityService.findOne(
       'api::rating.rating',
@@ -167,34 +199,39 @@ const lifecycles = {
         id: {
           $in: ids,
         },
+        recipe: {
+          id: {
+            $notNull: true,
+          },
+        },
       },
       populate: {
         recipe: {
           fields: ['id'],
         },
       },
-    })) as unknown as { id: number; recipe?: { id: number } }[];
+    })) as unknown as { id: number; recipe: { id: number } }[];
 
-    const recipes = Object.values(
-      ratings.reduce(
-        (accumulatedRecipes, rating) => {
-          const { recipe } = rating;
-
-          if (
-            typeof recipe?.id === 'number' &&
-            !(recipe.id in accumulatedRecipes)
-          ) {
-            accumulatedRecipes[recipe.id] = recipe;
-          }
-
-          return accumulatedRecipes;
-        },
-        {} as Record<number, { id: number }>
-      )
-    );
+    const recipes = resolveRecipes(ratings);
 
     event.state = { recipes };
   },
 };
 
 export default lifecycles;
+
+const resolveRecipes = (ratings: { id: number; recipe: { id: number } }[]) => {
+  return Object.values(
+    ratings.reduce(
+      (accumulatedRecipes, rating) => {
+        const { recipe } = rating;
+
+        return {
+          ...accumulatedRecipes,
+          [recipe.id]: recipe,
+        };
+      },
+      {} as Record<number, { id: number }>
+    )
+  );
+};
