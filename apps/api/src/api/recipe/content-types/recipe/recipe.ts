@@ -57,6 +57,8 @@ export interface Recipe {
     servings: number;
     instructions: any;
     comments: any;
+    averageRating?: number;
+    ratingCount: number;
   };
 }
 export interface Recipe_Plain {
@@ -83,6 +85,8 @@ export interface Recipe_Plain {
   servings: number;
   instructions: any;
   comments: any;
+  averageRating?: number;
+  ratingCount: number;
 }
 
 export interface Recipe_NoRelations {
@@ -109,6 +113,8 @@ export interface Recipe_NoRelations {
   servings: number;
   instructions: any;
   comments: any;
+  averageRating?: number;
+  ratingCount: number;
 }
 
 export interface Recipe_AdminPanelLifeCycle {
@@ -135,4 +141,6 @@ export interface Recipe_AdminPanelLifeCycle {
   servings: number;
   instructions: any;
   comments: any;
+  averageRating?: number;
+  ratingCount: number;
 }

@@ -20,6 +20,10 @@
   "InstructionList": {
     "title": "Instructions"
   },
+  "Rating": {
+    "ratings": "{ratingCount, plural, =0 {no ratings} =1 {# rating} other {# ratings}}",
+    "scoreUnit": "stars"
+  },
   "RecipeCarousel": {
     "viewMore": "View more"
   },

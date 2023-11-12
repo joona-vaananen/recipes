@@ -158,7 +158,7 @@
       "target": "api::rating.rating",
       "mappedBy": "recipe"
     },
-    "rating": {
+    "averageRating": {
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -167,6 +167,16 @@
       "type": "decimal",
       "max": 5,
       "min": 1
+    },
+    "ratingCount": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "integer",
+      "required": true,
+      "default": 0
     }
   }
 }

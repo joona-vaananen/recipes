@@ -16,20 +16,26 @@ export default factories.createCoreService(
         }
       )) as unknown as { id: number; score: number }[];
 
-      const rating =
+      const averageRating =
         ratings.length > 0
           ? ratings.reduce((total, rating) => total + rating.score, 0) /
             ratings.length
           : null;
 
+      const ratingCount = ratings.length;
+
       const recipe = (await strapi.entityService!.update(
         'api::recipe.recipe',
         id,
         {
-          fields: ['id', 'rating'],
-          data: { rating } as any,
+          fields: ['averageRating', 'id', 'ratingCount'],
+          data: { averageRating, ratingCount } as any,
         }
-      )) as unknown as { id: number; rating: number };
+      )) as unknown as {
+        averageRating: number;
+        id: number;
+        ratingCount: number;
+      };
 
       return recipe;
     },

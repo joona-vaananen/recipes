@@ -10,6 +10,7 @@ import {
   Hero,
   IngredientList,
   InstructionList,
+  RecipeInfo,
   RichText,
 } from '@recipes/ui/src/components';
 
@@ -30,6 +31,10 @@ const Page = async ({ params }: PageProps) => {
         backgroundImage={recipe.attributes.image}
         description={recipe.attributes.description}
         title={recipe.attributes.title}
+      />
+      <RecipeInfo
+        averageRating={recipe.attributes.averageRating}
+        ratingCount={recipe.attributes.ratingCount}
       />
       <DynamicZone
         components={{
@@ -89,7 +94,15 @@ const getRecipeData = async ({ params }: PageProps) => {
   } = await apiClient.getMany({
     contentType: 'recipes',
     parameters: {
-      fields: ['id', 'description', 'servings', 'slug', 'title'],
+      fields: [
+        'averageRating',
+        'id',
+        'description',
+        'ratingCount',
+        'servings',
+        'slug',
+        'title',
+      ],
       filters: { slug },
       locale,
       pagination: { limit: 1 },
