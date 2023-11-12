@@ -1,9 +1,8 @@
-import { Heading, Section } from '@radix-ui/themes';
 import { useTranslations } from 'next-intl';
 import { use } from 'react';
 
 import type { APIClientInstance } from '@recipes/api-client';
-import { CommentListItems } from './comment-list-items';
+import { CommentListClient } from './comment-list-client';
 
 export const COMMENTS_PAGE_SIZE = 15;
 
@@ -45,31 +44,18 @@ export const CommentList = ({
     })
   );
 
-  if (comments.length === 0) {
-    return null;
-  }
-
   const { pagination } = meta;
 
   return (
-    <Section
-      size={{
-        initial: '2',
-        sm: '3',
+    <CommentListClient
+      comments={comments}
+      locale={locale}
+      pagination={pagination}
+      recipe={recipe}
+      translations={{
+        title: t('title'),
+        viewMore: t('viewMore'),
       }}
-    >
-      <Heading as={'h2'} mb={'4'} size={'7'}>
-        {t('title')}
-      </Heading>
-      <CommentListItems
-        comments={comments}
-        locale={locale}
-        pagination={pagination}
-        recipe={recipe}
-        translations={{
-          viewMore: t('viewMore'),
-        }}
-      />
-    </Section>
+    />
   );
 };

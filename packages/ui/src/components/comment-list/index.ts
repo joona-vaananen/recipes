@@ -1,2 +1,2 @@
 export * from './comment-list';
-export * from './comment-list-items';
+export * from './comment-list-client';
