@@ -26,6 +26,7 @@ const DEFAULT_PAGE_SIZE = 15;
 
 interface RecipeSearchProps {
   filters: any;
+  locale: string;
   pageSize: number;
   searchClient: any;
   searchParams: Record<string, string | string[] | undefined>;
@@ -35,6 +36,7 @@ interface RecipeSearchProps {
 
 export const RecipeSearch = ({
   filters,
+  locale,
   pageSize,
   searchClient,
   searchParams,
@@ -51,6 +53,8 @@ export const RecipeSearch = ({
     ...parsedFilters
   } = parsedSearchParams;
 
+  const initialFilters = [`locale IN ["${locale}"]`];
+
   const parsedPage = recipeSearchPageSchema.parse(searchParams.page);
 
   const searchResults = use(
@@ -60,7 +64,11 @@ export const RecipeSearch = ({
         parsedSearch,
         {
           facets: ['*'],
-          filter: buildSearchFilter(parsedFilters, searchConfig.filters),
+          filter: buildSearchFilter(
+            parsedFilters,
+            searchConfig.filters,
+            initialFilters
+          ),
           hitsPerPage: pageSize ?? DEFAULT_PAGE_SIZE,
           page: parsedPage,
           sort: buildSearchSort(

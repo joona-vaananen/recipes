@@ -1,20 +1,35 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { components } from '@/components';
 import { apiClient } from '@/lib/api/client';
-import { DynamicZone } from '@recipes/ui';
+import { searchClient } from '@/lib/search/client';
+import type { RecipeCarousel as RecipeCarouselProps } from '@recipes/api/src/components/ui/interfaces/RecipeCarousel';
+import { DynamicZone, Hero, RecipeCarousel, RichText } from '@recipes/ui';
 
 interface HomePageProps {
   params: { locale: string };
 }
 
 const HomePage = async ({ params }: HomePageProps) => {
+  const { locale } = params;
+
   const homePage = await getHomePageData({ params });
 
   return (
     <>
-      <DynamicZone components={components}>
+      <DynamicZone
+        components={{
+          'ui.hero': Hero,
+          'ui.recipe-carousel': (props: RecipeCarouselProps) => (
+            <RecipeCarousel
+              {...props}
+              locale={locale}
+              searchClient={searchClient}
+            />
+          ),
+          'ui.rich-text': RichText,
+        }}
+      >
         {homePage.attributes.content}
       </DynamicZone>
       {/* <Container className={'container'} px={'4'}>

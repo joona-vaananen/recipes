@@ -14,6 +14,8 @@ const RecipeSearchPage = async ({
   params,
   searchParams,
 }: RecipeSearchPageProps) => {
+  const { locale } = params;
+
   const recipeSearchPage = await getRecipeSearchPageData({
     params,
     searchParams,
@@ -24,6 +26,7 @@ const RecipeSearchPage = async ({
   return (
     <RecipeSearch
       filters={filters}
+      locale={locale}
       pageSize={pageSize}
       searchClient={searchClient}
       searchParams={searchParams}

@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { components } from '@/components';
 import { apiClient } from '@/lib/api/client';
-import { DynamicZone } from '@recipes/ui';
+import { searchClient } from '@/lib/search/client';
+import type { RecipeCarousel as RecipeCarouselProps } from '@recipes/api/src/components/ui/interfaces/RecipeCarousel';
+import { DynamicZone, Hero, RecipeCarousel, RichText } from '@recipes/ui';
 
 interface PageProps {
   params: {
@@ -13,11 +14,25 @@ interface PageProps {
 }
 
 const Page = async ({ params }: PageProps) => {
+  const { locale } = params;
+
   const page = await getPageData({ params });
 
   return (
     <>
-      <DynamicZone components={components}>
+      <DynamicZone
+        components={{
+          'ui.hero': Hero,
+          'ui.recipe-carousel': (props: RecipeCarouselProps) => (
+            <RecipeCarousel
+              {...props}
+              locale={locale}
+              searchClient={searchClient}
+            />
+          ),
+          'ui.rich-text': RichText,
+        }}
+      >
         {page.attributes.content}
       </DynamicZone>
       {/* <Container className={'container'} px={'4'}>

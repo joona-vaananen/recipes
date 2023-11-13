@@ -13,6 +13,7 @@ const plugins = ({ env }: { env: any }) => ({
             'cuisines',
             'diets',
             'id',
+            'locale',
             'mainIngredients',
             'mealTypes',
             'methods',

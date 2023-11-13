@@ -31,6 +31,7 @@ export interface RecipeCarouselProps {
   diets?: { data: Diet[] } | undefined;
   initialFilters?: string[];
   limit?: number;
+  locale: string;
   mainIngredients?: { data: MainIngredient[] } | undefined;
   mealTypes?: { data: MealType[] } | undefined;
   methods?: { data: Method[] } | undefined;
@@ -46,12 +47,13 @@ export const RecipeCarousel = ({
   cuisines,
   diets,
   initialFilters,
+  limit,
+  locale,
   mainIngredients,
   mealTypes,
   methods,
-  seasons,
-  limit,
   searchClient,
+  seasons,
   sort,
   title,
 }: RecipeCarouselProps) => {
@@ -71,6 +73,11 @@ export const RecipeCarousel = ({
     searchConfig.filters
   );
 
+  const initialFiltersWithLocale = [
+    `locale IN ["${locale}"]`,
+    ...(initialFilters ?? []),
+  ];
+
   const searchResults = use(
     (searchClient as InstanceType<typeof MeiliSearch>)
       .index<Recipe_Plain & { image: Media['attributes'] }>('recipe')
@@ -78,7 +85,7 @@ export const RecipeCarousel = ({
         filter: buildSearchFilter(
           searchParams,
           searchConfig.filters,
-          initialFilters
+          initialFiltersWithLocale
         ),
         hitsPerPage: limit ?? 15,
         page: 1,
