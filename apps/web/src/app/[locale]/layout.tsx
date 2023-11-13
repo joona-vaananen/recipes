@@ -8,7 +8,7 @@ import { notFound } from 'next/navigation';
 import { TIME_ZONE } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 // import { fetcher } from '@/lib/utils/fetcher';
-import { locales } from '@recipes/ui';
+import { cn, locales } from '@recipes/ui';
 import { Footer, Header, UserProvider } from '@recipes/ui/src/components';
 
 import './globals.css';
@@ -52,7 +52,7 @@ const Layout = async ({ children, params }: LayoutProps) => {
 
   return (
     <html
-      className={`${robotoSlab.variable} ${raleway.variable}`}
+      className={cn('scroll-smooth', robotoSlab.variable, raleway.variable)}
       lang={locale}
     >
       <body>

@@ -4,7 +4,7 @@ import { RecipeCarousel, type RecipeCarouselProps } from './recipe-carousel';
 interface SimilarRecipeCarouselProps
   extends Pick<
     RecipeCarouselProps,
-    'categories' | 'cuisines' | 'limit' | 'searchClient' | 'sort'
+    'categories' | 'cuisines' | 'limit' | 'searchClient'
   > {
   id: number;
 }
@@ -14,7 +14,6 @@ export const SimilarRecipeCarousel = ({
   cuisines,
   id,
   searchClient,
-  sort,
 }: SimilarRecipeCarouselProps) => {
   const t = useTranslations('SimilarRecipeCarousel');
 
@@ -25,7 +24,6 @@ export const SimilarRecipeCarousel = ({
       categories={categories}
       cuisines={cuisines}
       initialFilters={initialFilters}
-      sort={sort}
       searchClient={searchClient}
       title={t('title')}
     />

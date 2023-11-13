@@ -27,6 +27,12 @@
   "RecipeCarousel": {
     "viewMore": "View more"
   },
+  "RecipeInfo": {
+    "jumpToRecipe": "Jump to recipe"
+  },
+  "RecipePage": {
+    "recipeAnchor": "recipe"
+  },
   "RecipeSearch": {
     "filters": "Search filters",
     "inputPlaceholder": "Search recipes...",

@@ -27,6 +27,12 @@
   "RecipeCarousel": {
     "viewMore": "Katso lisää"
   },
+  "RecipeInfo": {
+    "jumpToRecipe": "Hyppää reseptiin"
+  },
+  "RecipePage": {
+    "recipeAnchor": "resepti"
+  },
   "RecipeSearch": {
     "filters": "Hakuehdot",
     "inputPlaceholder": "Etsi reseptejä...",

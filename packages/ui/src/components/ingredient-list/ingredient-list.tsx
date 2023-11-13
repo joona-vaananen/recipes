@@ -33,7 +33,7 @@ export const IngredientList = ({ items, servings }: IngredientListProps) => {
         <Heading as={'h2'} mb={'4'} size={'7'}>
           {t('title')}
         </Heading>
-        <Flex direction={'column'} gap={'4'}>
+        <Flex direction={'column'} gap={'6'}>
           <form>
             <IngredientListServingsInput
               translations={{

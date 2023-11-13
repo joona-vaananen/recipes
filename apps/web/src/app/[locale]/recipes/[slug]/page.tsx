@@ -1,6 +1,8 @@
 import { Container, Grid } from '@radix-ui/themes';
 import type { Metadata } from 'next';
+import { useTranslations } from 'next-intl';
 import { notFound } from 'next/navigation';
+import { use } from 'react';
 
 import { apiClient } from '@/lib/api/client';
 import { searchClient } from '@/lib/search/client';
@@ -23,9 +25,12 @@ interface PageProps {
   };
 }
 
-const Page = async ({ params }: PageProps) => {
+const Page = ({ params }: PageProps) => {
   const { locale } = params;
-  const recipe = await getRecipeData({ params });
+
+  const t = useTranslations('RecipePage');
+
+  const recipe = use(getRecipeData({ params }));
 
   return (
     <>
@@ -37,6 +42,7 @@ const Page = async ({ params }: PageProps) => {
       <RecipeInfo
         averageRating={recipe.attributes.averageRating}
         ratingCount={recipe.attributes.ratingCount}
+        recipeAnchor={t('recipeAnchor')}
       />
       <DynamicZone
         components={{
@@ -45,7 +51,7 @@ const Page = async ({ params }: PageProps) => {
       >
         {recipe.attributes.content}
       </DynamicZone>
-      <Container className={'container'}>
+      <Container className={'container'} id={t('recipeAnchor')}>
         <Grid
           columns={{
             initial: '1',

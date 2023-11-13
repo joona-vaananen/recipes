@@ -31,7 +31,7 @@ export const InstructionList = ({ items }: InstructionListProps) => {
       </Heading>
       <ul>
         {items.map((item) => (
-          <ListItem key={item.id}>
+          <ListItem className={'my-8'} key={item.id}>
             {item.title ? (
               <Heading as={'h3'} mb={'4'} size={'4'}>
                 {item.title}
