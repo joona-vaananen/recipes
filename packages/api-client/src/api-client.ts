@@ -32,7 +32,7 @@ interface Parameters {
     | { page?: number; pageSize?: number }
     | { start?: number; limit?: number }
   ) & { withCount?: boolean };
-  populate?: Record<string, any> | '*';
+  populate?: Record<string, any> | '*' | 'localizations';
   publicationState?: 'live' | 'preview';
   sort?: string | string[];
 }
@@ -209,18 +209,20 @@ export class APIClient {
   }
 
   async request<T>(input: RequestInfo | URL, init?: RequestInit | undefined) {
-    const response = await fetch(
+    const url =
       typeof input === 'string' && input.startsWith('/')
         ? `${this.config.protocol}://${this.config.host}:${this.config.port}/api${input}`
-        : input,
-      {
-        ...init,
-        headers: {
-          ...init?.headers,
-          Authorization: `Bearer ${this.config.token}`,
-        },
-      }
-    );
+        : input;
+
+    const opts = {
+      ...init,
+      headers: {
+        ...init?.headers,
+        Authorization: `Bearer ${this.config.token}`,
+      },
+    };
+
+    const response = await fetch(url, opts);
 
     const { data, error, meta } = (await response.json()) as APIResponse<T>;
 
