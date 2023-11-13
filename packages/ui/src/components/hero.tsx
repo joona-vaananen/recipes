@@ -28,7 +28,16 @@ export const Hero = ({
     >
       <Flex align={'center'} height={'100%'}>
         <Container className={'container'}>
-          {title ? <Heading size={'9'}>{title}</Heading> : null}
+          {title ? (
+            <Heading
+              className={
+                'w-fit rounded-3 bg-accent-9 p-4 text-[#fff] [text-shadow:_4px_4px_#000,_2px_-2px_#000,_-2px_-2px_#000,_-2px_2px_#000,_2px_2px_#000]'
+              }
+              size={'9'}
+            >
+              {title}
+            </Heading>
+          ) : null}
           {description ? (
             <Text as={'p'} mt={'9'} size={'5'}>
               {description}
