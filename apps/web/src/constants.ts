@@ -4,6 +4,8 @@ export const BASE_URL = process.env.WEB_BASE_URL;
 
 export const BREAKPOINTS = breakpoints;
 
+export const DEFAULT_REVALIDATE = 60;
+
 export const ERROR_NAMES = {
   SERVER_ERROR: 'ServerError',
   UNIQUE_CONSTRAINT_ERROR: 'UniqueConstraintError',

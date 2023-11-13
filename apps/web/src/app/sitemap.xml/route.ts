@@ -12,7 +12,12 @@ export const GET = () => {
   <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     ${generateSitemaps()}
   </sitemapindex>`,
-    { headers: { 'Content-Type': 'application/xml' } }
+    {
+      headers: {
+        'Cache-Control': `s-maxage=86400`,
+        'Content-Type': 'application/xml',
+      },
+    }
   );
 };
 

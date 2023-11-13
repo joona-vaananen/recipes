@@ -111,5 +111,13 @@ export const getComments = async (request: NextRequest, context: Context) => {
     );
   }
 
-  return NextResponse.json({ data, meta });
+  return NextResponse.json(
+    { data, meta },
+    {
+      headers: {
+        'Cache-Control':
+          'private, no-cache, no-store, max-age=0, must-revalidate',
+      },
+    }
+  );
 };

@@ -20,7 +20,10 @@ export const GET = async () => {
   </urlset>`;
 
   return new Response(sitemap, {
-    headers: { 'Content-Type': 'application/xml' },
+    headers: {
+      'Cache-Control': `s-maxage=86400`,
+      'Content-Type': 'application/xml',
+    },
   });
 };
 
