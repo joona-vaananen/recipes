@@ -1,4 +1,7 @@
-type Relations = Record<string, { data: { attributes: { slug: string } }[] }>;
+type Relations = Record<
+  string,
+  { data: { attributes: { slug: string } }[] } | undefined
+>;
 
 type FilterConfig = Record<string, { attribute: string }>;
 
@@ -19,13 +22,13 @@ export const resolveSearchParams = (
 
       if (
         !filterConfigKey ||
-        !Array.isArray(relationValue.data) ||
-        relationValue.data.length === 0
+        !Array.isArray(relationValue?.data) ||
+        relationValue!.data.length === 0
       ) {
         return accumulatedSearchParams;
       }
 
-      accumulatedSearchParams[filterConfigKey] = relationValue.data.map(
+      accumulatedSearchParams[filterConfigKey] = relationValue!.data.map(
         (data) => data.attributes.slug
       );
 

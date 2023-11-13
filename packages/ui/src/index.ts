@@ -11,6 +11,7 @@ export {
   RecipeCarousel,
   RecipeSearch,
   RichText,
+  SimilarRecipeCarousel,
   UserProvider,
   commentFormSchema,
   type CommentFormSchema,

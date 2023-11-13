@@ -14,5 +14,6 @@ export * from './recipe-carousel';
 export * from './recipe-info';
 export * from './recipe-search';
 export * from './rich-text';
+export * from './similar-recipe-carousel';
 export * from './unordered-list';
 export * from './user-context';

@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { apiClient } from '@/lib/api/client';
+import { searchClient } from '@/lib/search/client';
 import {
   CommentForm,
   CommentList,
@@ -12,6 +13,7 @@ import {
   InstructionList,
   RecipeInfo,
   RichText,
+  SimilarRecipeCarousel,
 } from '@recipes/ui/src/components';
 
 interface PageProps {
@@ -58,6 +60,12 @@ const Page = async ({ params }: PageProps) => {
           <InstructionList items={recipe.attributes.instructions} />
         </Grid>
       </Container>
+      <SimilarRecipeCarousel
+        categories={recipe.attributes.categories}
+        cuisines={recipe.attributes.cuisines}
+        id={recipe.id}
+        searchClient={searchClient}
+      />
       <Container className={'container'}>
         <Grid
           columns={{
@@ -107,12 +115,21 @@ const getRecipeData = async ({ params }: PageProps) => {
       locale,
       pagination: { limit: 1 },
       populate: {
+        categories: {
+          fields: ['id', 'slug'],
+        },
         content: {
           on: {
             'ui.rich-text': {
               fields: ['blocks', 'id'],
             },
           },
+        },
+        courses: {
+          fields: ['id', 'slug'],
+        },
+        cuisines: {
+          fields: ['id', 'slug'],
         },
         image: {
           fields: ['height', 'id', 'placeholder', 'url', 'width'],
@@ -132,6 +149,9 @@ const getRecipeData = async ({ params }: PageProps) => {
               fields: ['content', 'id'],
             },
           },
+        },
+        mealTypes: {
+          fields: ['id', 'slug'],
         },
       },
     },

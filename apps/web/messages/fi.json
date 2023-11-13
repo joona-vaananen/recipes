@@ -37,5 +37,8 @@
     "previousPage": "Edellinen sivu",
     "resetFilters": "Tyhjennä ehdot",
     "showResults": "Näytä tulokset"
+  },
+  "SimilarRecipeCarousel": {
+    "title": "Samankaltaisia reseptejä"
   }
 }

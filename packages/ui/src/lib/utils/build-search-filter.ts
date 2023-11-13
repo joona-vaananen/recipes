@@ -4,7 +4,8 @@ type FilterConfig = Record<string, { field: string }>;
 
 export const buildSearchFilter = (
   searchParams: SearchParams,
-  filterConfig: FilterConfig
+  filterConfig: FilterConfig,
+  initialFilters: string[] = []
 ) => {
   return Object.entries(searchParams)
     .reduce((accumulatedSearchFilters, [searchParamKey, searchParamValue]) => {
@@ -28,6 +29,6 @@ export const buildSearchFilter = (
       }
 
       return accumulatedSearchFilters;
-    }, [] as string[])
+    }, initialFilters)
     .join(' AND ');
 };

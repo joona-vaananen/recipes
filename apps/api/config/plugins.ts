@@ -12,6 +12,7 @@ const plugins = ({ env }: { env: any }) => ({
             'courses',
             'cuisines',
             'diets',
+            'id',
             'mainIngredients',
             'mealTypes',
             'methods',

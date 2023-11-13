@@ -4,9 +4,16 @@ import { useTranslations } from 'next-intl';
 import { stringify } from 'qs';
 import { use } from 'react';
 
+import type { Category } from '@recipes/api/src/api/category/content-types/category/category';
+import type { Course } from '@recipes/api/src/api/course/content-types/course/course';
+import type { Cuisine } from '@recipes/api/src/api/cuisine/content-types/cuisine/cuisine';
+import type { Diet } from '@recipes/api/src/api/diet/content-types/diet/diet';
+import type { MainIngredient } from '@recipes/api/src/api/main-ingredient/content-types/main-ingredient/main-ingredient';
+import type { MealType } from '@recipes/api/src/api/meal-type/content-types/meal-type/meal-type';
+import type { Method } from '@recipes/api/src/api/method/content-types/method/method';
 import type { Recipe_Plain } from '@recipes/api/src/api/recipe/content-types/recipe/recipe';
+import type { Season } from '@recipes/api/src/api/season/content-types/season/season';
 import type { Media } from '@recipes/api/src/common/interfaces/Media';
-import type { RecipeCarousel as IRecipeCarousel } from '@recipes/api/src/components/ui/interfaces/RecipeCarousel';
 import { ArrowRight } from 'lucide-react';
 import { BREAKPOINTS } from '../../constants';
 import { buildSearchFilter } from '../../lib';
@@ -17,13 +24,28 @@ import { RecipeCard } from '../recipe-card';
 import { recipeSearchConfig as searchConfig } from '../recipe-search/recipe-search-config';
 import { RecipeCarouselClient } from './recipe-carousel-client';
 
-type RecipeCarouselProps = IRecipeCarousel & { searchClient: any };
+export interface RecipeCarouselProps {
+  categories?: { data: Category[] } | undefined;
+  courses?: { data: Course[] } | undefined;
+  cuisines?: { data: Cuisine[] } | undefined;
+  diets?: { data: Diet[] } | undefined;
+  initialFilters?: string[];
+  limit?: number;
+  mainIngredients?: { data: MainIngredient[] } | undefined;
+  mealTypes?: { data: MealType[] } | undefined;
+  methods?: { data: Method[] } | undefined;
+  searchClient: any;
+  seasons?: { data: Season[] } | undefined;
+  sort?: 'created-at-asc' | 'created-at-desc' | 'title-asc' | 'title-desc';
+  title?: string;
+}
 
 export const RecipeCarousel = ({
   categories,
   courses,
   cuisines,
   diets,
+  initialFilters,
   mainIngredients,
   mealTypes,
   methods,
@@ -53,7 +75,11 @@ export const RecipeCarousel = ({
     (searchClient as InstanceType<typeof MeiliSearch>)
       .index<Recipe_Plain & { image: Media['attributes'] }>('recipe')
       .searchGet('', {
-        filter: buildSearchFilter(searchParams, searchConfig.filters),
+        filter: buildSearchFilter(
+          searchParams,
+          searchConfig.filters,
+          initialFilters
+        ),
         hitsPerPage: limit ?? 15,
         page: 1,
         sort: buildSearchSort(sort, searchConfig.sort) ?? ['createdAt:desc'],

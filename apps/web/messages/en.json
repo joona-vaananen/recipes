@@ -37,5 +37,8 @@
     "previousPage": "Previous page",
     "resetFilters": "Reset filters",
     "showResults": "Show results"
+  },
+  "SimilarRecipeCarousel": {
+    "title": "Similar recipes"
   }
 }
