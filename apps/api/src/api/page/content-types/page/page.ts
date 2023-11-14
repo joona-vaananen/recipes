@@ -3,36 +3,52 @@
 export interface Page {
   id: number;
   attributes: {
-    createdAt: Date;    updatedAt: Date;    publishedAt?: Date;    title: string;
+    createdAt: Date;
+    updatedAt: Date;
+    publishedAt?: Date;
+    title: string;
     slug: string;
     content?: any;
     locale: string;
     localizations?: { data: Page[] };
+    metadata?: any;
   };
 }
 export interface Page_Plain {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  title: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  title: string;
   slug: string;
   content?: any;
   locale: string;
   localizations?: Page[];
+  metadata?: any;
 }
 
 export interface Page_NoRelations {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  title: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  title: string;
   slug: string;
   content?: any;
   locale: string;
   localizations?: Page[];
+  metadata?: any;
 }
 
 export interface Page_AdminPanelLifeCycle {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  title: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  title: string;
   slug: string;
   content?: any;
   locale: string;
   localizations?: Page[];
+  metadata?: any;
 }

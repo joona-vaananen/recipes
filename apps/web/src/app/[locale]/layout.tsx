@@ -5,9 +5,8 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import { Raleway, Roboto_Slab } from 'next/font/google';
 import { notFound } from 'next/navigation';
 
-import { TIME_ZONE } from '@/constants';
+import { SITE_NAME, TIME_ZONE } from '@/constants';
 import { apiClient } from '@/lib/api/client';
-// import { fetcher } from '@/lib/utils/fetcher';
 import { cn, locales } from '@recipes/ui';
 import { Footer, Header, UserProvider } from '@recipes/ui/src/components';
 
@@ -27,8 +26,8 @@ const raleway = Raleway({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Olisipa',
-    template: '%s | Olisipa',
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
   },
 };
 

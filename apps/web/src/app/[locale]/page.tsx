@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { BASE_URL, SITE_NAME } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { searchClient } from '@/lib/search/client';
 import type { RecipeCarousel as RecipeCarouselProps } from '@recipes/api/src/components/ui/interfaces/RecipeCarousel';
@@ -49,9 +50,25 @@ export const generateMetadata = async ({
   const homePage = await getHomePageData({ params });
 
   return {
-    title: homePage.attributes.title
-      ? `${homePage.attributes.title} | Olisipa`
-      : 'Olisipa',
+    title:
+      homePage.attributes.metadata?.title || homePage.attributes.title
+        ? `${
+            homePage.attributes.metadata?.title || homePage.attributes.title
+          } | ${SITE_NAME}`
+        : SITE_NAME,
+    description: homePage.attributes.metadata?.description,
+    openGraph: {
+      title:
+        homePage.attributes.metadata?.ogTitle ||
+        homePage.attributes.metadata?.title ||
+        homePage.attributes.title,
+      description:
+        homePage.attributes.metadata?.ogDescription ||
+        homePage.attributes.metadata?.description,
+      images: homePage.attributes.metadata?.ogImage?.data
+        ? `${BASE_URL}${homePage.attributes.metadata.ogImage.data.attributes.url}`
+        : undefined,
+    },
   };
 };
 
@@ -91,6 +108,18 @@ const getHomePageData = async ({ params }: HomePageProps) => {
             'ui.rich-text': {
               fields: ['blocks', 'id'],
             },
+          },
+        },
+        metadata: {
+          fields: [
+            'description',
+            'ogDescription',
+            'ogImage',
+            'ogTitle',
+            'title',
+          ],
+          populate: {
+            ogImage: true,
           },
         },
       },

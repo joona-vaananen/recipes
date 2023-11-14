@@ -47,6 +47,16 @@
         "ui.rich-text",
         "ui.recipe-carousel"
       ]
+    },
+    "metadata": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "page.metadata"
     }
   }
 }

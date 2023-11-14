@@ -3,32 +3,48 @@
 export interface HomePage {
   id: number;
   attributes: {
-    createdAt: Date;    updatedAt: Date;    publishedAt?: Date;    title?: string;
+    createdAt: Date;
+    updatedAt: Date;
+    publishedAt?: Date;
+    title?: string;
     content?: any;
     locale: string;
     localizations?: { data: HomePage[] };
+    metadata?: any;
   };
 }
 export interface HomePage_Plain {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  title?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  title?: string;
   content?: any;
   locale: string;
   localizations?: HomePage[];
+  metadata?: any;
 }
 
 export interface HomePage_NoRelations {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  title?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  title?: string;
   content?: any;
   locale: string;
   localizations?: HomePage[];
+  metadata?: any;
 }
 
 export interface HomePage_AdminPanelLifeCycle {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  title?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  title?: string;
   content?: any;
   locale: string;
   localizations?: HomePage[];
+  metadata?: any;
 }

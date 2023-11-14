@@ -1,6 +1,6 @@
 import breakpoints from '@recipes/tailwind-config/breakpoints.json';
 
-export const BASE_URL = process.env.WEB_BASE_URL;
+export const BASE_URL = process.env.WEB_BASE_URL || 'https://olisipa.com';
 
 export const BREAKPOINTS = breakpoints;
 
@@ -11,5 +11,7 @@ export const ERROR_NAMES = {
   UNIQUE_CONSTRAINT_ERROR: 'UniqueConstraintError',
   VALIDATION_ERROR: 'ValidationError',
 };
+
+export const SITE_NAME = 'Olisipa';
 
 export const TIME_ZONE = process.env.WEB_TIME_ZONE;

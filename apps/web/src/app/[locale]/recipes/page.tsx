@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { BASE_URL } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { searchClient } from '@/lib/search/client';
 import { RecipeSearch } from '@recipes/ui';
@@ -48,7 +49,22 @@ export const generateMetadata = async ({
   });
 
   return {
-    title: recipeSearchPage.attributes.title,
+    title:
+      recipeSearchPage.attributes.metadata?.title ||
+      recipeSearchPage.attributes.title,
+    description: recipeSearchPage.attributes.metadata?.description,
+    openGraph: {
+      title:
+        recipeSearchPage.attributes.metadata?.ogTitle ||
+        recipeSearchPage.attributes.metadata?.title ||
+        recipeSearchPage.attributes.title,
+      description:
+        recipeSearchPage.attributes.metadata?.ogDescription ||
+        recipeSearchPage.attributes.metadata?.description,
+      images: recipeSearchPage.attributes.metadata?.ogImage?.data
+        ? `${BASE_URL}${recipeSearchPage.attributes.metadata.ogImage.data.attributes.url}`
+        : undefined,
+    },
   };
 };
 
@@ -66,6 +82,18 @@ const getRecipeSearchPageData = async ({ params }: RecipeSearchPageProps) => {
         filters: {
           on: {
             'recipe-search.checkbox-filter': true,
+          },
+        },
+        metadata: {
+          fields: [
+            'description',
+            'ogDescription',
+            'ogImage',
+            'ogTitle',
+            'title',
+          ],
+          populate: {
+            ogImage: true,
           },
         },
         sortOrder: {

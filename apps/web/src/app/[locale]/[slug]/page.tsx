@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { BASE_URL } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { searchClient } from '@/lib/search/client';
 import type { RecipeCarousel as RecipeCarouselProps } from '@recipes/api/src/components/ui/interfaces/RecipeCarousel';
@@ -52,7 +53,20 @@ export const generateMetadata = async ({
   const page = await getPageData({ params });
 
   return {
-    title: page.attributes.title,
+    title: page.attributes.metadata?.title || page.attributes.title,
+    description: page.attributes.metadata?.description,
+    openGraph: {
+      title:
+        page.attributes.metadata?.ogTitle ||
+        page.attributes.metadata?.title ||
+        page.attributes.title,
+      description:
+        page.attributes.metadata?.ogDescription ||
+        page.attributes.metadata?.description,
+      images: page.attributes.metadata?.ogImage?.data
+        ? `${BASE_URL}${page.attributes.metadata.ogImage.data.attributes.url}`
+        : undefined,
+    },
   };
 };
 
@@ -94,6 +108,18 @@ const getPageData = async ({ params }: PageProps) => {
             'ui.rich-text': {
               fields: ['blocks', 'id'],
             },
+          },
+        },
+        metadata: {
+          fields: [
+            'description',
+            'ogDescription',
+            'ogImage',
+            'ogTitle',
+            'title',
+          ],
+          populate: {
+            ogImage: true,
           },
         },
       },

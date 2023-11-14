@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { use } from 'react';
 
+import { BASE_URL } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { searchClient } from '@/lib/search/client';
 import {
@@ -111,6 +112,14 @@ export const generateMetadata = async ({
 
   return {
     title: recipe.attributes.title,
+    description: recipe.attributes.description,
+    openGraph: {
+      title: recipe.attributes.title,
+      description: recipe.attributes.description,
+      images: recipe.attributes.image?.data
+        ? `${BASE_URL}${recipe.attributes.image.data.attributes.url}`
+        : undefined,
+    },
   };
 };
 
