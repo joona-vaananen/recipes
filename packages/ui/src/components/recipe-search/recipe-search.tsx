@@ -5,8 +5,11 @@ import { use } from 'react';
 
 import type { Recipe_Plain } from '@recipes/api/src/api/recipe/content-types/recipe/recipe';
 import type { Media } from '@recipes/api/src/common/interfaces/Media';
-import { buildSearchSort } from '../../lib';
+import { BASE_URL } from '../../constants';
 import { buildSearchFilter } from '../../lib/utils/build-search-filter';
+import { buildSearchSort } from '../../lib/utils/build-search-sort';
+import { Locale, getPathname } from '../../lib/utils/navigation';
+import { ItemListJsonLd } from '../structured-data/item-list-json-ld';
 import { recipeSearchConfig as searchConfig } from './recipe-search-config';
 import { RecipeSearchProvider } from './recipe-search-context';
 import { RecipeSearchDialog } from './recipe-search-dialog';
@@ -84,83 +87,93 @@ export const RecipeSearch = ({
     searchResults;
 
   return (
-    <RecipeSearchProvider defaultValues={parsedSearchParams}>
-      <Section
-        size={{
-          initial: '2',
-          sm: '3',
-        }}
-      >
-        <Container className={'container'}>
-          <Flex direction={'column'} gap={'4'}>
-            <RecipeSearchTitle
-              hitsPerPage={hitsPerPage}
-              page={page}
-              title={title}
-              totalHits={totalHits}
-            />
-            <Flex align={'center'} justify={'between'}>
-              <Flex gap={'4'}>
-                <RecipeSearchDialog
+    <>
+      <RecipeSearchProvider defaultValues={parsedSearchParams}>
+        <Section
+          size={{
+            initial: '2',
+            sm: '3',
+          }}
+        >
+          <Container className={'container'}>
+            <Flex direction={'column'} gap={'4'}>
+              <RecipeSearchTitle
+                hitsPerPage={hitsPerPage}
+                page={page}
+                title={title}
+                totalHits={totalHits}
+              />
+              <Flex align={'center'} justify={'between'}>
+                <Flex gap={'4'}>
+                  <RecipeSearchDialog
+                    totalHits={totalHits}
+                    translations={{
+                      filters: t('filters'),
+                      openFilters: t('openFilters'),
+                      resetFilters: t('resetFilters'),
+                      showResults: t('showResults'),
+                    }}
+                  >
+                    <Flex asChild direction={'column'} gap={'4'}>
+                      <form>
+                        <RecipeSearchFilters
+                          searchConfig={searchConfig}
+                          facetDistribution={facetDistribution}
+                          filters={filters}
+                        />
+                      </form>
+                    </Flex>
+                  </RecipeSearchDialog>
+                  <RecipeSearchInput
+                    translations={{
+                      inputPlaceholder: t('inputPlaceholder'),
+                    }}
+                  />
+                </Flex>
+                {sortOrder ? (
+                  <RecipeSearchSortOrder
+                    label={sortOrder.label}
+                    options={sortOrder.options}
+                  />
+                ) : null}
+              </Flex>
+              <RecipeSearchSelectedFilters
+                facetDistribution={facetDistribution}
+                searchFilters={parsedFilters}
+              />
+              <RecipeSearchResults
+                hits={hits}
+                hitsPerPage={hitsPerPage}
+                totalHits={totalHits}
+                translations={{
+                  noResults: t('noResults'),
+                }}
+              />
+              <Flex justify={'center'}>
+                <RecipeSearchPagination
+                  page={page}
+                  searchParams={parsedSearchParams}
                   totalHits={totalHits}
+                  totalPages={totalPages}
                   translations={{
-                    filters: t('filters'),
-                    openFilters: t('openFilters'),
-                    resetFilters: t('resetFilters'),
-                    showResults: t('showResults'),
-                  }}
-                >
-                  <Flex asChild direction={'column'} gap={'4'}>
-                    <form>
-                      <RecipeSearchFilters
-                        searchConfig={searchConfig}
-                        facetDistribution={facetDistribution}
-                        filters={filters}
-                      />
-                    </form>
-                  </Flex>
-                </RecipeSearchDialog>
-                <RecipeSearchInput
-                  translations={{
-                    inputPlaceholder: t('inputPlaceholder'),
+                    nextPage: t('nextPage'),
+                    page: t('page'),
+                    previousPage: t('previousPage'),
                   }}
                 />
               </Flex>
-              {sortOrder ? (
-                <RecipeSearchSortOrder
-                  label={sortOrder.label}
-                  options={sortOrder.options}
-                />
-              ) : null}
             </Flex>
-            <RecipeSearchSelectedFilters
-              facetDistribution={facetDistribution}
-              searchFilters={parsedFilters}
-            />
-            <RecipeSearchResults
-              hits={hits}
-              hitsPerPage={hitsPerPage}
-              totalHits={totalHits}
-              translations={{
-                noResults: t('noResults'),
-              }}
-            />
-            <Flex justify={'center'}>
-              <RecipeSearchPagination
-                page={page}
-                searchParams={parsedSearchParams}
-                totalHits={totalHits}
-                totalPages={totalPages}
-                translations={{
-                  nextPage: t('nextPage'),
-                  page: t('page'),
-                  previousPage: t('previousPage'),
-                }}
-              />
-            </Flex>
-          </Flex>
-        </Container>
-      </Section>
-    </RecipeSearchProvider>
+          </Container>
+        </Section>
+      </RecipeSearchProvider>
+      <ItemListJsonLd
+        listItems={searchResults.hits.map((hit) => ({
+          url: `${BASE_URL}/${locale}${getPathname({
+            locale: locale as Locale,
+            href: { pathname: '/recipes/[slug]', params: { slug: hit.slug } },
+          })}`,
+        }))}
+      />
+    </>
   );
 };
