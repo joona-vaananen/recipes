@@ -15,6 +15,7 @@ export * from './recipe-info';
 export * from './recipe-search';
 export * from './rich-text';
 export * from './similar-recipe-carousel';
+export * from './structured-data';
 export * from './unordered-list';
 export * from './user-context';
 export * from './wake-lock-switch';

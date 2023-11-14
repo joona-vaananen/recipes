@@ -14,6 +14,7 @@ import {
   IngredientList,
   InstructionList,
   RecipeInfo,
+  RecipeJsonLd,
   RichText,
   SimilarRecipeCarousel,
   WakeLockSwitch,
@@ -96,6 +97,7 @@ const Page = ({ params }: PageProps) => {
         </Grid>
         <CommentList apiClient={apiClient} locale={locale} recipe={recipe.id} />
       </Container>
+      <RecipeJsonLd recipe={recipe} />
     </>
   );
 };
@@ -122,6 +124,7 @@ const getRecipeData = async ({ params }: PageProps) => {
     parameters: {
       fields: [
         'averageRating',
+        'createdAt',
         'id',
         'description',
         'ratingCount',
@@ -134,7 +137,7 @@ const getRecipeData = async ({ params }: PageProps) => {
       pagination: { limit: 1 },
       populate: {
         categories: {
-          fields: ['id', 'slug'],
+          fields: ['id', 'name', 'slug'],
         },
         content: {
           on: {
@@ -144,10 +147,13 @@ const getRecipeData = async ({ params }: PageProps) => {
           },
         },
         courses: {
-          fields: ['id', 'slug'],
+          fields: ['id', 'name', 'slug'],
         },
         cuisines: {
-          fields: ['id', 'slug'],
+          fields: ['id', 'name', 'slug'],
+        },
+        diets: {
+          fields: ['id', 'name', 'slug'],
         },
         image: {
           fields: ['height', 'id', 'placeholder', 'url', 'width'],
@@ -168,8 +174,17 @@ const getRecipeData = async ({ params }: PageProps) => {
             },
           },
         },
+        mainIngredients: {
+          fields: ['id', 'name', 'slug'],
+        },
         mealTypes: {
-          fields: ['id', 'slug'],
+          fields: ['id', 'name', 'slug'],
+        },
+        methods: {
+          fields: ['id', 'name', 'slug'],
+        },
+        seasons: {
+          fields: ['id', 'name', 'slug'],
         },
       },
     },
