@@ -1,4 +1,4 @@
-import { Heading, Section } from '@radix-ui/themes';
+import { Box, Heading } from '@radix-ui/themes';
 import { useTranslations } from 'next-intl';
 
 import { ListItem } from './list-item';
@@ -20,12 +20,7 @@ export const InstructionList = ({ items }: InstructionListProps) => {
   const t = useTranslations('InstructionList');
 
   return (
-    <Section
-      size={{
-        initial: '2',
-        sm: '3',
-      }}
-    >
+    <Box>
       <Heading as={'h2'} mb={'4'} size={'7'}>
         {t('title')}
       </Heading>
@@ -52,6 +47,6 @@ export const InstructionList = ({ items }: InstructionListProps) => {
           </ListItem>
         ))}
       </ul>
-    </Section>
+    </Box>
   );
 };

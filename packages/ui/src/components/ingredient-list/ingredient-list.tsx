@@ -1,4 +1,4 @@
-import { Flex, Heading, Section } from '@radix-ui/themes';
+import { Box, Flex, Heading } from '@radix-ui/themes';
 import { useTranslations } from 'next-intl';
 
 import { IngredientListProvider } from './ingredient-list-context';
@@ -24,12 +24,7 @@ export const IngredientList = ({ items, servings }: IngredientListProps) => {
 
   return (
     <IngredientListProvider defaultValues={{ servings }}>
-      <Section
-        size={{
-          initial: '2',
-          sm: '3',
-        }}
-      >
+      <Box>
         <Heading as={'h2'} mb={'4'} size={'7'}>
           {t('title')}
         </Heading>
@@ -43,7 +38,7 @@ export const IngredientList = ({ items, servings }: IngredientListProps) => {
           </form>
           <IngredientListItems items={items} />
         </Flex>
-      </Section>
+      </Box>
     </IngredientListProvider>
   );
 };

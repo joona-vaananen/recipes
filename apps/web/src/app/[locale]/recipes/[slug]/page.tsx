@@ -1,4 +1,4 @@
-import { Container, Grid } from '@radix-ui/themes';
+import { Container, Flex, Grid, Section } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 import { useTranslations } from 'next-intl';
 import { notFound } from 'next/navigation';
@@ -16,6 +16,7 @@ import {
   RecipeInfo,
   RichText,
   SimilarRecipeCarousel,
+  WakeLockSwitch,
 } from '@recipes/ui/src/components';
 
 interface PageProps {
@@ -52,19 +53,30 @@ const Page = ({ params }: PageProps) => {
         {recipe.attributes.content}
       </DynamicZone>
       <Container className={'container'} id={t('recipeAnchor')}>
-        <Grid
-          columns={{
-            initial: '1',
-            sm: '2',
+        <Section
+          size={{
+            initial: '2',
+            sm: '3',
           }}
-          gap={'4'}
         >
-          <IngredientList
-            items={recipe.attributes.ingredients}
-            servings={recipe.attributes.servings}
-          />
-          <InstructionList items={recipe.attributes.instructions} />
-        </Grid>
+          <Flex direction={'column'} gap={'4'}>
+            <WakeLockSwitch />
+            <Grid
+              className={'gap-20 sm:gap-10'}
+              columns={{
+                initial: '1',
+                sm: '2',
+              }}
+            >
+              <IngredientList
+                items={recipe.attributes.ingredients}
+                servings={recipe.attributes.servings}
+              />
+
+              <InstructionList items={recipe.attributes.instructions} />
+            </Grid>
+          </Flex>
+        </Section>
       </Container>
       <SimilarRecipeCarousel
         categories={recipe.attributes.categories}

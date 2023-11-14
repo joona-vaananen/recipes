@@ -13,6 +13,7 @@ export {
   RichText,
   SimilarRecipeCarousel,
   UserProvider,
+  WakeLockSwitch,
   commentFormSchema,
   type CommentFormSchema,
 } from './components';

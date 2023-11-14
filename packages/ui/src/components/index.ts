@@ -17,3 +17,4 @@ export * from './rich-text';
 export * from './similar-recipe-carousel';
 export * from './unordered-list';
 export * from './user-context';
+export * from './wake-lock-switch';
