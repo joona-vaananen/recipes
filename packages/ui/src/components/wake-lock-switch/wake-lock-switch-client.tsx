@@ -17,7 +17,7 @@ export const WakeLockSwitchClient = ({
 }: WakeLockSwitchClientProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isUnsupported, setIsUnsupported] = useState(false);
-  const { isSupported, request, release } = useWakeLock();
+  const { isSupported, release, request } = useWakeLock();
 
   const onCheckedChange = (isChecked: boolean) => {
     if (!isSupported) {
