@@ -1,13 +1,12 @@
 import { BASE_URL } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { type APIContentTypes } from '@recipes/api-client';
-import { locales } from '@recipes/ui';
 
 export const GET = async () => {
   const { data: pages } = await apiClient.getMany({
     contentType: 'pages',
     parameters: {
-      fields: ['id', 'locale', 'slug'],
+      fields: ['createdAt', 'id', 'locale', 'slug', 'updatedAt'],
       locale: 'all',
       populate: 'localizations',
     },
@@ -30,16 +29,18 @@ export const GET = async () => {
 type Page = APIContentTypes['pages'];
 
 const generateUrls = (pages: Page[]) => {
-  return locales
-    .flatMap((locale) => {
-      return pages
-        .filter((page) => page.attributes.locale === locale)
-        .map((page) => {
-          return `<url>
+  return pages
+    .map((page) => {
+      return `<url>
   <loc>${generateUrl(page)}</loc>
+  <lastmod>${
+    (
+      (page.attributes.updatedAt as unknown as string | undefined) ??
+      (page.attributes.createdAt as unknown as string)
+    ).split('T')[0]
+  }</lastmod>
   ${generateAlternates(page)}
 </url>`;
-        });
     })
     .join('\n');
 };

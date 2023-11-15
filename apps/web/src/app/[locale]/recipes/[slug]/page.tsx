@@ -133,9 +133,9 @@ const getRecipeData = async ({ params }: PageProps) => {
     parameters: {
       fields: [
         'averageRating',
-        'createdAt',
         'id',
         'description',
+        'publishedAt',
         'ratingCount',
         'servings',
         'slug',

@@ -33,9 +33,9 @@ const createRecipeJsonLd = (recipe: Recipe): WithContext<RecipeSchema> => {
     //   '@type': 'Person',
     //   name: 'Mary Stone',
     // },
-    datePublished: (recipe.attributes.createdAt as unknown as string).split(
-      'T'
-    )[0],
+    datePublished: (
+      recipe.attributes.publishedAt as unknown as string | undefined
+    )?.split('T')[0],
     description: recipe.attributes.description,
     // prepTime: 'PT20M',
     // cookTime: 'PT30M',

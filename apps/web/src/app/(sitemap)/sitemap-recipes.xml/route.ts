@@ -1,13 +1,13 @@
 import { BASE_URL } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { type APIContentTypes } from '@recipes/api-client';
-import { Locale, getPathname, locales } from '@recipes/ui';
+import { Locale, getPathname } from '@recipes/ui';
 
 export const GET = async () => {
   const { data: recipes } = await apiClient.getMany({
     contentType: 'recipes',
     parameters: {
-      fields: ['id', 'locale', 'slug'],
+      fields: ['createdAt', 'id', 'locale', 'slug', 'updatedAt'],
       locale: 'all',
       populate: 'localizations',
     },
@@ -30,16 +30,18 @@ export const GET = async () => {
 type Recipe = APIContentTypes['recipes'];
 
 const generateUrls = (recipes: Recipe[]) => {
-  return locales
-    .flatMap((locale) => {
-      return recipes
-        .filter((recipe) => recipe.attributes.locale === locale)
-        .map((recipe) => {
-          return `<url>
+  return recipes
+    .map((recipe) => {
+      return `<url>
   <loc>${generateUrl(recipe)}</loc>
+  <lastmod>${
+    (
+      (recipe.attributes.updatedAt as unknown as string | undefined) ??
+      (recipe.attributes.createdAt as unknown as string)
+    ).split('T')[0]
+  }</lastmod>
   ${generateAlternates(recipe)}
 </url>`;
-        });
     })
     .join('\n');
 };
