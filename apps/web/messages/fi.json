@@ -13,6 +13,11 @@
     "title": "Kommentit",
     "viewMore": "Katso lisää"
   },
+  "Header": {
+    "closeMenu": "Sulje valikko",
+    "menuTitle": "Valikko",
+    "openMenu": "Avaa valikko"
+  },
   "IngredientList": {
     "servings": "Annoksia",
     "title": "Ainekset"

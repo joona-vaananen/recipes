@@ -13,6 +13,11 @@
     "title": "Comments",
     "viewMore": "View more"
   },
+  "Header": {
+    "closeMenu": "Close menu",
+    "menuTitle": "Menu",
+    "openMenu": "Open menu"
+  },
   "IngredientList": {
     "servings": "Servings",
     "title": "Ingredients"
