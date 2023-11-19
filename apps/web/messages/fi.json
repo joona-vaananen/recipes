@@ -49,6 +49,24 @@
     "resetFilters": "Tyhjennä ehdot",
     "showResults": "Näytä tulokset"
   },
+  "RecipeTags": {
+    "categories": "Kategoria",
+    "courses": "Ruokalaji",
+    "cuisines": "Keittiö",
+    "diets": "Ruokavalio",
+    "mainIngredients": "Pääraaka-aine",
+    "mealTypes": "Ateriatyyppi",
+    "methods": "Valmistustapa",
+    "seasons": "Sesonki",
+    "tags": "Tagit"
+  },
+  "RecipeTime": {
+    "cookTime": "Kokkaus",
+    "prepTime": "Valmistelu",
+    "restingTime": "Lepo",
+    "time": "Aika",
+    "totalTime": "Kokonais"
+  },
   "SimilarRecipeCarousel": {
     "title": "Samankaltaisia reseptejä"
   },

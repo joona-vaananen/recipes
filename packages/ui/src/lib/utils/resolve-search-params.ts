@@ -1,6 +1,7 @@
 type Relations = Record<
   string,
-  { data: { attributes: { slug: string } }[] } | undefined
+  | { data: { attributes: { name: string; slug: string }; id: number }[] }
+  | undefined
 >;
 
 type FilterConfig = Record<string, { attribute: string }>;

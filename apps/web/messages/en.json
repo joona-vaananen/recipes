@@ -49,6 +49,24 @@
     "resetFilters": "Reset filters",
     "showResults": "Show results"
   },
+  "RecipeTags": {
+    "categories": "Category",
+    "courses": "Course",
+    "cuisines": "Cuisine",
+    "diets": "Diet",
+    "mainIngredients": "Main Ingredient",
+    "mealTypes": "Meal Type",
+    "methods": "Method",
+    "seasons": "Season",
+    "tags": "Tags"
+  },
+  "RecipeTime": {
+    "cookTime": "Cook",
+    "prepTime": "Prep",
+    "restingTime": "Resting",
+    "time": "Time",
+    "totalTime": "Total"
+  },
   "SimilarRecipeCarousel": {
     "title": "Similar recipes"
   },

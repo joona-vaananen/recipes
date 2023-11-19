@@ -64,7 +64,10 @@ export const generateMetadata = async ({
         page.attributes.metadata?.ogDescription ||
         page.attributes.metadata?.description,
       images: page.attributes.metadata?.ogImage?.data
-        ? `${BASE_URL}${page.attributes.metadata.ogImage.data.attributes.url}`
+        ? `${BASE_URL}${
+            page.attributes.metadata.ogImage.data.attributes.formats?.large
+              .url ?? page.attributes.metadata.ogImage.data.attributes.url
+          }`
         : undefined,
     },
   };
@@ -111,13 +114,7 @@ const getPageData = async ({ params }: PageProps) => {
           },
         },
         metadata: {
-          fields: [
-            'description',
-            'ogDescription',
-            'ogImage',
-            'ogTitle',
-            'title',
-          ],
+          fields: ['description', 'ogDescription', 'ogTitle', 'title'],
           populate: {
             ogImage: true,
           },

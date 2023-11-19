@@ -13,6 +13,8 @@ export * from './recipe-card';
 export * from './recipe-carousel';
 export * from './recipe-info';
 export * from './recipe-search';
+export * from './recipe-tags';
+export * from './recipe-time';
 export * from './rich-text';
 export * from './similar-recipe-carousel';
 export * from './structured-data';

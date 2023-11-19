@@ -7,12 +7,14 @@ interface SimilarRecipeCarouselProps
     'categories' | 'cuisines' | 'limit' | 'searchClient'
   > {
   id: number;
+  locale: string;
 }
 
 export const SimilarRecipeCarousel = ({
   categories,
   cuisines,
   id,
+  locale,
   searchClient,
 }: SimilarRecipeCarouselProps) => {
   const t = useTranslations('SimilarRecipeCarousel');
@@ -24,6 +26,7 @@ export const SimilarRecipeCarousel = ({
       categories={categories}
       cuisines={cuisines}
       initialFilters={initialFilters}
+      locale={locale}
       searchClient={searchClient}
       title={t('title')}
     />

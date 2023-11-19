@@ -2,7 +2,7 @@ import Fraction from 'fraction.js';
 import type { Recipe as RecipeSchema, WithContext } from 'schema-dts';
 
 import type { Recipe } from '@recipes/api/src/api/recipe/content-types/recipe/recipe';
-import { BASE_URL } from '../../constants';
+import { BASE_URL, SITE_NAME } from '../../constants';
 import { resolveTextFromRichText } from '../rich-text/resolve-text-from-rich-text';
 import type { RichTextBlock } from '../rich-text/rich-text-block-types';
 
@@ -27,19 +27,39 @@ const createRecipeJsonLd = (recipe: Recipe): WithContext<RecipeSchema> => {
     '@type': 'Recipe',
     name: recipe.attributes.title,
     image: recipe.attributes.image?.data
-      ? [`${BASE_URL}${recipe.attributes.image.data.attributes.url}`]
+      ? [
+          `${BASE_URL}${
+            recipe.attributes.image.data.attributes.formats?.large.url ??
+            recipe.attributes.image.data.attributes.url
+          }`,
+        ]
       : undefined,
-    // author: {
-    //   '@type': 'Person',
-    //   name: 'Mary Stone',
-    // },
+    author: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+    },
     datePublished: (
       recipe.attributes.publishedAt as unknown as string | undefined
     )?.split('T')[0],
     description: recipe.attributes.description,
-    // prepTime: 'PT20M',
-    // cookTime: 'PT30M',
-    // totalTime: 'PT50M',
+    prepTime:
+      typeof recipe.attributes.prepTime === 'number'
+        ? `PT${recipe.attributes.prepTime}M`
+        : undefined,
+    cookTime:
+      typeof recipe.attributes.cookTime === 'number'
+        ? `PT${recipe.attributes.cookTime}M`
+        : undefined,
+    totalTime:
+      typeof recipe.attributes.prepTime === 'number' ||
+      typeof recipe.attributes.restingTime === 'number' ||
+      typeof recipe.attributes.cookTime === 'number'
+        ? `PT${
+            (recipe.attributes.prepTime ?? 0) +
+            (recipe.attributes.restingTime ?? 0) +
+            (recipe.attributes.cookTime ?? 0)
+          }M`
+        : undefined,
     keywords: [
       ...(recipe.attributes.mealTypes?.data?.map(
         (mealType) => mealType.attributes.name

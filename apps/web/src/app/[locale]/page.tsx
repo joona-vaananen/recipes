@@ -66,7 +66,10 @@ export const generateMetadata = async ({
         homePage.attributes.metadata?.ogDescription ||
         homePage.attributes.metadata?.description,
       images: homePage.attributes.metadata?.ogImage?.data
-        ? `${BASE_URL}${homePage.attributes.metadata.ogImage.data.attributes.url}`
+        ? `${BASE_URL}${
+            homePage.attributes.metadata.ogImage.data.attributes.formats?.large
+              .url ?? homePage.attributes.metadata.ogImage.data.attributes.url
+          }`
         : undefined,
     },
   };
@@ -111,13 +114,7 @@ const getHomePageData = async ({ params }: HomePageProps) => {
           },
         },
         metadata: {
-          fields: [
-            'description',
-            'ogDescription',
-            'ogImage',
-            'ogTitle',
-            'title',
-          ],
+          fields: ['description', 'ogDescription', 'ogTitle', 'title'],
           populate: {
             ogImage: true,
           },

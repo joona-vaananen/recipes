@@ -62,7 +62,11 @@ export const generateMetadata = async ({
         recipeSearchPage.attributes.metadata?.ogDescription ||
         recipeSearchPage.attributes.metadata?.description,
       images: recipeSearchPage.attributes.metadata?.ogImage?.data
-        ? `${BASE_URL}${recipeSearchPage.attributes.metadata.ogImage.data.attributes.url}`
+        ? `${BASE_URL}${
+            recipeSearchPage.attributes.metadata.ogImage.data.attributes.formats
+              ?.large.url ??
+            recipeSearchPage.attributes.metadata.ogImage.data.attributes.url
+          }`
         : undefined,
     },
   };

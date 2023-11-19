@@ -16,6 +16,8 @@ import {
   InstructionList,
   RecipeInfo,
   RecipeJsonLd,
+  RecipeTags,
+  RecipeTime,
   RichText,
   SimilarRecipeCarousel,
   WakeLockSwitch,
@@ -80,10 +82,37 @@ const Page = ({ params }: PageProps) => {
           </Flex>
         </Section>
       </Container>
+      <Container className={'container'}>
+        <Section
+          size={{
+            initial: '2',
+            sm: '3',
+          }}
+        >
+          <Flex direction={'column'} gap={'8'}>
+            <RecipeTime
+              cookTime={recipe.attributes.cookTime}
+              prepTime={recipe.attributes.prepTime}
+              restingTime={recipe.attributes.restingTime}
+            />
+            <RecipeTags
+              categories={recipe.attributes.categories}
+              courses={recipe.attributes.courses}
+              cuisines={recipe.attributes.cuisines}
+              diets={recipe.attributes.diets}
+              mainIngredients={recipe.attributes.mainIngredients}
+              mealTypes={recipe.attributes.mealTypes}
+              methods={recipe.attributes.methods}
+              seasons={recipe.attributes.seasons}
+            />
+          </Flex>
+        </Section>
+      </Container>
       <SimilarRecipeCarousel
         categories={recipe.attributes.categories}
         cuisines={recipe.attributes.cuisines}
         id={recipe.id}
+        locale={locale}
         searchClient={searchClient}
       />
       <Container className={'container'}>
@@ -117,7 +146,10 @@ export const generateMetadata = async ({
       title: recipe.attributes.title,
       description: recipe.attributes.description,
       images: recipe.attributes.image?.data
-        ? `${BASE_URL}${recipe.attributes.image.data.attributes.url}`
+        ? `${BASE_URL}${
+            recipe.attributes.image.data.attributes.formats?.large.url ??
+            recipe.attributes.image.data.attributes.url
+          }`
         : undefined,
     },
   };
@@ -134,9 +166,12 @@ const getRecipeData = async ({ params }: PageProps) => {
       fields: [
         'averageRating',
         'id',
+        'cookTime',
         'description',
+        'prepTime',
         'publishedAt',
         'ratingCount',
+        'restingTime',
         'servings',
         'slug',
         'title',
@@ -165,7 +200,7 @@ const getRecipeData = async ({ params }: PageProps) => {
           fields: ['id', 'name', 'slug'],
         },
         image: {
-          fields: ['height', 'id', 'placeholder', 'url', 'width'],
+          fields: ['formats', 'height', 'id', 'placeholder', 'url', 'width'],
         },
         ingredients: {
           fields: ['id', 'title'],

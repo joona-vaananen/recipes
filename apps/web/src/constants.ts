@@ -1,6 +1,10 @@
 import breakpoints from '@recipes/tailwind-config/breakpoints.json';
 
-export const BASE_URL = process.env.WEB_BASE_URL || 'https://olisipa.com';
+export const BASE_URL =
+  process.env.WEB_BASE_URL ||
+  (process.env.NODE_ENV === 'production'
+    ? 'https://olisipa.com'
+    : 'http://localhost:3000');
 
 export const BREAKPOINTS = breakpoints;
 

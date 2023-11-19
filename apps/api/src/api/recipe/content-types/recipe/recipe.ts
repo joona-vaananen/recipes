@@ -59,6 +59,9 @@ export interface Recipe {
     comments: any;
     averageRating?: number;
     ratingCount: number;
+    prepTime?: number;
+    cookTime?: number;
+    restingTime?: number;
   };
 }
 export interface Recipe_Plain {
@@ -87,6 +90,9 @@ export interface Recipe_Plain {
   comments: any;
   averageRating?: number;
   ratingCount: number;
+  prepTime?: number;
+  cookTime?: number;
+  restingTime?: number;
 }
 
 export interface Recipe_NoRelations {
@@ -115,6 +121,9 @@ export interface Recipe_NoRelations {
   comments: any;
   averageRating?: number;
   ratingCount: number;
+  prepTime?: number;
+  cookTime?: number;
+  restingTime?: number;
 }
 
 export interface Recipe_AdminPanelLifeCycle {
@@ -143,4 +152,7 @@ export interface Recipe_AdminPanelLifeCycle {
   comments: any;
   averageRating?: number;
   ratingCount: number;
+  prepTime?: number;
+  cookTime?: number;
+  restingTime?: number;
 }

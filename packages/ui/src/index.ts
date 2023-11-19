@@ -10,6 +10,8 @@ export {
   RecipeCard,
   RecipeCarousel,
   RecipeSearch,
+  RecipeTags,
+  RecipeTime,
   RichText,
   SimilarRecipeCarousel,
   UserProvider,
