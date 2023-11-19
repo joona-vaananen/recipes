@@ -4,6 +4,7 @@ export * from './dynamic-zone';
 export * from './footer';
 export * from './header';
 export * from './hero';
+export * from './icons';
 export * from './ingredient-list';
 export * from './instruction-list';
 export * from './list-item';

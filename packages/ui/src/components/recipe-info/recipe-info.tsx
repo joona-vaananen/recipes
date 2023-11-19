@@ -23,7 +23,14 @@ export const RecipeInfo = ({
   return (
     <section className={cn('pb-10 pt-4 sm:pb-20', className)} {...props}>
       <Container className={'container'} size={'3'}>
-        <Flex justify={'between'}>
+        <Flex
+          direction={{
+            initial: 'column',
+            sm: 'row',
+          }}
+          gap={'4'}
+          justify={'between'}
+        >
           <Rating averageRating={averageRating} ratingCount={ratingCount} />
           <Button asChild>
             <a href={`#${recipeAnchor}`}>
