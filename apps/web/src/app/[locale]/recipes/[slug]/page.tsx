@@ -57,12 +57,7 @@ const Page = ({ params }: PageProps) => {
         {recipe.attributes.content}
       </DynamicZone>
       <Container className={'container'} id={t('recipeAnchor')}>
-        <Section
-          size={{
-            initial: '2',
-            sm: '3',
-          }}
-        >
+        <Section size={'2'}>
           <Flex direction={'column'} gap={'4'}>
             <WakeLockSwitch />
             <Grid
@@ -83,12 +78,7 @@ const Page = ({ params }: PageProps) => {
         </Section>
       </Container>
       <Container className={'container'}>
-        <Section
-          size={{
-            initial: '2',
-            sm: '3',
-          }}
-        >
+        <Section size={'2'}>
           <Flex direction={'column'} gap={'8'}>
             <RecipeTime
               cookTime={recipe.attributes.cookTime}

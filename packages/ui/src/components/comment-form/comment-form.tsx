@@ -17,12 +17,7 @@ export const CommentForm = ({ locale, recipe }: CommentFormProps) => {
 
   return (
     <CommentFormProvider locale={locale} recipe={recipe}>
-      <Section
-        size={{
-          initial: '2',
-          sm: '3',
-        }}
-      >
+      <Section size={'2'}>
         <Heading as={'h2'} mb={'4'} size={'7'}>
           {t('title')}
         </Heading>

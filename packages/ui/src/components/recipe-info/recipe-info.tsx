@@ -1,11 +1,10 @@
-import { Button, Container, Flex } from '@radix-ui/themes';
+import { Button, Container, Flex, Section } from '@radix-ui/themes';
 import { ArrowDown } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-import { cn } from '../../lib/utils/cn';
 import { Rating } from '../rating';
 
-interface RecipeInfoProps extends React.HTMLAttributes<HTMLElement> {
+interface RecipeInfoProps extends React.ComponentPropsWithoutRef<typeof Section> {
   averageRating?: number;
   ratingCount: number;
   recipeAnchor: string;
@@ -13,7 +12,6 @@ interface RecipeInfoProps extends React.HTMLAttributes<HTMLElement> {
 
 export const RecipeInfo = ({
   averageRating,
-  className,
   ratingCount,
   recipeAnchor,
   ...props
@@ -21,7 +19,7 @@ export const RecipeInfo = ({
   const t = useTranslations('RecipeInfo');
 
   return (
-    <section className={cn('pb-10 pt-4 sm:pb-20', className)} {...props}>
+    <Section size={'2'} {...props}>
       <Container className={'container'} size={'3'}>
         <Flex
           direction={{
@@ -40,6 +38,6 @@ export const RecipeInfo = ({
           </Button>
         </Flex>
       </Container>
-    </section>
+      </Section>
   );
 };

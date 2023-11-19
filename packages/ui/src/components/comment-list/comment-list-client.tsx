@@ -88,12 +88,7 @@ export const CommentListClient = ({
   }
 
   return (
-    <Section
-      size={{
-        initial: '2',
-        sm: '3',
-      }}
-    >
+    <Section size={'2'}>
       <Heading as={'h2'} mb={'4'} size={'7'}>
         {translations.title}
       </Heading>

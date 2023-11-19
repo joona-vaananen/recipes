@@ -89,12 +89,7 @@ export const RecipeSearch = ({
   return (
     <>
       <RecipeSearchProvider defaultValues={parsedSearchParams}>
-        <Section
-          size={{
-            initial: '2',
-            sm: '3',
-          }}
-        >
+        <Section size={'2'}>
           <Container className={'container'}>
             <Flex direction={'column'} gap={'4'}>
               <RecipeSearchTitle
