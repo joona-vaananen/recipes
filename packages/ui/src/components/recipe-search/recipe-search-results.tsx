@@ -76,20 +76,37 @@ export const RecipeSearchResults = ({
       gap={'4'}
     >
       <ol>
-        {hits.map(({ id, image, title, slug }) => (
-          <li key={id}>
-            <RecipeCard
-              image={image}
-              sizes={[
-                `(max-width: ${BREAKPOINTS.sm - 1}px) 100vw`,
-                `(max-width: ${BREAKPOINTS.md - 1}px) 50vw`,
-                '33vw',
-              ].join(', ')}
-              slug={slug}
-              title={title}
-            />
-          </li>
-        ))}
+        {hits.map(
+          ({
+            averageRating,
+            categories,
+            cookTime,
+            id,
+            image,
+            prepTime,
+            restingTime,
+            title,
+            slug,
+          }) => (
+            <li key={id}>
+              <RecipeCard
+                averageRating={averageRating}
+                categories={categories}
+                cookTime={cookTime}
+                image={image}
+                prepTime={prepTime}
+                restingTime={restingTime}
+                sizes={[
+                  `(max-width: ${BREAKPOINTS.sm - 1}px) 100vw`,
+                  `(max-width: ${BREAKPOINTS.md - 1}px) 50vw`,
+                  '33vw',
+                ].join(', ')}
+                slug={slug}
+                title={title}
+              />
+            </li>
+          )
+        )}
       </ol>
     </Grid>
   );

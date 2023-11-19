@@ -135,25 +135,42 @@ export const RecipeCarousel = ({
           </Flex>
           <RecipeCarouselClient>
             <ol className={'embla__container -ml-3 flex'}>
-              {searchResults.hits.map(({ id, image, slug, title }) => (
-                <li
-                  className={
-                    'embla__slide min-w-0 flex-shrink-0 flex-grow-0 basis-full pl-3 sm:basis-1/2 md:basis-1/3'
-                  }
-                  key={id}
-                >
-                  <RecipeCard
-                    image={image}
-                    sizes={[
-                      `(max-width: ${BREAKPOINTS.sm - 1}px) 100vw`,
-                      `(max-width: ${BREAKPOINTS.md - 1}px) 50vw`,
-                      '33vw',
-                    ].join(', ')}
-                    slug={slug}
-                    title={title}
-                  />
-                </li>
-              ))}
+              {searchResults.hits.map(
+                ({
+                  averageRating,
+                  categories,
+                  cookTime,
+                  id,
+                  image,
+                  prepTime,
+                  restingTime,
+                  slug,
+                  title,
+                }) => (
+                  <li
+                    className={
+                      'embla__slide min-w-0 flex-shrink-0 flex-grow-0 basis-full pl-3 sm:basis-1/2 md:basis-1/3'
+                    }
+                    key={id}
+                  >
+                    <RecipeCard
+                      averageRating={averageRating}
+                      categories={categories}
+                      cookTime={cookTime}
+                      image={image}
+                      prepTime={prepTime}
+                      restingTime={restingTime}
+                      sizes={[
+                        `(max-width: ${BREAKPOINTS.sm - 1}px) 100vw`,
+                        `(max-width: ${BREAKPOINTS.md - 1}px) 50vw`,
+                        '33vw',
+                      ].join(', ')}
+                      slug={slug}
+                      title={title}
+                    />
+                  </li>
+                )
+              )}
             </ol>
           </RecipeCarouselClient>
         </Container>

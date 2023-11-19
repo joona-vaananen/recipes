@@ -1,6 +1,6 @@
 import { Box, Flex, Text, VisuallyHidden } from '@radix-ui/themes';
 import { Star, StarHalf } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useFormatter, useTranslations } from 'next-intl';
 
 interface RatingProps extends React.ComponentPropsWithoutRef<typeof Flex> {
   averageRating?: number;
@@ -13,6 +13,7 @@ export const Rating = ({
   ...props
 }: RatingProps) => {
   const t = useTranslations('Rating');
+  const format = useFormatter();
 
   const starCount =
     typeof averageRating === 'number' ? Math.round(averageRating * 2) / 2 : 0;
@@ -21,7 +22,7 @@ export const Rating = ({
     <Flex align={'center'} gap={'2'} {...props}>
       {typeof averageRating === 'number' ? (
         <Text>
-          {averageRating}
+          {format.number(averageRating)}
           <VisuallyHidden>{`/5 ${t('scoreUnit')}`}</VisuallyHidden>
         </Text>
       ) : null}
