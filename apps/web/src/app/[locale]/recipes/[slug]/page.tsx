@@ -19,6 +19,7 @@ import {
   RecipeTags,
   RecipeTime,
   RichText,
+  ShareRecipe,
   SimilarRecipeCarousel,
   WakeLockSwitch,
 } from '@recipes/ui/src/components';
@@ -80,6 +81,7 @@ const Page = ({ params }: PageProps) => {
       <Container className={'container'}>
         <Section size={'2'}>
           <Flex direction={'column'} gap={'8'}>
+            <ShareRecipe locale={locale} slug={recipe.attributes.slug} />
             <RecipeTime
               cookTime={recipe.attributes.cookTime}
               prepTime={recipe.attributes.prepTime}

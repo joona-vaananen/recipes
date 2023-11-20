@@ -1,6 +1,7 @@
 export {
   CommentForm,
   CommentList,
+  CopyToClipboardButton,
   DynamicZone,
   Facebook,
   Footer,
@@ -16,6 +17,7 @@ export {
   RecipeTags,
   RecipeTime,
   RichText,
+  ShareRecipe,
   SimilarRecipeCarousel,
   TikTok,
   UserProvider,

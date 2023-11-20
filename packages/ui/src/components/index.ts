@@ -1,5 +1,6 @@
 export * from './comment-form';
 export * from './comment-list';
+export * from './copy-to-clipboard-button';
 export * from './dynamic-zone';
 export * from './footer';
 export * from './header';
@@ -17,6 +18,7 @@ export * from './recipe-search';
 export * from './recipe-tags';
 export * from './recipe-time';
 export * from './rich-text';
+export * from './share-recipe';
 export * from './similar-recipe-carousel';
 export * from './structured-data';
 export * from './unordered-list';
