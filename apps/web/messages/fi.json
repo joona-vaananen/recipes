@@ -28,6 +28,13 @@
   "InstructionList": {
     "title": "Ohjeet"
   },
+  "LocaleSwitcher": {
+    "label": "Kieli",
+    "locales": {
+      "en": "englanti",
+      "fi": "suomi"
+    }
+  },
   "Rating": {
     "ratings": "{ratingCount, plural, =0 {ei arvosteluja} =1 {# arvostelu} other {# arvostelua}}",
     "scoreUnit": "tähteä"
@@ -45,7 +52,7 @@
     "filters": "Hakuehdot",
     "inputPlaceholder": "Etsi reseptejä...",
     "nextPage": "Seuraava sivu",
-    "noResults": "Yhtään reseptiä ei löytynyt",
+    "noResults": "Yhtään reseptiä ei löytynyt.",
     "openFilters": "Rajaa",
     "page": "Sivu",
     "previousPage": "Edellinen sivu",

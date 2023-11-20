@@ -5,7 +5,14 @@ import { BASE_URL } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { searchClient } from '@/lib/search/client';
 import type { RecipeCarousel as RecipeCarouselProps } from '@recipes/api/src/components/ui/interfaces/RecipeCarousel';
-import { DynamicZone, Hero, RecipeCarousel, RichText } from '@recipes/ui';
+import {
+  DynamicZone,
+  Hero,
+  RecipeCarousel,
+  RichText,
+  type Locale,
+} from '@recipes/ui';
+import { LocaleSwitcherPathnames } from '@recipes/ui/src/components';
 
 interface PageProps {
   params: {
@@ -19,8 +26,24 @@ const Page = async ({ params }: PageProps) => {
 
   const page = await getPageData({ params });
 
+  const pathnames = [
+    page,
+    ...(page.attributes.localizations?.data ?? []),
+  ].reduce(
+    (accumulatedPathnames, localization) => {
+      const { locale, slug } = localization.attributes;
+
+      return {
+        ...accumulatedPathnames,
+        [locale]: `/${slug}`,
+      };
+    },
+    {} as Record<Locale, string>
+  );
+
   return (
     <>
+      <LocaleSwitcherPathnames pathnames={pathnames} />
       <DynamicZone
         components={{
           'ui.hero': Hero,
@@ -36,11 +59,6 @@ const Page = async ({ params }: PageProps) => {
       >
         {page.attributes.content}
       </DynamicZone>
-      {/* <Container className={'container'} px={'4'}>
-        <pre className={'whitespace-pre-wrap'}>
-          {JSON.stringify(page, null, 2)}
-        </pre>
-      </Container> */}
     </>
   );
 };
@@ -81,7 +99,7 @@ const getPageData = async ({ params }: PageProps) => {
   } = await apiClient.getMany({
     contentType: 'pages',
     parameters: {
-      fields: ['id', 'slug', 'title'],
+      fields: ['id', 'locale', 'slug', 'title'],
       filters: { slug },
       locale,
       pagination: { limit: 1 },
@@ -112,6 +130,9 @@ const getPageData = async ({ params }: PageProps) => {
               fields: ['blocks', 'id'],
             },
           },
+        },
+        localizations: {
+          fields: ['locale', 'slug'],
         },
         metadata: {
           fields: ['description', 'ogDescription', 'ogTitle', 'title'],

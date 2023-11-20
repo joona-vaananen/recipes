@@ -7,6 +7,7 @@ import { use } from 'react';
 import { BASE_URL } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { searchClient } from '@/lib/search/client';
+import { Locale, getPathname } from '@recipes/ui';
 import {
   CommentForm,
   CommentList,
@@ -14,6 +15,7 @@ import {
   Hero,
   IngredientList,
   InstructionList,
+  LocaleSwitcherPathnames,
   RecipeInfo,
   RecipeJsonLd,
   RecipeTags,
@@ -38,8 +40,27 @@ const Page = ({ params }: PageProps) => {
 
   const recipe = use(getRecipeData({ params }));
 
+  const pathnames = [
+    recipe,
+    ...(recipe.attributes.localizations?.data ?? []),
+  ].reduce(
+    (accumulatedPathnames, localization) => {
+      const { locale, slug } = localization.attributes;
+
+      return {
+        ...accumulatedPathnames,
+        [locale]: getPathname({
+          locale: locale as Locale,
+          href: { pathname: '/recipes/[slug]', params: { slug } },
+        }),
+      };
+    },
+    {} as Record<Locale, string>
+  );
+
   return (
     <>
+      <LocaleSwitcherPathnames pathnames={pathnames} />
       <Hero
         backgroundImage={recipe.attributes.image}
         description={recipe.attributes.description}
@@ -157,9 +178,10 @@ const getRecipeData = async ({ params }: PageProps) => {
     parameters: {
       fields: [
         'averageRating',
-        'id',
         'cookTime',
         'description',
+        'id',
+        'locale',
         'prepTime',
         'publishedAt',
         'ratingCount',
@@ -209,6 +231,9 @@ const getRecipeData = async ({ params }: PageProps) => {
               fields: ['content', 'id'],
             },
           },
+        },
+        localizations: {
+          fields: ['locale', 'slug'],
         },
         mainIngredients: {
           fields: ['id', 'name', 'slug'],

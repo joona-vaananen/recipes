@@ -9,6 +9,7 @@ export * from './icons';
 export * from './ingredient-list';
 export * from './instruction-list';
 export * from './list-item';
+export * from './locale-switcher';
 export * from './ordered-list';
 export * from './rating';
 export * from './recipe-card';

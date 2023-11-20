@@ -4,17 +4,19 @@ import Image from 'next/image';
 import type { Media } from '@recipes/api/src/common/interfaces/Media';
 import { useTranslations } from 'next-intl';
 import { HeaderDesktopNavigation } from '.';
+import { LocaleSwitcher } from '..';
 import { Link as NextLink } from '../../lib/utils/navigation';
 import { HeaderMobileNavigation } from './header-mobile-navigation';
 
 interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
   items: any;
+  locale: string;
   logo: {
     data: Media;
   };
 }
 
-export const Header = ({ items, logo, ...props }: HeaderProps) => {
+export const Header = ({ items, locale, logo, ...props }: HeaderProps) => {
   const t = useTranslations('Header');
 
   return (
@@ -39,16 +41,19 @@ export const Header = ({ items, logo, ...props }: HeaderProps) => {
               />
             </NextLink>
           </Link>
-          <HeaderMobileNavigation
-            items={items}
-            logo={logo}
-            translations={{
-              closeMenu: t('closeMenu'),
-              menuTitle: t('menuTitle'),
-              openMenu: t('openMenu'),
-            }}
-          />
-          <HeaderDesktopNavigation items={items} />
+          <Flex align={'center'} gap={'4'}>
+            <HeaderDesktopNavigation items={items} />
+            <LocaleSwitcher locale={locale} />
+            <HeaderMobileNavigation
+              items={items}
+              logo={logo}
+              translations={{
+                closeMenu: t('closeMenu'),
+                menuTitle: t('menuTitle'),
+                openMenu: t('openMenu'),
+              }}
+            />
+          </Flex>
         </Flex>
       </Container>
       <Separator decorative size={'4'} />

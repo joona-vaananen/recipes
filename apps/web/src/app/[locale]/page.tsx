@@ -5,7 +5,14 @@ import { BASE_URL, SITE_NAME } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { searchClient } from '@/lib/search/client';
 import type { RecipeCarousel as RecipeCarouselProps } from '@recipes/api/src/components/ui/interfaces/RecipeCarousel';
-import { DynamicZone, Hero, RecipeCarousel, RichText } from '@recipes/ui';
+import {
+  DynamicZone,
+  Hero,
+  RecipeCarousel,
+  RichText,
+  pathnames,
+} from '@recipes/ui';
+import { LocaleSwitcherPathnames } from '@recipes/ui/src/components';
 
 interface HomePageProps {
   params: { locale: string };
@@ -18,6 +25,7 @@ const HomePage = async ({ params }: HomePageProps) => {
 
   return (
     <>
+      <LocaleSwitcherPathnames pathnames={pathnames['/']} />
       <DynamicZone
         components={{
           'ui.hero': Hero,
@@ -33,11 +41,6 @@ const HomePage = async ({ params }: HomePageProps) => {
       >
         {homePage.attributes.content}
       </DynamicZone>
-      {/* <Container className={'container'} px={'4'}>
-        <pre className={'whitespace-pre-wrap'}>
-          {JSON.stringify(homePage, null, 2)}
-        </pre>
-      </Container> */}
     </>
   );
 };

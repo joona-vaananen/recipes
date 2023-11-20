@@ -8,7 +8,11 @@ export const GET = async () => {
     parameters: {
       fields: ['createdAt', 'id', 'locale', 'slug', 'updatedAt'],
       locale: 'all',
-      populate: 'localizations',
+      populate: {
+        localizations: {
+          fields: ['createdAt', 'id', 'locale', 'slug', 'updatedAt'],
+        },
+      },
     },
   });
 

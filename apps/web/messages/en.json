@@ -28,6 +28,13 @@
   "InstructionList": {
     "title": "Instructions"
   },
+  "LocaleSwitcher": {
+    "label": "Language",
+    "locales": {
+      "en": "English",
+      "fi": "Finnish"
+    }
+  },
   "Rating": {
     "ratings": "{ratingCount, plural, =0 {no ratings} =1 {# rating} other {# ratings}}",
     "scoreUnit": "stars"
@@ -45,7 +52,7 @@
     "filters": "Search filters",
     "inputPlaceholder": "Search recipes...",
     "nextPage": "Next page",
-    "noResults": "No recipes found",
+    "noResults": "No recipes found.",
     "openFilters": "Filter",
     "page": "Page",
     "previousPage": "Previous page",

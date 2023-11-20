@@ -10,7 +10,10 @@ export const locales = ['en', 'fi'] as const;
 export type Locale = (typeof locales)[number];
 
 export const pathnames = {
-  '/': '/',
+  '/': {
+    en: '/',
+    fi: '/',
+  },
   '/recipes': {
     en: '/recipes',
     fi: '/reseptit',

@@ -13,7 +13,11 @@ export const GET = async () => {
       parameters: {
         fields: ['createdAt', 'locale', 'updatedAt'],
         locale: 'all',
-        populate: 'localizations',
+        populate: {
+          localizations: {
+            fields: ['createdAt', 'locale', 'updatedAt'],
+          },
+        },
       },
     }),
     apiClient.getMany({
@@ -21,7 +25,11 @@ export const GET = async () => {
       parameters: {
         fields: ['createdAt', 'locale', 'updatedAt'],
         locale: 'all',
-        populate: 'localizations',
+        populate: {
+          localizations: {
+            fields: ['createdAt', 'locale', 'updatedAt'],
+          },
+        },
       },
     }),
   ]);

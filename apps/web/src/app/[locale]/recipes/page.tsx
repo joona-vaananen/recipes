@@ -4,7 +4,8 @@ import { notFound } from 'next/navigation';
 import { BASE_URL } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { searchClient } from '@/lib/search/client';
-import { RecipeSearch } from '@recipes/ui';
+import { RecipeSearch, pathnames } from '@recipes/ui';
+import { LocaleSwitcherPathnames } from '@recipes/ui/src/components';
 
 interface RecipeSearchPageProps {
   params: { locale: string };
@@ -25,15 +26,18 @@ const RecipeSearchPage = async ({
   const { filters, pageSize, sortOrder, title } = recipeSearchPage.attributes;
 
   return (
-    <RecipeSearch
-      filters={filters}
-      locale={locale}
-      pageSize={pageSize}
-      searchClient={searchClient}
-      searchParams={searchParams}
-      sortOrder={sortOrder}
-      title={title}
-    />
+    <>
+      <LocaleSwitcherPathnames pathnames={pathnames['/recipes']} />
+      <RecipeSearch
+        filters={filters}
+        locale={locale}
+        pageSize={pageSize}
+        searchClient={searchClient}
+        searchParams={searchParams}
+        sortOrder={sortOrder}
+        title={title}
+      />
+    </>
   );
 };
 
