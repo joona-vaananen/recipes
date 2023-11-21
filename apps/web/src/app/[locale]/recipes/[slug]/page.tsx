@@ -139,7 +139,12 @@ const Page = ({ params }: PageProps) => {
         >
           <CommentForm locale={locale} recipe={recipe.id} />
         </Grid>
-        <CommentList apiClient={apiClient} locale={locale} recipe={recipe.id} />
+        <CommentList
+          apiClient={apiClient}
+          locale={locale}
+          localizations={recipe.attributes.localizations}
+          recipe={recipe.id}
+        />
       </Container>
       <RecipeJsonLd recipe={recipe} />
     </>
@@ -234,7 +239,7 @@ const getRecipeData = async ({ params }: PageProps) => {
           },
         },
         localizations: {
-          fields: ['locale', 'slug'],
+          fields: ['id', 'locale', 'slug'],
         },
         mainIngredients: {
           fields: ['id', 'name', 'slug'],

@@ -9,12 +9,14 @@ export const COMMENTS_PAGE_SIZE = 15;
 interface CommentListProps {
   apiClient: APIClientInstance;
   locale: string;
+  localizations?: { data: { id: number }[] };
   recipe: number;
 }
 
 export const CommentList = ({
   apiClient,
   locale,
+  localizations,
   recipe,
 }: CommentListProps) => {
   const t = useTranslations('CommentList');
@@ -26,12 +28,19 @@ export const CommentList = ({
         fields: ['comment', 'createdAt', 'id', 'name', 'userId'],
         filters: {
           recipe: {
-            id: recipe,
+            id: {
+              // TODO: These IDs need to be passed forwards to the client component
+              // For client-side data fetching of comments of all locales
+              $in: [
+                recipe,
+                ...(localizations?.data?.map(
+                  (localization) => localization.id
+                ) ?? []),
+              ],
+            },
           },
         },
-        // TODO: Fetch all comments regardless of locale, or perhaps disable localization for comments?
-        // Localizations of recipe have distinct IDs, so all of them are needed
-        locale,
+        locale: 'all',
         pagination: {
           page: 1,
           pageSize: COMMENTS_PAGE_SIZE,
