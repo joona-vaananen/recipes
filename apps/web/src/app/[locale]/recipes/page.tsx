@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
 import { BASE_URL } from '@/constants';
@@ -110,6 +111,7 @@ const getRecipeSearchPageData = async ({ params }: RecipeSearchPageProps) => {
           },
         },
       },
+      publicationState: draftMode().isEnabled ? 'preview' : 'live',
     },
   });
 

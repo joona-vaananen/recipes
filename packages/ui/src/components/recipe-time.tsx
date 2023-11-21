@@ -18,6 +18,14 @@ export const RecipeTime = ({
   const t = useTranslations('RecipeTime');
   const format = useFormatter();
 
+  if (
+    typeof cookTime !== 'number' &&
+    typeof prepTime !== 'number' &&
+    typeof restingTime !== 'number'
+  ) {
+    return null;
+  }
+
   return (
     <Flex
       className={className}

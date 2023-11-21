@@ -35,8 +35,6 @@ export const CommentFormClient = ({
     values: CommentFormSchema,
     event?: React.BaseSyntheticEvent<object, any, any>
   ) => {
-    console.log('submit');
-
     event?.preventDefault();
 
     if (isSubmitting) {

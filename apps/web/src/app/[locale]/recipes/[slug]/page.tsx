@@ -1,6 +1,7 @@
 import { Container, Flex, Grid, Section } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 import { useTranslations } from 'next-intl';
+import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { use } from 'react';
 
@@ -248,6 +249,7 @@ const getRecipeData = async ({ params }: PageProps) => {
           fields: ['id', 'name', 'slug'],
         },
       },
+      publicationState: draftMode().isEnabled ? 'preview' : 'live',
     },
   });
 

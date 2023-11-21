@@ -151,6 +151,7 @@ export const postComment = async (request: NextRequest, context: Context) => {
       data: {
         name: parsedValues.name,
         comment: parsedValues.comment,
+        locale,
         userId: parsedValues.userId,
         rating: rating?.id,
         recipe,

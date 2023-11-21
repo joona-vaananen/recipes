@@ -23,8 +23,6 @@ export const RecipeSearchFilters = ({
           'recipe-search.checkbox-filter': (props: any) => {
             const { name } = props;
 
-            console.log(props);
-
             if (!(name in searchConfig.filters)) {
               return null;
             }

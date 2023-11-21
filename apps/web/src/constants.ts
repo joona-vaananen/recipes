@@ -19,3 +19,5 @@ export const ERROR_NAMES = {
 export const SITE_NAME = 'Olisipa';
 
 export const TIME_ZONE = process.env.WEB_TIME_ZONE;
+
+export const TOKEN = process.env.WEB_TOKEN;

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
 import { BASE_URL, SITE_NAME } from '@/constants';
@@ -123,6 +124,7 @@ const getHomePageData = async ({ params }: HomePageProps) => {
           },
         },
       },
+      publicationState: draftMode().isEnabled ? 'preview' : 'live',
     },
   });
 

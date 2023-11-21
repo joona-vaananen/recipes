@@ -24,6 +24,8 @@ services:
         SEARCH_MASTER_KEY: ${SEARCH_MASTER_KEY}
         SEARCH_PORT: ${SEARCH_PORT}
         SEARCH_PROTOCOL: ${SEARCH_PROTOCOL}
+        WEB_BASE_URL: ${WEB_BASE_URL}
+        WEB_TOKEN: ${WEB_TOKEN}
     volumes:
       - ./apps/api/config:/app/apps/api/config
       - ./apps/api/public/uploads:/app/apps/api/public/uploads
@@ -84,6 +86,7 @@ services:
         SEARCH_PROTOCOL: ${SEARCH_PROTOCOL}
         WEB_BASE_URL: ${WEB_BASE_URL}
         WEB_TIME_ZONE: ${WEB_TIME_ZONE}
+        WEB_TOKEN: ${WEB_TOKEN}
     volumes:
       - ./apps/web/messages:/app/apps/web/messages
       - ./apps/web/public:/app/apps/web/public

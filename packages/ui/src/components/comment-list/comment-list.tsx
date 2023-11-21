@@ -29,6 +29,8 @@ export const CommentList = ({
             id: recipe,
           },
         },
+        // TODO: Fetch all comments regardless of locale, or perhaps disable localization for comments?
+        // Localizations of recipe have distinct IDs, so all of them are needed
         locale,
         pagination: {
           page: 1,

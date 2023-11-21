@@ -97,6 +97,19 @@ export const RecipeTags = ({
 }: RecipeTagsProps) => {
   const t = useTranslations('RecipeTags');
 
+  if (
+    !Array.isArray(categories) &&
+    !Array.isArray(courses) &&
+    !Array.isArray(cuisines) &&
+    !Array.isArray(diets) &&
+    !Array.isArray(mainIngredients) &&
+    !Array.isArray(mealTypes) &&
+    !Array.isArray(methods) &&
+    !Array.isArray(seasons)
+  ) {
+    return null;
+  }
+
   return (
     <Flex
       className={className}
