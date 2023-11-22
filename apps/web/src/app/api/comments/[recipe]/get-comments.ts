@@ -111,6 +111,8 @@ export const getComments = async (request: NextRequest, context: Context) => {
     );
   }
 
+  const recipes = [recipe, ...(recipe.attributes.localizations?.data ?? [])];
+
   let data: APIContentTypes['comments'][];
   let meta: Record<string, any>;
 
@@ -122,12 +124,7 @@ export const getComments = async (request: NextRequest, context: Context) => {
         filters: {
           recipe: {
             id: {
-              $in: [
-                recipe.id,
-                ...(recipe.attributes.localizations?.data?.map(
-                  (localization) => localization.id
-                ) ?? []),
-              ],
+              $in: recipes.map((recipe) => recipe.id),
             },
           },
         },

@@ -19,16 +19,24 @@ const lifecycles = {
         populate: {
           recipe: {
             fields: ['id'],
+            populate: {
+              localizations: {
+                fields: ['id'],
+              },
+            },
           },
         },
       }
-    )) as unknown as { id: number; recipe?: { id: number } };
+    )) as unknown as {
+      id: number;
+      recipe?: { id: number; localizations: { id: number }[] };
+    };
 
     if (typeof recipe?.id !== 'number') {
       return;
     }
 
-    await strapi.service('api::recipe.recipe').updateRating(recipe.id);
+    await strapi.service('api::recipe.recipe').updateRating(recipe);
   },
   afterCreateMany: async (
     event: AfterRunEvent<Record<string, any>, { id: number }>
@@ -54,9 +62,17 @@ const lifecycles = {
       populate: {
         recipe: {
           fields: ['id'],
+          populate: {
+            localizations: {
+              fields: ['id'],
+            },
+          },
         },
       },
-    })) as unknown as { id: number; recipe: { id: number } }[];
+    })) as unknown as {
+      id: number;
+      recipe: { id: number; localizations: { id: number }[] };
+    }[];
 
     const recipes = resolveRecipes(ratings);
 
@@ -66,12 +82,15 @@ const lifecycles = {
 
     await Promise.all(
       recipes.map((recipe) => {
-        return strapi.service('api::recipe.recipe').updateRating(recipe.id);
+        return strapi.service('api::recipe.recipe').updateRating(recipe);
       })
     );
   },
   afterDelete: async (
-    event: AfterRunEvent<{ recipe?: { id: number } }, { id: number }>
+    event: AfterRunEvent<
+      { recipe?: { id: number; localizations: { id: number }[] } },
+      { id: number }
+    >
   ) => {
     const recipe = event.state.recipe;
 
@@ -79,10 +98,13 @@ const lifecycles = {
       return;
     }
 
-    await strapi.service('api::recipe.recipe').updateRating(recipe.id);
+    await strapi.service('api::recipe.recipe').updateRating(recipe);
   },
   afterDeleteMany: async (
-    event: AfterRunEvent<{ recipes: { id: number }[] }, { id: number }>
+    event: AfterRunEvent<
+      { recipes: { id: number; localizations: { id: number }[] }[] },
+      { id: number }
+    >
   ) => {
     const recipes = event.state.recipes;
 
@@ -92,7 +114,7 @@ const lifecycles = {
 
     await Promise.all(
       recipes.map((recipe) => {
-        return strapi.service('api::recipe.recipe').updateRating(recipe.id);
+        return strapi.service('api::recipe.recipe').updateRating(recipe);
       })
     );
   },
@@ -113,16 +135,24 @@ const lifecycles = {
         populate: {
           recipe: {
             fields: ['id'],
+            populate: {
+              localizations: {
+                fields: ['id'],
+              },
+            },
           },
         },
       }
-    )) as unknown as { id: number; recipe?: { id: number } };
+    )) as unknown as {
+      id: number;
+      recipe?: { id: number; localizations: { id: number }[] };
+    };
 
     if (typeof recipe?.id !== 'number') {
       return;
     }
 
-    await strapi.service('api::recipe.recipe').updateRating(recipe.id);
+    await strapi.service('api::recipe.recipe').updateRating(recipe);
   },
   afterUpdateMany: async (
     event: AfterRunEvent<Record<string, any>, { id: number }>
@@ -148,9 +178,17 @@ const lifecycles = {
       populate: {
         recipe: {
           fields: ['id'],
+          populate: {
+            localizations: {
+              fields: ['id'],
+            },
+          },
         },
       },
-    })) as unknown as { id: number; recipe: { id: number } }[];
+    })) as unknown as {
+      id: number;
+      recipe: { id: number; localizations: { id: number }[] };
+    }[];
 
     const recipes = resolveRecipes(ratings);
 
@@ -160,7 +198,7 @@ const lifecycles = {
 
     await Promise.all(
       recipes.map((recipe) => {
-        return strapi.service('api::recipe.recipe').updateRating(recipe.id);
+        return strapi.service('api::recipe.recipe').updateRating(recipe);
       })
     );
   },
@@ -179,10 +217,18 @@ const lifecycles = {
         populate: {
           recipe: {
             fields: ['id'],
+            populate: {
+              localizations: {
+                fields: ['id'],
+              },
+            },
           },
         },
       }
-    )) as unknown as { id: number; recipe?: { id: number } };
+    )) as unknown as {
+      id: number;
+      recipe?: { id: number; localizations: { id: number }[] };
+    };
 
     event.state = { recipe };
   },
@@ -208,9 +254,17 @@ const lifecycles = {
       populate: {
         recipe: {
           fields: ['id'],
+          populate: {
+            localizations: {
+              fields: ['id'],
+            },
+          },
         },
       },
-    })) as unknown as { id: number; recipe: { id: number } }[];
+    })) as unknown as {
+      id: number;
+      recipe: { id: number; localizations: { id: number }[] };
+    }[];
 
     const recipes = resolveRecipes(ratings);
 
@@ -220,7 +274,12 @@ const lifecycles = {
 
 export default lifecycles;
 
-const resolveRecipes = (ratings: { id: number; recipe: { id: number } }[]) => {
+const resolveRecipes = (
+  ratings: {
+    id: number;
+    recipe: { id: number; localizations: { id: number }[] };
+  }[]
+) => {
   return Object.values(
     ratings.reduce(
       (accumulatedRecipes, rating) => {
@@ -231,7 +290,7 @@ const resolveRecipes = (ratings: { id: number; recipe: { id: number } }[]) => {
           [recipe.id]: recipe,
         };
       },
-      {} as Record<number, { id: number }>
+      {} as Record<number, { id: number; localizations: { id: number }[] }>
     )
   );
 };

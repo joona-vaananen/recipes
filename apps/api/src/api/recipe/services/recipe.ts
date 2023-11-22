@@ -7,12 +7,23 @@ import { factories, type Strapi } from '@strapi/strapi';
 export default factories.createCoreService(
   'api::recipe.recipe',
   ({ strapi }: { strapi: Strapi }) => ({
-    updateRating: async (id: number) => {
+    updateRating: async (recipe: {
+      id: number;
+      localizations: { id: number }[];
+    }) => {
+      const recipes = [recipe, ...(recipe.localizations ?? [])];
+
       const ratings = (await strapi.entityService!.findMany(
         'api::rating.rating',
         {
           fields: ['id', 'score'],
-          filters: { recipe: { id } },
+          filters: {
+            recipe: {
+              id: {
+                $in: recipes.map((recipe) => recipe.id),
+              },
+            },
+          },
         }
       )) as unknown as { id: number; score: number }[];
 
@@ -24,20 +35,18 @@ export default factories.createCoreService(
 
       const ratingCount = ratings.length;
 
-      const recipe = (await strapi.entityService!.update(
-        'api::recipe.recipe',
-        id,
-        {
-          fields: ['averageRating', 'id', 'ratingCount'],
-          data: { averageRating, ratingCount } as any,
-        }
-      )) as unknown as {
-        averageRating: number;
-        id: number;
-        ratingCount: number;
-      };
-
-      return recipe;
+      return await Promise.all(
+        recipes.map((recipe) => {
+          return strapi.entityService!.update('api::recipe.recipe', recipe.id, {
+            fields: ['averageRating', 'id', 'ratingCount'],
+            data: { averageRating, ratingCount } as any,
+          }) as unknown as Promise<{
+            averageRating: number;
+            id: number;
+            ratingCount: number;
+          }>;
+        })
+      );
     },
   })
 );

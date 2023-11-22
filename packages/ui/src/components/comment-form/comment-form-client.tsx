@@ -66,7 +66,7 @@ export const CommentFormClient = ({
       if (
         typeof key === 'string' &&
         key.startsWith(
-          `${INFINITE_PREFIX}/api/comments/1${stringify(
+          `${INFINITE_PREFIX}/api/comments/${recipe}${stringify(
             { locale },
             { addQueryPrefix: true, encodeValuesOnly: true }
           )}`

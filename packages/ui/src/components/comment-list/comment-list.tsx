@@ -21,26 +21,17 @@ export const CommentList = ({
 }: CommentListProps) => {
   const t = useTranslations('CommentList');
 
+  const recipes = [{ id: recipe }, ...(localizations?.data ?? [])];
+
   const { data: comments, meta } = use(
     apiClient.getMany({
       contentType: 'comments',
       parameters: {
         fields: ['comment', 'createdAt', 'id', 'name', 'userId'],
         filters: {
-          /*
-          TODO:
-          Comment and rating system is kind of flawed right out, because they are per recipe localization.
-          To fix this, a custom generated UUID should be used to link comments and ratings to recipes.
-          Relations between comments, ratings, and recipes should be dropped altogether.
-          */
           recipe: {
             id: {
-              $in: [
-                recipe,
-                ...(localizations?.data?.map(
-                  (localization) => localization.id
-                ) ?? []),
-              ],
+              $in: recipes.map((recipe) => recipe.id),
             },
           },
         },
