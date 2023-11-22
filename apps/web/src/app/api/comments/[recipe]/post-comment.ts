@@ -3,6 +3,7 @@ import * as z from 'zod';
 
 import { ERROR_NAMES } from '@/constants';
 import { apiClient } from '@/lib/api/client';
+import type { APIContentTypes } from '@recipes/api-client';
 import { locales } from '@recipes/ui';
 import {
   commentFormSchema,
@@ -22,10 +23,10 @@ interface Context {
 }
 
 export const postComment = async (request: NextRequest, context: Context) => {
-  let recipe: number;
+  let parsedParams: { recipe: number };
 
   try {
-    ({ recipe } = paramsSchema.parse(context.params));
+    parsedParams = paramsSchema.parse(context.params);
   } catch (error) {
     if (error instanceof z.ZodError) {
       const [{ message }] = error.issues;
@@ -72,6 +73,37 @@ export const postComment = async (request: NextRequest, context: Context) => {
     }
   }
 
+  let recipe: APIContentTypes['recipes'] | null;
+
+  try {
+    ({ data: recipe } = await apiClient.getOne({
+      contentType: 'recipes',
+      id: parsedParams.recipe,
+      parameters: {
+        fields: ['id'],
+        locale,
+      },
+    }));
+  } catch {
+    return NextResponse.json(
+      {
+        data: null,
+        error: { message: 'Server error', name: ERROR_NAMES.SERVER_ERROR },
+      },
+      { status: 500 }
+    );
+  }
+
+  if (!recipe) {
+    return NextResponse.json(
+      {
+        data: null,
+        error: { message: 'Not found', name: ERROR_NAMES.NOT_FOUND },
+      },
+      { status: 404 }
+    );
+  }
+
   let parsedValues: CommentFormSchema;
 
   try {
@@ -96,7 +128,7 @@ export const postComment = async (request: NextRequest, context: Context) => {
     }
   }
 
-  let rating: { id: number } | null = null;
+  let rating: APIContentTypes['ratings'];
 
   if (typeof parsedValues.rating === 'number') {
     // Duplicate rating check
@@ -130,40 +162,63 @@ export const postComment = async (request: NextRequest, context: Context) => {
       );
     } */
 
-    ({ data: rating } = await apiClient.create({
-      contentType: 'ratings',
-      parameters: {
-        fields: ['id'],
-        data: {
-          recipe,
-          score: parsedValues.rating,
-          userId: parsedValues.userId,
+    try {
+      ({ data: rating } = await apiClient.create({
+        contentType: 'ratings',
+        parameters: {
+          fields: ['id'],
+          data: {
+            recipe,
+            score: parsedValues.rating,
+            userId: parsedValues.userId,
+          },
+          locale,
         },
-        locale,
-      },
-    }));
+      }));
+    } catch {
+      return NextResponse.json(
+        {
+          data: null,
+          error: { message: 'Server error', name: ERROR_NAMES.SERVER_ERROR },
+        },
+        { status: 500 }
+      );
+    }
   }
 
-  const { data, meta } = await apiClient.create({
-    contentType: 'comments',
-    parameters: {
-      fields: ['comment', 'id', 'name'],
-      data: {
-        name: parsedValues.name,
-        comment: parsedValues.comment,
+  let data: APIContentTypes['comments'];
+  let meta: Record<string, any>;
+
+  try {
+    ({ data, meta } = await apiClient.create({
+      contentType: 'comments',
+      parameters: {
+        fields: ['comment', 'id', 'name'],
+        data: {
+          name: parsedValues.name,
+          comment: parsedValues.comment,
+          locale,
+          userId: parsedValues.userId,
+          rating: rating?.id ?? null,
+          recipe,
+        },
         locale,
-        userId: parsedValues.userId,
-        rating: rating?.id,
-        recipe,
-      },
-      locale,
-      populate: {
-        rating: {
-          fields: ['id', 'score'],
+        populate: {
+          rating: {
+            fields: ['id', 'score'],
+          },
         },
       },
-    },
-  });
+    }));
+  } catch {
+    return NextResponse.json(
+      {
+        data: null,
+        error: { message: 'Server error', name: ERROR_NAMES.SERVER_ERROR },
+      },
+      { status: 500 }
+    );
+  }
 
   return NextResponse.json({ data, meta });
 };

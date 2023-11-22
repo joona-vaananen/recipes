@@ -29,8 +29,6 @@ export const CommentList = ({
         filters: {
           recipe: {
             id: {
-              // TODO: These IDs need to be passed forwards to the client component
-              // For client-side data fetching of comments of all locales
               $in: [
                 recipe,
                 ...(localizations?.data?.map(

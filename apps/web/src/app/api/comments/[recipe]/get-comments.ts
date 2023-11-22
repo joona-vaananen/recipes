@@ -21,10 +21,10 @@ interface Context {
 }
 
 export const getComments = async (request: NextRequest, context: Context) => {
-  let recipe: number;
+  let parsedParams: { recipe: number };
 
   try {
-    ({ recipe } = paramsSchema.parse(context.params));
+    parsedParams = paramsSchema.parse(context.params);
   } catch (error) {
     if (error instanceof z.ZodError) {
       const [{ message }] = error.issues;
@@ -75,6 +75,42 @@ export const getComments = async (request: NextRequest, context: Context) => {
     }
   }
 
+  let recipe: APIContentTypes['recipes'] | null;
+
+  try {
+    ({ data: recipe } = await apiClient.getOne({
+      contentType: 'recipes',
+      id: parsedParams.recipe,
+      parameters: {
+        fields: ['id'],
+        locale,
+        populate: {
+          localizations: {
+            fields: ['id'],
+          },
+        },
+      },
+    }));
+  } catch {
+    return NextResponse.json(
+      {
+        data: null,
+        error: { message: 'Server error', name: ERROR_NAMES.SERVER_ERROR },
+      },
+      { status: 500 }
+    );
+  }
+
+  if (!recipe) {
+    return NextResponse.json(
+      {
+        data: null,
+        error: { message: 'Not found', name: ERROR_NAMES.NOT_FOUND },
+      },
+      { status: 404 }
+    );
+  }
+
   let data: APIContentTypes['comments'][];
   let meta: Record<string, any>;
 
@@ -85,10 +121,17 @@ export const getComments = async (request: NextRequest, context: Context) => {
         fields: ['comment', 'createdAt', 'id', 'name', 'userId'],
         filters: {
           recipe: {
-            id: recipe,
+            id: {
+              $in: [
+                recipe.id,
+                ...(recipe.attributes.localizations?.data?.map(
+                  (localization) => localization.id
+                ) ?? []),
+              ],
+            },
           },
         },
-        locale,
+        locale: 'all',
         pagination: {
           page,
           pageSize,

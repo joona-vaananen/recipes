@@ -9,6 +9,7 @@ export const BASE_URL =
     : 'http://localhost:3000');
 
 export const ERROR_NAMES = {
+  NOT_FOUND: 'NotFound',
   SERVER_ERROR: 'ServerError',
   UNIQUE_CONSTRAINT_ERROR: 'UniqueConstraintError',
   VALIDATION_ERROR: 'ValidationError',
