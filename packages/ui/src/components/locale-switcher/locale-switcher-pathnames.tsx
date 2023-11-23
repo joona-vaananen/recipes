@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useLocaleSwitcher } from '.';
+import { useEffect, useRef } from 'react';
+
 import type { Locale } from '../../lib/utils/navigation';
+import { useLocaleSwitcher } from './locale-switcher-context';
 
 interface LocaleSwitcherPathnamesProps {
   pathnames: Record<Locale, string>;
@@ -11,12 +12,17 @@ interface LocaleSwitcherPathnamesProps {
 export const LocaleSwitcherPathnames = ({
   pathnames,
 }: LocaleSwitcherPathnamesProps) => {
+  const isMountedRef = useRef(false);
   const { updatePathnames } = useLocaleSwitcher();
 
-  // TODO: Fix this in proper manner, e.g. with useRef or checking for pathname changes
   useEffect(() => {
+    if (isMountedRef.current) {
+      return;
+    }
+
+    isMountedRef.current = true;
     updatePathnames(pathnames);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [pathnames, updatePathnames]);
 
   return null;
 };
