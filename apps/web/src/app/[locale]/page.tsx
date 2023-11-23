@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
@@ -22,6 +23,7 @@ interface HomePageProps {
 const HomePage = async ({ params }: HomePageProps) => {
   const { locale } = params;
 
+  unstable_setRequestLocale(locale);
   const homePage = await getHomePageData({ params });
 
   return (

@@ -3,9 +3,23 @@
 import { AdminPanelRelationPropertyModification } from '../../../../common/interfaces/AdminPanelRelationPropertyModification';
 import { Media } from '../../../../common/interfaces/Media';
 import {
+  IngredientList,
+  IngredientList_NoRelations,
+  IngredientList_Plain,
+} from '../../../../components/recipe/interfaces/IngredientList';
+import {
+  InstructionList,
+  InstructionList_NoRelations,
+  InstructionList_Plain,
+} from '../../../../components/recipe/interfaces/InstructionList';
+import {
   Category,
   Category_Plain,
 } from '../../../category/content-types/category/category';
+import {
+  Comment,
+  Comment_Plain,
+} from '../../../comment/content-types/comment/comment';
 import {
   Course,
   Course_Plain,
@@ -27,6 +41,10 @@ import {
   Method,
   Method_Plain,
 } from '../../../method/content-types/method/method';
+import {
+  Rating,
+  Rating_Plain,
+} from '../../../rating/content-types/rating/rating';
 import {
   Season,
   Season_Plain,
@@ -50,18 +68,19 @@ export interface Recipe {
     methods?: { data: Method[] };
     mainIngredients?: { data: MainIngredient[] };
     cuisines?: { data: Cuisine[] };
-    locale: string;
-    localizations?: { data: Recipe[] };
-    content: any;
-    ingredients: any;
+    content?: any;
+    ingredients: IngredientList[];
     servings: number;
-    instructions: any;
-    comments: any;
+    instructions: InstructionList[];
+    comments: { data: Comment[] };
+    ratings: { data: Rating[] };
     averageRating?: number;
     ratingCount: number;
     prepTime?: number;
     cookTime?: number;
     restingTime?: number;
+    locale: string;
+    localizations?: { data: Recipe[] };
   };
 }
 export interface Recipe_Plain {
@@ -81,18 +100,19 @@ export interface Recipe_Plain {
   methods?: Method_Plain[];
   mainIngredients?: MainIngredient_Plain[];
   cuisines?: Cuisine_Plain[];
-  locale: string;
-  localizations?: Recipe[];
-  content: any;
-  ingredients: any;
+  content?: any;
+  ingredients: IngredientList_Plain[];
   servings: number;
-  instructions: any;
-  comments: any;
+  instructions: InstructionList_Plain[];
+  comments: Comment_Plain[];
+  ratings: Rating_Plain[];
   averageRating?: number;
   ratingCount: number;
   prepTime?: number;
   cookTime?: number;
   restingTime?: number;
+  locale: string;
+  localizations?: Recipe[];
 }
 
 export interface Recipe_NoRelations {
@@ -112,18 +132,19 @@ export interface Recipe_NoRelations {
   methods?: number[];
   mainIngredients?: number[];
   cuisines?: number[];
-  locale: string;
-  localizations?: Recipe[];
-  content: any;
-  ingredients: any;
+  content?: any;
+  ingredients: IngredientList_NoRelations[];
   servings: number;
-  instructions: any;
-  comments: any;
+  instructions: InstructionList_NoRelations[];
+  comments: number[];
+  ratings: number[];
   averageRating?: number;
   ratingCount: number;
   prepTime?: number;
   cookTime?: number;
   restingTime?: number;
+  locale: string;
+  localizations?: Recipe[];
 }
 
 export interface Recipe_AdminPanelLifeCycle {
@@ -143,16 +164,17 @@ export interface Recipe_AdminPanelLifeCycle {
   methods?: AdminPanelRelationPropertyModification<Method_Plain>;
   mainIngredients?: AdminPanelRelationPropertyModification<MainIngredient_Plain>;
   cuisines?: AdminPanelRelationPropertyModification<Cuisine_Plain>;
-  locale: string;
-  localizations?: Recipe[];
-  content: any;
-  ingredients: any;
+  content?: any;
+  ingredients: IngredientList_Plain[];
   servings: number;
-  instructions: any;
-  comments: any;
+  instructions: InstructionList_Plain[];
+  comments: AdminPanelRelationPropertyModification<Comment_Plain>;
+  ratings: AdminPanelRelationPropertyModification<Rating_Plain>;
   averageRating?: number;
   ratingCount: number;
   prepTime?: number;
   cookTime?: number;
   restingTime?: number;
+  locale: string;
+  localizations?: Recipe[];
 }

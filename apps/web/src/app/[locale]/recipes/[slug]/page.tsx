@@ -1,6 +1,7 @@
 import { Container, Flex, Grid, Section } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { use } from 'react';
@@ -35,6 +36,8 @@ interface PageProps {
 
 const Page = ({ params }: PageProps) => {
   const { locale } = params;
+
+  unstable_setRequestLocale(locale);
 
   const t = useTranslations('RecipePage');
 

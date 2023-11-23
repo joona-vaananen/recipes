@@ -52,7 +52,7 @@ const Layout = async ({ children, params }: LayoutProps) => {
     >
       <body>
         <UserProvider>
-          <NextIntlClientProvider timeZone={TIME_ZONE}>
+          <NextIntlClientProvider locale={locale} timeZone={TIME_ZONE}>
             <LocaleSwitcherProvider>
               <Theme accentColor={'ruby'}>
                 <Flex className={'min-h-screen'} direction={'column'}>

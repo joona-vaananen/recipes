@@ -1,7 +1,11 @@
 import { stringify } from 'qs';
 
+import type { Comment } from '@recipes/api/src/api/comment/content-types/comment/comment';
+import type { Footer } from '@recipes/api/src/api/footer/content-types/footer/footer';
+import type { Header } from '@recipes/api/src/api/header/content-types/header/header';
 import type { HomePage } from '@recipes/api/src/api/home-page/content-types/home-page/home-page';
 import type { Page } from '@recipes/api/src/api/page/content-types/page/page';
+import type { Rating } from '@recipes/api/src/api/rating/content-types/rating/rating';
 import type { RecipeSearchPage } from '@recipes/api/src/api/recipe-search-page/content-types/recipe-search-page/recipe-search-page';
 import type { Recipe } from '@recipes/api/src/api/recipe/content-types/recipe/recipe';
 import {
@@ -13,12 +17,12 @@ import {
 export type APIClientInstance = InstanceType<typeof APIClient>;
 
 export interface APIContentTypes {
-  comments: any;
-  footer: any;
-  header: any;
+  comments: Comment;
+  footer: Footer;
+  header: Header;
   'home-page': HomePage;
   pages: Page;
-  ratings: any;
+  ratings: Rating;
   recipes: Recipe;
   'recipe-search-page': RecipeSearchPage;
 }
