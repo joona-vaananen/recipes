@@ -171,6 +171,26 @@ export const generateMetadata = async ({
   };
 };
 
+export const generateStaticParams = async ({
+  params,
+}: {
+  params: { locale: string };
+}) => {
+  const { locale } = params;
+
+  const { data: recipes } = await apiClient.getMany({
+    contentType: 'recipes',
+    parameters: {
+      fields: ['id', 'slug'],
+      locale,
+      pagination: { limit: 100 },
+      sort: 'createdAt:desc',
+    },
+  });
+
+  return recipes.map((recipe) => ({ slug: recipe.attributes.slug }));
+};
+
 const getRecipeData = async ({ params }: PageProps) => {
   const { locale, slug } = params;
 

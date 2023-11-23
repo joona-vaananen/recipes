@@ -35,6 +35,19 @@ services:
       - '1337:1337'
     networks:
       - recipes-network
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'curl',
+          '-f',
+          '${API_PROTOCOL}://${API_HOST}:${API_PORT}/_health',
+        ]
+      interval: 5s
+      retries: 10
+      start_interval: 10s
+      start_period: 60s
+      timeout: 5s
     depends_on:
       - recipes-db
       - recipes-search
@@ -98,6 +111,10 @@ services:
       - 3000:3000
     networks:
       - recipes-network
+    depends_on:
+      recipes-api:
+        condition: service_healthy
+        restart: true
 
 volumes:
   recipes-data:
