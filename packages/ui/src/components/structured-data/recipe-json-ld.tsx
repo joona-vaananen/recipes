@@ -91,7 +91,9 @@ const createRecipeJsonLd = (recipe: Recipe): WithContext<RecipeSchema> => {
     //   calories: '270 calories',
     // },
     recipeIngredient: recipe.attributes.ingredients?.flatMap(
-      (ingredient: any) =>
+      (
+        ingredient: any // TODO: Search for any types and replace with proper ones
+      ) =>
         ingredient.items.map((item: any) =>
           [
             item.amount && new Fraction(item.amount as number).toFraction(true),

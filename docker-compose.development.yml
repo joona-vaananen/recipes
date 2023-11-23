@@ -70,7 +70,7 @@ services:
 
   recipes-search:
     container_name: recipes-search
-    image: getmeili/meilisearch:v1.4.1
+    image: getmeili/meilisearch:v1.5.0
     command: meilisearch
     environment:
       MEILI_MASTER_KEY: ${SEARCH_MASTER_KEY}
