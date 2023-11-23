@@ -5,7 +5,6 @@ import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { use } from 'react';
 
-import { BASE_URL } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { searchClient } from '@/lib/search/client';
 import { Locale, getPathname } from '@recipes/ui';
@@ -165,10 +164,8 @@ export const generateMetadata = async ({
       title: recipe.attributes.title,
       description: recipe.attributes.description,
       images: recipe.attributes.image?.data
-        ? `${BASE_URL}${
-            recipe.attributes.image.data.attributes.formats?.large.url ??
-            recipe.attributes.image.data.attributes.url
-          }`
+        ? recipe.attributes.image.data.attributes.formats?.large.url ??
+          recipe.attributes.image.data.attributes.url
         : undefined,
     },
   };

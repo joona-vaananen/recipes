@@ -5,7 +5,7 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import { Raleway, Roboto_Slab } from 'next/font/google';
 import { notFound } from 'next/navigation';
 
-import { SITE_NAME, TIME_ZONE } from '@/constants';
+import { BASE_URL, SITE_NAME, TIME_ZONE } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { cn, locales } from '@recipes/ui';
 import {
@@ -26,15 +26,6 @@ const raleway = Raleway({
   subsets: ['latin'],
   variable: '--font-raleway',
 });
-
-// export const generateStaticParams = () => locales.map((locale) => ({ locale }));
-
-export const metadata: Metadata = {
-  title: {
-    default: SITE_NAME,
-    template: `%s | ${SITE_NAME}`,
-  },
-};
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -86,6 +77,18 @@ const Layout = async ({ children, params }: LayoutProps) => {
 };
 
 export default Layout;
+
+export const metadata: Metadata = {
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
+  },
+};
+
+export const generateStaticParams = () => {
+  return locales.map((locale) => ({ locale }));
+};
 
 const getHeaderData = async ({ params }: Pick<LayoutProps, 'params'>) => {
   const { locale } = params;

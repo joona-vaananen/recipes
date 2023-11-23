@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-import { BASE_URL, SITE_NAME } from '@/constants';
+import { SITE_NAME } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { searchClient } from '@/lib/search/client';
 import type { RecipeCarousel as RecipeCarouselProps } from '@recipes/api/src/components/ui/interfaces/RecipeCarousel';
@@ -70,10 +70,8 @@ export const generateMetadata = async ({
         homePage.attributes.metadata?.ogDescription ||
         homePage.attributes.metadata?.description,
       images: homePage.attributes.metadata?.ogImage?.data
-        ? `${BASE_URL}${
-            homePage.attributes.metadata.ogImage.data.attributes.formats?.large
-              .url ?? homePage.attributes.metadata.ogImage.data.attributes.url
-          }`
+        ? homePage.attributes.metadata.ogImage.data.attributes.formats?.large
+            .url ?? homePage.attributes.metadata.ogImage.data.attributes.url
         : undefined,
     },
   };

@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-import { BASE_URL } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { searchClient } from '@/lib/search/client';
 import { RecipeSearch, pathnames } from '@recipes/ui';
@@ -67,11 +66,9 @@ export const generateMetadata = async ({
         recipeSearchPage.attributes.metadata?.ogDescription ||
         recipeSearchPage.attributes.metadata?.description,
       images: recipeSearchPage.attributes.metadata?.ogImage?.data
-        ? `${BASE_URL}${
-            recipeSearchPage.attributes.metadata.ogImage.data.attributes.formats
-              ?.large.url ??
-            recipeSearchPage.attributes.metadata.ogImage.data.attributes.url
-          }`
+        ? recipeSearchPage.attributes.metadata.ogImage.data.attributes.formats
+            ?.large.url ??
+          recipeSearchPage.attributes.metadata.ogImage.data.attributes.url
         : undefined,
     },
   };
