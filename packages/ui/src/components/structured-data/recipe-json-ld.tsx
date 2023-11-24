@@ -90,33 +90,30 @@ const createRecipeJsonLd = (recipe: Recipe): WithContext<RecipeSchema> => {
     //   '@type': 'NutritionInformation',
     //   calories: '270 calories',
     // },
-    recipeIngredient: recipe.attributes.ingredients?.flatMap(
-      (
-        ingredient: any // TODO: Search for any types and replace with proper ones
-      ) =>
-        ingredient.items.map((item: any) =>
-          [
-            item.amount && new Fraction(item.amount as number).toFraction(true),
-            item.unit,
-            resolveTextFromRichText(item.content as RichTextBlock[]),
-          ]
-            .filter((attribute) => attribute)
-            .join(' ')
-        )
+    recipeIngredient: recipe.attributes.ingredients?.flatMap((ingredient) =>
+      ingredient.items.map((item) =>
+        [
+          item.amount && new Fraction(item.amount).toFraction(true),
+          item.unit,
+          resolveTextFromRichText(item.content as RichTextBlock[]),
+        ]
+          .filter((attribute) => attribute)
+          .join(' ')
+      )
     ),
     recipeInstructions:
       Array.isArray(recipe.attributes.instructions) &&
       recipe.attributes.instructions.length > 1
-        ? recipe.attributes.instructions.map((instruction: any) => ({
+        ? recipe.attributes.instructions.map((instruction) => ({
             '@type': 'HowToSection',
             name: instruction.title,
-            itemListElement: instruction.items.map((item: any) => ({
+            itemListElement: instruction.items.map((item) => ({
               '@type': 'HowToStep',
               text: resolveTextFromRichText(item.content as RichTextBlock[]),
             })),
           }))
-        : recipe.attributes.instructions.flatMap((instruction: any) =>
-            instruction.items.map((item: any) => ({
+        : recipe.attributes.instructions.flatMap((instruction) =>
+            instruction.items.map((item) => ({
               '@type': 'HowToStep',
               text: resolveTextFromRichText(item.content as RichTextBlock[]),
             }))
