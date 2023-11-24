@@ -98,14 +98,14 @@ export const RecipeTags = ({
   const t = useTranslations('RecipeTags');
 
   if (
-    !Array.isArray(categories) &&
-    !Array.isArray(courses) &&
-    !Array.isArray(cuisines) &&
-    !Array.isArray(diets) &&
-    !Array.isArray(mainIngredients) &&
-    !Array.isArray(mealTypes) &&
-    !Array.isArray(methods) &&
-    !Array.isArray(seasons)
+    !Array.isArray(categories?.data) &&
+    !Array.isArray(courses?.data) &&
+    !Array.isArray(cuisines?.data) &&
+    !Array.isArray(diets?.data) &&
+    !Array.isArray(mainIngredients?.data) &&
+    !Array.isArray(mealTypes?.data) &&
+    !Array.isArray(methods?.data) &&
+    !Array.isArray(seasons?.data)
   ) {
     return null;
   }

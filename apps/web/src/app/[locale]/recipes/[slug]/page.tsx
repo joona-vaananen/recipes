@@ -1,4 +1,13 @@
-import { Box, Container, Flex, Grid, Section } from '@radix-ui/themes';
+import {
+  Box,
+  Card,
+  Container,
+  Flex,
+  Grid,
+  Inset,
+  Section,
+  Separator,
+} from '@radix-ui/themes';
 import { ArrowDown } from 'lucide-react';
 import type { Metadata } from 'next';
 import { useTranslations } from 'next-intl';
@@ -104,47 +113,49 @@ const Page = ({ params }: PageProps) => {
       >
         {recipe.attributes.content}
       </DynamicZone>
-      <Container className={'container'} id={t('recipeAnchor')}>
-        <Section size={'2'}>
-          <Flex direction={'column'} gap={'4'}>
-            <WakeLockSwitch />
-            <Grid
-              className={'gap-20 sm:gap-10'}
-              columns={{
-                initial: '1',
-                sm: '2',
-              }}
-            >
-              <IngredientList
-                items={recipe.attributes.ingredients}
-                servings={recipe.attributes.servings}
-              />
-
-              <InstructionList items={recipe.attributes.instructions} />
-            </Grid>
-          </Flex>
-        </Section>
-      </Container>
       <Container className={'container'}>
         <Section size={'2'}>
-          <Flex direction={'column'} gap={'8'}>
-            <ShareRecipe locale={locale} slug={recipe.attributes.slug} />
-            <RecipeTime
-              cookTime={recipe.attributes.cookTime}
-              prepTime={recipe.attributes.prepTime}
-              restingTime={recipe.attributes.restingTime}
-            />
-            <RecipeTags
-              categories={recipe.attributes.categories}
-              courses={recipe.attributes.courses}
-              cuisines={recipe.attributes.cuisines}
-              diets={recipe.attributes.diets}
-              mainIngredients={recipe.attributes.mainIngredients}
-              mealTypes={recipe.attributes.mealTypes}
-              methods={recipe.attributes.methods}
-              seasons={recipe.attributes.seasons}
-            />
-          </Flex>
+          <Card id={t('recipeAnchor')}>
+            <Flex direction={'column'} gap={'8'} p={'4'}>
+              <WakeLockSwitch />
+              <Grid
+                className={'gap-20 sm:gap-10'}
+                columns={{
+                  initial: '1',
+                  sm: '2',
+                }}
+                gap={'8'}
+              >
+                <IngredientList
+                  items={recipe.attributes.ingredients}
+                  servings={recipe.attributes.servings}
+                />
+
+                <InstructionList items={recipe.attributes.instructions} />
+              </Grid>
+            </Flex>
+            <Inset clip={'padding-box'} my={'8'}>
+              <Separator size={'4'} />
+            </Inset>
+            <Flex direction={'column'} gap={'8'} p={'4'}>
+              <ShareRecipe locale={locale} slug={recipe.attributes.slug} />
+              <RecipeTime
+                cookTime={recipe.attributes.cookTime}
+                prepTime={recipe.attributes.prepTime}
+                restingTime={recipe.attributes.restingTime}
+              />
+              <RecipeTags
+                categories={recipe.attributes.categories}
+                courses={recipe.attributes.courses}
+                cuisines={recipe.attributes.cuisines}
+                diets={recipe.attributes.diets}
+                mainIngredients={recipe.attributes.mainIngredients}
+                mealTypes={recipe.attributes.mealTypes}
+                methods={recipe.attributes.methods}
+                seasons={recipe.attributes.seasons}
+              />
+            </Flex>
+          </Card>
         </Section>
       </Container>
       <Suspense>
