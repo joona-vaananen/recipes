@@ -35,18 +35,18 @@
       "fi": "suomi"
     }
   },
-  "Rating": {
-    "ratings": "{ratingCount, plural, =0 {ei arvosteluja} =1 {# arvostelu} other {# arvostelua}}",
-    "scoreUnit": "tähteä"
-  },
   "RecipeCarousel": {
     "viewMore": "Katso lisää"
   },
-  "RecipeInfo": {
-    "jumpToRecipe": "Hyppää reseptiin"
-  },
   "RecipePage": {
+    "jumpToRecipe": "Hyppää reseptiin",
     "recipeAnchor": "resepti"
+  },
+  "RecipeRating": {
+    "ratingNone": "ei arvosteluja",
+    "ratingPlural": "arvostelua",
+    "ratingSingular": "arvostelu",
+    "scoreUnit": "tähteä"
   },
   "RecipeSearch": {
     "filters": "Hakuehdot",

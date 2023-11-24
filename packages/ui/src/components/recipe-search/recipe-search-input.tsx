@@ -8,13 +8,17 @@ import { useController, useFormContext } from 'react-hook-form';
 
 import type { RecipeSearchParamsSchema } from './recipe-search-schemas';
 
-interface RecipeSearchInputProps {
+interface RecipeSearchInputProps
+  extends React.ComponentPropsWithoutRef<typeof TextField.Root> {
   translations: {
     inputPlaceholder: string;
   };
 }
 
-export const RecipeSearchInput = ({ translations }: RecipeSearchInputProps) => {
+export const RecipeSearchInput = ({
+  translations,
+  ...props
+}: RecipeSearchInputProps) => {
   const { control, setValue } = useFormContext<RecipeSearchParamsSchema>();
   const { field } = useController({ name: 'search', control });
   const { disabled, name, onBlur, ref, value } = field;
@@ -30,7 +34,7 @@ export const RecipeSearchInput = ({ translations }: RecipeSearchInputProps) => {
   }, [onChange]);
 
   return (
-    <TextField.Root>
+    <TextField.Root {...props}>
       <TextField.Slot>
         <Search size={16} />
       </TextField.Slot>

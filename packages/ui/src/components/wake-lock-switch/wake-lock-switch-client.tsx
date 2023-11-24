@@ -36,7 +36,7 @@ export const WakeLockSwitchClient = ({
   };
 
   return (
-    <Flex direction={'column'} gap={'4'}>
+    <Flex align={'start'} direction={'column'} gap={'4'}>
       <Text as={'label'} size={'2'}>
         <Flex gap={'2'}>
           <Switch

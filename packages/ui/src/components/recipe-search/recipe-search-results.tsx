@@ -30,7 +30,6 @@ export const RecipeSearchResults = ({
   translations,
 }: RecipeSearchResultsProps) => {
   const { isSearching } = useRecipeSearch();
-  const isEmpty = hits.length === 0;
 
   if (isSearching) {
     return (
@@ -56,6 +55,8 @@ export const RecipeSearchResults = ({
       </Grid>
     );
   }
+
+  const isEmpty = !Array.isArray(hits) || hits.length === 0;
 
   if (isEmpty) {
     return (

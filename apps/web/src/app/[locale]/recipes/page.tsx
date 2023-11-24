@@ -82,38 +82,41 @@ const getRecipeSearchPageData = async ({ params }: RecipeSearchPageProps) => {
 
   const {
     data: [recipeSearchPage],
-  } = await apiClient.getMany({
-    contentType: 'recipe-search-page',
-    parameters: {
-      fields: ['id', 'pageSize', 'title'],
-      locale,
-      populate: {
-        filters: {
-          on: {
-            'recipe-search.checkbox-filter': true,
+  } = await apiClient.getMany(
+    {
+      contentType: 'recipe-search-page',
+      parameters: {
+        fields: ['id', 'pageSize', 'title'],
+        locale,
+        populate: {
+          filters: {
+            on: {
+              'recipe-search.checkbox-filter': true,
+            },
+          },
+          metadata: {
+            fields: [
+              'description',
+              'ogDescription',
+              'ogImage',
+              'ogTitle',
+              'title',
+            ],
+            populate: {
+              ogImage: true,
+            },
+          },
+          sortOrder: {
+            populate: {
+              options: true,
+            },
           },
         },
-        metadata: {
-          fields: [
-            'description',
-            'ogDescription',
-            'ogImage',
-            'ogTitle',
-            'title',
-          ],
-          populate: {
-            ogImage: true,
-          },
-        },
-        sortOrder: {
-          populate: {
-            options: true,
-          },
-        },
+        publicationState: draftMode().isEnabled ? 'preview' : 'live',
       },
-      publicationState: draftMode().isEnabled ? 'preview' : 'live',
     },
-  });
+    { next: { revalidate: 600 } }
+  );
 
   if (!recipeSearchPage) {
     notFound();

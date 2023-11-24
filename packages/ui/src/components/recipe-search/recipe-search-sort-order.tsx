@@ -7,6 +7,7 @@ import { useController, useFormContext } from 'react-hook-form';
 import { RecipeSearchParamsSchema } from './recipe-search-schemas';
 
 interface RecipeSearchSortOrderProps {
+  className: string;
   label: string;
   options: {
     name: string;
@@ -15,6 +16,7 @@ interface RecipeSearchSortOrderProps {
 }
 
 export const RecipeSearchSortOrder = ({
+  className,
   label,
   options,
 }: RecipeSearchSortOrderProps) => {
@@ -27,7 +29,7 @@ export const RecipeSearchSortOrder = ({
   };
 
   return (
-    <Text as={'label'} size={'2'}>
+    <Text as={'label'} className={className} size={'2'}>
       <Flex align={'center'} gap={'2'}>
         {label}
         <DropdownMenu.Root>

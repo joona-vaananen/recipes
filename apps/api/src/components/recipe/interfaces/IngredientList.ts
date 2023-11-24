@@ -7,15 +7,18 @@ import {
 } from './IngredientItem';
 
 export interface IngredientList {
+  id: number;
   title?: string;
   items: IngredientItem[];
 }
 export interface IngredientList_Plain {
+  id: number;
   title?: string;
   items: IngredientItem_Plain[];
 }
 
 export interface IngredientList_NoRelations {
+  id: number;
   title?: string;
   items: IngredientItem_NoRelations[];
 }

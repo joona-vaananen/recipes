@@ -21,7 +21,7 @@ export const Header = ({ items, locale, logo, ...props }: HeaderProps) => {
 
   return (
     <header {...props}>
-      <Container className={'container'} p={'4'}>
+      <Container className={'container'} px={'4'} py={'2'}>
         <Flex align={'center'} gap={'4'} justify={'between'} {...props}>
           <Link asChild>
             <NextLink href={'/'}>
@@ -32,7 +32,7 @@ export const Header = ({ items, locale, logo, ...props }: HeaderProps) => {
                     ? (logo.placeholder as string)
                     : undefined
                 }
-                className={'h-10 w-auto'}
+                className={'h-14 w-auto'}
                 height={logo.data.attributes.height}
                 placeholder={'placeholder' in logo ? 'blur' : 'empty'}
                 priority

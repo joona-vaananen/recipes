@@ -61,6 +61,10 @@ export const RecipeSearchCheckboxFilter = ({
     }
   };
 
+  if (names.length === 0) {
+    return null;
+  }
+
   return (
     <fieldset>
       <Text asChild mb={'1'} weight={'bold'}>

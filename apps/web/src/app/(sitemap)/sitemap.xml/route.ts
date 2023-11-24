@@ -21,6 +21,8 @@ export const GET = () => {
   );
 };
 
+export const dynamic = 'force-dynamic';
+
 const generateSitemaps = () => {
   return sitemaps
     .map((sitemap) => {

@@ -2,6 +2,7 @@ import {
   AccessibleIcon,
   Container,
   Flex,
+  Grid,
   IconButton,
   Link,
   Separator,
@@ -24,24 +25,19 @@ export const Footer = ({ copyright, logo, ...props }: FooterProps) => {
   return (
     <footer {...props}>
       <Separator decorative size={'4'} />
-      <Container className={'container'} p={'4'}>
-        <Flex
-          direction={'column'}
-          align={{
-            initial: 'center',
-            sm: 'stretch',
+      <Container className={'container'} px={'4'} py={'2'}>
+        <Grid
+          align={'center'}
+          columns={{
+            initial: '2',
+            sm: '3',
           }}
-          gap={'4'}
+          gap={{
+            initial: '7',
+            sm: '4',
+          }}
         >
-          <Flex
-            align={'center'}
-            direction={{
-              initial: 'column',
-              sm: 'row',
-            }}
-            gap={'4'}
-            justify={'between'}
-          >
+          <Flex>
             <Link asChild>
               <NextLink className={'shrink-0'} href={'/'}>
                 <Image
@@ -51,7 +47,7 @@ export const Footer = ({ copyright, logo, ...props }: FooterProps) => {
                       ? (logo.placeholder as string)
                       : undefined
                   }
-                  className={'h-10 w-auto'}
+                  className={'h-14 w-auto'}
                   height={logo.data.attributes.height}
                   placeholder={'placeholder' in logo ? 'blur' : 'empty'}
                   src={logo.data.attributes.url}
@@ -59,77 +55,91 @@ export const Footer = ({ copyright, logo, ...props }: FooterProps) => {
                 />
               </NextLink>
             </Link>
-            <Flex gap={'4'}>
-              <IconButton asChild radius={'full'}>
-                <a
-                  href={'https://facebook.com/olisipacom'}
-                  rel={'noopener noreferrer'}
-                  target={'_blank'}
-                >
-                  <AccessibleIcon label={'Facebook'}>
-                    <Facebook className={'h-4 w-4 fill-[#fff]'} />
-                  </AccessibleIcon>
-                </a>
-              </IconButton>
-              <IconButton asChild radius={'full'}>
-                <a
-                  href={'https://instagram.com/olisipacom'}
-                  rel={'noopener noreferrer'}
-                  target={'_blank'}
-                >
-                  <AccessibleIcon label={'Instagram'}>
-                    <Instagram className={'h-4 w-4 fill-[#fff]'} />
-                  </AccessibleIcon>
-                </a>
-              </IconButton>
-              <IconButton asChild radius={'full'}>
-                <a
-                  href={'https://pinterest.com/olisipacom'}
-                  rel={'noopener noreferrer'}
-                  target={'_blank'}
-                >
-                  <AccessibleIcon label={'Pinterest'}>
-                    <Pinterest className={'h-4 w-4 fill-[#fff]'} />
-                  </AccessibleIcon>
-                </a>
-              </IconButton>
-              <IconButton asChild radius={'full'}>
-                <a
-                  href={'https://tiktok.com/@olisipacom'}
-                  rel={'noopener noreferrer'}
-                  target={'_blank'}
-                >
-                  <AccessibleIcon label={'TikTok'}>
-                    <TikTok className={'h-4 w-4 fill-[#fff]'} />
-                  </AccessibleIcon>
-                </a>
-              </IconButton>
-              <IconButton asChild radius={'full'}>
-                <a
-                  href={'https://x.com/olisipacom'}
-                  rel={'noopener noreferrer'}
-                  target={'_blank'}
-                >
-                  <AccessibleIcon label={'X'}>
-                    <X className={'h-4 w-4 fill-[#fff]'} />
-                  </AccessibleIcon>
-                </a>
-              </IconButton>
-              <IconButton asChild radius={'full'}>
-                <a
-                  href={'https://youtube.com/@olisipacom'}
-                  rel={'noopener noreferrer'}
-                  target={'_blank'}
-                >
-                  <AccessibleIcon label={'YouTube'}>
-                    <YouTube className={'h-4 w-4 fill-[#fff]'} />
-                  </AccessibleIcon>
-                </a>
-              </IconButton>
-            </Flex>
           </Flex>
-          <Text>{copyright}</Text>
-        </Flex>
+          <Flex
+            justify={{
+              initial: 'end',
+              sm: 'center',
+            }}
+          >
+            <Text>{copyright}</Text>
+          </Flex>
+          <Flex
+            className={'col-span-full sm:col-auto'}
+            gap={'4'}
+            justify={{
+              initial: 'center',
+              sm: 'end',
+            }}
+          >
+            <IconButton asChild radius={'full'}>
+              <a
+                href={'https://facebook.com/olisipacom'}
+                rel={'noopener noreferrer'}
+                target={'_blank'}
+              >
+                <AccessibleIcon label={'Facebook'}>
+                  <Facebook className={'h-4 w-4 fill-[#fff]'} />
+                </AccessibleIcon>
+              </a>
+            </IconButton>
+            <IconButton asChild radius={'full'}>
+              <a
+                href={'https://instagram.com/olisipacom'}
+                rel={'noopener noreferrer'}
+                target={'_blank'}
+              >
+                <AccessibleIcon label={'Instagram'}>
+                  <Instagram className={'h-4 w-4 fill-[#fff]'} />
+                </AccessibleIcon>
+              </a>
+            </IconButton>
+            <IconButton asChild radius={'full'}>
+              <a
+                href={'https://pinterest.com/olisipacom'}
+                rel={'noopener noreferrer'}
+                target={'_blank'}
+              >
+                <AccessibleIcon label={'Pinterest'}>
+                  <Pinterest className={'h-4 w-4 fill-[#fff]'} />
+                </AccessibleIcon>
+              </a>
+            </IconButton>
+            <IconButton asChild radius={'full'}>
+              <a
+                href={'https://tiktok.com/@olisipacom'}
+                rel={'noopener noreferrer'}
+                target={'_blank'}
+              >
+                <AccessibleIcon label={'TikTok'}>
+                  <TikTok className={'h-4 w-4 fill-[#fff]'} />
+                </AccessibleIcon>
+              </a>
+            </IconButton>
+            <IconButton asChild radius={'full'}>
+              <a
+                href={'https://x.com/olisipacom'}
+                rel={'noopener noreferrer'}
+                target={'_blank'}
+              >
+                <AccessibleIcon label={'X'}>
+                  <X className={'h-4 w-4 fill-[#fff]'} />
+                </AccessibleIcon>
+              </a>
+            </IconButton>
+            <IconButton asChild radius={'full'}>
+              <a
+                href={'https://youtube.com/@olisipacom'}
+                rel={'noopener noreferrer'}
+                target={'_blank'}
+              >
+                <AccessibleIcon label={'YouTube'}>
+                  <YouTube className={'h-4 w-4 fill-[#fff]'} />
+                </AccessibleIcon>
+              </a>
+            </IconButton>
+          </Flex>
+        </Grid>
       </Container>
     </footer>
   );

@@ -17,6 +17,11 @@ export const ERROR_NAMES = {
   VALIDATION_ERROR: 'ValidationError',
 };
 
+export const GENERATE_STATIC_PARAMS =
+  process.env.WEB_GENERATE_STATIC_PARAMS === 'true';
+
+export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+
 export const SITE_NAME = 'Olisipa';
 
 export const TIME_ZONE = process.env.WEB_TIME_ZONE;

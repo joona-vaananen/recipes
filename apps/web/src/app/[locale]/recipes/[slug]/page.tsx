@@ -1,11 +1,13 @@
-import { Container, Flex, Grid, Section } from '@radix-ui/themes';
+import { Box, Container, Flex, Grid, Section } from '@radix-ui/themes';
+import { ArrowDown } from 'lucide-react';
 import type { Metadata } from 'next';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
-import { use } from 'react';
+import { Suspense, use } from 'react';
 
+import { GENERATE_STATIC_PARAMS } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { searchClient } from '@/lib/search/client';
 import { Locale, getPathname } from '@recipes/ui';
@@ -17,11 +19,12 @@ import {
   IngredientList,
   InstructionList,
   LocaleSwitcherPathnames,
-  RecipeInfo,
   RecipeJsonLd,
+  RecipeRating,
   RecipeTags,
   RecipeTime,
   RichText,
+  ScrollToButton,
   ShareRecipe,
   SimilarRecipeCarousel,
   WakeLockSwitch,
@@ -69,11 +72,31 @@ const Page = ({ params }: PageProps) => {
         description={recipe.attributes.description}
         title={recipe.attributes.title}
       />
-      <RecipeInfo
-        averageRating={recipe.attributes.averageRating}
-        ratingCount={recipe.attributes.ratingCount}
-        recipeAnchor={t('recipeAnchor')}
-      />
+      <Section size={'2'}>
+        <Container className={'container'} size={'3'}>
+          <Flex
+            direction={{
+              initial: 'column',
+              sm: 'row',
+            }}
+            gap={'4'}
+            justify={'between'}
+          >
+            <RecipeRating
+              averageRating={recipe.attributes.averageRating}
+              locale={locale}
+              ratingCount={recipe.attributes.ratingCount}
+              recipe={recipe.id}
+            />
+            <Box>
+              <ScrollToButton anchor={t('recipeAnchor')}>
+                {t('jumpToRecipe')}
+                <ArrowDown className={'h-4 w-4'} />
+              </ScrollToButton>
+            </Box>
+          </Flex>
+        </Container>
+      </Section>
       <DynamicZone
         components={{
           'ui.rich-text': RichText,
@@ -124,13 +147,15 @@ const Page = ({ params }: PageProps) => {
           </Flex>
         </Section>
       </Container>
-      <SimilarRecipeCarousel
-        categories={recipe.attributes.categories}
-        cuisines={recipe.attributes.cuisines}
-        id={recipe.id}
-        locale={locale}
-        searchClient={searchClient}
-      />
+      <Suspense>
+        <SimilarRecipeCarousel
+          categories={recipe.attributes.categories}
+          cuisines={recipe.attributes.cuisines}
+          id={recipe.id}
+          locale={locale}
+          searchClient={searchClient}
+        />
+      </Suspense>
       <Container className={'container'}>
         <Grid
           columns={{
@@ -141,12 +166,14 @@ const Page = ({ params }: PageProps) => {
         >
           <CommentForm locale={locale} recipe={recipe.id} />
         </Grid>
-        <CommentList
-          apiClient={apiClient}
-          locale={locale}
-          localizations={recipe.attributes.localizations}
-          recipe={recipe.id}
-        />
+        <Suspense>
+          <CommentList
+            apiClient={apiClient}
+            locale={locale}
+            localizations={recipe.attributes.localizations}
+            recipe={recipe.id}
+          />
+        </Suspense>
       </Container>
       <RecipeJsonLd recipe={recipe} />
     </>
@@ -174,109 +201,113 @@ export const generateMetadata = async ({
   };
 };
 
-export const generateStaticParams = async ({
-  params,
-}: {
-  params: { locale: string };
-}) => {
-  const { locale } = params;
+export const generateStaticParams = GENERATE_STATIC_PARAMS
+  ? async ({ params }: { params: { locale: string } }) => {
+      const { locale } = params;
 
-  const { data: recipes } = await apiClient.getMany({
-    contentType: 'recipes',
-    parameters: {
-      fields: ['id', 'slug'],
-      locale,
-      pagination: { limit: 100 },
-      sort: 'createdAt:desc',
-    },
-  });
+      const { data: recipes } = await apiClient.getMany(
+        {
+          contentType: 'recipes',
+          parameters: {
+            fields: ['id', 'slug'],
+            locale,
+            pagination: { limit: 100 },
+            sort: 'createdAt:desc',
+          },
+        },
+        { cache: 'no-store' }
+      );
 
-  return recipes.map((recipe) => ({ slug: recipe.attributes.slug }));
-};
+      return recipes.map((recipe) => ({ slug: recipe.attributes.slug }));
+    }
+  : undefined;
 
 const getRecipeData = async ({ params }: PageProps) => {
   const { locale, slug } = params;
 
   const {
     data: [recipe],
-  } = await apiClient.getMany({
-    contentType: 'recipes',
-    parameters: {
-      fields: [
-        'averageRating',
-        'cookTime',
-        'description',
-        'id',
-        'locale',
-        'prepTime',
-        'publishedAt',
-        'ratingCount',
-        'restingTime',
-        'servings',
-        'slug',
-        'title',
-      ],
-      filters: { slug },
-      locale,
-      pagination: { limit: 1 },
-      populate: {
-        categories: {
-          fields: ['id', 'name', 'slug'],
-        },
-        content: {
-          on: {
-            'ui.rich-text': {
-              fields: ['blocks', 'id'],
+  } = await apiClient.getMany(
+    {
+      contentType: 'recipes',
+      parameters: {
+        fields: [
+          'averageRating',
+          'cookTime',
+          'description',
+          'id',
+          'locale',
+          'prepTime',
+          'publishedAt',
+          'ratingCount',
+          'restingTime',
+          'servings',
+          'slug',
+          'title',
+        ],
+        filters: { slug },
+        locale,
+        pagination: { limit: 1 },
+        populate: {
+          categories: {
+            fields: ['id', 'name', 'slug'],
+          },
+          content: {
+            on: {
+              'ui.rich-text': {
+                fields: ['blocks', 'id'],
+              },
             },
           },
-        },
-        courses: {
-          fields: ['id', 'name', 'slug'],
-        },
-        cuisines: {
-          fields: ['id', 'name', 'slug'],
-        },
-        diets: {
-          fields: ['id', 'name', 'slug'],
-        },
-        image: {
-          fields: ['formats', 'height', 'id', 'placeholder', 'url', 'width'],
-        },
-        ingredients: {
-          fields: ['id', 'title'],
-          populate: {
-            items: {
-              fields: ['amount', 'content', 'id', 'unit'],
+          courses: {
+            fields: ['id', 'name', 'slug'],
+          },
+          cuisines: {
+            fields: ['id', 'name', 'slug'],
+          },
+          diets: {
+            fields: ['id', 'name', 'slug'],
+          },
+          image: {
+            fields: ['formats', 'height', 'id', 'placeholder', 'url', 'width'],
+          },
+          ingredients: {
+            fields: ['id', 'title'],
+            populate: {
+              items: {
+                fields: ['amount', 'content', 'id', 'unit'],
+              },
             },
           },
-        },
-        instructions: {
-          fields: ['id', 'title'],
-          populate: {
-            items: {
-              fields: ['content', 'id'],
+          instructions: {
+            fields: ['id', 'title'],
+            populate: {
+              items: {
+                fields: ['content', 'id'],
+              },
             },
           },
+          localizations: {
+            fields: ['id', 'locale', 'slug'],
+          },
+          mainIngredients: {
+            fields: ['id', 'name', 'slug'],
+          },
+          mealTypes: {
+            fields: ['id', 'name', 'slug'],
+          },
+          methods: {
+            fields: ['id', 'name', 'slug'],
+          },
+          seasons: {
+            fields: ['id', 'name', 'slug'],
+          },
         },
-        localizations: {
-          fields: ['id', 'locale', 'slug'],
-        },
-        mainIngredients: {
-          fields: ['id', 'name', 'slug'],
-        },
-        mealTypes: {
-          fields: ['id', 'name', 'slug'],
-        },
-        methods: {
-          fields: ['id', 'name', 'slug'],
-        },
-        seasons: {
-          fields: ['id', 'name', 'slug'],
-        },
+        publicationState: draftMode().isEnabled ? 'preview' : 'live',
       },
-      publicationState: draftMode().isEnabled ? 'preview' : 'live',
     },
-  });
+    { next: { revalidate: 600 } }
+  );
 
   if (!recipe) {
     notFound();

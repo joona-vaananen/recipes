@@ -79,12 +79,18 @@ export const RecipeSearch = ({
             searchConfig.sort
           ) ?? ['createdAt:desc'],
         },
-        { cache: 'no-store' }
+        { next: { revalidate: 600 } } as any
       )
   );
 
-  const { facetDistribution, hits, hitsPerPage, page, totalHits, totalPages } =
-    searchResults;
+  const {
+    facetDistribution,
+    hits,
+    hitsPerPage = DEFAULT_PAGE_SIZE,
+    page = 1,
+    totalHits = 0,
+    totalPages = 0,
+  } = searchResults;
 
   return (
     <>
@@ -98,35 +104,34 @@ export const RecipeSearch = ({
                 title={title}
                 totalHits={totalHits}
               />
-              <Flex align={'center'} justify={'between'}>
-                <Flex gap={'4'}>
-                  <RecipeSearchDialog
-                    totalHits={totalHits}
-                    translations={{
-                      filters: t('filters'),
-                      openFilters: t('openFilters'),
-                      resetFilters: t('resetFilters'),
-                      showResults: t('showResults'),
-                    }}
-                  >
-                    <Flex asChild direction={'column'} gap={'4'}>
-                      <form>
-                        <RecipeSearchFilters
-                          searchConfig={searchConfig}
-                          facetDistribution={facetDistribution}
-                          filters={filters}
-                        />
-                      </form>
-                    </Flex>
-                  </RecipeSearchDialog>
-                  <RecipeSearchInput
-                    translations={{
-                      inputPlaceholder: t('inputPlaceholder'),
-                    }}
-                  />
-                </Flex>
+              <Flex align={'center'} gap={'4'} wrap={'wrap'}>
+                <RecipeSearchDialog
+                  totalHits={totalHits}
+                  translations={{
+                    filters: t('filters'),
+                    openFilters: t('openFilters'),
+                    resetFilters: t('resetFilters'),
+                    showResults: t('showResults'),
+                  }}
+                >
+                  <Flex asChild direction={'column'} gap={'4'}>
+                    <form>
+                      <RecipeSearchFilters
+                        searchConfig={searchConfig}
+                        facetDistribution={facetDistribution}
+                        filters={filters}
+                      />
+                    </form>
+                  </Flex>
+                </RecipeSearchDialog>
+                <RecipeSearchInput
+                  translations={{
+                    inputPlaceholder: t('inputPlaceholder'),
+                  }}
+                />
                 {sortOrder ? (
                   <RecipeSearchSortOrder
+                    className={'!ml-auto'}
                     label={sortOrder.label}
                     options={sortOrder.options}
                   />
@@ -161,14 +166,16 @@ export const RecipeSearch = ({
           </Container>
         </Section>
       </RecipeSearchProvider>
-      <ItemListJsonLd
-        listItems={searchResults.hits.map((hit) => ({
-          url: `${BASE_URL}/${locale}${getPathname({
-            locale: locale as Locale,
-            href: { pathname: '/recipes/[slug]', params: { slug: hit.slug } },
-          })}`,
-        }))}
-      />
+      {Array.isArray(hits) && hits.length > 0 ? (
+        <ItemListJsonLd
+          listItems={searchResults.hits.map((hit) => ({
+            url: `${BASE_URL}/${locale}${getPathname({
+              locale: locale as Locale,
+              href: { pathname: '/recipes/[slug]', params: { slug: hit.slug } },
+            })}`,
+          }))}
+        />
+      ) : null}
     </>
   );
 };

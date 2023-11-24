@@ -76,14 +76,22 @@ export const postComment = async (request: NextRequest, context: Context) => {
   let recipe: APIContentTypes['recipes'] | null;
 
   try {
-    ({ data: recipe } = await apiClient.getOne({
-      contentType: 'recipes',
-      id: parsedParams.recipe,
-      parameters: {
-        fields: ['id'],
-        locale,
+    ({ data: recipe } = await apiClient.getOne(
+      {
+        contentType: 'recipes',
+        id: parsedParams.recipe,
+        parameters: {
+          fields: ['id'],
+          locale,
+          populate: {
+            localizations: {
+              fields: ['id'],
+            },
+          },
+        },
       },
-    }));
+      { cache: 'no-store' }
+    ));
   } catch {
     return NextResponse.json(
       {
@@ -128,26 +136,32 @@ export const postComment = async (request: NextRequest, context: Context) => {
     }
   }
 
-  let rating: APIContentTypes['ratings'];
+  let rating: APIContentTypes['ratings'] | null = null;
 
   if (typeof parsedValues.rating === 'number') {
     // Duplicate rating check
-    /* ({
+    /* const recipes = [recipe, ...(recipe.attributes.localizations?.data ?? [])];
+
+    ({
       data: [rating],
-    } = await apiClient.getMany({
-      contentType: 'ratings',
-      parameters: {
-        fields: ['id'],
-        filters: {
-          recipe: {
-            id: recipe,
+    } = await apiClient.getMany(
+      {
+        contentType: 'ratings',
+        parameters: {
+          fields: ['id'],
+          filters: {
+            recipe: {
+              id: {
+                $in: recipes.map((recipe) => recipe.id),
+              },
+            },
+            userId: parsedValues.userId,
           },
-          userId: parsedValues.userId,
+          pagination: { limit: 1 },
         },
-        locale: 'all',
-        pagination: { limit: 1 },
       },
-    }));
+      { cache: 'no-store' }
+    ));
 
     if (rating) {
       return NextResponse.json(
@@ -186,7 +200,7 @@ export const postComment = async (request: NextRequest, context: Context) => {
     }
   }
 
-  let data: APIContentTypes['comments'];
+  let data: APIContentTypes['comments'] | null;
   let meta: Record<string, any>;
 
   try {

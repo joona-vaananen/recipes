@@ -84,49 +84,52 @@ const getHomePageData = async ({ params }: HomePageProps) => {
 
   const {
     data: [homePage],
-  } = await apiClient.getMany({
-    contentType: 'home-page',
-    parameters: {
-      fields: ['id', 'title'],
-      locale,
-      populate: {
-        content: {
-          on: {
-            'ui.hero': {
-              populate: {
-                backgroundImage: {
-                  fields: ['height', 'id', 'placeholder', 'url', 'width'],
+  } = await apiClient.getMany(
+    {
+      contentType: 'home-page',
+      parameters: {
+        fields: ['id', 'title'],
+        locale,
+        populate: {
+          content: {
+            on: {
+              'ui.hero': {
+                populate: {
+                  backgroundImage: {
+                    fields: ['height', 'id', 'placeholder', 'url', 'width'],
+                  },
                 },
               },
-            },
-            'ui.recipe-carousel': {
-              fields: ['id', 'limit', 'title', 'sort'],
-              populate: {
-                categories: true,
-                courses: true,
-                cuisines: true,
-                diets: true,
-                mainIngredients: true,
-                mealTypes: true,
-                methods: true,
-                seasons: true,
+              'ui.recipe-carousel': {
+                fields: ['id', 'limit', 'title', 'sort'],
+                populate: {
+                  categories: true,
+                  courses: true,
+                  cuisines: true,
+                  diets: true,
+                  mainIngredients: true,
+                  mealTypes: true,
+                  methods: true,
+                  seasons: true,
+                },
+              },
+              'ui.rich-text': {
+                fields: ['blocks', 'id'],
               },
             },
-            'ui.rich-text': {
-              fields: ['blocks', 'id'],
+          },
+          metadata: {
+            fields: ['description', 'ogDescription', 'ogTitle', 'title'],
+            populate: {
+              ogImage: true,
             },
           },
         },
-        metadata: {
-          fields: ['description', 'ogDescription', 'ogTitle', 'title'],
-          populate: {
-            ogImage: true,
-          },
-        },
+        publicationState: draftMode().isEnabled ? 'preview' : 'live',
       },
-      publicationState: draftMode().isEnabled ? 'preview' : 'live',
     },
-  });
+    { next: { revalidate: 600 } }
+  );
 
   if (!homePage) {
     notFound();

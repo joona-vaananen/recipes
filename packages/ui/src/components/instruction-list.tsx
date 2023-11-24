@@ -12,7 +12,7 @@ interface InstructionListProps {
       content: any;
       id: number;
     }[];
-    title: string;
+    title?: string;
   }[];
 }
 

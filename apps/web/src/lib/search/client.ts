@@ -1,6 +1,8 @@
 import { MeiliSearch } from 'meilisearch';
 import * as z from 'zod';
 
+import { IS_PRODUCTION } from '@/constants';
+
 const httpClient = async (
   input: RequestInfo | URL,
   init?: RequestInit | undefined
@@ -8,8 +10,12 @@ const httpClient = async (
   const response = await fetch(input, init);
   const data = await response.json();
 
-  if ('message' in data && process.env.NODE_ENV === 'development') {
-    throw new Error(JSON.stringify(data, null, 2));
+  if ('message' in data) {
+    if (IS_PRODUCTION) {
+      console.error(data.message);
+    } else {
+      throw new Error(JSON.stringify(data, null, 2));
+    }
   }
 
   return data;

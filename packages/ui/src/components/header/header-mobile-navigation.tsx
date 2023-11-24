@@ -13,6 +13,7 @@ import {
 } from '@radix-ui/themes';
 import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 import type { Media } from '@recipes/api/src/common/interfaces/Media';
 import { useEffect, useState } from 'react';
@@ -41,6 +42,7 @@ export const HeaderMobileNavigation = ({
   ...props
 }: HeaderMobileNavigationProps) => {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onWindowResize = () => {
@@ -53,6 +55,10 @@ export const HeaderMobileNavigation = ({
 
     return () => window.removeEventListener('resize', onWindowResize);
   }, []);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -69,7 +75,7 @@ export const HeaderMobileNavigation = ({
         }
       >
         <Inset clip={'padding-box'}>
-          <Container className={'container'} p={'4'}>
+          <Container className={'container'} px={'4'} py={'2'}>
             <VisuallyHidden>
               <Dialog.Title>{translations.menuTitle}</Dialog.Title>
             </VisuallyHidden>
@@ -83,7 +89,7 @@ export const HeaderMobileNavigation = ({
                         ? (logo.placeholder as string)
                         : undefined
                     }
-                    className={'h-10 w-auto'}
+                    className={'h-14 w-auto'}
                     height={logo.data.attributes.height}
                     placeholder={'placeholder' in logo ? 'blur' : 'empty'}
                     priority

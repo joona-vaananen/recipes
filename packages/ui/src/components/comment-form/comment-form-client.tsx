@@ -65,12 +65,18 @@ export const CommentFormClient = ({
     Array.from(cache.keys()).forEach((key) => {
       if (
         typeof key === 'string' &&
-        key.startsWith(
+        (key.startsWith(
           `${INFINITE_PREFIX}/api/comments/${recipe}${stringify(
             { locale },
             { addQueryPrefix: true, encodeValuesOnly: true }
           )}`
-        )
+        ) ||
+          key.startsWith(
+            `/api/ratings/${recipe}${stringify(
+              { locale },
+              { addQueryPrefix: true, encodeValuesOnly: true }
+            )}`
+          ))
       ) {
         void mutate(key);
       }

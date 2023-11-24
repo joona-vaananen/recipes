@@ -3,6 +3,7 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
+import { GENERATE_STATIC_PARAMS } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { searchClient } from '@/lib/search/client';
 import type { RecipeCarousel as RecipeCarouselProps } from '@recipes/api/src/components/ui/interfaces/RecipeCarousel';
@@ -92,79 +93,83 @@ export const generateMetadata = async ({
   };
 };
 
-export const generateStaticParams = async ({
-  params,
-}: {
-  params: { locale: string };
-}) => {
-  const { locale } = params;
+export const generateStaticParams = GENERATE_STATIC_PARAMS
+  ? async ({ params }: { params: { locale: string } }) => {
+      const { locale } = params;
 
-  const { data: pages } = await apiClient.getMany({
-    contentType: 'pages',
-    parameters: {
-      fields: ['id', 'slug'],
-      locale,
-      pagination: { limit: 100 },
-      sort: 'createdAt:desc',
-    },
-  });
+      const { data: pages } = await apiClient.getMany(
+        {
+          contentType: 'pages',
+          parameters: {
+            fields: ['id', 'slug'],
+            locale,
+            pagination: { limit: 100 },
+            sort: 'createdAt:desc',
+          },
+        },
+        { cache: 'no-store' }
+      );
 
-  return pages.map((page) => ({ slug: page.attributes.slug }));
-};
+      return pages.map((page) => ({ slug: page.attributes.slug }));
+    }
+  : undefined;
 
 const getPageData = async ({ params }: PageProps) => {
   const { locale, slug } = params;
 
   const {
     data: [page],
-  } = await apiClient.getMany({
-    contentType: 'pages',
-    parameters: {
-      fields: ['id', 'locale', 'slug', 'title'],
-      filters: { slug },
-      locale,
-      pagination: { limit: 1 },
-      populate: {
-        content: {
-          on: {
-            'ui.hero': {
-              populate: {
-                backgroundImage: {
-                  fields: ['height', 'id', 'placeholder', 'url', 'width'],
+  } = await apiClient.getMany(
+    {
+      contentType: 'pages',
+      parameters: {
+        fields: ['id', 'locale', 'slug', 'title'],
+        filters: { slug },
+        locale,
+        pagination: { limit: 1 },
+        populate: {
+          content: {
+            on: {
+              'ui.hero': {
+                populate: {
+                  backgroundImage: {
+                    fields: ['height', 'id', 'placeholder', 'url', 'width'],
+                  },
                 },
               },
-            },
-            'ui.recipe-carousel': {
-              fields: ['id', 'limit', 'title', 'sort'],
-              populate: {
-                categories: true,
-                courses: true,
-                cuisines: true,
-                diets: true,
-                mainIngredients: true,
-                mealTypes: true,
-                methods: true,
-                seasons: true,
+              'ui.recipe-carousel': {
+                fields: ['id', 'limit', 'title', 'sort'],
+                populate: {
+                  categories: true,
+                  courses: true,
+                  cuisines: true,
+                  diets: true,
+                  mainIngredients: true,
+                  mealTypes: true,
+                  methods: true,
+                  seasons: true,
+                },
+              },
+              'ui.rich-text': {
+                fields: ['blocks', 'id'],
               },
             },
-            'ui.rich-text': {
-              fields: ['blocks', 'id'],
+          },
+          localizations: {
+            fields: ['locale', 'slug'],
+          },
+          metadata: {
+            fields: ['description', 'ogDescription', 'ogTitle', 'title'],
+            populate: {
+              ogImage: true,
             },
           },
         },
-        localizations: {
-          fields: ['locale', 'slug'],
-        },
-        metadata: {
-          fields: ['description', 'ogDescription', 'ogTitle', 'title'],
-          populate: {
-            ogImage: true,
-          },
-        },
+        publicationState: draftMode().isEnabled ? 'preview' : 'live',
       },
-      publicationState: draftMode().isEnabled ? 'preview' : 'live',
     },
-  });
+    { next: { revalidate: 600 } }
+  );
 
   if (!page) {
     notFound();

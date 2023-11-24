@@ -35,18 +35,18 @@
       "fi": "Finnish"
     }
   },
-  "Rating": {
-    "ratings": "{ratingCount, plural, =0 {no ratings} =1 {# rating} other {# ratings}}",
-    "scoreUnit": "stars"
-  },
   "RecipeCarousel": {
     "viewMore": "View more"
   },
-  "RecipeInfo": {
-    "jumpToRecipe": "Jump to recipe"
-  },
   "RecipePage": {
+    "jumpToRecipe": "Jump to recipe",
     "recipeAnchor": "recipe"
+  },
+  "RecipeRating": {
+    "ratingNone": "no ratings",
+    "ratingPlural": "ratings",
+    "ratingSingular": "rating",
+    "scoreUnit": "stars"
   },
   "RecipeSearch": {
     "filters": "Search filters",

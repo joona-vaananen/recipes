@@ -8,30 +8,36 @@ type Page = HomePage | RecipeSearchPage;
 
 export const GET = async () => {
   const [{ data: homePages }, { data: recipeSearchPages }] = await Promise.all([
-    apiClient.getMany({
-      contentType: 'home-page',
-      parameters: {
-        fields: ['createdAt', 'locale', 'updatedAt'],
-        locale: 'all',
-        populate: {
-          localizations: {
-            fields: ['createdAt', 'locale', 'updatedAt'],
+    apiClient.getMany(
+      {
+        contentType: 'home-page',
+        parameters: {
+          fields: ['createdAt', 'locale', 'updatedAt'],
+          locale: 'all',
+          populate: {
+            localizations: {
+              fields: ['createdAt', 'locale', 'updatedAt'],
+            },
           },
         },
       },
-    }),
-    apiClient.getMany({
-      contentType: 'recipe-search-page',
-      parameters: {
-        fields: ['createdAt', 'locale', 'updatedAt'],
-        locale: 'all',
-        populate: {
-          localizations: {
-            fields: ['createdAt', 'locale', 'updatedAt'],
+      { cache: 'no-store' }
+    ),
+    apiClient.getMany(
+      {
+        contentType: 'recipe-search-page',
+        parameters: {
+          fields: ['createdAt', 'locale', 'updatedAt'],
+          locale: 'all',
+          populate: {
+            localizations: {
+              fields: ['createdAt', 'locale', 'updatedAt'],
+            },
           },
         },
       },
-    }),
+      { cache: 'no-store' }
+    ),
   ]);
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -48,6 +54,8 @@ export const GET = async () => {
     },
   });
 };
+
+export const dynamic = 'force-dynamic';
 
 const generateUrls = (pages: Page[], pathname: string) => {
   return pages

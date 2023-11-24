@@ -89,19 +89,23 @@ export const RecipeCarousel = ({
   const searchResults = use(
     (searchClient as InstanceType<typeof MeiliSearch>)
       .index<Recipe_Plain & { image: Media['attributes'] }>('recipe')
-      .searchGet('', {
-        filter: buildSearchFilter(
-          searchParams,
-          searchConfig.filters,
-          initialFiltersWithLocale
-        ),
-        hitsPerPage: limit ?? 15,
-        page: 1,
-        sort: buildSearchSort(sort, searchConfig.sort) ?? ['createdAt:desc'],
-      })
+      .searchGet(
+        '',
+        {
+          filter: buildSearchFilter(
+            searchParams,
+            searchConfig.filters,
+            initialFiltersWithLocale
+          ),
+          hitsPerPage: limit ?? 15,
+          page: 1,
+          sort: buildSearchSort(sort, searchConfig.sort) ?? ['createdAt:desc'],
+        },
+        { next: { revalidate: 600 } } as any
+      )
   );
 
-  if (searchResults.totalHits === 0) {
+  if (!Array.isArray(searchResults.hits) || searchResults.hits.length === 0) {
     return null;
   }
 
@@ -177,24 +181,26 @@ export const RecipeCarousel = ({
                 )}
               </ol>
             </RecipeCarouselClient>
-            <Button asChild className={'sm:hidden'}>
-              <Link
-                href={{
-                  pathname: '/recipes',
-                  query: stringify(
-                    { ...searchParams, sort },
-                    {
-                      arrayFormat: 'repeat',
-                      encodeValuesOnly: true,
-                      skipNulls: true,
-                    }
-                  ),
-                }}
-              >
-                {t('viewMore')}
-                <ArrowRight className={'h-4 w-4'} />
-              </Link>
-            </Button>
+            <Box className={'sm:hidden'}>
+              <Button asChild>
+                <Link
+                  href={{
+                    pathname: '/recipes',
+                    query: stringify(
+                      { ...searchParams, sort },
+                      {
+                        arrayFormat: 'repeat',
+                        encodeValuesOnly: true,
+                        skipNulls: true,
+                      }
+                    ),
+                  }}
+                >
+                  {t('viewMore')}
+                  <ArrowRight className={'h-4 w-4'} />
+                </Link>
+              </Button>
+            </Box>
           </Flex>
         </Container>
       </Section>

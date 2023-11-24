@@ -24,30 +24,33 @@ export const CommentList = ({
   const recipes = [{ id: recipe }, ...(localizations?.data ?? [])];
 
   const { data: comments, meta } = use(
-    apiClient.getMany({
-      contentType: 'comments',
-      parameters: {
-        fields: ['comment', 'createdAt', 'id', 'name', 'userId'],
-        filters: {
-          recipe: {
-            id: {
-              $in: recipes.map((recipe) => recipe.id),
+    apiClient.getMany(
+      {
+        contentType: 'comments',
+        parameters: {
+          fields: ['comment', 'createdAt', 'id', 'name', 'userId'],
+          filters: {
+            recipe: {
+              id: {
+                $in: recipes.map((recipe) => recipe.id),
+              },
             },
           },
-        },
-        locale: 'all',
-        pagination: {
-          page: 1,
-          pageSize: COMMENTS_PAGE_SIZE,
-        },
-        populate: {
-          rating: {
-            fields: ['id', 'score'],
+          locale: 'all',
+          pagination: {
+            page: 1,
+            pageSize: COMMENTS_PAGE_SIZE,
           },
+          populate: {
+            rating: {
+              fields: ['id', 'score'],
+            },
+          },
+          sort: 'createdAt:desc',
         },
-        sort: 'createdAt:desc',
       },
-    })
+      { cache: 'no-store' }
+    )
   );
 
   const { pagination } = meta;

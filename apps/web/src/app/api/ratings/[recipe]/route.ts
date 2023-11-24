@@ -12,15 +12,13 @@ const paramsSchema = z.object({
 
 const searchParamsSchema = z.object({
   locale: z.enum(locales),
-  page: z.coerce.number().min(1),
-  pageSize: z.coerce.number().min(1),
 });
 
 interface Context {
   params: { recipe: string };
 }
 
-export const getComments = async (request: NextRequest, context: Context) => {
+export const GET = async (request: NextRequest, context: Context) => {
   let parsedParams: { recipe: number };
 
   try {
@@ -47,14 +45,10 @@ export const getComments = async (request: NextRequest, context: Context) => {
   const { searchParams } = request.nextUrl;
 
   let locale: string;
-  let page: number;
-  let pageSize: number;
 
   try {
-    ({ locale, page, pageSize } = searchParamsSchema.parse({
+    ({ locale } = searchParamsSchema.parse({
       locale: searchParams.get('locale'),
-      page: searchParams.get('page'),
-      pageSize: searchParams.get('pageSize'),
     }));
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -83,13 +77,8 @@ export const getComments = async (request: NextRequest, context: Context) => {
         contentType: 'recipes',
         id: parsedParams.recipe,
         parameters: {
-          fields: ['id'],
+          fields: ['averageRating', 'id', 'ratingCount'],
           locale,
-          populate: {
-            localizations: {
-              fields: ['id'],
-            },
-          },
         },
       },
       { cache: 'no-store' }
@@ -114,51 +103,13 @@ export const getComments = async (request: NextRequest, context: Context) => {
     );
   }
 
-  const recipes = [recipe, ...(recipe.attributes.localizations?.data ?? [])];
-
-  let data: APIContentTypes['comments'][];
-  let meta: Record<string, any>;
-
-  try {
-    ({ data, meta } = await apiClient.getMany(
-      {
-        contentType: 'comments',
-        parameters: {
-          fields: ['comment', 'createdAt', 'id', 'name', 'userId'],
-          filters: {
-            recipe: {
-              id: {
-                $in: recipes.map((recipe) => recipe.id),
-              },
-            },
-          },
-          locale: 'all',
-          pagination: {
-            page,
-            pageSize,
-          },
-          populate: {
-            rating: {
-              fields: ['id', 'score'],
-            },
-          },
-          sort: 'createdAt:desc',
-        },
-      },
-      { cache: 'no-store' }
-    ));
-  } catch {
-    return NextResponse.json(
-      {
-        data: null,
-        error: { message: 'Server error', name: ERROR_NAMES.SERVER_ERROR },
-      },
-      { status: 500 }
-    );
-  }
+  const data = {
+    average: recipe.attributes.averageRating,
+    count: recipe.attributes.ratingCount,
+  };
 
   return NextResponse.json(
-    { data, meta },
+    { data },
     {
       headers: {
         'Cache-Control':
@@ -167,3 +118,5 @@ export const getComments = async (request: NextRequest, context: Context) => {
     }
   );
 };
+
+export const dynamic = 'force-dynamic';

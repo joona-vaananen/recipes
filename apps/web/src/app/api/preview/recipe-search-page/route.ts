@@ -45,14 +45,17 @@ export const GET = async (request: NextRequest) => {
   try {
     ({
       data: [recipeSearchPage],
-    } = await apiClient.getMany({
-      contentType: 'recipe-search-page',
-      parameters: {
-        fields: ['id', 'locale'],
-        locale,
-        publicationState,
+    } = await apiClient.getMany(
+      {
+        contentType: 'recipe-search-page',
+        parameters: {
+          fields: ['id', 'locale'],
+          locale,
+          publicationState,
+        },
       },
-    }));
+      { cache: 'no-store' }
+    ));
   } catch {
     return NextResponse.json(
       {
@@ -78,3 +81,5 @@ export const GET = async (request: NextRequest) => {
 
   redirect(pathname);
 };
+
+export const dynamic = 'force-dynamic';

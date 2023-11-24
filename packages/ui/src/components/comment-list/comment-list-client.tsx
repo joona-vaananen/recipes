@@ -49,7 +49,10 @@ export const CommentListClient = ({
     input: RequestInfo | URL,
     init?: RequestInit | undefined
   ) => {
-    const { data, meta } = (await fetcher(input, init)) as Comments;
+    const { data, meta } = (await fetcher(input, {
+      ...init,
+      cache: 'no-store',
+    })) as Comments;
 
     if (!Array.isArray(data) || data.length === 0) {
       return [];
@@ -81,7 +84,7 @@ export const CommentListClient = ({
     return null;
   }
 
-  const comments = pages.flat();
+  const comments = pages.flatMap((page) => (Array.isArray(page) ? page : []));
 
   if (comments.length === 0) {
     return null;
@@ -106,12 +109,14 @@ export const CommentListClient = ({
                         </Text>
                         <Text color={'gray'} size={'2'}>
                           {format.dateTime(
-                            new Date(comment.attributes.createdAt as string),
+                            new Date(
+                              comment.attributes.createdAt as unknown as string
+                            ),
                             { dateStyle: 'long', timeStyle: 'short' }
                           )}
                         </Text>
                       </Flex>
-                      {comment.attributes.rating.data ? (
+                      {comment.attributes.rating?.data ? (
                         <Flex>
                           {Array.from({ length: 5 }, (_, index) => (
                             <Star
@@ -119,7 +124,7 @@ export const CommentListClient = ({
                                 'h-4 w-4': true,
                                 'fill-accent-9 stroke-accent-9':
                                   index <
-                                  comment.attributes.rating.data.attributes
+                                  comment.attributes.rating!.data.attributes
                                     .score,
                               })}
                               key={index}

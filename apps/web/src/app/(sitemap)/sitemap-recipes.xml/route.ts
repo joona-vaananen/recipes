@@ -4,18 +4,21 @@ import { type APIContentTypes } from '@recipes/api-client';
 import { Locale, getPathname } from '@recipes/ui';
 
 export const GET = async () => {
-  const { data: recipes } = await apiClient.getMany({
-    contentType: 'recipes',
-    parameters: {
-      fields: ['createdAt', 'id', 'locale', 'slug', 'updatedAt'],
-      locale: 'all',
-      populate: {
-        localizations: {
-          fields: ['createdAt', 'id', 'locale', 'slug', 'updatedAt'],
+  const { data: recipes } = await apiClient.getMany(
+    {
+      contentType: 'recipes',
+      parameters: {
+        fields: ['createdAt', 'id', 'locale', 'slug', 'updatedAt'],
+        locale: 'all',
+        populate: {
+          localizations: {
+            fields: ['createdAt', 'id', 'locale', 'slug', 'updatedAt'],
+          },
         },
       },
     },
-  });
+    { cache: 'no-store' }
+  );
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -30,6 +33,8 @@ export const GET = async () => {
     },
   });
 };
+
+export const dynamic = 'force-dynamic';
 
 type Recipe = APIContentTypes['recipes'];
 

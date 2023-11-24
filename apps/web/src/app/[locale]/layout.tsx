@@ -5,7 +5,12 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import { Raleway, Roboto_Slab } from 'next/font/google';
 import { notFound } from 'next/navigation';
 
-import { BASE_URL, SITE_NAME, TIME_ZONE } from '@/constants';
+import {
+  BASE_URL,
+  GENERATE_STATIC_PARAMS,
+  SITE_NAME,
+  TIME_ZONE,
+} from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { cn, locales } from '@recipes/ui';
 import {
@@ -46,10 +51,7 @@ const Layout = async ({ children, params }: LayoutProps) => {
   ]);
 
   return (
-    <html
-      className={cn('scroll-smooth', robotoSlab.variable, raleway.variable)}
-      lang={locale}
-    >
+    <html className={cn(robotoSlab.variable, raleway.variable)} lang={locale}>
       <body>
         <UserProvider>
           <NextIntlClientProvider locale={locale} timeZone={TIME_ZONE}>
@@ -86,43 +88,51 @@ export const metadata: Metadata = {
   },
 };
 
-export const generateStaticParams = () => {
-  return locales.map((locale) => ({ locale }));
-};
+// TODO: Disable for production
+export const dynamic = 'force-dynamic';
+
+export const generateStaticParams = GENERATE_STATIC_PARAMS
+  ? () => {
+      return locales.map((locale) => ({ locale }));
+    }
+  : undefined;
 
 const getHeaderData = async ({ params }: Pick<LayoutProps, 'params'>) => {
   const { locale } = params;
 
   const {
     data: [header],
-  } = await apiClient.getMany({
-    contentType: 'header',
-    parameters: {
-      fields: ['id'],
-      locale,
-      populate: {
-        items: {
-          on: {
-            'header.home-page-item': {
-              fields: ['id', 'label'],
-            },
-            'header.page-item': {
-              fields: ['label'],
-              populate: {
-                page: {
-                  fields: ['id', 'slug'],
+  } = await apiClient.getMany(
+    {
+      contentType: 'header',
+      parameters: {
+        fields: ['id'],
+        locale,
+        populate: {
+          items: {
+            on: {
+              'header.home-page-item': {
+                fields: ['id', 'label'],
+              },
+              'header.page-item': {
+                fields: ['label'],
+                populate: {
+                  page: {
+                    fields: ['id', 'slug'],
+                  },
                 },
               },
-            },
-            'header.recipe-search-page-item': {
-              fields: ['id', 'label'],
+              'header.recipe-search-page-item': {
+                fields: ['id', 'label'],
+              },
             },
           },
+          logo: true,
         },
-        logo: true,
       },
     },
-  });
+    { next: { revalidate: 600 } }
+  );
 
   return header;
 };
@@ -132,16 +142,19 @@ const getFooterData = async ({ params }: Pick<LayoutProps, 'params'>) => {
 
   const {
     data: [footer],
-  } = await apiClient.getMany({
-    contentType: 'footer',
-    parameters: {
-      fields: ['copyright', 'id'],
-      locale,
-      populate: {
-        logo: true,
+  } = await apiClient.getMany(
+    {
+      contentType: 'footer',
+      parameters: {
+        fields: ['copyright', 'id'],
+        locale,
+        populate: {
+          logo: true,
+        },
       },
     },
-  });
+    { next: { revalidate: 600 } }
+  );
 
   return footer;
 };

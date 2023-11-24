@@ -4,3 +4,5 @@ import { postComment } from './post-comment';
 export const GET = getComments;
 
 export const POST = postComment;
+
+export const dynamic = 'force-dynamic';

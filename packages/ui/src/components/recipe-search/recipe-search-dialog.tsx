@@ -34,7 +34,7 @@ export const RecipeSearchDialog = ({
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button>
+        <Button className={'w-fit'}>
           {translations.openFilters}
           <Filter size={16} />
         </Button>
