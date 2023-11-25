@@ -14,6 +14,7 @@ import { cn } from '../lib/utils/cn';
 type HeroProps = React.ComponentPropsWithoutRef<typeof Section> & IHero;
 
 export const Hero = ({
+  children,
   className,
   backgroundImage,
   description,
@@ -32,18 +33,20 @@ export const Hero = ({
             {title ? (
               <Heading
                 className={
-                  'text-[#fff] [text-shadow:_4px_4px_#000,_2px_-2px_#000,_-2px_-2px_#000,_-2px_2px_#000,_2px_2px_#000]'
+                  'text-[#fff] [text-shadow:_4px_4px_#000,_2px_-2px_#000,_-2px_-2px_#000,_-2px_2px_#000,_2px_2px_#000] last:mb-0'
                 }
+                mb={'9'}
                 size={'9'}
               >
                 {title}
               </Heading>
             ) : null}
             {description ? (
-              <Text as={'p'} mt={'9'} size={'5'}>
+              <Text as={'p'} className={'last:mb-0'} mb={'9'} size={'5'}>
                 {description}
               </Text>
             ) : null}
+            {children}
           </Container>
         </Flex>
         {backgroundImage?.data ? (

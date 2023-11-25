@@ -1,7 +1,7 @@
 import { Flex, Theme } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getMessages, unstable_setRequestLocale } from 'next-intl/server';
 import { Raleway, Roboto_Slab } from 'next/font/google';
 import { notFound } from 'next/navigation';
 
@@ -45,6 +45,8 @@ const Layout = async ({ children, params }: LayoutProps) => {
   const { locale } = params;
   unstable_setRequestLocale(locale);
 
+  const messages = await getMessages();
+
   const [header, footer] = await Promise.all([
     getHeaderData({ params }),
     getFooterData({ params }),
@@ -54,7 +56,11 @@ const Layout = async ({ children, params }: LayoutProps) => {
     <html className={cn(robotoSlab.variable, raleway.variable)} lang={locale}>
       <body>
         <UserProvider>
-          <NextIntlClientProvider locale={locale} timeZone={TIME_ZONE}>
+          <NextIntlClientProvider
+            locale={locale}
+            messages={(({ Error }) => ({ Error }))(messages)}
+            timeZone={TIME_ZONE}
+          >
             <LocaleSwitcherProvider>
               <Theme accentColor={'ruby'}>
                 <Flex className={'min-h-screen'} direction={'column'}>

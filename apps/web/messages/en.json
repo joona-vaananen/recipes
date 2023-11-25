@@ -16,6 +16,12 @@
   "CopyToClipboardButton": {
     "unsupported": "This feature is not supported in your browser."
   },
+  "Error": {
+    "description": "Wish this didn't happen, but you bumped into an error.",
+    "homePageLink": "Return to home page",
+    "resetPage": "Refresh page",
+    "title": "Whoops!"
+  },
   "Header": {
     "closeMenu": "Close menu",
     "menuTitle": "Menu",
@@ -34,6 +40,11 @@
       "en": "English",
       "fi": "Finnish"
     }
+  },
+  "NotFound": {
+    "description": "Wish there were this page, but it couldn't be found.",
+    "homePageLink": "Return to home page",
+    "title": "Page not found"
   },
   "RecipeCarousel": {
     "viewMore": "View more"

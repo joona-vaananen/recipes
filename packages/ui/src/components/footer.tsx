@@ -50,6 +50,7 @@ export const Footer = ({ copyright, logo, ...props }: FooterProps) => {
                   className={'h-14 w-auto'}
                   height={logo.data.attributes.height}
                   placeholder={'placeholder' in logo ? 'blur' : 'empty'}
+                  priority
                   src={logo.data.attributes.url}
                   width={logo.data.attributes.width}
                 />

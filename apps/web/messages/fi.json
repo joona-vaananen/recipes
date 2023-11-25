@@ -16,6 +16,12 @@
   "CopyToClipboardButton": {
     "unsupported": "Tämä ominaisuus ei ole tuettu selaimessasi."
   },
+  "Error": {
+    "description": "Olisipa tämä jäänyt tapahtumatta, mutta törmäsit virheeseen.",
+    "homePageLink": "Palaa etusivulle",
+    "resetPage": "Lataa sivu uudelleen",
+    "title": "Hups!"
+  },
   "Header": {
     "closeMenu": "Sulje valikko",
     "menuTitle": "Valikko",
@@ -34,6 +40,11 @@
       "en": "englanti",
       "fi": "suomi"
     }
+  },
+  "NotFound": {
+    "description": "Olisipa tällainen sivu ollut, mutta sitä ei löytynyt.",
+    "homePageLink": "Palaa etusivulle",
+    "title": "Sivua ei löytynyt"
   },
   "RecipeCarousel": {
     "viewMore": "Katso lisää"
