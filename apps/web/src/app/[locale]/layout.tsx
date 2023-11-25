@@ -37,6 +37,7 @@ interface LayoutProps {
   params: { locale: string };
 }
 
+// TODO: Create privacy policy page and link to it from footer
 const Layout = async ({ children, params }: LayoutProps) => {
   if (!locales.some((locale) => locale === params.locale)) {
     notFound();
