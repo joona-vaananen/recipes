@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/third-parties": "14.0.3",
     "@radix-ui/themes": "2.0.1",
     "@recipes/api-client": "^1.0.0",
     "@recipes/ui": "^1.0.0",

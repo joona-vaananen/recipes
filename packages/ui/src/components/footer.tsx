@@ -56,6 +56,7 @@ export const Footer = ({ copyright, logo, ...props }: FooterProps) => {
                   height={logo.data.attributes.height}
                   placeholder={'placeholder' in logo ? 'blur' : 'empty'}
                   priority
+                  quality={100}
                   src={logo.data.attributes.url}
                   width={logo.data.attributes.width}
                 />

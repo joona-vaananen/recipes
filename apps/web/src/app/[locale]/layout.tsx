@@ -4,10 +4,12 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, unstable_setRequestLocale } from 'next-intl/server';
 import { Raleway, Roboto_Slab } from 'next/font/google';
 import { notFound } from 'next/navigation';
+import { GoogleTagManager } from '@next/third-parties/google';
 
 import {
   BASE_URL,
   GENERATE_STATIC_PARAMS,
+  GOOGLE_TAG_MANAGER_ID,
   SITE_NAME,
   TIME_ZONE,
 } from '@/constants';
@@ -80,6 +82,9 @@ const Layout = async ({ children, params }: LayoutProps) => {
           </NextIntlClientProvider>
         </UserProvider>
       </body>
+      {GOOGLE_TAG_MANAGER_ID ? (
+        <GoogleTagManager gtmId={GOOGLE_TAG_MANAGER_ID} />
+      ) : null}
     </html>
   );
 };
