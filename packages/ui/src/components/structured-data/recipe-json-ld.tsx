@@ -93,8 +93,16 @@ const createRecipeJsonLd = (recipe: Recipe): WithContext<RecipeSchema> => {
     recipeIngredient: recipe.attributes.ingredients?.flatMap((ingredient) =>
       ingredient.items.map((item) =>
         [
-          item.amount && new Fraction(item.amount).toFraction(true),
-          item.unit,
+          item.amount
+            ? `${[new Fraction(item.amount).toFraction(true), item.unit]
+                .filter((attribute) => attribute)
+                .join(' ')}`
+            : null,
+          item.altAmount
+            ? `(${[new Fraction(item.altAmount).toFraction(true), item.altUnit]
+                .filter((attribute) => attribute)
+                .join(' ')})`
+            : null,
           resolveTextFromRichText(item.content as RichTextBlock[]),
         ]
           .filter((attribute) => attribute)

@@ -7,6 +7,8 @@ interface IngredientListItemsProps {
   items: {
     id: number;
     items: {
+      altAmount?: number;
+      altUnit?: number;
       amount?: number;
       content: any;
       id: number;
@@ -30,6 +32,8 @@ export const IngredientListItems = ({ items }: IngredientListItemsProps) => {
             {item.items.map((item) => (
               <ListItem className={'w-fit'} key={item.id}>
                 <IngredientListItem
+                  altAmount={item.altAmount}
+                  altUnit={item.altUnit}
                   amount={item.amount}
                   content={item.content}
                   unit={item.unit}

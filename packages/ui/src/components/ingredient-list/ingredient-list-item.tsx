@@ -9,12 +9,16 @@ import { RichText } from '../rich-text';
 import { useIngredientList } from './ingredient-list-context';
 
 interface IngredientListItemProps {
+  altAmount?: number;
+  altUnit?: number;
   amount?: number;
   content: any;
   unit?: string;
 }
 
 export const IngredientListItem = ({
+  altAmount,
+  altUnit,
   amount,
   content,
   unit,
@@ -46,6 +50,16 @@ export const IngredientListItem = ({
               ]
                 .filter((attribute) => attribute)
                 .join(' ')}
+            </Text>
+          ) : null}
+          {altAmount && ingredientMultiplier ? (
+            <Text color={'gray'}>
+              {`(${[
+                new Fraction(altAmount * ingredientMultiplier).toFraction(true),
+                altUnit,
+              ]
+                .filter((attribute) => attribute)
+                .join(' ')})`}
             </Text>
           ) : null}
           <RichText blocks={content} wrapper={false} />

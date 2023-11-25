@@ -16,6 +16,12 @@
     "content": {
       "type": "blocks",
       "required": true
+    },
+    "altAmount": {
+      "type": "decimal"
+    },
+    "altUnit": {
+      "type": "string"
     }
   }
 }

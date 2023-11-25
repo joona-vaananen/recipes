@@ -14,7 +14,7 @@ import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
-import { Suspense, use } from 'react';
+import { use } from 'react';
 
 import { GENERATE_STATIC_PARAMS } from '@/constants';
 import { apiClient } from '@/lib/api/client';
@@ -158,15 +158,13 @@ const Page = ({ params }: PageProps) => {
           </Card>
         </Section>
       </Container>
-      <Suspense>
-        <SimilarRecipeCarousel
-          categories={recipe.attributes.categories}
-          cuisines={recipe.attributes.cuisines}
-          id={recipe.id}
-          locale={locale}
-          searchClient={searchClient}
-        />
-      </Suspense>
+      <SimilarRecipeCarousel
+        categories={recipe.attributes.categories}
+        cuisines={recipe.attributes.cuisines}
+        id={recipe.id}
+        locale={locale}
+        searchClient={searchClient}
+      />
       <Container className={'container'}>
         <Grid
           columns={{
@@ -177,14 +175,12 @@ const Page = ({ params }: PageProps) => {
         >
           <CommentForm locale={locale} recipe={recipe.id} />
         </Grid>
-        <Suspense>
-          <CommentList
-            apiClient={apiClient}
-            locale={locale}
-            localizations={recipe.attributes.localizations}
-            recipe={recipe.id}
-          />
-        </Suspense>
+        <CommentList
+          apiClient={apiClient}
+          locale={locale}
+          localizations={recipe.attributes.localizations}
+          recipe={recipe.id}
+        />
       </Container>
       <RecipeJsonLd recipe={recipe} />
     </>
@@ -286,7 +282,14 @@ const getRecipeData = async ({ params }: PageProps) => {
             fields: ['id', 'title'],
             populate: {
               items: {
-                fields: ['amount', 'content', 'id', 'unit'],
+                fields: [
+                  'altAmount',
+                  'altUnit',
+                  'amount',
+                  'content',
+                  'id',
+                  'unit',
+                ],
               },
             },
           },
