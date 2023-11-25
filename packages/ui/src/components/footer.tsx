@@ -9,9 +9,10 @@ import {
   Text,
 } from '@radix-ui/themes';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 import type { Media } from '@recipes/api/src/common/interfaces/Media';
-import { Facebook, Instagram, Pinterest, TikTok, X, YouTube } from '.';
+import { Facebook, Instagram, Pinterest, TikTok, X, YouTube } from './icons';
 import { Link as NextLink } from '../lib/utils/navigation';
 
 interface FooterProps extends React.HTMLAttributes<HTMLElement> {
@@ -22,6 +23,8 @@ interface FooterProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 export const Footer = ({ copyright, logo, ...props }: FooterProps) => {
+  const t = useTranslations('Footer');
+
   return (
     <footer {...props}>
       <Separator decorative size={'4'} />
@@ -29,15 +32,17 @@ export const Footer = ({ copyright, logo, ...props }: FooterProps) => {
         <Grid
           align={'center'}
           columns={{
-            initial: '2',
-            sm: '3',
+            initial: '1',
+            md: '3',
           }}
-          gap={{
-            initial: '7',
-            sm: '4',
-          }}
+          gap={'4'}
         >
-          <Flex>
+          <Flex
+            justify={{
+              initial: 'center',
+              md: 'start',
+            }}
+          >
             <Link asChild>
               <NextLink className={'shrink-0'} href={'/'}>
                 <Image
@@ -57,20 +62,22 @@ export const Footer = ({ copyright, logo, ...props }: FooterProps) => {
               </NextLink>
             </Link>
           </Flex>
-          <Flex
-            justify={{
-              initial: 'end',
-              sm: 'center',
-            }}
-          >
-            <Text>{copyright}</Text>
+          <Flex align={'center'} gap={'4'} justify={'center'}>
+            <Text color={'gray'}>{copyright}</Text>
+            <Separator orientation={'vertical'} />
+            <Link asChild>
+              <NextLink href={'/privacy-policy'}>{t('privacyPolicy')}</NextLink>
+            </Link>
           </Flex>
           <Flex
-            className={'col-span-full sm:col-auto'}
             gap={'4'}
             justify={{
               initial: 'center',
-              sm: 'end',
+              md: 'end',
+            }}
+            pb={{
+              initial: '2',
+              md: '0',
             }}
           >
             <IconButton asChild radius={'full'}>

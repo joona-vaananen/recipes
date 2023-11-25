@@ -46,7 +46,10 @@ export const RecipeRatingClient = ({
     input: RequestInfo | URL,
     init?: RequestInit | undefined
   ) => {
-    const { data } = (await fetcher(input, init)) as { data: Rating | null };
+    const { data } = (await fetcher(input, {
+      ...init,
+      cache: 'no-store',
+    })) as { data: Rating | null };
 
     return data;
   };

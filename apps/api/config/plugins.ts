@@ -72,7 +72,7 @@ const plugins = ({ env }: { env: any }) => ({
         {
           draft: {
             openTarget: '_blank',
-            url: `${env('WEB_BASE_URL')}/api/preview/recipes/{slug}`,
+            url: `${env('WEB_BASE_URL')}/api/preview/privacy-policy-page`,
             query: {
               locale: '{locale}',
               publicationState: 'preview',
@@ -81,14 +81,14 @@ const plugins = ({ env }: { env: any }) => ({
           },
           published: {
             openTarget: '_blank',
-            url: `${env('WEB_BASE_URL')}/api/preview/recipes/{slug}`,
+            url: `${env('WEB_BASE_URL')}/api/preview/privacy-policy-page`,
             query: {
               locale: '{locale}',
               publicationState: 'live',
               secret: env('WEB_TOKEN'),
             },
           },
-          uid: 'api::recipe.recipe',
+          uid: 'api::privacy-policy-page.privacy-policy-page',
         },
         {
           draft: {
@@ -110,6 +110,27 @@ const plugins = ({ env }: { env: any }) => ({
             },
           },
           uid: 'api::recipe-search-page.recipe-search-page',
+        },
+        {
+          draft: {
+            openTarget: '_blank',
+            url: `${env('WEB_BASE_URL')}/api/preview/recipes/{slug}`,
+            query: {
+              locale: '{locale}',
+              publicationState: 'preview',
+              secret: env('WEB_TOKEN'),
+            },
+          },
+          published: {
+            openTarget: '_blank',
+            url: `${env('WEB_BASE_URL')}/api/preview/recipes/{slug}`,
+            query: {
+              locale: '{locale}',
+              publicationState: 'live',
+              secret: env('WEB_TOKEN'),
+            },
+          },
+          uid: 'api::recipe.recipe',
         },
       ],
     },

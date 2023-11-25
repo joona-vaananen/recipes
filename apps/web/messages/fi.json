@@ -22,6 +22,9 @@
     "resetPage": "Lataa sivu uudelleen",
     "title": "Hups!"
   },
+  "Footer": {
+    "privacyPolicy": "Tietosuoja"
+  },
   "Header": {
     "closeMenu": "Sulje valikko",
     "menuTitle": "Valikko",

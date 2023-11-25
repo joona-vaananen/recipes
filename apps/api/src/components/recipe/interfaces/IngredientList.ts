@@ -2,8 +2,8 @@
 
 import {
   IngredientItem,
-  IngredientItem_NoRelations,
   IngredientItem_Plain,
+  IngredientItem_NoRelations,
 } from './IngredientItem';
 
 export interface IngredientList {

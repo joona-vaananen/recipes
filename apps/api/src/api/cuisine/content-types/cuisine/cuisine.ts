@@ -9,7 +9,10 @@ import { AdminPanelRelationPropertyModification } from '../../../../common/inter
 export interface Cuisine {
   id: number;
   attributes: {
-    createdAt: Date;    updatedAt: Date;    publishedAt?: Date;    name: string;
+    createdAt: Date;
+    updatedAt: Date;
+    publishedAt?: Date;
+    name: string;
     slug: string;
     recipes?: { data: Recipe[] };
     icon?: { data: Icon };
@@ -19,7 +22,10 @@ export interface Cuisine {
 }
 export interface Cuisine_Plain {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  name: string;
   slug: string;
   recipes?: Recipe_Plain[];
   icon?: Icon_Plain;
@@ -29,7 +35,10 @@ export interface Cuisine_Plain {
 
 export interface Cuisine_NoRelations {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  name: string;
   slug: string;
   recipes?: number[];
   icon?: number;
@@ -39,7 +48,10 @@ export interface Cuisine_NoRelations {
 
 export interface Cuisine_AdminPanelLifeCycle {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  name: string;
   slug: string;
   recipes?: AdminPanelRelationPropertyModification<Recipe_Plain>;
   icon?: AdminPanelRelationPropertyModification<Icon_Plain>;

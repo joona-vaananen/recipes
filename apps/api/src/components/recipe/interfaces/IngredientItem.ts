@@ -2,26 +2,26 @@
 
 export interface IngredientItem {
   id: number;
-  altAmount?: number;
-  altUnit?: number;
   amount?: number;
   unit?: string;
   content: any;
+  altAmount?: number;
+  altUnit?: string;
 }
 export interface IngredientItem_Plain {
   id: number;
-  altAmount?: number;
-  altUnit?: number;
   amount?: number;
   unit?: string;
   content: any;
+  altAmount?: number;
+  altUnit?: string;
 }
 
 export interface IngredientItem_NoRelations {
   id: number;
-  altAmount?: number;
-  altUnit?: number;
   amount?: number;
   unit?: string;
   content: any;
+  altAmount?: number;
+  altUnit?: string;
 }

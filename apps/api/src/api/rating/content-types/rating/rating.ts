@@ -9,7 +9,10 @@ import { AdminPanelRelationPropertyModification } from '../../../../common/inter
 export interface Rating {
   id: number;
   attributes: {
-    createdAt: Date;    updatedAt: Date;    publishedAt?: Date;    score: number;
+    createdAt: Date;
+    updatedAt: Date;
+    publishedAt?: Date;
+    score: number;
     userId: string;
     comment?: { data: Comment };
     recipe?: { data: Recipe };
@@ -17,7 +20,10 @@ export interface Rating {
 }
 export interface Rating_Plain {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  score: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  score: number;
   userId: string;
   comment?: Comment_Plain;
   recipe?: Recipe_Plain;
@@ -25,7 +31,10 @@ export interface Rating_Plain {
 
 export interface Rating_NoRelations {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  score: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  score: number;
   userId: string;
   comment?: number;
   recipe?: number;
@@ -33,7 +42,10 @@ export interface Rating_NoRelations {
 
 export interface Rating_AdminPanelLifeCycle {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  score: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  score: number;
   userId: string;
   comment?: AdminPanelRelationPropertyModification<Comment_Plain>;
   recipe?: AdminPanelRelationPropertyModification<Recipe_Plain>;

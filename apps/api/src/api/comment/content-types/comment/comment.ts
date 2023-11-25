@@ -9,7 +9,10 @@ import { AdminPanelRelationPropertyModification } from '../../../../common/inter
 export interface Comment {
   id: number;
   attributes: {
-    createdAt: Date;    updatedAt: Date;    publishedAt?: Date;    name: string;
+    createdAt: Date;
+    updatedAt: Date;
+    publishedAt?: Date;
+    name: string;
     comment: string;
     userId: string;
     rating?: { data: Rating };
@@ -20,7 +23,10 @@ export interface Comment {
 }
 export interface Comment_Plain {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  name: string;
   comment: string;
   userId: string;
   rating?: Rating_Plain;
@@ -31,7 +37,10 @@ export interface Comment_Plain {
 
 export interface Comment_NoRelations {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  name: string;
   comment: string;
   userId: string;
   rating?: number;
@@ -42,7 +51,10 @@ export interface Comment_NoRelations {
 
 export interface Comment_AdminPanelLifeCycle {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  name: string;
   comment: string;
   userId: string;
   rating?: AdminPanelRelationPropertyModification<Rating_Plain>;

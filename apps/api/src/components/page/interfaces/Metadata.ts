@@ -24,4 +24,3 @@ export interface Metadata_NoRelations {
   ogDescription?: string;
   ogImage?: number;
 }
-

@@ -6,7 +6,10 @@ import { AdminPanelRelationPropertyModification } from '../../../../common/inter
 export interface Footer {
   id: number;
   attributes: {
-    createdAt: Date;    updatedAt: Date;    publishedAt?: Date;    logo: { data: Media };
+    createdAt: Date;
+    updatedAt: Date;
+    publishedAt?: Date;
+    logo: { data: Media };
     copyright: string;
     locale: string;
     localizations?: { data: Footer[] };
@@ -14,7 +17,10 @@ export interface Footer {
 }
 export interface Footer_Plain {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  logo: Media;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  logo: Media;
   copyright: string;
   locale: string;
   localizations?: Footer[];
@@ -22,7 +28,10 @@ export interface Footer_Plain {
 
 export interface Footer_NoRelations {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  logo: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  logo: number;
   copyright: string;
   locale: string;
   localizations?: Footer[];
@@ -30,7 +39,10 @@ export interface Footer_NoRelations {
 
 export interface Footer_AdminPanelLifeCycle {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  logo: AdminPanelRelationPropertyModification<Media>;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  logo: AdminPanelRelationPropertyModification<Media>;
   copyright: string;
   locale: string;
   localizations?: Footer[];

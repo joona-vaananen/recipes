@@ -2,8 +2,8 @@
 
 import {
   InstructionItem,
-  InstructionItem_NoRelations,
   InstructionItem_Plain,
+  InstructionItem_NoRelations,
 } from './InstructionItem';
 
 export interface InstructionList {

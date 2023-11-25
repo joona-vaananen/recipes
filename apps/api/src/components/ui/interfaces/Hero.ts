@@ -18,4 +18,3 @@ export interface Hero_NoRelations {
   description?: string;
   backgroundImage?: number;
 }
-

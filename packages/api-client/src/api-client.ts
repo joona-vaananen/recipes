@@ -8,6 +8,7 @@ import type { Page } from '@recipes/api/src/api/page/content-types/page/page';
 import type { Rating } from '@recipes/api/src/api/rating/content-types/rating/rating';
 import type { RecipeSearchPage } from '@recipes/api/src/api/recipe-search-page/content-types/recipe-search-page/recipe-search-page';
 import type { Recipe } from '@recipes/api/src/api/recipe/content-types/recipe/recipe';
+import type { PrivacyPolicyPage } from '@recipes/api/src/api/privacy-policy-page/content-types/privacy-policy-page/privacy-policy-page';
 import {
   apiClientConfigSchema,
   type APIClientConfigInput,
@@ -22,6 +23,7 @@ export interface APIContentTypes {
   header: Header;
   'home-page': HomePage;
   pages: Page;
+  'privacy-policy-page': PrivacyPolicyPage;
   ratings: Rating;
   recipes: Recipe;
   'recipe-search-page': RecipeSearchPage;

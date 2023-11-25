@@ -14,6 +14,10 @@ export const pathnames = {
     en: '/',
     fi: '/',
   },
+  '/privacy-policy': {
+    en: '/privacy-policy',
+    fi: '/tietosuoja',
+  },
   '/recipes': {
     en: '/recipes',
     fi: '/reseptit',

@@ -6,7 +6,10 @@ import { AdminPanelRelationPropertyModification } from '../../../../common/inter
 export interface Header {
   id: number;
   attributes: {
-    createdAt: Date;    updatedAt: Date;    publishedAt?: Date;    logo: { data: Media };
+    createdAt: Date;
+    updatedAt: Date;
+    publishedAt?: Date;
+    logo: { data: Media };
     items?: any;
     locale: string;
     localizations?: { data: Header[] };
@@ -14,7 +17,10 @@ export interface Header {
 }
 export interface Header_Plain {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  logo: Media;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  logo: Media;
   items?: any;
   locale: string;
   localizations?: Header[];
@@ -22,7 +28,10 @@ export interface Header_Plain {
 
 export interface Header_NoRelations {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  logo: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  logo: number;
   items?: any;
   locale: string;
   localizations?: Header[];
@@ -30,7 +39,10 @@ export interface Header_NoRelations {
 
 export interface Header_AdminPanelLifeCycle {
   id: number;
-  createdAt: Date;  updatedAt: Date;  publishedAt?: Date;  logo: AdminPanelRelationPropertyModification<Media>;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  logo: AdminPanelRelationPropertyModification<Media>;
   items?: any;
   locale: string;
   localizations?: Header[];

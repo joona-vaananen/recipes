@@ -22,6 +22,9 @@
     "resetPage": "Refresh page",
     "title": "Whoops!"
   },
+  "Footer": {
+    "privacyPolicy": "Privacy Policy"
+  },
   "Header": {
     "closeMenu": "Close menu",
     "menuTitle": "Menu",
