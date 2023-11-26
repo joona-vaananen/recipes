@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Card,
   Container,
   Flex,
@@ -33,7 +34,7 @@ import {
   RecipeTags,
   RecipeTime,
   RichText,
-  ScrollToButton,
+  ScrollTo,
   ShareRecipe,
   SimilarRecipeCarousel,
   WakeLockSwitch,
@@ -92,16 +93,19 @@ const Page = ({ params }: PageProps) => {
             justify={'between'}
           >
             <RecipeRating
+              anchor={t('ratingAnchor')}
               averageRating={recipe.attributes.averageRating}
               locale={locale}
               ratingCount={recipe.attributes.ratingCount}
               recipe={recipe.id}
             />
             <Box>
-              <ScrollToButton anchor={t('recipeAnchor')}>
-                {t('jumpToRecipe')}
-                <ArrowDown className={'h-4 w-4'} />
-              </ScrollToButton>
+              <Button asChild>
+                <ScrollTo anchor={t('recipeAnchor')}>
+                  {t('jumpToRecipe')}
+                  <ArrowDown className={'h-4 w-4'} />
+                </ScrollTo>
+              </Button>
             </Box>
           </Flex>
         </Container>
@@ -114,8 +118,8 @@ const Page = ({ params }: PageProps) => {
         {recipe.attributes.content}
       </DynamicZone>
       <Container className={'container'}>
-        <Section size={'2'}>
-          <Card id={t('recipeAnchor')}>
+        <Section id={t('recipeAnchor')} size={'2'}>
+          <Card>
             <Flex direction={'column'} gap={'8'} p={'4'}>
               <WakeLockSwitch />
               <Grid
@@ -173,7 +177,11 @@ const Page = ({ params }: PageProps) => {
           }}
           gap={'4'}
         >
-          <CommentForm locale={locale} recipe={recipe.id} />
+          <CommentForm
+            anchor={t('ratingAnchor')}
+            locale={locale}
+            recipe={recipe.id}
+          />
         </Grid>
         <CommentList
           apiClient={apiClient}

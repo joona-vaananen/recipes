@@ -8,16 +8,17 @@ import { CommentFormNameInput } from './comment-form-name-input';
 import { CommentFormRatingField } from './comment-form-rating-field';
 
 interface CommentFormProps {
+  anchor: string;
   locale: string;
   recipe: number;
 }
 
-export const CommentForm = ({ locale, recipe }: CommentFormProps) => {
+export const CommentForm = ({ anchor, locale, recipe }: CommentFormProps) => {
   const t = useTranslations('CommentForm');
 
   return (
     <CommentFormProvider locale={locale} recipe={recipe}>
-      <Section size={'2'}>
+      <Section id={anchor} size={'2'}>
         <Heading as={'h2'} mb={'4'} size={'7'}>
           {t('title')}
         </Heading>

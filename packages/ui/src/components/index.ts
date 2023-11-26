@@ -18,7 +18,7 @@ export * from './recipe-search';
 export * from './recipe-tags';
 export * from './recipe-time';
 export * from './rich-text';
-export * from './scroll-to-button';
+export * from './scroll-to';
 export * from './share-recipe';
 export * from './similar-recipe-carousel';
 export * from './structured-data';

@@ -10,7 +10,7 @@ import { useIngredientList } from './ingredient-list-context';
 
 interface IngredientListItemProps {
   altAmount?: number;
-  altUnit?: number;
+  altUnit?: string;
   amount?: number;
   content: any;
   unit?: string;

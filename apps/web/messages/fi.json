@@ -54,9 +54,11 @@
   },
   "RecipePage": {
     "jumpToRecipe": "Hyppää reseptiin",
+    "ratingAnchor": "jata-kommentti",
     "recipeAnchor": "resepti"
   },
   "RecipeRating": {
+    "jumpToCommentForm": "Hyppää kommenttilomakkeelle",
     "ratingNone": "ei arvosteluja",
     "ratingPlural": "arvostelua",
     "ratingSingular": "arvostelu",

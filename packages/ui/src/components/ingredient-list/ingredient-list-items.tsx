@@ -8,7 +8,7 @@ interface IngredientListItemsProps {
     id: number;
     items: {
       altAmount?: number;
-      altUnit?: number;
+      altUnit?: string;
       amount?: number;
       content: any;
       id: number;

@@ -54,9 +54,11 @@
   },
   "RecipePage": {
     "jumpToRecipe": "Jump to recipe",
+    "ratingAnchor": "leave-a-comment",
     "recipeAnchor": "recipe"
   },
   "RecipeRating": {
+    "jumpToCommentForm": "Jump to comment form",
     "ratingNone": "no ratings",
     "ratingPlural": "ratings",
     "ratingSingular": "rating",

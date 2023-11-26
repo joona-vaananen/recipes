@@ -1,12 +1,13 @@
 'use client';
 
-import { Box, Flex, Text, VisuallyHidden } from '@radix-ui/themes';
+import { Box, Flex, Link, Text, VisuallyHidden } from '@radix-ui/themes';
 import { Star, StarHalf } from 'lucide-react';
 import { useFormatter } from 'next-intl';
 import { stringify } from 'qs';
 import useSWR from 'swr';
 
 import { fetcher } from '../../lib/utils/fetcher';
+import { ScrollTo } from '../scroll-to';
 
 interface Rating {
   average?: number;
@@ -15,10 +16,12 @@ interface Rating {
 
 interface RecipeRatingClientProps
   extends React.ComponentPropsWithoutRef<typeof Flex> {
+  anchor: string;
   rating: Rating;
   recipe: number;
   locale: string;
   translations: {
+    jumpToCommentForm: string;
     ratingNone: string;
     ratingPlural: string;
     ratingSingular: string;
@@ -27,6 +30,7 @@ interface RecipeRatingClientProps
 }
 
 export const RecipeRatingClient = ({
+  anchor,
   locale,
   rating: initialRating,
   recipe,
@@ -80,25 +84,30 @@ export const RecipeRatingClient = ({
           <VisuallyHidden>{`/5 ${translations.scoreUnit}`}</VisuallyHidden>
         </Text>
       ) : null}
-      <Flex aria-hidden={true}>
-        {Array.from({ length: Math.floor(starCount) }, (_, index) => (
-          <Star
-            className={'h-4 w-4 fill-accent-9 stroke-accent-9'}
-            key={index}
-          />
-        ))}
-        {starCount % 1 > 0 ? (
-          <Box className={'relative h-4 w-4'}>
-            <Star className={'absolute h-4 w-4'} />
-            <StarHalf
-              className={'absolute h-4 w-4 fill-accent-9 stroke-accent-9'}
-            />
-          </Box>
-        ) : null}
-        {Array.from({ length: 5 - Math.ceil(starCount) }, (_, index) => (
-          <Star className={'h-4 w-4'} key={index} />
-        ))}
-      </Flex>
+      <Link asChild>
+        <ScrollTo anchor={anchor}>
+          <Flex aria-hidden={true}>
+            {Array.from({ length: Math.floor(starCount) }, (_, index) => (
+              <Star
+                className={'h-4 w-4 fill-accent-9 stroke-accent-9'}
+                key={index}
+              />
+            ))}
+            {starCount % 1 > 0 ? (
+              <Box className={'relative h-4 w-4'}>
+                <Star className={'absolute h-4 w-4'} />
+                <StarHalf
+                  className={'absolute h-4 w-4 fill-accent-9 stroke-accent-9'}
+                />
+              </Box>
+            ) : null}
+            {Array.from({ length: 5 - Math.ceil(starCount) }, (_, index) => (
+              <Star className={'h-4 w-4'} key={index} />
+            ))}
+          </Flex>
+          <VisuallyHidden>{translations.jumpToCommentForm}</VisuallyHidden>
+        </ScrollTo>
+      </Link>
       <Text color={'gray'}>
         {ratingCount === 0
           ? translations.ratingNone
