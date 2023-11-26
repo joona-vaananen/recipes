@@ -49,6 +49,9 @@
     "homePageLink": "Return to home page",
     "title": "Page not found"
   },
+  "PrivacyPolicy": {
+    "cookieDeclaration": "Cookie declaration"
+  },
   "RecipeCarousel": {
     "viewMore": "View more"
   },

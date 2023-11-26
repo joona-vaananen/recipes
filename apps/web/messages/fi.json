@@ -49,6 +49,9 @@
     "homePageLink": "Palaa etusivulle",
     "title": "Sivua ei löytynyt"
   },
+  "PrivacyPolicy": {
+    "cookieDeclaration": "Evästeilmoitus"
+  },
   "RecipeCarousel": {
     "viewMore": "Katso lisää"
   },

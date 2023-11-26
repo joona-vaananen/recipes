@@ -99,7 +99,9 @@ const getRecipeSearchPageData = async ({ params }: RecipeSearchPageProps) => {
         populate: {
           filters: {
             on: {
-              'recipe-search.checkbox-filter': true,
+              'recipe-search.checkbox-filter': {
+                fields: ['id', 'label', 'name'],
+              },
             },
           },
           metadata: {
@@ -111,12 +113,17 @@ const getRecipeSearchPageData = async ({ params }: RecipeSearchPageProps) => {
               'title',
             ],
             populate: {
-              ogImage: true,
+              ogImage: {
+                fields: ['formats', 'id', 'url'],
+              },
             },
           },
           sortOrder: {
+            fields: ['id', 'label'],
             populate: {
-              options: true,
+              options: {
+                fields: ['id', 'name', 'value'],
+              },
             },
           },
         },

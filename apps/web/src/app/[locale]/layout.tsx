@@ -143,7 +143,9 @@ const getHeaderData = async ({ params }: Pick<LayoutProps, 'params'>) => {
               },
             },
           },
-          logo: true,
+          logo: {
+            fields: ['alternativeText', 'height', 'id', 'url', 'width'],
+          },
         },
       },
     },
@@ -165,7 +167,9 @@ const getFooterData = async ({ params }: Pick<LayoutProps, 'params'>) => {
         fields: ['copyright', 'id'],
         locale,
         populate: {
-          logo: true,
+          logo: {
+            fields: ['alternativeText', 'height', 'id', 'url', 'width'],
+          },
         },
       },
     },

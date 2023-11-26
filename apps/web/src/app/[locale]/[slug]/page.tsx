@@ -131,6 +131,7 @@ const getPageData = async ({ params }: PageProps) => {
           content: {
             on: {
               'ui.hero': {
+                fields: ['description', 'id', 'title'],
                 populate: {
                   backgroundImage: {
                     fields: ['height', 'id', 'placeholder', 'url', 'width'],
@@ -140,14 +141,30 @@ const getPageData = async ({ params }: PageProps) => {
               'ui.recipe-carousel': {
                 fields: ['id', 'limit', 'title', 'sort'],
                 populate: {
-                  categories: true,
-                  courses: true,
-                  cuisines: true,
-                  diets: true,
-                  mainIngredients: true,
-                  mealTypes: true,
-                  methods: true,
-                  seasons: true,
+                  categories: {
+                    fields: ['id', 'name', 'slug'],
+                  },
+                  courses: {
+                    fields: ['id', 'name', 'slug'],
+                  },
+                  cuisines: {
+                    fields: ['id', 'name', 'slug'],
+                  },
+                  diets: {
+                    fields: ['id', 'name', 'slug'],
+                  },
+                  mainIngredients: {
+                    fields: ['id', 'name', 'slug'],
+                  },
+                  mealTypes: {
+                    fields: ['id', 'name', 'slug'],
+                  },
+                  methods: {
+                    fields: ['id', 'name', 'slug'],
+                  },
+                  seasons: {
+                    fields: ['id', 'name', 'slug'],
+                  },
                 },
               },
               'ui.rich-text': {
@@ -161,7 +178,9 @@ const getPageData = async ({ params }: PageProps) => {
           metadata: {
             fields: ['description', 'ogDescription', 'ogTitle', 'title'],
             populate: {
-              ogImage: true,
+              ogImage: {
+                fields: ['formats', 'id', 'url'],
+              },
             },
           },
         },

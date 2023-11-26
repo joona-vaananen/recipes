@@ -1,8 +1,11 @@
+import { Container, Heading, Section } from '@radix-ui/themes';
 import type { Metadata } from 'next';
+import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
+import { COOKIEBOT_ID } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { DynamicZone, Hero, RichText, pathnames } from '@recipes/ui';
 import { LocaleSwitcherPathnames } from '@recipes/ui/src/components';
@@ -15,6 +18,9 @@ const PrivacyPolicyPage = async ({ params }: PrivacyPolicyPageProps) => {
   const { locale } = params;
 
   unstable_setRequestLocale(locale);
+
+  const t = useTranslations('PrivacyPolicy');
+
   const privacyPolicyPage = await getPrivacyPolicyPageData({ params });
 
   return (
@@ -28,6 +34,26 @@ const PrivacyPolicyPage = async ({ params }: PrivacyPolicyPageProps) => {
       >
         {privacyPolicyPage.attributes.content}
       </DynamicZone>
+      {COOKIEBOT_ID ? (
+        <Section size={'2'}>
+          <Container className={'container'} size={'3'}>
+            <Heading
+              as={'h2'}
+              className={'first:mt-0 last:mb-0'}
+              my={'8'}
+              size={'8'}
+            >
+              {t('cookieDeclaration')}
+            </Heading>
+            <script
+              defer
+              id={'CookieDeclaration'}
+              src={`https://consent.cookiebot.com/${COOKIEBOT_ID}/cd.js`}
+              type={'text/javascript'}
+            />
+          </Container>
+        </Section>
+      ) : null}
     </>
   );
 };
@@ -76,6 +102,7 @@ const getPrivacyPolicyPageData = async ({ params }: PrivacyPolicyPageProps) => {
           content: {
             on: {
               'ui.hero': {
+                fields: ['description', 'id', 'title'],
                 populate: {
                   backgroundImage: {
                     fields: ['height', 'id', 'placeholder', 'url', 'width'],
@@ -90,7 +117,9 @@ const getPrivacyPolicyPageData = async ({ params }: PrivacyPolicyPageProps) => {
           metadata: {
             fields: ['description', 'ogDescription', 'ogTitle', 'title'],
             populate: {
-              ogImage: true,
+              ogImage: {
+                fields: ['formats', 'id', 'url'],
+              },
             },
           },
         },
