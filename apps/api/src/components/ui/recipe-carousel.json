@@ -57,7 +57,14 @@
     },
     "sort": {
       "type": "enumeration",
-      "enum": ["created-at-asc", "created-at-desc", "title-asc", "title-desc"],
+      "enum": [
+        "average-rating-asc",
+        "average-rating-desc",
+        "created-at-asc",
+        "created-at-desc",
+        "title-asc",
+        "title-desc"
+      ],
       "required": true,
       "default": "created-at-desc"
     }

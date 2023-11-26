@@ -78,29 +78,43 @@ export const RecipeCard = ({
             <h3>{title}</h3>
           </Text>
         </Link>
-        {typeof prepTime === 'number' ||
-        typeof cookTime === 'number' ||
-        typeof restingTime === 'number' ? (
-          <Flex align={'center'} aria-hidden={true} className={'mr-auto'} gap={'2'}>
-            <Timer className={'h-4 w-4 stroke-accent-9'} />
-            <Text>
-              {format.number(
-                (prepTime ?? 0) + (cookTime ?? 0) + (restingTime ?? 0),
-                {
-                  style: 'unit',
-                  unit: 'minute',
-                  unitDisplay: 'short',
-                }
-              )}
-            </Text>
-          </Flex>
-        ) : null}
-        {typeof averageRating === 'number' ? (
-          <Flex align={'center'} aria-hidden={true} className={'ml-auto'} gap={'2'}>
-            <Star className={'h-4 w-4 stroke-accent-9'} />
-            <Text>{format.number(averageRating)}</Text>
-          </Flex>
-        ) : null}
+        <Flex
+          align={'center'}
+          aria-hidden={true}
+          className={'mr-auto'}
+          gap={'2'}
+        >
+          {typeof prepTime === 'number' ||
+          typeof cookTime === 'number' ||
+          typeof restingTime === 'number' ? (
+            <>
+              <Timer className={'h-4 w-4 stroke-accent-9'} />
+              <Text>
+                {format.number(
+                  (prepTime ?? 0) + (cookTime ?? 0) + (restingTime ?? 0),
+                  {
+                    style: 'unit',
+                    unit: 'minute',
+                    unitDisplay: 'short',
+                  }
+                )}
+              </Text>
+            </>
+          ) : null}
+        </Flex>
+        <Flex
+          align={'center'}
+          aria-hidden={true}
+          className={'ml-auto'}
+          gap={'2'}
+        >
+          {typeof averageRating === 'number' ? (
+            <>
+              <Star className={'h-4 w-4 stroke-accent-9'} />
+              <Text>{format.number(averageRating)}</Text>
+            </>
+          ) : null}
+        </Flex>
       </Grid>
     </Card>
   );

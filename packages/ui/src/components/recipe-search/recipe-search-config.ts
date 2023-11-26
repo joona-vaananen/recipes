@@ -13,6 +13,7 @@ export const recipeSearchConfig = {
     season: { attribute: 'seasons', field: 'seasons.slug' },
   },
   sort: {
+    'average-rating': { field: 'averageRating' },
     'created-at': { field: 'createdAt' },
     title: { field: 'title' },
   },

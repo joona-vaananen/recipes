@@ -14,6 +14,8 @@
     "value": {
       "type": "enumeration",
       "enum": [
+        "average-rating-asc",
+        "average-rating-desc",
         "created-at-asc",
         "created-at-desc",
         "title-asc",

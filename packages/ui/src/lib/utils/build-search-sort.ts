@@ -22,5 +22,5 @@ export const buildSearchSort = (
 
   const { field } = sortConfig[sortKey];
 
-  return [`${field}:${sortOrder}`];
+  return [`${field}:${sortOrder}`, 'createdAt:desc'];
 };

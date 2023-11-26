@@ -45,7 +45,13 @@ export interface RecipeCarouselProps {
   methods?: { data: Method[] } | undefined;
   searchClient: any;
   seasons?: { data: Season[] } | undefined;
-  sort?: 'created-at-asc' | 'created-at-desc' | 'title-asc' | 'title-desc';
+  sort?:
+    | 'average-rating-asc'
+    | 'average-rating-desc'
+    | 'created-at-asc'
+    | 'created-at-desc'
+    | 'title-asc'
+    | 'title-desc';
   title?: string;
 }
 
