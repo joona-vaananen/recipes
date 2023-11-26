@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 
 import { apiClient } from '@/lib/api/client';
 import { searchClient } from '@/lib/search/client';
-import { RecipeSearch, pathnames } from '@recipes/ui';
+import { RecipeSearch, getPathname, pathnames, type Locale } from '@recipes/ui';
 import { LocaleSwitcherPathnames } from '@recipes/ui/src/components';
 
 interface RecipeSearchPageProps {
@@ -50,6 +50,8 @@ export const generateMetadata = async ({
   params,
   searchParams,
 }: RecipeSearchPageProps): Promise<Metadata> => {
+  const { locale } = params;
+
   const recipeSearchPage = await getRecipeSearchPageData({
     params,
     searchParams,
@@ -73,6 +75,12 @@ export const generateMetadata = async ({
             ?.large.url ??
           recipeSearchPage.attributes.metadata.ogImage.data.attributes.url
         : undefined,
+    },
+    alternates: {
+      canonical: `/${locale}${getPathname({
+        locale: locale as Locale,
+        href: { pathname: '/recipes' },
+      })}`,
     },
   };
 };
