@@ -98,14 +98,14 @@ export const RecipeTags = ({
   const t = useTranslations('RecipeTags');
 
   if (
-    !Array.isArray(categories?.data) &&
-    !Array.isArray(courses?.data) &&
-    !Array.isArray(cuisines?.data) &&
-    !Array.isArray(diets?.data) &&
-    !Array.isArray(mainIngredients?.data) &&
-    !Array.isArray(mealTypes?.data) &&
-    !Array.isArray(methods?.data) &&
-    !Array.isArray(seasons?.data)
+    (!Array.isArray(categories?.data) || categories!.data.length === 0) &&
+    (!Array.isArray(courses?.data) || courses!.data.length === 0) &&
+    (!Array.isArray(cuisines?.data) || cuisines!.data.length === 0) &&
+    (!Array.isArray(diets?.data) || diets!.data.length === 0) &&
+    (!Array.isArray(mainIngredients?.data) || mainIngredients!.data.length === 0) &&
+    (!Array.isArray(mealTypes?.data) || mealTypes!.data.length === 0) &&
+    (!Array.isArray(methods?.data) || methods!.data.length === 0) &&
+    (!Array.isArray(seasons?.data) || seasons!.data.length === 0)
   ) {
     return null;
   }
@@ -132,135 +132,148 @@ export const RecipeTags = ({
         width={'100%'}
       >
         <dl>
-          {Array.isArray(categories?.data) ? (
+          {Array.isArray(categories?.data) && categories!.data.length > 0 ? (
             <Box>
               <Text asChild color={'gray'}>
                 <dt>{t('categories')}</dt>
               </Text>
               <Text asChild>
                 <dd>
-                  {categories!.data.map((category) => (
-                    <Link asChild key={category.id}>
-                      <NextLink
-                        href={{
-                          pathname: '/recipes',
-                          query: stringify(
-                            resolveSearchParams(
-                              { categories: { data: [category] } },
-                              searchConfig.filters
+                  {categories!.data.map((category, index) => (
+                    <Fragment key={category.id}>
+                      <Link asChild>
+                        <NextLink
+                          href={{
+                            pathname: '/recipes',
+                            query: stringify(
+                              resolveSearchParams(
+                                { categories: { data: [category] } },
+                                searchConfig.filters
+                              ),
+                              {
+                                arrayFormat: 'repeat',
+                                encodeValuesOnly: true,
+                              }
                             ),
-                            {
-                              arrayFormat: 'repeat',
-                              encodeValuesOnly: true,
-                            }
-                          ),
-                        }}
-                      >
-                        {category.attributes.name}
-                      </NextLink>
-                    </Link>
+                          }}
+                        >
+                          {category.attributes.name}
+                        </NextLink>
+                      </Link>
+                      {index < categories!.data.length - 1 ? ', ' : null}
+                    </Fragment>
                   ))}
                 </dd>
               </Text>
             </Box>
           ) : null}
-          {Array.isArray(courses?.data) ? (
+          {Array.isArray(courses?.data) && courses!.data.length > 0 ? (
             <Box>
               <Text asChild color={'gray'}>
                 <dt>{t('courses')}</dt>
               </Text>
               <Text asChild>
                 <dd>
-                  {courses!.data.map((course) => (
-                    <Link asChild key={course.id}>
-                      <NextLink
-                        href={{
-                          pathname: '/recipes',
-                          query: stringify(
-                            resolveSearchParams(
-                              { courses: { data: [course] } },
-                              searchConfig.filters
+                  {courses!.data.map((course, index) => (
+                    <Fragment key={course.id}>
+                      <Link asChild>
+                        <NextLink
+                          href={{
+                            pathname: '/recipes',
+                            query: stringify(
+                              resolveSearchParams(
+                                { courses: { data: [course] } },
+                                searchConfig.filters
+                              ),
+                              {
+                                arrayFormat: 'repeat',
+                                encodeValuesOnly: true,
+                              }
                             ),
-                            {
-                              arrayFormat: 'repeat',
-                              encodeValuesOnly: true,
-                            }
-                          ),
-                        }}
-                      >
-                        {course.attributes.name}
-                      </NextLink>
-                    </Link>
+                          }}
+                        >
+                          {course.attributes.name}
+                        </NextLink>
+                      </Link>
+                      {index < courses!.data.length - 1 ? ', ' : null}
+                    </Fragment>
                   ))}
                 </dd>
               </Text>
             </Box>
           ) : null}
-          {Array.isArray(cuisines?.data) ? (
+          {Array.isArray(cuisines?.data) && cuisines!.data.length > 0 ? (
             <Box>
               <Text asChild color={'gray'}>
                 <dt>{t('cuisines')}</dt>
               </Text>
               <Text asChild>
                 <dd>
-                  {cuisines!.data.map((cuisine) => (
-                    <Link asChild key={cuisine.id}>
-                      <NextLink
-                        href={{
-                          pathname: '/recipes',
-                          query: stringify(
-                            resolveSearchParams(
-                              { cuisines: { data: [cuisine] } },
-                              searchConfig.filters
+                  {cuisines!.data.map((cuisine, index) => (
+                    <Fragment key={cuisine.id}>
+                      <Link asChild>
+                        <NextLink
+                          href={{
+                            pathname: '/recipes',
+                            query: stringify(
+                              resolveSearchParams(
+                                { cuisines: { data: [cuisine] } },
+                                searchConfig.filters
+                              ),
+                              {
+                                arrayFormat: 'repeat',
+                                encodeValuesOnly: true,
+                              }
                             ),
-                            {
-                              arrayFormat: 'repeat',
-                              encodeValuesOnly: true,
-                            }
-                          ),
-                        }}
-                      >
-                        {cuisine.attributes.name}
-                      </NextLink>
-                    </Link>
+                          }}
+                        >
+                          {cuisine.attributes.name}
+                        </NextLink>
+                      </Link>
+                      {index < cuisines!.data.length - 1 ? ', ' : null}
+                    </Fragment>
                   ))}
                 </dd>
               </Text>
             </Box>
           ) : null}
-          {Array.isArray(diets?.data) ? (
+          {Array.isArray(diets?.data) && diets!.data.length > 0 ? (
             <Box>
               <Text asChild color={'gray'}>
                 <dt>{t('diets')}</dt>
               </Text>
               <Text asChild>
                 <dd>
-                  {diets!.data.map((diet) => (
-                    <Link asChild key={diet.id}>
-                      <NextLink
-                        href={{
-                          pathname: '/recipes',
-                          query: stringify(
-                            resolveSearchParams(
-                              { diets: { data: [diet] } },
-                              searchConfig.filters
+                  {diets!.data.map((diet, index) => (
+                    <Fragment key={diet.id}>
+                      <Link asChild>
+                        <NextLink
+                          href={{
+                            pathname: '/recipes',
+                            query: stringify(
+                              resolveSearchParams(
+                                { diets: { data: [diet] } },
+                                searchConfig.filters
+                              ),
+                              {
+                                arrayFormat: 'repeat',
+                                encodeValuesOnly: true,
+                              }
                             ),
-                            {
-                              arrayFormat: 'repeat',
-                              encodeValuesOnly: true,
-                            }
-                          ),
-                        }}
-                      >
-                        {diet.attributes.name}
-                      </NextLink>
-                    </Link>
+                          }}
+                        >
+                          {diet.attributes.name}
+                        </NextLink>
+                      </Link>
+                      {index < diets!.data.length - 1 ? ', ' : null}
+                    </Fragment>
                   ))}
                 </dd>
               </Text>
             </Box>
           ) : null}
-          {Array.isArray(mainIngredients?.data) ? (
+          {Array.isArray(mainIngredients?.data) &&
+          mainIngredients!.data.length > 0 ? (
             <Box>
               <Text asChild color={'gray'}>
                 <dt>{t('mainIngredients')}</dt>
@@ -299,97 +312,106 @@ export const RecipeTags = ({
               </Text>
             </Box>
           ) : null}
-          {Array.isArray(mealTypes?.data) ? (
+          {Array.isArray(mealTypes?.data) && mealTypes!.data.length > 0 ? (
             <Box>
               <Text asChild color={'gray'}>
                 <dt>{t('mealTypes')}</dt>
               </Text>
               <Text asChild>
                 <dd>
-                  {mealTypes!.data.map((mealType) => (
-                    <Link asChild key={mealType.id}>
-                      <NextLink
-                        href={{
-                          pathname: '/recipes',
-                          query: stringify(
-                            resolveSearchParams(
-                              { mealTypes: { data: [mealType] } },
-                              searchConfig.filters
+                  {mealTypes!.data.map((mealType, index) => (
+                    <Fragment key={mealType.id}>
+                      <Link asChild>
+                        <NextLink
+                          href={{
+                            pathname: '/recipes',
+                            query: stringify(
+                              resolveSearchParams(
+                                { mealTypes: { data: [mealType] } },
+                                searchConfig.filters
+                              ),
+                              {
+                                arrayFormat: 'repeat',
+                                encodeValuesOnly: true,
+                              }
                             ),
-                            {
-                              arrayFormat: 'repeat',
-                              encodeValuesOnly: true,
-                            }
-                          ),
-                        }}
-                      >
-                        {mealType.attributes.name}
-                      </NextLink>
-                    </Link>
+                          }}
+                        >
+                          {mealType.attributes.name}
+                        </NextLink>
+                      </Link>
+                      {index < mealTypes!.data.length - 1 ? ', ' : null}
+                    </Fragment>
                   ))}
                 </dd>
               </Text>
             </Box>
           ) : null}
-          {Array.isArray(methods?.data) ? (
+          {Array.isArray(methods?.data) && methods!.data.length > 0 ? (
             <Box>
               <Text asChild color={'gray'}>
                 <dt>{t('methods')}</dt>
               </Text>
               <Text asChild>
                 <dd>
-                  {methods!.data.map((method) => (
-                    <Link asChild key={method.id}>
-                      <NextLink
-                        href={{
-                          pathname: '/recipes',
-                          query: stringify(
-                            resolveSearchParams(
-                              { methods: { data: [method] } },
-                              searchConfig.filters
+                  {methods!.data.map((method, index) => (
+                    <Fragment key={method.id}>
+                      <Link asChild>
+                        <NextLink
+                          href={{
+                            pathname: '/recipes',
+                            query: stringify(
+                              resolveSearchParams(
+                                { methods: { data: [method] } },
+                                searchConfig.filters
+                              ),
+                              {
+                                arrayFormat: 'repeat',
+                                encodeValuesOnly: true,
+                              }
                             ),
-                            {
-                              arrayFormat: 'repeat',
-                              encodeValuesOnly: true,
-                            }
-                          ),
-                        }}
-                      >
-                        {method.attributes.name}
-                      </NextLink>
-                    </Link>
+                          }}
+                        >
+                          {method.attributes.name}
+                        </NextLink>
+                      </Link>
+                      {index < methods!.data.length - 1 ? ', ' : null}
+                    </Fragment>
                   ))}
                 </dd>
               </Text>
             </Box>
           ) : null}
-          {Array.isArray(seasons?.data) ? (
+          {Array.isArray(seasons?.data) && seasons!.data.length > 0 ? (
             <Box>
               <Text asChild color={'gray'}>
                 <dt>{t('seasons')}</dt>
               </Text>
               <Text asChild>
                 <dd>
-                  {seasons!.data.map((season) => (
-                    <Link asChild key={season.id}>
-                      <NextLink
-                        href={{
-                          pathname: '/recipes',
-                          query: stringify(
-                            resolveSearchParams(
-                              { seasons: { data: [season] } },
-                              searchConfig.filters
+                  {seasons!.data.map((season, index) => (
+                    <Fragment key={season.id}>
+                      <Link asChild>
+                        <NextLink
+                          href={{
+                            pathname: '/recipes',
+                            query: stringify(
+                              resolveSearchParams(
+                                { seasons: { data: [season] } },
+                                searchConfig.filters
+                              ),
+                              {
+                                arrayFormat: 'repeat',
+                                encodeValuesOnly: true,
+                              }
                             ),
-                            {
-                              arrayFormat: 'repeat',
-                              encodeValuesOnly: true,
-                            }
-                          ),
-                        }}
-                      >
-                        {season.attributes.name}
-                      </NextLink>
-                    </Link>
+                          }}
+                        >
+                          {season.attributes.name}
+                        </NextLink>
+                      </Link>
+                      {index < seasons!.data.length - 1 ? ', ' : null}
+                    </Fragment>
                   ))}
                 </dd>
               </Text>

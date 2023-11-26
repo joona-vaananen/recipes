@@ -20,7 +20,8 @@
     "react-dom": "18.2.0",
     "sharp": "0.32.6",
     "swr": "2.2.4",
-    "zod": "3.22.4"
+    "zod": "3.22.4",
+    "qs": "6.11.2"
   },
   "devDependencies": {
     "@recipes/eslint-config": "^1.0.0",

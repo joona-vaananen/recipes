@@ -25,7 +25,7 @@ export const IngredientList = ({ items, servings }: IngredientListProps) => {
   const t = useTranslations('IngredientList');
 
   return (
-    <IngredientListProvider defaultValues={{ servings }}>
+    <IngredientListProvider defaultValues={{ servings: servings ?? 0 }}>
       <Box>
         <Heading as={'h2'} mb={'4'} size={'7'}>
           {t('title')}

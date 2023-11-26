@@ -66,8 +66,8 @@ export const RecipeRatingClient = ({
     revalidateOnReconnect: false,
   }) as { data: Rating | null };
 
-  const { average: averageRating, count: ratingCount } =
-    rating ?? initialRating;
+  const averageRating = rating?.average ?? initialRating?.average;
+  const ratingCount = rating?.count ?? initialRating?.count ?? 0;
 
   const starCount =
     typeof averageRating === 'number' ? Math.round(averageRating * 2) / 2 : 0;

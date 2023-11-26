@@ -1,10 +1,11 @@
+import { GoogleTagManager } from '@next/third-parties/google';
 import { Flex, Theme } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, unstable_setRequestLocale } from 'next-intl/server';
 import { Raleway, Roboto_Slab } from 'next/font/google';
 import { notFound } from 'next/navigation';
-import { GoogleTagManager } from '@next/third-parties/google';
+import { Suspense } from 'react';
 
 import {
   BASE_URL,
@@ -21,6 +22,7 @@ import {
   LocaleSwitcherProvider,
   UserProvider,
 } from '@recipes/ui/src/components';
+import { NavigationEvents } from './navigation-events';
 
 import './globals.css';
 
@@ -81,10 +83,13 @@ const Layout = async ({ children, params }: LayoutProps) => {
             </LocaleSwitcherProvider>
           </NextIntlClientProvider>
         </UserProvider>
+        {GOOGLE_TAG_MANAGER_ID ? (
+          <GoogleTagManager gtmId={GOOGLE_TAG_MANAGER_ID} />
+        ) : null}
+        <Suspense fallback={null}>
+          <NavigationEvents />
+        </Suspense>
       </body>
-      {GOOGLE_TAG_MANAGER_ID ? (
-        <GoogleTagManager gtmId={GOOGLE_TAG_MANAGER_ID} />
-      ) : null}
     </html>
   );
 };
