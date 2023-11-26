@@ -25,6 +25,7 @@ interface CommentListClientProps {
   };
 }
 
+// TODO: Figure out a way to visually separate a comment from recipe author from others
 export const CommentListClient = ({
   comments: initialComments,
   locale,
