@@ -23,7 +23,7 @@
         }
       },
       "type": "string",
-      "required": true
+      "required": false
     },
     "comment": {
       "pluginOptions": {
@@ -41,7 +41,7 @@
         }
       },
       "type": "string",
-      "required": true
+      "required": false
     },
     "rating": {
       "type": "relation",
@@ -54,6 +54,11 @@
       "relation": "manyToOne",
       "target": "api::recipe.recipe",
       "inversedBy": "comments"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

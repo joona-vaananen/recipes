@@ -141,6 +141,14 @@ export const getComments = async (request: NextRequest, context: Context) => {
             rating: {
               fields: ['id', 'score'],
             },
+            user: {
+              fields: ['id', 'username'],
+              populate: {
+                avatar: {
+                  fields: ['alternativeText', 'height', 'id', 'url', 'width'],
+                },
+              },
+            },
           },
           sort: 'createdAt:desc',
         },

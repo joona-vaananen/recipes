@@ -8,6 +8,7 @@ import { useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
 
 import type { APIContentTypes, APIResponse } from '@recipes/api-client';
+import Image from 'next/image';
 import { cn } from '../../lib/utils/cn';
 import { fetcher } from '../../lib/utils/fetcher';
 import { COMMENTS_PAGE_SIZE } from './comment-list';
@@ -25,7 +26,6 @@ interface CommentListClientProps {
   };
 }
 
-// TODO: Figure out a way to visually separate a comment from recipe author from others
 export const CommentListClient = ({
   comments: initialComments,
   locale,
@@ -105,9 +105,54 @@ export const CommentListClient = ({
                   <Flex direction={'column'} gap={'4'}>
                     <Flex gap={'4'} justify={'between'}>
                       <Flex direction={'column'} gap={'2'}>
-                        <Text size={'5'} weight={'bold'}>
-                          {comment.attributes.name}
-                        </Text>
+                        {comment.attributes.user?.data ? (
+                          <Flex align={'center'} gap={'2'}>
+                            {comment.attributes.user.data.attributes.avatar
+                              ?.data ? (
+                              <Image
+                                alt={
+                                  comment.attributes.user.data.attributes.avatar
+                                    .data.attributes.alternativeText ?? ''
+                                }
+                                blurDataURL={
+                                  'placeholder' in
+                                  comment.attributes.user.data.attributes.avatar
+                                    ? (comment.attributes.user.data.attributes
+                                        .avatar.placeholder as string)
+                                    : undefined
+                                }
+                                className={'h-7 w-auto'}
+                                height={
+                                  comment.attributes.user.data.attributes.avatar
+                                    .data.attributes.height
+                                }
+                                placeholder={
+                                  'placeholder' in
+                                  comment.attributes.user.data.attributes.avatar
+                                    ? 'blur'
+                                    : 'empty'
+                                }
+                                priority
+                                quality={100}
+                                src={
+                                  comment.attributes.user.data.attributes.avatar
+                                    .data.attributes.url
+                                }
+                                width={
+                                  comment.attributes.user.data.attributes.avatar
+                                    .data.attributes.width
+                                }
+                              />
+                            ) : null}
+                            <Text color={'ruby'} size={'5'} weight={'bold'}>
+                              {comment.attributes.user.data.attributes.username}
+                            </Text>
+                          </Flex>
+                        ) : comment.attributes.name ? (
+                          <Text size={'5'} weight={'bold'}>
+                            {comment.attributes.name}
+                          </Text>
+                        ) : null}
                         <Text color={'gray'} size={'2'}>
                           {format.dateTime(
                             new Date(
