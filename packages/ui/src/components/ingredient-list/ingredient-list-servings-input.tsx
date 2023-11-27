@@ -1,6 +1,7 @@
 'use client';
 
 import { Flex, Text, TextField } from '@radix-ui/themes';
+import { useFormatter } from 'next-intl';
 import { useController, useFormContext } from 'react-hook-form';
 
 import type { IngredientListSchema } from './ingredient-list-schema';
@@ -18,26 +19,32 @@ export const IngredientListServingsInput = ({
   const { servings: initialServings } = formState.defaultValues ?? {};
   const { field } = useController({ name: 'servings', control });
   const { disabled, name, onBlur, onChange, ref, value } = field;
+  const format = useFormatter();
 
   return (
-    <Text as={'label'} size={'2'}>
-      <Flex align={'center'} gap={'2'}>
-        {translations.servings}
-        <TextField.Root className={'w-16'}>
-          <TextField.Input
-            className={'mr-1'}
-            disabled={disabled}
-            max={initialServings! * 10}
-            min={1}
-            name={name}
-            onBlur={onBlur}
-            onChange={onChange}
-            ref={ref}
-            type={'number'}
-            value={value}
-          />
-        </TextField.Root>
-      </Flex>
-    </Text>
+    <>
+      <Text as={'label'} className={'print:hidden'} size={'2'}>
+        <Flex align={'center'} gap={'2'}>
+          {translations.servings}
+          <TextField.Root className={'w-16'}>
+            <TextField.Input
+              className={'mr-1'}
+              disabled={disabled}
+              max={initialServings! * 10}
+              min={1}
+              name={name}
+              onBlur={onBlur}
+              onChange={onChange}
+              ref={ref}
+              type={'number'}
+              value={value}
+            />
+          </TextField.Root>
+        </Flex>
+      </Text>
+      <Text className={'hidden print:block'} weight={'bold'}>
+        {`${format.number(value!)} ${translations.servings.toLowerCase()}`}
+      </Text>
+    </>
   );
 };

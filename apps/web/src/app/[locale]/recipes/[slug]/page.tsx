@@ -29,6 +29,7 @@ import {
   IngredientList,
   InstructionList,
   LocaleSwitcherPathnames,
+  PrintButton,
   RecipeJsonLd,
   RecipeRating,
   RecipeTags,
@@ -82,8 +83,8 @@ const Page = ({ params }: PageProps) => {
         description={recipe.attributes.description}
         title={recipe.attributes.title}
       />
-      <Section size={'2'}>
-        <Container className={'container'} size={'3'}>
+      <Section className={'print:hidden'} size={'2'}>
+        <Container className={'max-w-full'} px={'4'} size={'3'}>
           <Flex
             direction={{
               initial: 'column',
@@ -110,18 +111,28 @@ const Page = ({ params }: PageProps) => {
           </Flex>
         </Container>
       </Section>
-      <DynamicZone
-        components={{
-          'ui.rich-text': RichText,
-        }}
-      >
-        {recipe.attributes.content}
-      </DynamicZone>
-      <Container className={'container'}>
+      <Box className={'print:hidden'}>
+        <DynamicZone
+          components={{
+            'ui.rich-text': RichText,
+          }}
+        >
+          {recipe.attributes.content}
+        </DynamicZone>
+      </Box>
+      <Container className={'max-w-full'} px={'4'}>
         <Section id={t('recipeAnchor')} size={'2'}>
           <Card>
             <Flex direction={'column'} gap={'8'} p={'4'}>
-              <WakeLockSwitch />
+              <Flex
+                align={'center'}
+                className={'print:hidden'}
+                gap={'4'}
+                justify={'between'}
+              >
+                <WakeLockSwitch />
+                <PrintButton />
+              </Flex>
               <Grid
                 className={'gap-20 sm:gap-10'}
                 columns={{
@@ -138,10 +149,15 @@ const Page = ({ params }: PageProps) => {
                 <InstructionList items={recipe.attributes.instructions} />
               </Grid>
             </Flex>
-            <Inset clip={'padding-box'} my={'8'}>
+            <Inset className={'print:hidden'} clip={'padding-box'} my={'8'}>
               <Separator size={'4'} />
             </Inset>
-            <Flex direction={'column'} gap={'8'} p={'4'}>
+            <Flex
+              className={'print:hidden'}
+              direction={'column'}
+              gap={'8'}
+              p={'4'}
+            >
               <ShareRecipe locale={locale} slug={recipe.attributes.slug} />
               <RecipeTime
                 cookTime={recipe.attributes.cookTime}
@@ -164,18 +180,20 @@ const Page = ({ params }: PageProps) => {
       </Container>
       <SimilarRecipeCarousel
         categories={recipe.attributes.categories}
+        className={'print:hidden'}
         cuisines={recipe.attributes.cuisines}
-        id={recipe.id}
         locale={locale}
+        recipeId={recipe.id}
         searchClient={searchClient}
       />
-      <Container className={'container'}>
+      <Container className={'max-w-full print:hidden'} px={'4'}>
         <Grid
           columns={{
             initial: '1',
             sm: '2',
           }}
           gap={'4'}
+          p={'4'}
         >
           <CommentForm
             anchor={t('ratingAnchor')}

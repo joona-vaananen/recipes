@@ -35,12 +35,16 @@ export const IngredientListItem = ({
   return (
     <Text as={'label'}>
       <Flex align={'center'} gap={'2'} width={'auto'}>
-        <Checkbox checked={checked} onCheckedChange={onCheckedChange} />
+        <Checkbox
+          checked={checked}
+          className={'print:hidden'}
+          onCheckedChange={onCheckedChange}
+        />
         <Flex
-          className={cn({
+          className={cn('gap-x-1 print:no-underline', {
             'line-through': checked,
           })}
-          gap={'1'}
+          wrap={'wrap'}
         >
           {amount && ingredientMultiplier ? (
             <Text weight={'bold'}>

@@ -11,6 +11,7 @@ export * from './instruction-list';
 export * from './list-item';
 export * from './locale-switcher';
 export * from './ordered-list';
+export * from './print-button';
 export * from './recipe-card';
 export * from './recipe-carousel';
 export * from './recipe-rating/recipe-rating';

@@ -49,6 +49,9 @@
     "homePageLink": "Palaa etusivulle",
     "title": "Sivua ei löytynyt"
   },
+  "PrintButton": {
+    "label": "Tulosta"
+  },
   "PrivacyPolicy": {
     "cookieDeclaration": "Evästeilmoitus"
   },

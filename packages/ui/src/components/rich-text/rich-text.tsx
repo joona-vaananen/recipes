@@ -39,7 +39,7 @@ export const RichText = ({
 
 const DefaultWrapper = ({ children }: { children: React.ReactNode }) => (
   <Section size={'2'}>
-    <Container className={'container'} size={'3'}>
+    <Container className={'max-w-full'} px={'4'} size={'3'}>
       {children}
     </Container>
   </Section>

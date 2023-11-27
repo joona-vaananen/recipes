@@ -21,7 +21,7 @@ export const Header = ({ items, locale, logo, ...props }: HeaderProps) => {
 
   return (
     <header {...props}>
-      <Container className={'container'} px={'4'} py={'2'}>
+      <Container className={'max-w-full'} px={'4'} py={'2'}>
         <Flex align={'center'} gap={'4'} justify={'between'} {...props}>
           <Link asChild>
             <NextLink href={'/'}>
@@ -42,7 +42,7 @@ export const Header = ({ items, locale, logo, ...props }: HeaderProps) => {
               />
             </NextLink>
           </Link>
-          <Flex align={'center'} gap={'4'}>
+          <Flex align={'center'} className={'print:hidden'} gap={'4'}>
             <HeaderDesktopNavigation items={items} />
             <LocaleSwitcher locale={locale} />
             <HeaderMobileNavigation

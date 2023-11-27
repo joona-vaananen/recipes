@@ -49,6 +49,9 @@
     "homePageLink": "Return to home page",
     "title": "Page not found"
   },
+  "PrintButton": {
+    "label": "Print"
+  },
   "PrivacyPolicy": {
     "cookieDeclaration": "Cookie declaration"
   },

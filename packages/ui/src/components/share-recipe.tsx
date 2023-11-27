@@ -13,7 +13,7 @@ interface ShareRecipeProps extends React.HTMLAttributes<HTMLDivElement> {
   slug: string;
 }
 
-export const ShareRecipe = ({ locale, slug }: ShareRecipeProps) => {
+export const ShareRecipe = ({ locale, slug, ...props }: ShareRecipeProps) => {
   const t = useTranslations('ShareRecipe');
 
   const url = `${BASE_URL}/${locale}${getPathname({
@@ -25,7 +25,7 @@ export const ShareRecipe = ({ locale, slug }: ShareRecipeProps) => {
   })}`;
 
   return (
-    <Flex direction={'column'} gap={'4'}>
+    <Flex direction={'column'} gap={'4'} {...props}>
       <Flex align={'center'} gap={'2'}>
         <Share className={'h-6 w-6'} />
         <Text weight={'bold'}>{t('label')}</Text>

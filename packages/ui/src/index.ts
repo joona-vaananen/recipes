@@ -14,6 +14,7 @@ export {
   LocaleSwitcherPathnames,
   LocaleSwitcherProvider,
   Pinterest,
+  PrintButton,
   RecipeCard,
   RecipeCarousel,
   RecipeSearch,

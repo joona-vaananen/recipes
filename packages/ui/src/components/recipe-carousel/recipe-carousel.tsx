@@ -32,7 +32,8 @@ import { recipeSearchConfig as searchConfig } from '../recipe-search/recipe-sear
 import { ItemListJsonLd } from '../structured-data/item-list-json-ld';
 import { RecipeCarouselClient } from './recipe-carousel-client';
 
-export interface RecipeCarouselProps {
+export interface RecipeCarouselProps
+  extends React.ComponentPropsWithoutRef<typeof Section> {
   categories?: { data: Category[] } | undefined;
   courses?: { data: Course[] } | undefined;
   cuisines?: { data: Cuisine[] } | undefined;
@@ -70,6 +71,7 @@ export const RecipeCarousel = ({
   seasons,
   sort,
   title,
+  ...props
 }: RecipeCarouselProps) => {
   const t = useTranslations('RecipeCarousel');
 
@@ -117,8 +119,8 @@ export const RecipeCarousel = ({
 
   return (
     <>
-      <Section className={'overflow-hidden'} size={'2'}>
-        <Container className={'container'}>
+      <Section className={'overflow-hidden'} size={'2'} {...props}>
+        <Container className={'max-w-full'} px={'4'}>
           <Flex direction={'column'} gap={'4'}>
             <Flex justify={'between'}>
               {title ? (

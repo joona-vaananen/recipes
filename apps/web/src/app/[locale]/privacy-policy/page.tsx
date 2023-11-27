@@ -36,7 +36,7 @@ const PrivacyPolicyPage = async ({ params }: PrivacyPolicyPageProps) => {
       </DynamicZone>
       {COOKIEBOT_ID ? (
         <Section size={'2'}>
-          <Container className={'container'} size={'3'}>
+          <Container className={'max-w-full'} px={'4'} size={'3'}>
             <Heading
               as={'h2'}
               className={'first:mt-0 last:mb-0'}

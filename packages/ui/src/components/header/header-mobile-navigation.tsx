@@ -75,7 +75,7 @@ export const HeaderMobileNavigation = ({
         }
       >
         <Inset clip={'padding-box'}>
-          <Container className={'container'} px={'4'} py={'2'}>
+          <Container className={'max-w-full'} px={'4'} py={'2'}>
             <VisuallyHidden>
               <Dialog.Title>{translations.menuTitle}</Dialog.Title>
             </VisuallyHidden>
@@ -109,7 +109,7 @@ export const HeaderMobileNavigation = ({
             </Flex>
           </Container>
           <Separator size={'4'} />
-          <Container className={'container'} p={'4'}>
+          <Container className={'max-w-full'} p={'4'}>
             <nav className={className} {...props}>
               <Flex asChild direction={'column'} gap={'4'}>
                 <ul>

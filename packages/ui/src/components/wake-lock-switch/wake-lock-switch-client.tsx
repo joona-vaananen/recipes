@@ -5,7 +5,8 @@ import { AlertTriangle } from 'lucide-react';
 import { useState } from 'react';
 import { useWakeLock } from 'react-screen-wake-lock';
 
-interface WakeLockSwitchClientProps {
+interface WakeLockSwitchClientProps
+  extends React.ComponentPropsWithoutRef<typeof Flex> {
   translations: {
     label: string;
     unsupported: string;
@@ -14,6 +15,7 @@ interface WakeLockSwitchClientProps {
 
 export const WakeLockSwitchClient = ({
   translations,
+  ...props
 }: WakeLockSwitchClientProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isUnsupported, setIsUnsupported] = useState(false);
@@ -36,7 +38,7 @@ export const WakeLockSwitchClient = ({
   };
 
   return (
-    <Flex align={'start'} direction={'column'} gap={'4'}>
+    <Flex align={'start'} direction={'column'} gap={'4'} {...props}>
       <Text as={'label'} size={'2'}>
         <Flex gap={'2'}>
           <Switch

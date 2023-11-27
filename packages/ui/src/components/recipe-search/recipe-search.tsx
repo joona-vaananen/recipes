@@ -96,7 +96,7 @@ export const RecipeSearch = ({
     <>
       <RecipeSearchProvider defaultValues={parsedSearchParams}>
         <Section size={'2'}>
-          <Container className={'container'}>
+          <Container className={'max-w-full'} px={'4'}>
             <Flex direction={'column'} gap={'4'}>
               <RecipeSearchTitle
                 hitsPerPage={hitsPerPage}

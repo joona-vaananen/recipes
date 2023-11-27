@@ -8,12 +8,12 @@ import {
   Separator,
   Text,
 } from '@radix-ui/themes';
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 
 import type { Media } from '@recipes/api/src/common/interfaces/Media';
-import { Facebook, Instagram, Pinterest, TikTok, X, YouTube } from './icons';
 import { Link as NextLink } from '../lib/utils/navigation';
+import { Facebook, Instagram, Pinterest, TikTok, X, YouTube } from './icons';
 
 interface FooterProps extends React.HTMLAttributes<HTMLElement> {
   copyright: string;
@@ -28,7 +28,7 @@ export const Footer = ({ copyright, logo, ...props }: FooterProps) => {
   return (
     <footer {...props}>
       <Separator decorative size={'4'} />
-      <Container className={'container'} px={'4'} py={'2'}>
+      <Container className={'max-w-full'} px={'4'} py={'2'}>
         <Grid
           align={'center'}
           columns={{
@@ -65,9 +65,11 @@ export const Footer = ({ copyright, logo, ...props }: FooterProps) => {
           </Flex>
           <Flex align={'center'} gap={'4'} justify={'center'}>
             <Text color={'gray'}>{copyright}</Text>
-            <Separator orientation={'vertical'} />
+            <Separator className={'print:hidden'} orientation={'vertical'} />
             <Link asChild>
-              <NextLink href={'/privacy-policy'}>{t('privacyPolicy')}</NextLink>
+              <NextLink className={'print:hidden'} href={'/privacy-policy'}>
+                {t('privacyPolicy')}
+              </NextLink>
             </Link>
           </Flex>
           <Flex
