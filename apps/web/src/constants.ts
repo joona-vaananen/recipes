@@ -22,6 +22,9 @@ export const ERROR_NAMES = {
 export const GENERATE_STATIC_PARAMS =
   process.env.WEB_GENERATE_STATIC_PARAMS === 'true';
 
+export const GOOGLE_RECAPTCHA_SITE_KEY =
+  process.env.WEB_GOOGLE_RECAPTCHA_SITE_KEY;
+
 export const GOOGLE_TAG_MANAGER_ID = process.env.WEB_GOOGLE_TAG_MANAGER_ID;
 
 export const IS_PRODUCTION = process.env.NODE_ENV === 'production';

@@ -3,6 +3,13 @@
     "comment": "Kommentti",
     "name": "Nimi",
     "rating": "Arvosana",
+    "recaptcha": {
+      "0": "Tämä sivusto on suojattu Googlen reCAPTCHA:lla ja Googlen",
+      "1": "tietosuojakäytäntöä",
+      "2": "sekä",
+      "3": "käyttöehtoja",
+      "4": "sovelletaan."
+    },
     "required": "pakollinen",
     "scoreUnit": "tähteä",
     "serverError": "Jotain meni pieleen! Yritäthän myöhemmin uudelleen.",

@@ -20,19 +20,19 @@ export default factories.createCoreService(
         return [];
       }
 
-      const randomIcons = await strapi
-        .service('api::icon.icon')!
-        .findRandom({ fields: ['id'], limit: CUISINES.length });
+      // const randomIcons = await strapi
+      //   .service('api::icon.icon')!
+      //   .findRandom({ fields: ['id'], limit: CUISINES.length });
 
       const createdCuisines = await Promise.all(
         CUISINES.map(
-          (name, index) =>
+          (name) =>
             strapi.entityService!.create('api::cuisine.cuisine', {
               data: {
                 name,
                 publishedAt: Date.now(),
                 slug: slugify(name),
-                icon: randomIcons[index].id,
+                // icon: randomIcons[index].id,
               },
             }) as unknown as Promise<Cuisine_Plain>
         )

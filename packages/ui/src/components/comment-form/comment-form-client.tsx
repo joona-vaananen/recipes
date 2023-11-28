@@ -5,14 +5,16 @@ import { useFormContext } from 'react-hook-form';
 import { useSWRConfig } from 'swr';
 import { INFINITE_PREFIX } from 'swr/_internal';
 
-import { Button, Callout } from '@radix-ui/themes';
+import { Button, Callout, Link, Text } from '@radix-ui/themes';
 import { AlertTriangle, Loader2 } from 'lucide-react';
 import { fetcher } from '../../lib/utils/fetcher';
 import { useCommentForm } from './comment-form-context';
 import type { CommentFormSchema } from './comment-form-schema';
 
 interface CommentFormClientProps extends React.HTMLAttributes<HTMLFormElement> {
+  recaptchaSiteKey: string;
   translations: {
+    recaptcha: string[];
     serverError: string;
     submit: string;
   };
@@ -20,6 +22,7 @@ interface CommentFormClientProps extends React.HTMLAttributes<HTMLFormElement> {
 
 export const CommentFormClient = ({
   children,
+  recaptchaSiteKey,
   translations,
   ...props
 }: CommentFormClientProps) => {
@@ -31,7 +34,7 @@ export const CommentFormClient = ({
   const { errors, isSubmitting } = formState;
   const { cache, mutate } = useSWRConfig();
 
-  const onSubmit = async (
+  const onSubmit = (
     values: CommentFormSchema,
     event?: React.BaseSyntheticEvent<object, any, any>
   ) => {
@@ -41,45 +44,54 @@ export const CommentFormClient = ({
       return;
     }
 
-    const { error } = (await fetcher(
-      `/api/comments/${recipe}${stringify(
-        { locale },
-        { addQueryPrefix: true, encodeValuesOnly: true }
-      )}`,
-      {
-        body: JSON.stringify(values),
-        headers: { 'Content-Type': 'application/json' },
-        method: 'POST',
-      }
-    )) as { error?: { name: string } };
-
-    if (error) {
-      setError('root.serverError', {
-        message: translations.serverError,
-        type: 'server',
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    grecaptcha.enterprise.ready(async (): Promise<void> => {
+      const token = await grecaptcha.enterprise.execute(recaptchaSiteKey, {
+        action: 'submit_comment',
       });
-    }
 
-    reset({ userId: getValues('userId') });
+      const { error } = (await fetcher(
+        `/api/comments/${recipe}${stringify(
+          { locale },
+          { addQueryPrefix: true, encodeValuesOnly: true }
+        )}`,
+        {
+          body: JSON.stringify({ ...values, token }),
+          headers: { 'Content-Type': 'application/json' },
+          method: 'POST',
+        }
+      )) as { error?: { name: string } };
 
-    Array.from(cache.keys()).forEach((key) => {
-      if (
-        typeof key === 'string' &&
-        (key.startsWith(
-          `${INFINITE_PREFIX}/api/comments/${recipe}${stringify(
-            { locale },
-            { addQueryPrefix: true, encodeValuesOnly: true }
-          )}`
-        ) ||
-          key.startsWith(
-            `/api/ratings/${recipe}${stringify(
+      if (error) {
+        setError('root.serverError', {
+          message: translations.serverError,
+          type: 'server',
+        });
+
+        return;
+      }
+
+      reset({ userId: getValues('userId') });
+
+      Array.from(cache.keys()).forEach((key) => {
+        if (
+          typeof key === 'string' &&
+          (key.startsWith(
+            `${INFINITE_PREFIX}/api/comments/${recipe}${stringify(
               { locale },
               { addQueryPrefix: true, encodeValuesOnly: true }
             )}`
-          ))
-      ) {
-        void mutate(key);
-      }
+          ) ||
+            key.startsWith(
+              `/api/ratings/${recipe}${stringify(
+                { locale },
+                { addQueryPrefix: true, encodeValuesOnly: true }
+              )}`
+            ))
+        ) {
+          void mutate(key);
+        }
+      });
     });
   };
 
@@ -98,6 +110,25 @@ export const CommentFormClient = ({
           <Callout.Text>{errors.root.serverError.message}</Callout.Text>
         </Callout.Root>
       ) : null}
+      <Text>
+        {`${translations.recaptcha[0]} `}
+        <Link
+          href={'https://policies.google.com/privacy'}
+          rel={'noopener noreferrer'}
+          target={'_blank'}
+        >
+          {translations.recaptcha[1]}
+        </Link>
+        {` ${translations.recaptcha[2]} `}
+        <Link
+          href={'https://policies.google.com/terms'}
+          rel={'noopener noreferrer'}
+          target={'_blank'}
+        >
+          {translations.recaptcha[3]}
+        </Link>
+        {` ${translations.recaptcha[4]}`}
+      </Text>
       <Button className={'w-fit'} type={'submit'}>
         {translations.submit}
         {isSubmitting ? <Loader2 className={'h-4 w-4 animate-spin'} /> : null}

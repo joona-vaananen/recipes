@@ -3,3 +3,7 @@
 @import 'tailwindcss/utilities';
 @import '@radix-ui/themes/styles.css';
 @import './theme-config.css';
+
+.grecaptcha-badge {
+  visibility: hidden;
+}

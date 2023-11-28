@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { stringify } from 'qs';
 import * as z from 'zod';
 
 import { ERROR_NAMES } from '@/constants';
@@ -6,9 +7,10 @@ import { apiClient } from '@/lib/api/client';
 import type { APIContentTypes } from '@recipes/api-client';
 import { locales } from '@recipes/ui';
 import {
-  commentFormSchema,
-  type CommentFormSchema,
+  commentFormWithTokenSchema,
+  type CommentFormWithTokenSchema,
 } from '@recipes/ui/src/components/comment-form/comment-form-schema';
+import { fetcher } from '@recipes/ui/src/lib/utils/fetcher';
 
 const paramsSchema = z.object({
   recipe: z.coerce.number(),
@@ -16,6 +18,18 @@ const paramsSchema = z.object({
 
 const searchParamsSchema = z.object({
   locale: z.enum(locales),
+});
+
+const ACTION = 'submit_comment';
+
+const recaptchaAssessmentSchema = z.object({
+  riskAnalysis: z.object({
+    score: z.number().min(0.5),
+  }),
+  tokenProperties: z.object({
+    action: z.literal(ACTION),
+    valid: z.literal(true),
+  }),
 });
 
 interface Context {
@@ -112,11 +126,72 @@ export const postComment = async (request: NextRequest, context: Context) => {
     );
   }
 
-  let parsedValues: CommentFormSchema;
+  let parsedValues: CommentFormWithTokenSchema;
 
   try {
     const values = await request.json();
-    parsedValues = commentFormSchema.parse(values);
+    parsedValues = commentFormWithTokenSchema.parse(values);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const [{ message }] = error.issues;
+
+      return NextResponse.json(
+        { data: null, error: { message, name: ERROR_NAMES.VALIDATION_ERROR } },
+        { status: 400 }
+      );
+    } else {
+      return NextResponse.json(
+        {
+          data: null,
+          error: { message: 'Server error', name: ERROR_NAMES.SERVER_ERROR },
+        },
+        { status: 500 }
+      );
+    }
+  }
+
+  let recaptchaAssessment: {
+    riskAnalysis: {
+      score: number;
+    };
+    tokenProperties: {
+      action: string;
+      valid: boolean;
+    };
+  };
+
+  try {
+    recaptchaAssessment = await fetcher(
+      `https://recaptchaenterprise.googleapis.com/v1/projects/${
+        process.env.WEB_GOOGLE_CLOUD_PROJECT_ID
+      }/assessments${stringify(
+        { key: process.env.WEB_GOOGLE_RECAPTCHA_API_KEY },
+        { addQueryPrefix: true, encodeValuesOnly: true }
+      )}`,
+      {
+        body: JSON.stringify({
+          event: {
+            expectedAction: ACTION,
+            siteKey: process.env.WEB_GOOGLE_RECAPTCHA_SITE_KEY,
+            token: parsedValues.token,
+          },
+        }),
+        headers: { 'Content-Type': 'application/json' },
+        method: 'POST',
+      }
+    );
+  } catch {
+    return NextResponse.json(
+      {
+        data: null,
+        error: { message: 'Server error', name: ERROR_NAMES.SERVER_ERROR },
+      },
+      { status: 500 }
+    );
+  }
+
+  try {
+    recaptchaAssessmentSchema.parse(recaptchaAssessment);
   } catch (error) {
     if (error instanceof z.ZodError) {
       const [{ message }] = error.issues;

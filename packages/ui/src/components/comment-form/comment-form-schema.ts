@@ -8,3 +8,10 @@ export const commentFormSchema = z.object({
 });
 
 export type CommentFormSchema = z.infer<typeof commentFormSchema>;
+
+export const commentFormWithTokenSchema = commentFormSchema.extend({
+  token: z.string().min(1),
+});
+
+export type CommentFormWithTokenSchema = z.infer<typeof commentFormWithTokenSchema>;
+

@@ -3,6 +3,13 @@
     "comment": "Comment",
     "name": "Name",
     "rating": "Rating",
+    "recaptcha": {
+      "0": "This site is protected by reCAPTCHA and the Google",
+      "1": "Privacy Policy",
+      "2": "and",
+      "3": "Terms of Service",
+      "4": "apply."
+    },
     "required": "required",
     "scoreUnit": "stars",
     "serverError": "Something went wrong! Please try again later.",

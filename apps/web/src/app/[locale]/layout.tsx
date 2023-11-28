@@ -5,11 +5,14 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, unstable_setRequestLocale } from 'next-intl/server';
 import { Raleway, Roboto_Slab } from 'next/font/google';
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
+import { stringify } from 'qs';
 import { Suspense } from 'react';
 
 import {
   BASE_URL,
   GENERATE_STATIC_PARAMS,
+  GOOGLE_RECAPTCHA_SITE_KEY,
   GOOGLE_TAG_MANAGER_ID,
   SITE_NAME,
   TIME_ZONE,
@@ -85,6 +88,18 @@ const Layout = async ({ children, params }: LayoutProps) => {
         </UserProvider>
         {GOOGLE_TAG_MANAGER_ID ? (
           <GoogleTagManager gtmId={GOOGLE_TAG_MANAGER_ID} />
+        ) : null}
+        {GOOGLE_RECAPTCHA_SITE_KEY ? (
+          <Script
+            src={`https://www.google.com/recaptcha/enterprise.js${stringify(
+              {
+                hl: locale,
+                render: GOOGLE_RECAPTCHA_SITE_KEY,
+              },
+              { addQueryPrefix: true, encodeValuesOnly: true }
+            )}`}
+            strategy={'lazyOnload'}
+          />
         ) : null}
         <Suspense fallback={null}>
           <NavigationEvents />

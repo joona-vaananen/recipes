@@ -24,21 +24,21 @@ const httpClient = async (
 const meiliSearchConfigSchema = z
   .object({
     host: z.string().min(1),
-    masterKey: z.string().min(1),
+    apiKey: z.string().min(1),
     port: z
       .union([z.string(), z.number()])
       .pipe(z.coerce.number().gte(0).lte(65_535)),
     protocol: z.string().min(1),
   })
-  .transform(({ host, masterKey, port, protocol }) => ({
-    apiKey: masterKey,
+  .transform(({ host, apiKey, port, protocol }) => ({
+    apiKey: apiKey,
     host: `${protocol}://${host}:${port}`,
     httpClient,
   }));
 
 const config = meiliSearchConfigSchema.parse({
   host: process.env.SEARCH_HOST,
-  masterKey: process.env.SEARCH_MASTER_KEY,
+  apiKey: process.env.SEARCH_API_KEY,
   port: process.env.SEARCH_PORT,
   protocol: process.env.SEARCH_PROTOCOL,
 });

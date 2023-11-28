@@ -15,4 +15,7 @@ export const ERROR_NAMES = {
   VALIDATION_ERROR: 'ValidationError',
 };
 
+export const GOOGLE_RECAPTCHA_SITE_KEY =
+  process.env.WEB_GOOGLE_RECAPTCHA_SITE_KEY ?? '';
+
 export const SITE_NAME = 'Olisipa';

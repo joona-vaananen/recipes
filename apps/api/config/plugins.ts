@@ -1,7 +1,7 @@
 const plugins = ({ env }: { env: any }) => ({
   meilisearch: {
     config: {
-      apiKey: env('SEARCH_MASTER_KEY'),
+      apiKey: env('SEARCH_ADMIN_API_KEY'),
       host: `${env('SEARCH_PROTOCOL')}://${env('SEARCH_HOST')}:${env(
         'SEARCH_PORT'
       )}`,
