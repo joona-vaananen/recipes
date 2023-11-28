@@ -44,6 +44,7 @@ interface LayoutProps {
   params: { locale: string };
 }
 
+// TODO: Add dark mode switch, might need to adjust colors and print styles
 const Layout = async ({ children, params }: LayoutProps) => {
   if (!locales.some((locale) => locale === params.locale)) {
     notFound();
