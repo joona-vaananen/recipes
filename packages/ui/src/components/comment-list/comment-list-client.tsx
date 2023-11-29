@@ -107,40 +107,52 @@ export const CommentListClient = ({
                       <Flex direction={'column'} gap={'2'}>
                         {comment.attributes.user?.data ? (
                           <Flex align={'center'} gap={'2'}>
-                            {comment.attributes.user.data.attributes.avatar
-                              ?.data ? (
+                            {(
+                              comment.attributes.user.data.attributes
+                                .avatar as any
+                            )?.data ? (
                               <Image
                                 alt={
-                                  comment.attributes.user.data.attributes.avatar
-                                    .data.attributes.alternativeText ?? ''
+                                  (
+                                    comment.attributes.user.data.attributes
+                                      .avatar as any
+                                  ).data.attributes.alternativeText ?? ''
                                 }
                                 blurDataURL={
                                   'placeholder' in
-                                  comment.attributes.user.data.attributes.avatar
+                                  comment.attributes.user.data.attributes
+                                    .avatar!
                                     ? (comment.attributes.user.data.attributes
                                         .avatar.placeholder as string)
                                     : undefined
                                 }
                                 className={'h-7 w-auto'}
                                 height={
-                                  comment.attributes.user.data.attributes.avatar
-                                    .data.attributes.height
+                                  (
+                                    comment.attributes.user.data.attributes
+                                      .avatar as any
+                                  ).data.attributes.height
                                 }
                                 placeholder={
                                   'placeholder' in
-                                  comment.attributes.user.data.attributes.avatar
+                                  comment.attributes.user.data.attributes
+                                    .avatar!
                                     ? 'blur'
                                     : 'empty'
                                 }
                                 priority
                                 quality={100}
                                 src={
-                                  comment.attributes.user.data.attributes.avatar
-                                    .data.attributes.url
+                                  (
+                                    comment.attributes.user.data.attributes
+                                      .avatar as any
+                                  ).data.attributes.url
                                 }
                                 width={
-                                  comment.attributes.user.data.attributes.avatar
-                                    .data.attributes.width
+                                  (
+                                    comment.attributes.user.data.attributes
+                                      .avatar as any
+                                  ).data.attributes.width
                                 }
                               />
                             ) : null}
