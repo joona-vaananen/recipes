@@ -114,6 +114,9 @@
   "SimilarRecipeCarousel": {
     "title": "Similar recipes"
   },
+  "ThemeSwitcher": {
+    "toggle": "Toggle theme"
+  },
   "WakeLockSwitch": {
     "label": "Keep screen on",
     "unsupported": "This feature is not supported in your browser."

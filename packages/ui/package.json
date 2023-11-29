@@ -15,6 +15,7 @@
     "lodash.debounce": "4.0.8",
     "lodash.throttle": "4.1.1",
     "lucide-react": "0.287.0",
+    "next-themes": "0.2.1",
     "qs": "6.11.2",
     "react-hook-form": "7.47.0",
     "react-screen-wake-lock": "3.0.2",

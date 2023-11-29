@@ -35,7 +35,7 @@ export const RecipeTime = ({
       {...props}
     >
       <Flex align={'center'} gap={'2'}>
-        <Timer className={'h-6 w-6'} />
+        <Timer className={'h-5 w-5'} />
         <Text weight={'bold'}>{t('time')}</Text>
       </Flex>
       <Grid

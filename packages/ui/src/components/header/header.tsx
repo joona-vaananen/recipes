@@ -3,9 +3,10 @@ import Image from 'next/image';
 
 import type { Media } from '@recipes/api/src/common/interfaces/Media';
 import { useTranslations } from 'next-intl';
-import { HeaderDesktopNavigation } from '.';
-import { LocaleSwitcher } from '..';
 import { Link as NextLink } from '../../lib/utils/navigation';
+import { LocaleSwitcher } from '../locale-switcher';
+import { ThemeSwitcher } from '../theme-switcher';
+import { HeaderDesktopNavigation } from './header-desktop-navigation';
 import { HeaderMobileNavigation } from './header-mobile-navigation';
 
 interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
@@ -45,6 +46,7 @@ export const Header = ({ items, locale, logo, ...props }: HeaderProps) => {
           <Flex align={'center'} className={'print:hidden'} gap={'4'}>
             <HeaderDesktopNavigation items={items} />
             <LocaleSwitcher locale={locale} />
+            <ThemeSwitcher />
             <HeaderMobileNavigation
               items={items}
               logo={logo}

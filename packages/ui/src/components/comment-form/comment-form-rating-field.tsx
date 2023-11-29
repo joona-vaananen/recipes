@@ -51,7 +51,7 @@ export const CommentFormRatingField = ({
             <AccessibleIcon label={`${index + 1}/5 ${translations.scoreUnit}`}>
               <Star
                 className={cn({
-                  'h-6 w-6': true,
+                  'h-5 w-5': true,
                   'fill-accent-9 stroke-accent-9':
                     typeof value === 'number' && value > index,
                 })}

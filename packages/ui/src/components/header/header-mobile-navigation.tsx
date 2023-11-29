@@ -65,7 +65,7 @@ export const HeaderMobileNavigation = ({
       <Dialog.Trigger className={'md:hidden'}>
         <IconButton variant={'ghost'}>
           <AccessibleIcon label={translations.openMenu}>
-            <Menu className={'h-6 w-6'} />
+            <Menu className={'h-5 w-5'} />
           </AccessibleIcon>
         </IconButton>
       </Dialog.Trigger>
@@ -102,7 +102,7 @@ export const HeaderMobileNavigation = ({
               <Dialog.Close>
                 <IconButton variant={'ghost'}>
                   <AccessibleIcon label={translations.closeMenu}>
-                    <X className={'h-6 w-6'} />
+                    <X className={'h-5 w-5'} />
                   </AccessibleIcon>
                 </IconButton>
               </Dialog.Close>

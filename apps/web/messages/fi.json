@@ -114,6 +114,9 @@
   "SimilarRecipeCarousel": {
     "title": "Samankaltaisia reseptejä"
   },
+  "ThemeSwitcher": {
+    "toggle": "Vaihda teemaa"
+  },
   "WakeLockSwitch": {
     "label": "Pidä ruutu päällä",
     "unsupported": "Tämä ominaisuus ei ole tuettu selaimessasi."

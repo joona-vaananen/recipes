@@ -102,7 +102,8 @@ export const RecipeTags = ({
     (!Array.isArray(courses?.data) || courses!.data.length === 0) &&
     (!Array.isArray(cuisines?.data) || cuisines!.data.length === 0) &&
     (!Array.isArray(diets?.data) || diets!.data.length === 0) &&
-    (!Array.isArray(mainIngredients?.data) || mainIngredients!.data.length === 0) &&
+    (!Array.isArray(mainIngredients?.data) ||
+      mainIngredients!.data.length === 0) &&
     (!Array.isArray(mealTypes?.data) || mealTypes!.data.length === 0) &&
     (!Array.isArray(methods?.data) || methods!.data.length === 0) &&
     (!Array.isArray(seasons?.data) || seasons!.data.length === 0)
@@ -119,7 +120,7 @@ export const RecipeTags = ({
       {...props}
     >
       <Flex align={'center'} gap={'2'}>
-        <Hash className={'h-6 w-6'} />
+        <Hash className={'h-5 w-5'} />
         <Text weight={'bold'}>{t('tags')}</Text>
       </Flex>
       <Grid

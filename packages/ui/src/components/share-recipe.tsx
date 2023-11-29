@@ -27,7 +27,7 @@ export const ShareRecipe = ({ locale, slug, ...props }: ShareRecipeProps) => {
   return (
     <Flex direction={'column'} gap={'4'} {...props}>
       <Flex align={'center'} gap={'2'}>
-        <Share className={'h-6 w-6'} />
+        <Share className={'h-5 w-5'} />
         <Text weight={'bold'}>{t('label')}</Text>
       </Flex>
       <Flex gap={'4'} wrap={'wrap'}>

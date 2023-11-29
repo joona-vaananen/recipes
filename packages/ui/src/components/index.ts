@@ -23,6 +23,7 @@ export * from './scroll-to';
 export * from './share-recipe';
 export * from './similar-recipe-carousel';
 export * from './structured-data';
+export * from './theme-switcher';
 export * from './unordered-list';
 export * from './user-context';
 export * from './wake-lock-switch';
