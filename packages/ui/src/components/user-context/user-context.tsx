@@ -1,5 +1,6 @@
 'use client';
 
+import { sendGTMEvent } from '@next/third-parties/google';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
@@ -32,6 +33,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     }
 
     setUserId(userId);
+    sendGTMEvent({ user_id: userId });
   }, []);
 
   return (

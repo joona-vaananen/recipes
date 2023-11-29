@@ -29,6 +29,7 @@ export {
   X,
   YouTube,
   commentFormSchema,
+  useUser,
   type CommentFormSchema,
 } from './components';
 export {

@@ -5,6 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import { useSWRConfig } from 'swr';
 import { INFINITE_PREFIX } from 'swr/_internal';
 
+import { sendGTMEvent } from '@next/third-parties/google';
 import { Button, Callout, Link, Text } from '@radix-ui/themes';
 import { AlertTriangle, Loader2 } from 'lucide-react';
 import { fetcher } from '../../lib/utils/fetcher';
@@ -70,6 +71,13 @@ export const CommentFormClient = ({
 
         return;
       }
+
+      sendGTMEvent({
+        event: 'submit_comment',
+        locale,
+        rating: values.rating,
+        recipe,
+      });
 
       reset({ userId: getValues('userId') });
 
