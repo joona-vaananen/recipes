@@ -83,7 +83,7 @@ export const Hero = ({
             />
             <div
               className={
-                'absolute left-0 top-0 -z-10 h-full w-full bg-gradient-to-b from-transparent to-accent-1 print:hidden'
+                'absolute left-0 top-0 -z-10 h-full w-full bg-gradient-to-b from-transparent to-mauve-1 print:hidden'
               }
             />
           </>

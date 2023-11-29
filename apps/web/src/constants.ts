@@ -31,6 +31,6 @@ export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
 export const SITE_NAME = 'Olisipa';
 
-export const TIME_ZONE = process.env.WEB_TIME_ZONE;
+export const TIME_ZONE = process.env.WEB_TIME_ZONE || 'fi';
 
 export const TOKEN = process.env.WEB_TOKEN;

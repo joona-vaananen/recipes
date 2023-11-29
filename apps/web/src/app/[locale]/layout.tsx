@@ -5,7 +5,12 @@ import { Raleway, Roboto_Slab } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
-import { BASE_URL, GENERATE_STATIC_PARAMS, SITE_NAME } from '@/constants';
+import {
+  BASE_URL,
+  GENERATE_STATIC_PARAMS,
+  SITE_NAME,
+  TIME_ZONE,
+} from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { cn, locales } from '@recipes/ui';
 import { Footer, Header } from '@recipes/ui/src/components';
@@ -55,6 +60,7 @@ const Layout = async ({ children, params }: LayoutProps) => {
         <Providers
           locale={locale}
           messages={(({ Error }) => ({ Error }))(messages)}
+          timeZone={TIME_ZONE}
         >
           <Flex className={'min-h-screen'} direction={'column'}>
             <Header
