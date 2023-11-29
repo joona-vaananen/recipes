@@ -95,14 +95,14 @@ export const RecipeRatingClient = ({
             ))}
             {starCount % 1 > 0 ? (
               <Box className={'relative h-4 w-4'}>
-                <Star className={'absolute h-4 w-4'} />
+                <Star className={'absolute h-4 w-4 stroke-gray-12'} />
                 <StarHalf
                   className={'absolute h-4 w-4 fill-accent-9 stroke-accent-9'}
                 />
               </Box>
             ) : null}
             {Array.from({ length: 5 - Math.ceil(starCount) }, (_, index) => (
-              <Star className={'h-4 w-4'} key={index} />
+              <Star className={'h-4 w-4 stroke-gray-12'} key={index} />
             ))}
           </Flex>
           <VisuallyHidden>{translations.jumpToCommentForm}</VisuallyHidden>

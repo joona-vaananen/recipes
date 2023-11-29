@@ -2,6 +2,7 @@
 
 import { AccessibleIcon, Flex, Text } from '@radix-ui/themes';
 import { Star } from 'lucide-react';
+import { useState } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 
 import { cn } from '../..';
@@ -17,6 +18,7 @@ interface CommentFormRatingFieldProps {
 export const CommentFormRatingField = ({
   translations,
 }: CommentFormRatingFieldProps) => {
+  const [hoverIndex, setHoverIndex] = useState(-1);
   const { control, setValue } = useFormContext<CommentFormSchema>();
   const { field } = useController({ name: 'rating', control });
   const { disabled, name, onBlur, ref, value } = field;
@@ -45,6 +47,8 @@ export const CommentFormRatingField = ({
             name={name}
             onBlur={onBlur}
             onClick={(event) => onClick(event, index + 1)}
+            onMouseOut={() => setHoverIndex(-1)}
+            onMouseOver={() => setHoverIndex(index)}
             ref={ref}
             type={'button'}
           >
@@ -53,7 +57,9 @@ export const CommentFormRatingField = ({
                 className={cn({
                   'h-5 w-5': true,
                   'fill-accent-9 stroke-accent-9':
-                    typeof value === 'number' && value > index,
+                    hoverIndex >= 0
+                      ? hoverIndex >= index
+                      : typeof value === 'number' && value > index,
                 })}
               />
             </AccessibleIcon>
