@@ -26,7 +26,7 @@ export const Hero = ({
       <Section
         position={'relative'}
         className={cn(
-          'min-h-[50vh] print:min-h-[auto] print:pb-0 print:pt-10',
+          'h-[calc(100vh-73px)] print:h-[auto] print:max-h-none print:pb-0 print:pt-10 md:h-[calc((100vh-73px)/2)] md:max-h-[503.5px]',
           className
         )}
         {...props}
@@ -61,7 +61,7 @@ export const Hero = ({
           <>
             <Image
               className={
-                'absolute left-0 top-0 -z-20 h-full w-full object-cover print:hidden'
+                'absolute left-0 right-0 top-0 -z-20 mx-auto h-full w-full max-w-[1640px] object-cover print:hidden'
               }
               src={backgroundImage.data.attributes.url}
               alt={''}
@@ -83,7 +83,7 @@ export const Hero = ({
             />
             <div
               className={
-                'absolute left-0 top-0 -z-10 h-full w-full bg-gradient-to-b from-transparent to-mauve-1 print:hidden'
+                'absolute left-0 right-0 top-0 -z-10 mx-auto h-full w-full max-w-[1640px] bg-gradient-to-b from-transparent to-mauve-1 print:hidden'
               }
             />
           </>
