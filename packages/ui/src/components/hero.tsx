@@ -24,11 +24,14 @@ export const Hero = ({
   const hero = (
     <Flex asChild align={'center'}>
       <Section
+        className={cn({
+          'print:pb-0 print:pt-10': true,
+          'h-[calc(100vh-73px)] print:h-[auto] print:max-h-none md:h-[calc((100vh-73px)/2)] md:max-h-[503.5px]':
+            !!backgroundImage?.data,
+          ...(className ? { [className]: true } : undefined),
+        })}
         position={'relative'}
-        className={cn(
-          'h-[calc(100vh-73px)] print:h-[auto] print:max-h-none print:pb-0 print:pt-10 md:h-[calc((100vh-73px)/2)] md:max-h-[503.5px]',
-          className
-        )}
+        size={'2'}
         {...props}
       >
         <Flex align={'center'} height={'100%'} width={'100%'}>
