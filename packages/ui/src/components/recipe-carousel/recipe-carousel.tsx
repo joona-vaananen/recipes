@@ -49,8 +49,8 @@ export interface RecipeCarouselProps
   sort?:
     | 'average-rating-asc'
     | 'average-rating-desc'
-    | 'created-at-asc'
-    | 'created-at-desc'
+    | 'published-at-asc'
+    | 'published-at-desc'
     | 'title-asc'
     | 'title-desc';
   title?: string;
@@ -107,7 +107,9 @@ export const RecipeCarousel = ({
           ),
           hitsPerPage: limit ?? 15,
           page: 1,
-          sort: buildSearchSort(sort, searchConfig.sort) ?? ['createdAt:desc'],
+          sort: buildSearchSort(sort, searchConfig.sort) ?? [
+            'publishedAt:desc',
+          ],
         },
         { next: { revalidate: 600 } } as any
       )

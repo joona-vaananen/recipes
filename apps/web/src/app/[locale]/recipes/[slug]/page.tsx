@@ -183,7 +183,7 @@ const Page = ({ params }: PageProps) => {
         className={'print:hidden'}
         cuisines={recipe.attributes.cuisines}
         locale={locale}
-        recipeId={recipe.id}
+        recipe={recipe.id}
         searchClient={searchClient}
       />
       <Container className={'max-w-full print:hidden'} px={'4'}>
@@ -198,7 +198,7 @@ const Page = ({ params }: PageProps) => {
           <CommentForm
             anchor={t('ratingAnchor')}
             locale={locale}
-            recipe={recipe.id}
+            recipe={recipe}
           />
         </Grid>
         <CommentList
@@ -245,7 +245,7 @@ export const generateStaticParams = GENERATE_STATIC_PARAMS
             fields: ['id', 'slug'],
             locale,
             pagination: { limit: 100 },
-            sort: 'createdAt:desc',
+            sort: 'publishedAt:desc',
           },
         },
         { cache: 'no-store' }

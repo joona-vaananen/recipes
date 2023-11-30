@@ -104,7 +104,7 @@ export const generateStaticParams = GENERATE_STATIC_PARAMS
             fields: ['id', 'slug'],
             locale,
             pagination: { limit: 100 },
-            sort: 'createdAt:desc',
+            sort: 'publishedAt:desc',
           },
         },
         { cache: 'no-store' }

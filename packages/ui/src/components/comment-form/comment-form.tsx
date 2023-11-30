@@ -11,7 +11,12 @@ import { CommentFormRatingField } from './comment-form-rating-field';
 interface CommentFormProps {
   anchor: string;
   locale: string;
-  recipe: number;
+  recipe: {
+    attributes: {
+      title: string;
+    };
+    id: number;
+  };
 }
 
 export const CommentForm = ({ anchor, locale, recipe }: CommentFormProps) => {

@@ -14,7 +14,7 @@ export const recipeSearchConfig = {
   },
   sort: {
     'average-rating': { field: 'averageRating' },
-    'created-at': { field: 'createdAt' },
+    'published-at': { field: 'publishedAt' },
     title: { field: 'title' },
   },
 };

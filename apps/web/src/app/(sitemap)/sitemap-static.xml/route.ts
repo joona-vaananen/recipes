@@ -12,11 +12,11 @@ export const GET = async () => {
       {
         contentType: 'home-page',
         parameters: {
-          fields: ['createdAt', 'locale', 'updatedAt'],
+          fields: ['locale', 'publishedAt', 'updatedAt'],
           locale: 'all',
           populate: {
             localizations: {
-              fields: ['createdAt', 'locale', 'updatedAt'],
+              fields: ['locale', 'publishedAt', 'updatedAt'],
             },
           },
         },
@@ -27,11 +27,11 @@ export const GET = async () => {
       {
         contentType: 'recipe-search-page',
         parameters: {
-          fields: ['createdAt', 'locale', 'updatedAt'],
+          fields: ['locale', 'publishedAt', 'updatedAt'],
           locale: 'all',
           populate: {
             localizations: {
-              fields: ['createdAt', 'locale', 'updatedAt'],
+              fields: ['locale', 'publishedAt', 'updatedAt'],
             },
           },
         },
@@ -65,7 +65,7 @@ const generateUrls = (pages: Page[], pathname: string) => {
   <lastmod>${
     (
       (page.attributes.updatedAt as unknown as string | undefined) ??
-      (page.attributes.createdAt as unknown as string)
+      (page.attributes.publishedAt as unknown as string)
     ).split('T')[0]
   }</lastmod>
   ${generateAlternates(page, pathname)}

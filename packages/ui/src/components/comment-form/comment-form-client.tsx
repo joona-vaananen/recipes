@@ -7,6 +7,7 @@ import { INFINITE_PREFIX } from 'swr/_internal';
 
 import { sendGTMEvent } from '@next/third-parties/google';
 import { Button, Callout, Link, Text } from '@radix-ui/themes';
+import type { APIContentTypes } from '@recipes/api-client';
 import { AlertTriangle, Loader2 } from 'lucide-react';
 import { fetcher } from '../../lib/utils/fetcher';
 import { useCommentForm } from './comment-form-context';
@@ -35,7 +36,7 @@ export const CommentFormClient = ({
   const { errors, isSubmitting } = formState;
   const { cache, mutate } = useSWRConfig();
 
-  const onSubmit = (
+  const onSubmit = async (
     values: CommentFormSchema,
     event?: React.BaseSyntheticEvent<object, any, any>
   ) => {
@@ -45,60 +46,71 @@ export const CommentFormClient = ({
       return;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    grecaptcha.enterprise.ready(async (): Promise<void> => {
-      const token = await grecaptcha.enterprise.execute(recaptchaSiteKey, {
-        action: 'submit_comment',
-      });
+    await new Promise<void>((resolve, reject) => {
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      grecaptcha.enterprise.ready(async (): Promise<void> => {
+        let data: APIContentTypes['comments'] | null = null;
+        let error: { name: string } | undefined = undefined;
 
-      const { error } = (await fetcher(
-        `/api/comments/${recipe}${stringify(
-          { locale },
-          { addQueryPrefix: true, encodeValuesOnly: true }
-        )}`,
-        {
-          body: JSON.stringify({ ...values, token }),
-          headers: { 'Content-Type': 'application/json' },
-          method: 'POST',
-        }
-      )) as { error?: { name: string } };
+        try {
+          const token = await grecaptcha.enterprise.execute(recaptchaSiteKey, {
+            action: 'submit_comment',
+          });
 
-      if (error) {
-        setError('root.serverError', {
-          message: translations.serverError,
-          type: 'server',
-        });
-
-        return;
-      }
-
-      sendGTMEvent({
-        event: 'submit_comment',
-        locale,
-        rating: values.rating,
-        recipe,
-      });
-
-      reset({ userId: getValues('userId') });
-
-      Array.from(cache.keys()).forEach((key) => {
-        if (
-          typeof key === 'string' &&
-          (key.startsWith(
-            `${INFINITE_PREFIX}/api/comments/${recipe}${stringify(
+          ({ data, error } = await fetcher(
+            `/api/comments/${recipe.id}${stringify(
               { locale },
               { addQueryPrefix: true, encodeValuesOnly: true }
-            )}`
-          ) ||
-            key.startsWith(
-              `/api/ratings/${recipe}${stringify(
+            )}`,
+            {
+              body: JSON.stringify({ ...values, token }),
+              headers: { 'Content-Type': 'application/json' },
+              method: 'POST',
+            }
+          ));
+        } catch {}
+
+        if (!data || error) {
+          setError('root.serverError', {
+            message: translations.serverError,
+            type: 'server',
+          });
+
+          reject();
+
+          return;
+        }
+
+        sendGTMEvent({
+          event: 'submit_comment',
+          locale,
+          rating: values.rating,
+          recipe: recipe.attributes.title,
+        });
+
+        reset({ userId: getValues('userId') });
+
+        Array.from(cache.keys()).forEach((key) => {
+          if (
+            typeof key === 'string' &&
+            (key.startsWith(
+              `${INFINITE_PREFIX}/api/comments/${recipe.id}${stringify(
                 { locale },
                 { addQueryPrefix: true, encodeValuesOnly: true }
               )}`
-            ))
-        ) {
-          void mutate(key);
-        }
+            ) ||
+              key.startsWith(
+                `/api/ratings/${recipe.id}${stringify(
+                  { locale },
+                  { addQueryPrefix: true, encodeValuesOnly: true }
+                )}`
+              ))
+          ) {
+            void mutate(key);
+          }
+        });
+
+        resolve();
       });
     });
   };

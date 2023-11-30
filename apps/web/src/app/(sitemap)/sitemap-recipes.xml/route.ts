@@ -8,11 +8,11 @@ export const GET = async () => {
     {
       contentType: 'recipes',
       parameters: {
-        fields: ['createdAt', 'id', 'locale', 'slug', 'updatedAt'],
+        fields: ['id', 'locale', 'slug', 'publishedAt', 'updatedAt'],
         locale: 'all',
         populate: {
           localizations: {
-            fields: ['createdAt', 'id', 'locale', 'slug', 'updatedAt'],
+            fields: ['id', 'locale', 'slug', 'publishedAt', 'updatedAt'],
           },
         },
       },
@@ -46,7 +46,7 @@ const generateUrls = (recipes: Recipe[]) => {
   <lastmod>${
     (
       (recipe.attributes.updatedAt as unknown as string | undefined) ??
-      (recipe.attributes.createdAt as unknown as string)
+      (recipe.attributes.publishedAt as unknown as string)
     ).split('T')[0]
   }</lastmod>
   ${generateAlternates(recipe)}

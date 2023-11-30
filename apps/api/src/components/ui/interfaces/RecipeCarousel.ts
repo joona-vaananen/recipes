@@ -33,8 +33,8 @@ import {
 export enum Sort {
   AverageRatingAsc = 'average-rating-asc',
   AverageRatingDesc = 'average-rating-desc',
-  CreatedAtAsc = 'created-at-asc',
-  CreatedAtDesc = 'created-at-desc',
+  PublishedAtAsc = 'published-at-asc',
+  PublishedAtDesc = 'published-at-desc',
   TitleAsc = 'title-asc',
   TitleDesc = 'title-desc',
 }

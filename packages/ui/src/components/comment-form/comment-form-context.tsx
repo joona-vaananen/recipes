@@ -11,13 +11,14 @@ import {
 } from './comment-form-schema';
 
 const CommentFormContext = createContext<
-  { locale: string; recipe: number } | undefined
+  | { locale: string; recipe: { attributes: { title: string }; id: number } }
+  | undefined
 >(undefined);
 
 interface CommentFormProviderProps {
   children: React.ReactNode;
   locale: string;
-  recipe: number;
+  recipe: { attributes: { title: string }; id: number };
 }
 
 export const CommentFormProvider = ({

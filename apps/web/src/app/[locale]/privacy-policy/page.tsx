@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
+import { use } from 'react';
 
 import { COOKIEBOT_ID } from '@/constants';
 import { apiClient } from '@/lib/api/client';
@@ -14,14 +15,14 @@ interface PrivacyPolicyPageProps {
   params: { locale: string };
 }
 
-const PrivacyPolicyPage = async ({ params }: PrivacyPolicyPageProps) => {
+const PrivacyPolicyPage = ({ params }: PrivacyPolicyPageProps) => {
   const { locale } = params;
 
   unstable_setRequestLocale(locale);
 
   const t = useTranslations('PrivacyPolicy');
 
-  const privacyPolicyPage = await getPrivacyPolicyPageData({ params });
+  const privacyPolicyPage = use(getPrivacyPolicyPageData({ params }));
 
   return (
     <>

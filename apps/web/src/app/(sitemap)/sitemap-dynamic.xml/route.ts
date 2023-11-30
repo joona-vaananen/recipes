@@ -7,11 +7,11 @@ export const GET = async () => {
     {
       contentType: 'pages',
       parameters: {
-        fields: ['createdAt', 'id', 'locale', 'slug', 'updatedAt'],
+        fields: ['id', 'locale', 'publishedAt', 'slug', 'updatedAt'],
         locale: 'all',
         populate: {
           localizations: {
-            fields: ['createdAt', 'id', 'locale', 'slug', 'updatedAt'],
+            fields: ['id', 'locale', 'publishedAt', 'slug', 'updatedAt'],
           },
         },
       },
@@ -45,7 +45,7 @@ const generateUrls = (pages: Page[]) => {
   <lastmod>${
     (
       (page.attributes.updatedAt as unknown as string | undefined) ??
-      (page.attributes.createdAt as unknown as string)
+      (page.attributes.publishedAt as unknown as string)
     ).split('T')[0]
   }</lastmod>
   ${generateAlternates(page)}

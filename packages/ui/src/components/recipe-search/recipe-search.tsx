@@ -77,7 +77,7 @@ export const RecipeSearch = ({
           sort: buildSearchSort(
             parsedSort ?? sortOrder?.options[0].value,
             searchConfig.sort
-          ) ?? ['createdAt:desc'],
+          ) ?? ['publishedAt:desc'],
         },
         { next: { revalidate: 600 } } as any
       )

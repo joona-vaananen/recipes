@@ -6,20 +6,20 @@ interface SimilarRecipeCarouselProps
     React.ComponentPropsWithoutRef<typeof RecipeCarousel>,
     'initialFilters' | 'title'
   > {
-  recipeId: number;
+  recipe: number;
 }
 
 export const SimilarRecipeCarousel = ({
   categories,
   cuisines,
-  recipeId,
+  recipe,
   locale,
   searchClient,
   ...props
 }: SimilarRecipeCarouselProps) => {
   const t = useTranslations('SimilarRecipeCarousel');
 
-  const initialFilters = [`NOT id IN ["${recipeId}"]`];
+  const initialFilters = [`NOT id IN ["${recipe}"]`];
 
   return (
     <RecipeCarousel

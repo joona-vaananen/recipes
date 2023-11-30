@@ -16,8 +16,8 @@
       "enum": [
         "average-rating-asc",
         "average-rating-desc",
-        "created-at-asc",
-        "created-at-desc",
+        "published-at-asc",
+        "published-at-desc",
         "title-asc",
         "title-desc"
       ],
