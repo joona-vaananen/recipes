@@ -94,8 +94,8 @@ export const metadata: Metadata = {
   },
 };
 
-// TODO: Disable for production
-export const dynamic = 'force-dynamic';
+// Force dynamic for local development
+// export const dynamic = 'force-dynamic';
 
 export const generateStaticParams = GENERATE_STATIC_PARAMS
   ? () => {
