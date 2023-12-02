@@ -86,7 +86,7 @@ export const Hero = ({
             />
             <div
               className={
-                'absolute left-0 right-0 top-0 -z-10 mx-auto h-full w-full max-w-[1640px] bg-gradient-to-b from-transparent to-mauve-1 print:hidden'
+                'absolute left-0 right-0 top-0 -z-10 mx-auto h-full w-full max-w-[1640px] bg-gradient-to-b from-transparent to-[var(--color-page-background)] print:hidden'
               }
             />
           </>
