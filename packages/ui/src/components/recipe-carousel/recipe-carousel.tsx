@@ -23,8 +23,9 @@ import type { Season } from '@recipes/api/src/api/season/content-types/season/se
 import type { Media } from '@recipes/api/src/common/interfaces/Media';
 import { ArrowRight } from 'lucide-react';
 import { BASE_URL, BREAKPOINTS } from '../../constants';
-import { buildSearchFilter } from '../../lib';
+import { buildSearchFilter } from '../../lib/utils/build-search-filter';
 import { buildSearchSort } from '../../lib/utils/build-search-sort';
+import { cn } from '../../lib/utils/cn';
 import { Link, getPathname, type Locale } from '../../lib/utils/navigation';
 import { resolveSearchParams } from '../../lib/utils/resolve-search-params';
 import { RecipeCard } from '../recipe-card';
@@ -123,7 +124,15 @@ export const RecipeCarousel = ({
     <>
       <Section className={'overflow-hidden'} size={'2'} {...props}>
         <Container className={'max-w-full'} px={'4'}>
-          <Flex direction={'column'} gap={'4'}>
+          <Flex
+            className={cn([
+              'before:pointer-events-none before:absolute before:right-full before:top-0 before:z-10 before:h-full before:w-[calc((100vw-100%)/2)] before:bg-gradient-to-l before:from-transparent before:via-[#fff] before:to-[#fff]',
+              'after:pointer-events-none after:absolute after:left-full after:top-0 after:z-10 after:h-full after:w-[calc((100vw-100%)/2)] after:bg-gradient-to-r after:from-transparent after:via-[#fff] after:to-[#fff]',
+            ])}
+            direction={'column'}
+            gap={'4'}
+            position={'relative'}
+          >
             <Flex justify={'between'}>
               {title ? (
                 <Heading as={'h2'} size={'7'}>
