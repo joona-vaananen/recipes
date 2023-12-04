@@ -70,6 +70,7 @@ COPY --from=installer /app .
 
 RUN chown -R node:node /app/apps/api
 USER node
+EXPOSE 1337
 
 ARG API_ADMIN_JWT_SECRET
 ENV API_ADMIN_JWT_SECRET=${API_ADMIN_JWT_SECRET}
