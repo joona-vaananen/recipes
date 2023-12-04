@@ -23,6 +23,7 @@ const plugins = ({ env }: { env: any }) => ({
         },
       },
     },
+    enabled: false,
   },
   'preview-button': {
     config: {
