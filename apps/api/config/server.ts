@@ -4,6 +4,7 @@ const server = ({ env }: { env: any }) => ({
   },
   host: env('API_HOST'),
   port: env.int('API_PORT'),
+  url: env('API_URL'),
 });
 
 export default server;

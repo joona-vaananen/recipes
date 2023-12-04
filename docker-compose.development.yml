@@ -15,6 +15,7 @@ services:
         API_PORT: ${API_PORT}
         API_TOKEN_SALT: ${API_TOKEN_SALT}
         API_TRANSFER_TOKEN_SALT: ${API_TRANSFER_TOKEN_SALT}
+        API_URL: ${API_URL}
         DB_HOST: ${DB_HOST}
         DB_NAME: ${DB_NAME}
         DB_PASSWORD: ${DB_PASSWORD}
