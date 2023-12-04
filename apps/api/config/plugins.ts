@@ -30,6 +30,7 @@ const plugins = ({ env }: { env: any }) => ({
       contentTypes: [
         {
           draft: {
+            alwaysVisible: true,
             openTarget: '_blank',
             url: `${env('WEB_BASE_URL')}/api/preview/home-page`,
             query: {
@@ -51,6 +52,7 @@ const plugins = ({ env }: { env: any }) => ({
         },
         {
           draft: {
+            alwaysVisible: true,
             openTarget: '_blank',
             url: `${env('WEB_BASE_URL')}/api/preview/pages/{slug}`,
             query: {
@@ -72,6 +74,7 @@ const plugins = ({ env }: { env: any }) => ({
         },
         {
           draft: {
+            alwaysVisible: true,
             openTarget: '_blank',
             url: `${env('WEB_BASE_URL')}/api/preview/privacy-policy-page`,
             query: {
@@ -93,6 +96,7 @@ const plugins = ({ env }: { env: any }) => ({
         },
         {
           draft: {
+            alwaysVisible: true,
             openTarget: '_blank',
             url: `${env('WEB_BASE_URL')}/api/preview/recipe-search-page`,
             query: {
@@ -114,6 +118,7 @@ const plugins = ({ env }: { env: any }) => ({
         },
         {
           draft: {
+            alwaysVisible: true,
             openTarget: '_blank',
             url: `${env('WEB_BASE_URL')}/api/preview/recipes/{slug}`,
             query: {
