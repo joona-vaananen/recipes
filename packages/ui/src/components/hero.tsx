@@ -26,7 +26,7 @@ export const Hero = ({
       <Section
         className={cn({
           'print:pb-0 print:pt-10': true,
-          'h-[calc(100vh-73px)] print:h-[auto] print:max-h-none md:h-[calc((100vh-73px)/2)] md:max-h-[503.5px]':
+          'h-[calc(100dvh-73px)] print:h-[auto] print:max-h-none md:h-[calc((100dvh-73px)/2)] md:max-h-[503.5px]':
             !!backgroundImage?.data,
           ...(className ? { [className]: true } : undefined),
         })}
