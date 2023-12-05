@@ -3,7 +3,7 @@
     "web": [
       {
         "attempts": 10,
-        "description": "Check if app response to /_health endpoint",
+        "description": "Check if app responds to /_health endpoint",
         "initialDelay": 10,
         "name": "web check",
         "path": "/_health",
