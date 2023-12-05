@@ -1,0 +1,16 @@
+{
+  "healthchecks": {
+    "web": [
+      {
+        "attempts": 10,
+        "description": "Check if app response to /_health endpoint",
+        "initialDelay": 10,
+        "name": "web check",
+        "path": "/_health",
+        "timeout": 5,
+        "type": "startup",
+        "wait": 10
+      }
+    ]
+  }
+}
