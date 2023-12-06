@@ -2,7 +2,7 @@ import Fraction from 'fraction.js';
 import type { Recipe as RecipeSchema, WithContext } from 'schema-dts';
 
 import type { Recipe } from '@recipes/api/src/api/recipe/content-types/recipe/recipe';
-import { BASE_URL, SITE_NAME } from '../../constants';
+import { SITE_NAME } from '../../constants';
 import { resolveTextFromRichText } from '../rich-text/resolve-text-from-rich-text';
 import type { RichTextBlock } from '../rich-text/rich-text-block-types';
 
@@ -28,10 +28,8 @@ const createRecipeJsonLd = (recipe: Recipe): WithContext<RecipeSchema> => {
     name: recipe.attributes.title,
     image: recipe.attributes.image?.data
       ? [
-          `${BASE_URL}${
-            recipe.attributes.image.data.attributes.formats?.large.url ??
-            recipe.attributes.image.data.attributes.url
-          }`,
+          recipe.attributes.image.data.attributes.formats?.large.url ??
+            recipe.attributes.image.data.attributes.url,
         ]
       : undefined,
     author: {
