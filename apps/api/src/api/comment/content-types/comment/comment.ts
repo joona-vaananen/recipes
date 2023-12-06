@@ -17,14 +17,14 @@ export interface Comment {
     createdAt: Date;
     updatedAt: Date;
     publishedAt?: Date;
-    name: string;
+    name?: string;
     comment: string;
-    userId: string;
+    userId?: string;
     rating?: { data: Rating };
     recipe?: { data: Recipe };
+    user?: { data: User };
     locale: string;
     localizations?: { data: Comment[] };
-    user?: { data: User };
   };
 }
 export interface Comment_Plain {
@@ -32,14 +32,14 @@ export interface Comment_Plain {
   createdAt: Date;
   updatedAt: Date;
   publishedAt?: Date;
-  name: string;
+  name?: string;
   comment: string;
-  userId: string;
+  userId?: string;
   rating?: Rating_Plain;
   recipe?: Recipe_Plain;
+  user?: User_Plain;
   locale: string;
   localizations?: Comment[];
-  user?: User_Plain;
 }
 
 export interface Comment_NoRelations {
@@ -47,14 +47,14 @@ export interface Comment_NoRelations {
   createdAt: Date;
   updatedAt: Date;
   publishedAt?: Date;
-  name: string;
+  name?: string;
   comment: string;
-  userId: string;
+  userId?: string;
   rating?: number;
   recipe?: number;
+  user?: number;
   locale: string;
   localizations?: Comment[];
-  user?: number;
 }
 
 export interface Comment_AdminPanelLifeCycle {
@@ -62,12 +62,12 @@ export interface Comment_AdminPanelLifeCycle {
   createdAt: Date;
   updatedAt: Date;
   publishedAt?: Date;
-  name: string;
+  name?: string;
   comment: string;
-  userId: string;
+  userId?: string;
   rating?: AdminPanelRelationPropertyModification<Rating_Plain>;
   recipe?: AdminPanelRelationPropertyModification<Recipe_Plain>;
+  user?: AdminPanelRelationPropertyModification<User_Plain>;
   locale: string;
   localizations?: Comment[];
-  user?: AdminPanelRelationPropertyModification<User_Plain>;
 }

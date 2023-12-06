@@ -16,16 +16,16 @@ const Error = ({ reset }: ErrorProps) => {
 
   return (
     <Hero title={t('title')} description={t('description')}>
-      <Flex gap={'4'}>
-        <Button onClick={() => reset()} variant={'outline'}>
-          {t('resetPage')}
-          <RotateCw className={'h-4 w-4'} />
-        </Button>
+      <Flex align={'center'} gap={'4'} wrap={'wrap'}>
         <Button asChild>
           <Link href={'/'}>
             {t('homePageLink')}
             <ArrowRight className={'h-4 w-4'} />
           </Link>
+        </Button>
+        <Button onClick={() => reset()} variant={'outline'}>
+          {t('resetPage')}
+          <RotateCw className={'h-4 w-4'} />
         </Button>
       </Flex>
     </Hero>

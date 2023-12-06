@@ -22,6 +22,10 @@ RUN npm config set --global fetch-retry-maxtimeout 600000 && npm ci
 COPY --from=builder /app/out/full/ .
 COPY turbo.json turbo.json
 
+ARG API_AWS_BUCKET
+ENV API_AWS_BUCKET=${API_AWS_BUCKET}
+ARG API_AWS_REGION
+ENV API_AWS_REGION=${API_AWS_REGION}
 ARG API_HOST
 ENV API_HOST=${API_HOST}
 ARG API_PORT
@@ -77,6 +81,10 @@ COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
 COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
 COPY --from=installer --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
 
+ARG API_AWS_BUCKET
+ENV API_AWS_BUCKET=${API_AWS_BUCKET}
+ARG API_AWS_REGION
+ENV API_AWS_REGION=${API_AWS_REGION}
 ARG API_HOST
 ENV API_HOST=${API_HOST}
 ARG API_PORT

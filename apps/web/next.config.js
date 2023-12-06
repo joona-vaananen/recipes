@@ -7,20 +7,22 @@ const nextConfig = {
     optimizePackageImports: ['@recipes/api-client', '@recipes/ui'],
     outputFileTracingRoot: path.join(__dirname, '../../'),
   },
+  images: {
+    remotePatterns: [
+      {
+        hostname: `${process.env.API_AWS_BUCKET}.s3.${process.env.API_AWS_REGION}.amazonaws.com`,
+        pathname: '/**',
+        port: '',
+        protocol: 'https',
+      },
+    ],
+  },
   logging: {
     fetches: {
       fullUrl: true,
     },
   },
   output: 'standalone',
-  rewrites: () => ({
-    beforeFiles: [
-      {
-        source: '/uploads/:path',
-        destination: `${process.env.API_PROTOCOL}://${process.env.API_HOST}:${process.env.API_PORT}/uploads/:path`,
-      },
-    ],
-  }),
   transpilePackages: ['@recipes/api-client', '@recipes/ui'],
 };
 

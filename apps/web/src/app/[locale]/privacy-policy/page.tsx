@@ -108,6 +108,9 @@ const getPrivacyPolicyPageData = async ({ params }: PrivacyPolicyPageProps) => {
                   backgroundImage: {
                     fields: ['height', 'id', 'placeholder', 'url', 'width'],
                   },
+                  ctaButtons: {
+                    fields: ['id', 'text', 'url', 'variant'],
+                  },
                 },
               },
               'ui.rich-text': {

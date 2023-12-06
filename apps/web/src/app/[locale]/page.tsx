@@ -99,6 +99,9 @@ const getHomePageData = async ({ params }: HomePageProps) => {
                   backgroundImage: {
                     fields: ['height', 'id', 'placeholder', 'url', 'width'],
                   },
+                  ctaButtons: {
+                    fields: ['id', 'text', 'url', 'variant'],
+                  },
                 },
               },
               'ui.recipe-carousel': {

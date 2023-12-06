@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_ui_cta_buttons",
+  "info": {
+    "displayName": "CTA Button",
+    "icon": "link",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "variant": {
+      "type": "enumeration",
+      "enum": [
+        "classic",
+        "solid",
+        "soft",
+        "surface",
+        "outline",
+        "ghost"
+      ],
+      "default": "solid",
+      "required": true
+    }
+  }
+}

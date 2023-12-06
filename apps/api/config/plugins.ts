@@ -152,10 +152,22 @@ const plugins = ({ env }: { env: any }) => ({
   },
   upload: {
     config: {
-      provider: '@recipes/api-upload-provider',
+      actionOptions: {
+        upload: {},
+        uploadStream: {},
+        delete: {},
+      },
+      provider: 'aws-s3',
       providerOptions: {
-        placeholder: {
-          size: 10,
+        s3Options: {
+          accessKeyId: env('API_AWS_ACCESS_KEY'),
+          params: {
+            ACL: 'public-read',
+            Bucket: env('API_AWS_BUCKET'),
+            signedUrlExpires: 900,
+          },
+          region: env('API_AWS_REGION'),
+          secretAccessKey: env('API_AWS_SECRET_ACCESS_KEY'),
         },
       },
     },

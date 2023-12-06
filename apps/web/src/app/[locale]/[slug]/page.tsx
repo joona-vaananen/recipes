@@ -136,6 +136,9 @@ const getPageData = async ({ params }: PageProps) => {
                   backgroundImage: {
                     fields: ['height', 'id', 'placeholder', 'url', 'width'],
                   },
+                  ctaButtons: {
+                    fields: ['id', 'text', 'url', 'variant'],
+                  },
                 },
               },
               'ui.recipe-carousel': {

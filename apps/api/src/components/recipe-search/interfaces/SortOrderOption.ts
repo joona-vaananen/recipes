@@ -6,8 +6,7 @@ export enum Value {
   PublishedAtAsc = 'published-at-asc',
   PublishedAtDesc = 'published-at-desc',
   TitleAsc = 'title-asc',
-  TitleDesc = 'title-desc',
-}
+  TitleDesc = 'title-desc',}
 
 export interface SortOrderOption {
   name: string;
@@ -22,3 +21,4 @@ export interface SortOrderOption_NoRelations {
   name: string;
   value: Value;
 }
+

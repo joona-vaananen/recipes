@@ -10,12 +10,15 @@ import Image from 'next/image';
 
 import type { Hero as IHero } from '@recipes/api/src/components/ui/interfaces/Hero';
 import { cn } from '../lib/utils/cn';
+import { CtaButton } from './cta-button';
 
-type HeroProps = React.ComponentPropsWithoutRef<typeof Section> & IHero;
+type HeroProps = React.ComponentPropsWithoutRef<typeof Section> &
+  Partial<IHero>;
 
 export const Hero = ({
   children,
   className,
+  ctaButtons,
   backgroundImage,
   description,
   title,
@@ -51,11 +54,31 @@ export const Hero = ({
               <Text
                 as={'p'}
                 className={'last:mb-0 print:text-[#000]'}
-                mb={'9'}
+                mb={'5'}
                 size={'5'}
               >
                 {description}
               </Text>
+            ) : null}
+            {Array.isArray(ctaButtons) && ctaButtons.length > 0 ? (
+              <Flex
+                align={'center'}
+                className={'print:hidden'}
+                gap={'4'}
+                wrap={'wrap'}
+              >
+                {ctaButtons.map(({ id, text, url, variant }) => {
+                  return (
+                    <CtaButton
+                      id={id}
+                      key={id}
+                      text={text}
+                      url={url}
+                      variant={variant}
+                    />
+                  );
+                })}
+              </Flex>
             ) : null}
             {children}
           </Container>
@@ -73,12 +96,14 @@ export const Hero = ({
               sizes={'100vw'}
               quality={100}
               placeholder={
-                'placeholder' in backgroundImage.data.attributes
+                'placeholder' in backgroundImage.data.attributes &&
+                backgroundImage.data.attributes.placeholder
                   ? 'blur'
                   : 'empty'
               }
               blurDataURL={
-                'placeholder' in backgroundImage.data.attributes
+                'placeholder' in backgroundImage.data.attributes &&
+                backgroundImage.data.attributes.placeholder
                   ? (backgroundImage.data.attributes.placeholder as string)
                   : undefined
               }

@@ -46,13 +46,15 @@ export const RecipeCard = ({
             <Image
               alt={''}
               blurDataURL={
-                'placeholder' in image
+                'placeholder' in image && image.placeholder
                   ? (image.placeholder as string)
                   : undefined
               }
               className={'object-cover'}
               fill
-              placeholder={'placeholder' in image ? 'blur' : 'empty'}
+              placeholder={
+                'placeholder' in image && image.placeholder ? 'blur' : 'empty'
+              }
               sizes={sizes ?? '100vw'}
               src={image.url}
             />

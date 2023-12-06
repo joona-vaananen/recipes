@@ -122,19 +122,17 @@ export const richTextBlockComponents = {
   },
   link: ({ children, url }) => {
     if (url.startsWith(BASE_URL)) {
-      let pathname: string;
-
       try {
-        ({ pathname } = new URL(url));
-      } catch {
-        return null;
-      }
+        const { pathname } = new URL(url);
 
-      return (
-        <Link asChild>
-          <NextLink href={pathname}>{children}</NextLink>
-        </Link>
-      );
+        return (
+          <Link asChild>
+            <NextLink href={pathname}>{children}</NextLink>
+          </Link>
+        );
+      } catch {
+        return <Link href={url}>{children}</Link>;
+      }
     }
 
     return (

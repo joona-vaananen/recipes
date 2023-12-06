@@ -120,8 +120,10 @@ export const CommentListClient = ({
                                 }
                                 blurDataURL={
                                   'placeholder' in
-                                  comment.attributes.user.data.attributes
-                                    .avatar!
+                                    comment.attributes.user.data.attributes
+                                      .avatar! &&
+                                  comment.attributes.user.data.attributes.avatar
+                                    .placeholder
                                     ? (comment.attributes.user.data.attributes
                                         .avatar.placeholder as string)
                                     : undefined
@@ -135,8 +137,10 @@ export const CommentListClient = ({
                                 }
                                 placeholder={
                                   'placeholder' in
-                                  comment.attributes.user.data.attributes
-                                    .avatar!
+                                    comment.attributes.user.data.attributes
+                                      .avatar! &&
+                                  comment.attributes.user.data.attributes.avatar
+                                    .placeholder
                                     ? 'blur'
                                     : 'empty'
                                 }

@@ -21,6 +21,11 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "ctaButtons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "ui.cta-button"
     }
   }
 }

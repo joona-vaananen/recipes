@@ -29,13 +29,15 @@ export const Header = ({ items, locale, logo, ...props }: HeaderProps) => {
               <Image
                 alt={logo.data.attributes.alternativeText ?? ''}
                 blurDataURL={
-                  'placeholder' in logo
+                  'placeholder' in logo && logo.placeholder
                     ? (logo.placeholder as string)
                     : undefined
                 }
                 className={'h-14 w-auto'}
                 height={logo.data.attributes.height}
-                placeholder={'placeholder' in logo ? 'blur' : 'empty'}
+                placeholder={
+                  'placeholder' in logo && logo.placeholder ? 'blur' : 'empty'
+                }
                 priority
                 quality={100}
                 src={logo.data.attributes.url}

@@ -1,6 +1,7 @@
 export * from './comment-form';
 export * from './comment-list';
 export * from './copy-to-clipboard-button';
+export * from './cta-button';
 export * from './dynamic-zone';
 export * from './footer';
 export * from './header';
