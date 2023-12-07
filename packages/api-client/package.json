@@ -9,13 +9,13 @@
     "zod": "3.22.4"
   },
   "devDependencies": {
-    "@recipes/api": "^1.0.0",
-    "@recipes/eslint-config": "^1.0.0",
-    "@recipes/tsconfig": "^1.0.0",
-    "@types/node": "^20.9.4",
-    "@types/qs": "^6.9.10",
-    "@types/react": "^18.2.33",
-    "@types/react-dom": "^18.2.14",
+    "@recipes/api": "1.0.0",
+    "@recipes/eslint-config": "1.0.0",
+    "@recipes/tsconfig": "1.0.0",
+    "@types/qs": "6.9.10",
+    "@types/node": "20.10.4",
+    "@types/react": "18.2.42",
+    "@types/react-dom": "18.2.17",
     "next": "14.0.3",
     "react": "18.2.0",
     "react-dom": "18.2.0"

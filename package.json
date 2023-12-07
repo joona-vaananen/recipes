@@ -17,8 +17,8 @@
     "packages/**/*"
   ],
   "engines": {
-    "node": "20.9.0",
-    "npm": "10.1.0"
+    "node": "20.10.0",
+    "npm": "10.2.3"
   },
   "repository": {
     "type": "git",
@@ -30,18 +30,18 @@
   },
   "homepage": "https://github.com/joona-vaananen/recipes#readme",
   "devDependencies": {
-    "@recipes/eslint-config": "^1.0.0",
-    "@typescript-eslint/eslint-plugin": "^6.6.0",
-    "@typescript-eslint/parser": "^6.6.0",
-    "eslint": "^8.49.0",
-    "eslint-config-next": "^14.0.3",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-import-resolver-typescript": "^3.6.0",
-    "eslint-plugin-import": "^2.28.1",
-    "prettier": "^3.0.3",
-    "prettier-plugin-tailwindcss": "^0.5.5",
-    "turbo": "^1.10.15",
-    "typescript": "^5.2.2"
+    "@recipes/eslint-config": "1.0.0",
+    "@typescript-eslint/eslint-plugin": "6.13.2",
+    "@typescript-eslint/parser": "6.13.2",
+    "eslint": "8.55.0",
+    "eslint-config-next": "14.0.3",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-import-resolver-typescript": "3.6.1",
+    "eslint-plugin-import": "2.29.0",
+    "prettier": "3.1.0",
+    "prettier-plugin-tailwindcss": "0.5.9",
+    "turbo": "1.11.0",
+    "typescript": "5.3.3"
   },
-  "packageManager": "npm@10.1.0"
+  "packageManager": "npm@10.2.3"
 }

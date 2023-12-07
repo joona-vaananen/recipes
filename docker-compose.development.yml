@@ -60,7 +60,7 @@ services:
   recipes-db:
     container_name: recipes-db
     platform: linux/amd64
-    image: postgres:14.0-alpine
+    image: postgres:16.1-alpine
     environment:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
