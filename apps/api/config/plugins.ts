@@ -21,6 +21,63 @@ const plugins = ({ env }: { env: any }) => ({
           ],
           sortableAttributes: ['averageRating', 'publishedAt', 'title'],
         },
+        transformEntry: ({ entry }: { entry: any }) => {
+          return {
+            averageRating: entry.averageRating,
+            categories:
+              entry.categories?.map((category: any) => ({
+                name: category.name,
+                slug: category.slug,
+              })) ?? null,
+            courses:
+              entry.courses?.map((course: any) => ({
+                name: course.name,
+                slug: course.slug,
+              })) ?? null,
+            cuisines:
+              entry.cuisines?.map((cuisine: any) => ({
+                name: cuisine.name,
+                slug: cuisine.slug,
+              })) ?? null,
+            diets:
+              entry.diets?.map((diet: any) => ({
+                name: diet.name,
+                slug: diet.slug,
+              })) ?? null,
+            cookTime: entry.cookTime,
+            id: entry.id,
+            image: entry.image && {
+              placeholder: entry.image.placeholder,
+              url: entry.image.url,
+            },
+            locale: entry.locale,
+            mainIngredients:
+              entry.mainIngredients?.map((mainIngredient: any) => ({
+                name: mainIngredient.name,
+                slug: mainIngredient.slug,
+              })) ?? null,
+            mealTypes:
+              entry.mealTypes?.map((mealType: any) => ({
+                name: mealType.name,
+                slug: mealType.slug,
+              })) ?? null,
+            methods:
+              entry.methods?.map((method: any) => ({
+                name: method.name,
+                slug: method.slug,
+              })) ?? null,
+            prepTime: entry.prepTime,
+            publishedAt: entry.publishedAt,
+            restingTime: entry.restingTime,
+            seasons:
+              entry.seasons?.map((season: any) => ({
+                name: season.name,
+                slug: season.slug,
+              })) ?? null,
+            slug: entry.slug,
+            title: entry.title,
+          };
+        },
       },
     },
     enabled: true,
