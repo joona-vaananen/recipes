@@ -112,7 +112,7 @@ export const generateStaticParams = GENERATE_STATIC_PARAMS
 
       return pages.map((page) => ({ slug: page.attributes.slug }));
     }
-  : undefined;
+  : [];
 
 const getPageData = async ({ params }: PageProps) => {
   const { locale, slug } = params;

@@ -252,7 +252,7 @@ export const generateStaticParams = GENERATE_STATIC_PARAMS
 
       return recipes.map((recipe) => ({ slug: recipe.attributes.slug }));
     }
-  : undefined;
+  : [];
 
 const getRecipeData = async ({ params }: PageProps) => {
   const { locale, slug } = params;

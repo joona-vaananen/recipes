@@ -5,12 +5,7 @@ import { Raleway, Roboto_Slab } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
-import {
-  BASE_URL,
-  GENERATE_STATIC_PARAMS,
-  SITE_NAME,
-  TIME_ZONE,
-} from '@/constants';
+import { BASE_URL, SITE_NAME, TIME_ZONE } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { Footer, Header, cn, locales } from '@recipes/ui';
 import { NavigationEvents } from './navigation-events';
@@ -96,11 +91,9 @@ export const metadata: Metadata = {
 // Force dynamic for local development
 // export const dynamic = 'force-dynamic';
 
-export const generateStaticParams = GENERATE_STATIC_PARAMS
-  ? () => {
-      return locales.map((locale) => ({ locale }));
-    }
-  : undefined;
+export const generateStaticParams = () => {
+  return locales.map((locale) => ({ locale }));
+};
 
 const getHeaderData = async ({ params }: Pick<LayoutProps, 'params'>) => {
   const { locale } = params;
