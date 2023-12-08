@@ -5,7 +5,12 @@ import { Raleway, Roboto_Slab } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
-import { BASE_URL, SITE_NAME, TIME_ZONE } from '@/constants';
+import {
+  BASE_URL,
+  GENERATE_STATIC_PARAMS,
+  SITE_NAME,
+  TIME_ZONE,
+} from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { Footer, Header, cn, locales } from '@recipes/ui';
 import { NavigationEvents } from './navigation-events';
@@ -92,6 +97,10 @@ export const metadata: Metadata = {
 // export const dynamic = 'force-dynamic';
 
 export const generateStaticParams = () => {
+  if (!GENERATE_STATIC_PARAMS) {
+    return [];
+  }
+
   return locales.map((locale) => ({ locale }));
 };
 

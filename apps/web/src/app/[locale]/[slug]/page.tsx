@@ -93,26 +93,32 @@ export const generateMetadata = async ({
   };
 };
 
-export const generateStaticParams = GENERATE_STATIC_PARAMS
-  ? async ({ params }: { params: { locale: string } }) => {
-      const { locale } = params;
+export const generateStaticParams = async ({
+  params,
+}: {
+  params: { locale: string };
+}) => {
+  if (!GENERATE_STATIC_PARAMS) {
+    return [];
+  }
 
-      const { data: pages } = await apiClient.getMany(
-        {
-          contentType: 'pages',
-          parameters: {
-            fields: ['id', 'slug'],
-            locale,
-            pagination: { limit: 100 },
-            sort: 'publishedAt:desc',
-          },
-        },
-        { cache: 'no-store' }
-      );
+  const { locale } = params;
 
-      return pages.map((page) => ({ slug: page.attributes.slug }));
-    }
-  : [];
+  const { data: pages } = await apiClient.getMany(
+    {
+      contentType: 'pages',
+      parameters: {
+        fields: ['id', 'slug'],
+        locale,
+        pagination: { limit: 100 },
+        sort: 'publishedAt:desc',
+      },
+    },
+    { cache: 'no-store' }
+  );
+
+  return pages.map((page) => ({ slug: page.attributes.slug }));
+};
 
 const getPageData = async ({ params }: PageProps) => {
   const { locale, slug } = params;
