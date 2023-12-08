@@ -6,7 +6,7 @@ import { DynamicZone } from '../dynamic-zone';
 
 interface HeaderDesktopNavigationProps
   extends React.HTMLAttributes<HTMLElement> {
-  items: any;
+  items?: any;
 }
 
 export const HeaderDesktopNavigation = ({

@@ -12,8 +12,7 @@ import {
   TIME_ZONE,
 } from '@/constants';
 import { apiClient } from '@/lib/api/client';
-import { cn, locales } from '@recipes/ui';
-import { Footer, Header } from '@recipes/ui/src/components';
+import { Footer, Header, cn, locales } from '@recipes/ui';
 import { NavigationEvents } from './navigation-events';
 import { Providers } from './providers';
 import { Scripts } from './scripts';
@@ -64,14 +63,14 @@ const Layout = async ({ children, params }: LayoutProps) => {
         >
           <Flex className={'min-h-[100dvh]'} direction={'column'}>
             <Header
-              items={header.attributes.items}
+              items={header?.attributes.items}
               locale={locale}
-              logo={header.attributes.logo}
+              logo={header?.attributes.logo}
             />
             <main className={'flex-grow'}>{children}</main>
             <Footer
-              copyright={footer.attributes.copyright}
-              logo={footer.attributes.logo}
+              copyright={footer?.attributes.copyright}
+              logo={footer?.attributes.logo}
             />
           </Flex>
         </Providers>

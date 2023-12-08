@@ -8,6 +8,7 @@
     "build:prod": "docker compose -f docker-compose.production.yml --env-file .env.production --env-file .env.production.local build",
     "up:prod": "docker compose -f docker-compose.production.yml --env-file .env.production --env-file .env.production.local up -d",
     "build:packages": "turbo run build --filter=./packages/**/*",
+    "cp:analyze": "mkdir -p ./apps/web/.next/analyze && docker cp recipes-web:/app/apps/web/.next/analyze/. ./apps/web/.next/analyze",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "test": "turbo run test"
@@ -34,7 +35,7 @@
     "@typescript-eslint/eslint-plugin": "6.13.2",
     "@typescript-eslint/parser": "6.13.2",
     "eslint": "8.55.0",
-    "eslint-config-next": "14.0.3",
+    "eslint-config-next": "14.0.4",
     "eslint-config-prettier": "9.1.0",
     "eslint-import-resolver-typescript": "3.6.1",
     "eslint-plugin-import": "2.29.0",
@@ -43,5 +44,8 @@
     "turbo": "1.11.0",
     "typescript": "5.3.3"
   },
-  "packageManager": "npm@10.2.3"
+  "packageManager": "npm@10.2.3",
+  "dependencies": {
+    "@next/bundle-analyzer": "^14.0.4"
+  }
 }

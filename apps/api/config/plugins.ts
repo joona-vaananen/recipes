@@ -217,14 +217,16 @@ const plugins = ({ env }: { env: any }) => ({
       provider: 'aws-s3',
       providerOptions: {
         s3Options: {
-          accessKeyId: env('API_AWS_ACCESS_KEY'),
+          credentials: {
+            accessKeyId: env('API_AWS_ACCESS_KEY'),
+            secretAccessKey: env('API_AWS_SECRET_ACCESS_KEY'),
+          },
           params: {
             ACL: 'public-read',
             Bucket: env('API_AWS_BUCKET'),
             signedUrlExpires: 900,
           },
           region: env('API_AWS_REGION'),
-          secretAccessKey: env('API_AWS_SECRET_ACCESS_KEY'),
         },
       },
     },

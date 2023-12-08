@@ -10,9 +10,9 @@ import { HeaderDesktopNavigation } from './header-desktop-navigation';
 import { HeaderMobileNavigation } from './header-mobile-navigation';
 
 interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
-  items: any;
+  items?: any;
   locale: string;
-  logo: {
+  logo?: {
     data: Media;
   };
 }
@@ -26,23 +26,25 @@ export const Header = ({ items, locale, logo, ...props }: HeaderProps) => {
         <Flex align={'center'} gap={'4'} justify={'between'} {...props}>
           <Link asChild>
             <NextLink href={'/'}>
-              <Image
-                alt={logo.data.attributes.alternativeText ?? ''}
-                blurDataURL={
-                  'placeholder' in logo && logo.placeholder
-                    ? (logo.placeholder as string)
-                    : undefined
-                }
-                className={'h-14 w-auto'}
-                height={logo.data.attributes.height}
-                placeholder={
-                  'placeholder' in logo && logo.placeholder ? 'blur' : 'empty'
-                }
-                priority
-                quality={100}
-                src={logo.data.attributes.url}
-                width={logo.data.attributes.width}
-              />
+              {logo ? (
+                <Image
+                  alt={logo.data.attributes.alternativeText ?? ''}
+                  blurDataURL={
+                    'placeholder' in logo && logo.placeholder
+                      ? (logo.placeholder as string)
+                      : undefined
+                  }
+                  className={'h-14 w-auto'}
+                  height={logo.data.attributes.height}
+                  placeholder={
+                    'placeholder' in logo && logo.placeholder ? 'blur' : 'empty'
+                  }
+                  priority
+                  quality={100}
+                  src={logo.data.attributes.url}
+                  width={logo.data.attributes.width}
+                />
+              ) : null}
             </NextLink>
           </Link>
           <Flex align={'center'} className={'print:hidden'} gap={'4'}>

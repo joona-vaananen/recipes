@@ -1,28 +1,31 @@
 import { Container, Heading, Section } from '@radix-ui/themes';
 import type { Metadata } from 'next';
-import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
-import { use } from 'react';
 
 import { COOKIEBOT_ID } from '@/constants';
 import { apiClient } from '@/lib/api/client';
-import { DynamicZone, Hero, RichText, pathnames } from '@recipes/ui';
-import { LocaleSwitcherPathnames } from '@recipes/ui/src/components';
+import {
+  DynamicZone,
+  Hero,
+  LocaleSwitcherPathnames,
+  RichText,
+  pathnames,
+} from '@recipes/ui';
 
 interface PrivacyPolicyPageProps {
   params: { locale: string };
 }
 
-const PrivacyPolicyPage = ({ params }: PrivacyPolicyPageProps) => {
+const PrivacyPolicyPage = async ({ params }: PrivacyPolicyPageProps) => {
   const { locale } = params;
 
   unstable_setRequestLocale(locale);
 
-  const t = useTranslations('PrivacyPolicy');
+  const t = await getTranslations('PrivacyPolicy');
 
-  const privacyPolicyPage = use(getPrivacyPolicyPageData({ params }));
+  const privacyPolicyPage = await getPrivacyPolicyPageData({ params });
 
   return (
     <>

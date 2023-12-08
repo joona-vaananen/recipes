@@ -11,16 +11,13 @@ import {
 } from '@radix-ui/themes';
 import { ArrowDown } from 'lucide-react';
 import type { Metadata } from 'next';
-import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
-import { use } from 'react';
 
 import { GENERATE_STATIC_PARAMS } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import { searchClient } from '@/lib/search/client';
-import { Locale, getPathname } from '@recipes/ui';
 import {
   CommentForm,
   CommentList,
@@ -28,6 +25,7 @@ import {
   Hero,
   IngredientList,
   InstructionList,
+  Locale,
   LocaleSwitcherPathnames,
   PrintButton,
   RecipeJsonLd,
@@ -39,7 +37,8 @@ import {
   ShareRecipe,
   SimilarRecipeCarousel,
   WakeLockSwitch,
-} from '@recipes/ui/src/components';
+  getPathname,
+} from '@recipes/ui';
 
 interface PageProps {
   params: {
@@ -48,14 +47,14 @@ interface PageProps {
   };
 }
 
-const Page = ({ params }: PageProps) => {
+const Page = async ({ params }: PageProps) => {
   const { locale } = params;
 
   unstable_setRequestLocale(locale);
 
-  const t = useTranslations('RecipePage');
+  const t = await getTranslations('RecipePage');
 
-  const recipe = use(getRecipeData({ params }));
+  const recipe = await getRecipeData({ params });
 
   const pathnames = [
     recipe,

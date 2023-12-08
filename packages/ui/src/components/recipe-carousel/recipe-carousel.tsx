@@ -7,9 +7,8 @@ import {
   Section,
 } from '@radix-ui/themes';
 import { MeiliSearch } from 'meilisearch';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { stringify } from 'qs';
-import { use } from 'react';
 
 import type { Category } from '@recipes/api/src/api/category/content-types/category/category';
 import type { Course } from '@recipes/api/src/api/course/content-types/course/course';
@@ -57,7 +56,7 @@ export interface RecipeCarouselProps
   title?: string;
 }
 
-export const RecipeCarousel = ({
+export const RecipeCarousel = async ({
   categories,
   courses,
   cuisines,
@@ -74,7 +73,7 @@ export const RecipeCarousel = ({
   title,
   ...props
 }: RecipeCarouselProps) => {
-  const t = useTranslations('RecipeCarousel');
+  const t = await getTranslations('RecipeCarousel');
 
   const searchParams = resolveSearchParams(
     {
@@ -95,26 +94,22 @@ export const RecipeCarousel = ({
     ...(initialFilters ?? []),
   ];
 
-  const searchResults = use(
-    (searchClient as InstanceType<typeof MeiliSearch>)
-      .index<Recipe_Plain & { image: Media['attributes'] }>('recipe')
-      .searchGet(
-        '',
-        {
-          filter: buildSearchFilter(
-            searchParams,
-            searchConfig.filters,
-            initialFiltersWithLocale
-          ),
-          hitsPerPage: limit ?? 15,
-          page: 1,
-          sort: buildSearchSort(sort, searchConfig.sort) ?? [
-            'publishedAt:desc',
-          ],
-        },
-        { next: { revalidate: 600 } } as any
-      )
-  );
+  const searchResults = await (searchClient as InstanceType<typeof MeiliSearch>)
+    .index<Recipe_Plain & { image: Media['attributes'] }>('recipe')
+    .searchGet(
+      '',
+      {
+        filter: buildSearchFilter(
+          searchParams,
+          searchConfig.filters,
+          initialFiltersWithLocale
+        ),
+        hitsPerPage: limit ?? 15,
+        page: 1,
+        sort: buildSearchSort(sort, searchConfig.sort) ?? ['publishedAt:desc'],
+      },
+      { next: { revalidate: 600 } } as any
+    );
 
   if (!Array.isArray(searchResults.hits) || searchResults.hits.length === 0) {
     return null;

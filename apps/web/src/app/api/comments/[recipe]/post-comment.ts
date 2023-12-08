@@ -5,12 +5,12 @@ import * as z from 'zod';
 import { ERROR_NAMES } from '@/constants';
 import { apiClient } from '@/lib/api/client';
 import type { APIContentTypes } from '@recipes/api-client';
-import { locales } from '@recipes/ui';
 import {
   commentFormWithTokenSchema,
+  fetcher,
+  locales,
   type CommentFormWithTokenSchema,
-} from '@recipes/ui/src/components/comment-form/comment-form-schema';
-import { fetcher } from '@recipes/ui/src/lib/utils/fetcher';
+} from '@recipes/ui';
 
 const paramsSchema = z.object({
   recipe: z.coerce.number(),

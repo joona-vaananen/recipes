@@ -5,8 +5,13 @@ import { notFound } from 'next/navigation';
 
 import { apiClient } from '@/lib/api/client';
 import { searchClient } from '@/lib/search/client';
-import { RecipeSearch, getPathname, pathnames, type Locale } from '@recipes/ui';
-import { LocaleSwitcherPathnames } from '@recipes/ui/src/components';
+import {
+  LocaleSwitcherPathnames,
+  RecipeSearch,
+  getPathname,
+  pathnames,
+  type Locale,
+} from '@recipes/ui';
 
 interface RecipeSearchPageProps {
   params: { locale: string };

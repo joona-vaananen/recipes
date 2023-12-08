@@ -10,11 +10,11 @@ import type { RecipeCarousel as RecipeCarouselProps } from '@recipes/api/src/com
 import {
   DynamicZone,
   Hero,
+  LocaleSwitcherPathnames,
   RecipeCarousel,
   RichText,
   type Locale,
 } from '@recipes/ui';
-import { LocaleSwitcherPathnames } from '@recipes/ui/src/components';
 
 interface PageProps {
   params: {

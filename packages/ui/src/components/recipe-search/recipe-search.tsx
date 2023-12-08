@@ -1,7 +1,6 @@
 import { Container, Flex, Section } from '@radix-ui/themes';
 import { MeiliSearch } from 'meilisearch';
-import { useTranslations } from 'next-intl';
-import { use } from 'react';
+import { getTranslations } from 'next-intl/server';
 
 import type { Recipe_Plain } from '@recipes/api/src/api/recipe/content-types/recipe/recipe';
 import type { Media } from '@recipes/api/src/common/interfaces/Media';
@@ -37,7 +36,7 @@ interface RecipeSearchProps {
   title: string;
 }
 
-export const RecipeSearch = ({
+export const RecipeSearch = async ({
   filters,
   locale,
   pageSize,
@@ -46,7 +45,7 @@ export const RecipeSearch = ({
   sortOrder,
   title,
 }: RecipeSearchProps) => {
-  const t = useTranslations('RecipeSearch');
+  const t = await getTranslations('RecipeSearch');
 
   const parsedSearchParams = recipeSearchParamsSchema.parse(searchParams);
 
@@ -60,28 +59,26 @@ export const RecipeSearch = ({
 
   const parsedPage = recipeSearchPageSchema.parse(searchParams.page);
 
-  const searchResults = use(
-    (searchClient as InstanceType<typeof MeiliSearch>)
-      .index<Recipe_Plain & { image: Media['attributes'] }>('recipe')
-      .searchGet(
-        parsedSearch,
-        {
-          facets: ['*'],
-          filter: buildSearchFilter(
-            parsedFilters,
-            searchConfig.filters,
-            initialFilters
-          ),
-          hitsPerPage: pageSize ?? DEFAULT_PAGE_SIZE,
-          page: parsedPage,
-          sort: buildSearchSort(
-            parsedSort ?? sortOrder?.options[0].value,
-            searchConfig.sort
-          ) ?? ['publishedAt:desc'],
-        },
-        { next: { revalidate: 600 } } as any
-      )
-  );
+  const searchResults = await (searchClient as InstanceType<typeof MeiliSearch>)
+    .index<Recipe_Plain & { image: Media['attributes'] }>('recipe')
+    .searchGet(
+      parsedSearch,
+      {
+        facets: ['*'],
+        filter: buildSearchFilter(
+          parsedFilters,
+          searchConfig.filters,
+          initialFilters
+        ),
+        hitsPerPage: pageSize ?? DEFAULT_PAGE_SIZE,
+        page: parsedPage,
+        sort: buildSearchSort(
+          parsedSort ?? sortOrder?.options[0].value,
+          searchConfig.sort
+        ) ?? ['publishedAt:desc'],
+      },
+      { next: { revalidate: 600 } } as any
+    );
 
   const {
     facetDistribution,

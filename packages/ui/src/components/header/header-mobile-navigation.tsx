@@ -23,8 +23,8 @@ import { DynamicZone } from '../dynamic-zone';
 
 interface HeaderMobileNavigationProps
   extends React.HTMLAttributes<HTMLElement> {
-  items: any;
-  logo: {
+  items?: any;
+  logo?: {
     data: Media;
   };
   translations: {
@@ -82,25 +82,27 @@ export const HeaderMobileNavigation = ({
             <Flex align={'center'} gap={'4'} justify={'between'} {...props}>
               <Link asChild>
                 <NextLink href={'/'}>
-                  <Image
-                    alt={logo.data.attributes.alternativeText ?? ''}
-                    blurDataURL={
-                      'placeholder' in logo && logo.placeholder
-                        ? (logo.placeholder as string)
-                        : undefined
-                    }
-                    className={'h-14 w-auto'}
-                    height={logo.data.attributes.height}
-                    placeholder={
-                      'placeholder' in logo && logo.placeholder
-                        ? 'blur'
-                        : 'empty'
-                    }
-                    priority
-                    quality={100}
-                    src={logo.data.attributes.url}
-                    width={logo.data.attributes.width}
-                  />
+                  {logo ? (
+                    <Image
+                      alt={logo.data.attributes.alternativeText ?? ''}
+                      blurDataURL={
+                        'placeholder' in logo && logo.placeholder
+                          ? (logo.placeholder as string)
+                          : undefined
+                      }
+                      className={'h-14 w-auto'}
+                      height={logo.data.attributes.height}
+                      placeholder={
+                        'placeholder' in logo && logo.placeholder
+                          ? 'blur'
+                          : 'empty'
+                      }
+                      priority
+                      quality={100}
+                      src={logo.data.attributes.url}
+                      width={logo.data.attributes.width}
+                    />
+                  ) : null}
                 </NextLink>
               </Link>
               <Dialog.Close>

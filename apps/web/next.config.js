@@ -1,4 +1,9 @@
 const path = require('path');
+
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.WEB_ANALYZE_BUNDLE === 'true',
+});
+
 const withNextIntl = require('next-intl/plugin')();
 
 /** @type {import('next').NextConfig} */
@@ -26,4 +31,4 @@ const nextConfig = {
   transpilePackages: ['@recipes/api-client', '@recipes/ui'],
 };
 
-module.exports = withNextIntl(nextConfig);
+module.exports = withBundleAnalyzer(withNextIntl(nextConfig));

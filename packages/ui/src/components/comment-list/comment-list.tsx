@@ -1,5 +1,4 @@
-import { useTranslations } from 'next-intl';
-import { use } from 'react';
+import { getTranslations } from 'next-intl/server';
 
 import type { APIClientInstance } from '@recipes/api-client';
 import { CommentListClient } from './comment-list-client';
@@ -13,52 +12,50 @@ interface CommentListProps {
   recipe: number;
 }
 
-export const CommentList = ({
+export const CommentList = async ({
   apiClient,
   locale,
   localizations,
   recipe,
 }: CommentListProps) => {
-  const t = useTranslations('CommentList');
+  const t = await getTranslations('CommentList');
 
   const recipes = [{ id: recipe }, ...(localizations?.data ?? [])];
 
-  const { data: comments, meta } = use(
-    apiClient.getMany(
-      {
-        contentType: 'comments',
-        parameters: {
-          fields: ['comment', 'createdAt', 'id', 'name', 'userId'],
-          filters: {
-            recipe: {
-              id: {
-                $in: recipes.map((recipe) => recipe.id),
-              },
+  const { data: comments, meta } = await apiClient.getMany(
+    {
+      contentType: 'comments',
+      parameters: {
+        fields: ['comment', 'createdAt', 'id', 'name', 'userId'],
+        filters: {
+          recipe: {
+            id: {
+              $in: recipes.map((recipe) => recipe.id),
             },
           },
-          locale: 'all',
-          pagination: {
-            page: 1,
-            pageSize: COMMENTS_PAGE_SIZE,
-          },
-          populate: {
-            rating: {
-              fields: ['id', 'score'],
-            },
-            user: {
-              fields: ['id', 'username'],
-              populate: {
-                avatar: {
-                  fields: ['alternativeText', 'height', 'id', 'url', 'width'],
-                },
-              },
-            },
-          },
-          sort: 'createdAt:desc',
         },
+        locale: 'all',
+        pagination: {
+          page: 1,
+          pageSize: COMMENTS_PAGE_SIZE,
+        },
+        populate: {
+          rating: {
+            fields: ['id', 'score'],
+          },
+          user: {
+            fields: ['id', 'username'],
+            populate: {
+              avatar: {
+                fields: ['alternativeText', 'height', 'id', 'url', 'width'],
+              },
+            },
+          },
+        },
+        sort: 'createdAt:desc',
       },
-      { cache: 'no-store' }
-    )
+    },
+    { cache: 'no-store' }
   );
 
   const { pagination } = meta;

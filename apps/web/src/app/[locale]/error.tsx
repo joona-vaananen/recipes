@@ -4,7 +4,7 @@ import { Button, Flex } from '@radix-ui/themes';
 import { ArrowRight, RotateCw } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-import { Hero, Link } from '@recipes/ui/src';
+import { Hero, Link } from '@recipes/ui';
 
 interface ErrorProps {
   error: Error & { digest?: string };
