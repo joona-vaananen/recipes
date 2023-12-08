@@ -42,7 +42,7 @@ const Layout = async ({ children, params }: LayoutProps) => {
   const { locale } = params;
   unstable_setRequestLocale(locale);
 
-  const messages = await getMessages();
+  const messages = await getMessages({ locale });
 
   const [header, footer] = await Promise.all([
     getHeaderData({ params }),

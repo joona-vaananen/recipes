@@ -52,7 +52,7 @@ const Page = async ({ params }: PageProps) => {
 
   unstable_setRequestLocale(locale);
 
-  const t = await getTranslations('RecipePage');
+  const t = await getTranslations({ locale, namespace: 'RecipePage' });
 
   const recipe = await getRecipeData({ params });
 

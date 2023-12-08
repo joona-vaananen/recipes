@@ -45,7 +45,7 @@ export const RecipeSearch = async ({
   sortOrder,
   title,
 }: RecipeSearchProps) => {
-  const t = await getTranslations('RecipeSearch');
+  const t = await getTranslations({ locale, namespace: 'RecipeSearch' });
 
   const parsedSearchParams = recipeSearchParamsSchema.parse(searchParams);
 

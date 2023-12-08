@@ -18,7 +18,7 @@ export const CommentList = async ({
   localizations,
   recipe,
 }: CommentListProps) => {
-  const t = await getTranslations('CommentList');
+  const t = await getTranslations({ locale, namespace: 'CommentList' });
 
   const recipes = [{ id: recipe }, ...(localizations?.data ?? [])];
 

@@ -23,7 +23,7 @@ const PrivacyPolicyPage = async ({ params }: PrivacyPolicyPageProps) => {
 
   unstable_setRequestLocale(locale);
 
-  const t = await getTranslations('PrivacyPolicy');
+  const t = await getTranslations({ locale, namespace: 'PrivacyPolicy' });
 
   const privacyPolicyPage = await getPrivacyPolicyPageData({ params });
 

@@ -73,7 +73,7 @@ export const RecipeCarousel = async ({
   title,
   ...props
 }: RecipeCarouselProps) => {
-  const t = await getTranslations('RecipeCarousel');
+  const t = await getTranslations({ locale, namespace: 'RecipeCarousel' });
 
   const searchParams = resolveSearchParams(
     {
