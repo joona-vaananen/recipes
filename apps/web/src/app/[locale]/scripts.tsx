@@ -16,6 +16,7 @@ export const Scripts = ({ locale }: ScriptsProps) => {
       ) : null}
       {GOOGLE_RECAPTCHA_SITE_KEY ? (
         <Script
+          data-cookieconsent={'ignore'}
           src={`https://www.google.com/recaptcha/enterprise.js${stringify(
             {
               hl: locale,
