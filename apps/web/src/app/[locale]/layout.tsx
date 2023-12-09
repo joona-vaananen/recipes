@@ -93,9 +93,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Force dynamic for local development
-// export const dynamic = 'force-dynamic';
-
 export const generateStaticParams = () => {
   if (!GENERATE_STATIC_PARAMS) {
     return [];

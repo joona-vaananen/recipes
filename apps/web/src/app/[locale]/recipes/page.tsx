@@ -51,6 +51,8 @@ const RecipeSearchPage = async ({
 
 export default RecipeSearchPage;
 
+export const dynamic = 'force-dynamic';
+
 export const generateMetadata = async ({
   params,
   searchParams,
