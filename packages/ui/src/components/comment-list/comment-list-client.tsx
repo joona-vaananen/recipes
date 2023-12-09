@@ -77,7 +77,7 @@ export const CommentListClient = ({
     revalidateAll: true,
     revalidateIfStale: false,
     revalidateOnFocus: false,
-    revalidateOnMount: false,
+    revalidateOnMount: true,
     revalidateOnReconnect: false,
   });
 
