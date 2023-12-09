@@ -4,6 +4,10 @@
 @import '@radix-ui/themes/styles.css';
 @import './theme-config.css';
 
+#CookiebotWidget .CookiebotWidget-logo svg path {
+  fill: #ffffff !important;
+}
+
 .grecaptcha-badge {
   visibility: hidden;
 }
