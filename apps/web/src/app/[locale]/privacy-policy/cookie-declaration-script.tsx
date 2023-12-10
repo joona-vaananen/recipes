@@ -1,5 +1,3 @@
-'use client';
-
 interface CookieDeclarationScriptProps
   extends React.ScriptHTMLAttributes<HTMLScriptElement> {
   cookiebotId: string;

@@ -5,24 +5,33 @@
 @import './theme-config.css';
 
 #CookiebotWidget {
-  min-width: var(--base-button-height) !important;
-  min-height: var(--base-button-height) !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
 }
 
 #CookiebotWidget:not(.CookiebotWidget-open):hover {
   box-shadow: none !important;
 }
 
-#CookiebotWidget:not(.CookiebotWidget-open):hover
+html.light
+  #CookiebotWidget:not(.CookiebotWidget-open):hover
   .CookiebotWidget-logo
   svg
   circle {
-  fill: var(--accent-10) !important;
+  fill: #dc3b5d !important;
+}
+
+html.dark
+  #CookiebotWidget:not(.CookiebotWidget-open):hover
+  .CookiebotWidget-logo
+  svg
+  circle {
+  fill: #ec5a72 !important;
 }
 
 #CookiebotWidget:not(.CookiebotWidget-open) button.CookiebotWidget-logo svg {
-  width: var(--base-button-height) !important;
-  height: var(--base-button-height) !important;
+  width: 32px !important;
+  height: 32px !important;
 }
 
 #CookiebotWidget .CookiebotWidget-logo svg path {
