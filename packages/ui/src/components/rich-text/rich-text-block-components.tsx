@@ -94,32 +94,22 @@ export const richTextBlockComponents = {
 
     return <Component>{children}</Component>;
   },
-  image: ({ image }) => {
-    let pathname: string;
-
-    try {
-      ({ pathname } = new URL(image.url));
-    } catch {
-      return null;
-    }
-
-    return (
-      <figure className={'my-4 first:mt-0 last:mb-0'}>
-        <NextImage
-          alt={image.alternativeText ?? ''}
-          className={'my-4 first:mt-0 last:mb-0'}
-          height={image.height}
-          src={pathname}
-          width={image.width}
-        />
-        {image.caption ? (
-          <Text asChild className={'my-4 first:mt-0 last:mb-0'} size={'2'}>
-            <figcaption>{image.caption}</figcaption>
-          </Text>
-        ) : null}
-      </figure>
-    );
-  },
+  image: ({ image }) => (
+    <figure className={'my-4 first:mt-0 last:mb-0'}>
+      <NextImage
+        alt={image.alternativeText ?? ''}
+        className={'my-4 first:mt-0 last:mb-0'}
+        height={image.height}
+        src={image.url}
+        width={image.width}
+      />
+      {image.caption ? (
+        <Text asChild className={'my-4 first:mt-0 last:mb-0'} size={'2'}>
+          <figcaption>{image.caption}</figcaption>
+        </Text>
+      ) : null}
+    </figure>
+  ),
   link: ({ children, url }) => {
     if (url.startsWith(BASE_URL)) {
       try {
