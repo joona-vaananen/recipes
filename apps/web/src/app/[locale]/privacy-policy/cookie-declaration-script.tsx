@@ -1,3 +1,7 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+
 interface CookieDeclarationScriptProps
   extends React.ScriptHTMLAttributes<HTMLScriptElement> {
   cookiebotId: string;
@@ -7,7 +11,17 @@ export const CookieDeclarationScript = ({
   cookiebotId,
   ...props
 }: CookieDeclarationScriptProps) => {
-  if (!cookiebotId) {
+  const isMountedRef = useRef(false);
+
+  useEffect(() => {
+    if (isMountedRef.current) {
+      return;
+    }
+
+    isMountedRef.current = true;
+  }, []);
+
+  if (!isMountedRef.current) {
     return null;
   }
 

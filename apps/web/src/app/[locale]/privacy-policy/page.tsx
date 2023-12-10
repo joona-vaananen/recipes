@@ -1,7 +1,6 @@
 import { Container, Heading, Section } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
-import dynamic from 'next/dynamic';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
@@ -14,12 +13,7 @@ import {
   RichText,
   pathnames,
 } from '@recipes/ui';
-
-const CookieDeclarationScript = dynamic(
-  async () =>
-    (await import('./cookie-declaration-script')).CookieDeclarationScript,
-  { ssr: false }
-);
+import { CookieDeclarationScript } from './cookie-declaration-script';
 
 interface PrivacyPolicyPageProps {
   params: { locale: string };

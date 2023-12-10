@@ -5,8 +5,16 @@
 @import './theme-config.css';
 
 #CookiebotWidget {
+  bottom: 16px !important;
+  left: 16px !important;
   min-width: 32px !important;
   min-height: 32px !important;
+}
+
+@media (min-width: 1024px) {
+  #CookiebotWidget {
+    bottom: 20px !important;
+  }
 }
 
 #CookiebotWidget:not(.CookiebotWidget-open):hover {
