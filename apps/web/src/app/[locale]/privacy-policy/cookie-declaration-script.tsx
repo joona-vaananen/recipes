@@ -2,36 +2,35 @@
 
 import { useEffect, useRef } from 'react';
 
-interface CookieDeclarationScriptProps
-  extends React.ScriptHTMLAttributes<HTMLScriptElement> {
+interface CookieDeclarationScriptProps {
   cookiebotId: string;
 }
 
 export const CookieDeclarationScript = ({
   cookiebotId,
-  ...props
 }: CookieDeclarationScriptProps) => {
-  const isMountedRef = useRef(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isMountedRef.current) {
+    const container = containerRef.current;
+
+    if (!container || container.querySelector('#CookieDeclaration')) {
       return;
     }
 
-    isMountedRef.current = true;
-  }, []);
+    const script = document.createElement('script');
 
-  if (!isMountedRef.current) {
-    return null;
-  }
+    script.defer = true;
+    script.id = 'CookieDeclaration';
+    script.src = `https://consent.cookiebot.com/${cookiebotId}/cd.js`;
+    script.type = 'text/javascript';
 
-  return (
-    <script
-      defer
-      id={'CookieDeclaration'}
-      src={`https://consent.cookiebot.com/${cookiebotId}/cd.js`}
-      type={'text/javascript'}
-      {...props}
-    />
-  );
+    container.appendChild(script);
+
+    return () => {
+      container.removeChild(script);
+    };
+  }, [cookiebotId]);
+
+  return <div ref={containerRef} />;
 };
