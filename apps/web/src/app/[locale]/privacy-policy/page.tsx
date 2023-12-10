@@ -1,6 +1,7 @@
 import { Container, Heading, Section } from '@radix-ui/themes';
 import type { Metadata } from 'next';
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import dynamic from 'next/dynamic';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
@@ -13,6 +14,12 @@ import {
   RichText,
   pathnames,
 } from '@recipes/ui';
+
+const CookieDeclarationScript = dynamic(
+  async () =>
+    (await import('./cookie-declaration-script')).CookieDeclarationScript,
+  { ssr: false }
+);
 
 interface PrivacyPolicyPageProps {
   params: { locale: string };
@@ -49,12 +56,7 @@ const PrivacyPolicyPage = async ({ params }: PrivacyPolicyPageProps) => {
             >
               {t('cookieDeclaration')}
             </Heading>
-            <script
-              defer
-              id={'CookieDeclaration'}
-              src={`https://consent.cookiebot.com/${COOKIEBOT_ID}/cd.js`}
-              type={'text/javascript'}
-            />
+            <CookieDeclarationScript cookiebotId={COOKIEBOT_ID} />
           </Container>
         </Section>
       ) : null}

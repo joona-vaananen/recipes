@@ -4,10 +4,31 @@
 @import '@radix-ui/themes/styles.css';
 @import './theme-config.css';
 
+#CookiebotWidget {
+  min-width: var(--base-button-height) !important;
+  min-height: var(--base-button-height) !important;
+}
+
+#CookiebotWidget:not(.CookiebotWidget-open):hover {
+  box-shadow: none !important;
+}
+
+#CookiebotWidget:not(.CookiebotWidget-open):hover
+  .CookiebotWidget-logo
+  svg
+  circle {
+  fill: var(--accent-10) !important;
+}
+
+#CookiebotWidget:not(.CookiebotWidget-open) button.CookiebotWidget-logo svg {
+  width: var(--base-button-height) !important;
+  height: var(--base-button-height) !important;
+}
+
 #CookiebotWidget .CookiebotWidget-logo svg path {
   fill: #ffffff !important;
 }
 
 .grecaptcha-badge {
-  visibility: hidden;
+  visibility: hidden !important;
 }
