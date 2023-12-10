@@ -150,7 +150,7 @@ const getHomePageData = async ({ params }: HomePageProps) => {
         publicationState: draftMode().isEnabled ? 'preview' : 'live',
       },
     },
-    { next: { revalidate: 600 } }
+    { next: { revalidate: 300 } }
   );
 
   if (!homePage) {

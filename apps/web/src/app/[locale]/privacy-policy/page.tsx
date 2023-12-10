@@ -129,7 +129,7 @@ const getPrivacyPolicyPageData = async ({ params }: PrivacyPolicyPageProps) => {
         publicationState: draftMode().isEnabled ? 'preview' : 'live',
       },
     },
-    { next: { revalidate: 600 } }
+    { next: { revalidate: 300 } }
   );
 
   if (!privacyPolicyPage) {

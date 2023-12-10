@@ -77,7 +77,7 @@ export const RecipeSearch = async ({
           searchConfig.sort
         ) ?? ['publishedAt:desc'],
       },
-      { next: { revalidate: 600 } } as any
+      { next: { revalidate: 300 } } as any
     );
 
   const {

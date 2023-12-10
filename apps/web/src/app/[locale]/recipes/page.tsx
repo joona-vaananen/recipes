@@ -137,7 +137,7 @@ const getRecipeSearchPageData = async ({ params }: RecipeSearchPageProps) => {
         publicationState: draftMode().isEnabled ? 'preview' : 'live',
       },
     },
-    { next: { revalidate: 600 } }
+    { next: { revalidate: 300 } }
   );
 
   if (!recipeSearchPage) {

@@ -108,7 +108,7 @@ export const RecipeCarousel = async ({
         page: 1,
         sort: buildSearchSort(sort, searchConfig.sort) ?? ['publishedAt:desc'],
       },
-      { next: { revalidate: 600 } } as any
+      { next: { revalidate: 300 } } as any
     );
 
   if (!Array.isArray(searchResults.hits) || searchResults.hits.length === 0) {

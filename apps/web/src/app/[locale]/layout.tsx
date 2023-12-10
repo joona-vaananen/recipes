@@ -137,7 +137,7 @@ const getHeaderData = async ({ params }: Pick<LayoutProps, 'params'>) => {
         },
       },
     },
-    { next: { revalidate: 600 } }
+    { next: { revalidate: 300 } }
   );
 
   return header;
@@ -161,7 +161,7 @@ const getFooterData = async ({ params }: Pick<LayoutProps, 'params'>) => {
         },
       },
     },
-    { next: { revalidate: 600 } }
+    { next: { revalidate: 300 } }
   );
 
   return footer;

@@ -14,7 +14,7 @@ export const GET = () => {
   </sitemapindex>`,
     {
       headers: {
-        'Cache-Control': `s-maxage=86400`,
+        'Cache-Control': `s-maxage=${86_400}`,
         'Content-Type': 'application/xml',
       },
     }

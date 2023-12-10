@@ -55,7 +55,7 @@ export const CommentList = async ({
         sort: 'createdAt:desc',
       },
     },
-    { next: { revalidate: 600 } } as any
+    { next: { revalidate: 300 } } as any
   );
 
   const { pagination } = meta;

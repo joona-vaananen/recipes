@@ -10,8 +10,6 @@ export const BREAKPOINTS = breakpoints;
 
 export const COOKIEBOT_ID = process.env.WEB_COOKIEBOT_ID;
 
-export const DEFAULT_REVALIDATE = 60;
-
 export const ERROR_NAMES = {
   NOT_FOUND: 'NotFound',
   SERVER_ERROR: 'ServerError',
