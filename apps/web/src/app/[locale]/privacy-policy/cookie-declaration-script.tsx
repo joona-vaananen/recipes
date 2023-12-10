@@ -12,12 +12,6 @@ export const CookieDeclarationScript = ({
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const container = containerRef.current;
-
-    if (!container || container.querySelector('#CookieDeclaration')) {
-      return;
-    }
-
     const script = document.createElement('script');
 
     script.defer = true;
@@ -25,10 +19,14 @@ export const CookieDeclarationScript = ({
     script.src = `https://consent.cookiebot.com/${cookiebotId}/cd.js`;
     script.type = 'text/javascript';
 
-    container.appendChild(script);
+    const container = containerRef.current;
+
+    if (container && container.children.length === 0) {
+      container.appendChild(script);
+    }
 
     return () => {
-      container.removeChild(script);
+      container?.removeChild(script);
     };
   }, [cookiebotId]);
 
