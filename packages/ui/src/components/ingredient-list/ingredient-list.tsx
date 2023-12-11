@@ -35,7 +35,9 @@ export const IngredientList = ({ items, servings }: IngredientListProps) => {
             <form>
               <IngredientListServingsInput
                 translations={{
-                  servings: t('servings'),
+                  servingPlural: t('servingPlural'),
+                  servingSingular: t('servingSingular'),
+                  servingsLabel: t('servingsLabel'),
                 }}
               />
             </form>

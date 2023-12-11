@@ -38,7 +38,9 @@
     "openMenu": "Open menu"
   },
   "IngredientList": {
-    "servings": "Servings",
+    "servingPlural": "servings",
+    "servingSingular": "serving",
+    "servingsLabel": "Servings",
     "title": "Ingredients"
   },
   "InstructionList": {

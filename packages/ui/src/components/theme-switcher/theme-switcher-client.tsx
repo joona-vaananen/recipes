@@ -17,7 +17,7 @@ export const ThemeSwitcherClient = ({
   ...props
 }: ThemeSwitcherClientProps) => {
   const [isMounted, setIsMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { theme = 'light', setTheme } = useTheme();
 
   useEffect(() => {
     setIsMounted(true);

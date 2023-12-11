@@ -21,6 +21,10 @@
   box-shadow: none !important;
 }
 
+#CookiebotWidget .CookiebotWidget-logo svg circle {
+  fill: #e54666 !important;
+}
+
 html.light
   #CookiebotWidget:not(.CookiebotWidget-open):hover
   .CookiebotWidget-logo

@@ -38,7 +38,9 @@
     "openMenu": "Avaa valikko"
   },
   "IngredientList": {
-    "servings": "Annoksia",
+    "servingPlural": "annosta",
+    "servingSingular": "annos",
+    "servingsLabel": "Annoksia",
     "title": "Ainekset"
   },
   "InstructionList": {

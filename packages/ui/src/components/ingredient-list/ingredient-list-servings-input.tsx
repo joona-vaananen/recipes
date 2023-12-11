@@ -8,7 +8,9 @@ import type { IngredientListSchema } from './ingredient-list-schema';
 
 interface IngredientListServingsInputProps {
   translations: {
-    servings: string;
+    servingPlural: string;
+    servingSingular: string;
+    servingsLabel: string;
   };
 }
 
@@ -25,7 +27,7 @@ export const IngredientListServingsInput = ({
     <>
       <Text as={'label'} className={'print:hidden'} size={'2'}>
         <Flex align={'center'} gap={'2'}>
-          {translations.servings}
+          {translations.servingsLabel}
           <TextField.Root className={'w-16'}>
             <TextField.Input
               className={'mr-1'}
@@ -43,7 +45,11 @@ export const IngredientListServingsInput = ({
         </Flex>
       </Text>
       <Text className={'hidden print:block'} weight={'bold'}>
-        {`${format.number(value!)} ${translations.servings.toLowerCase()}`}
+        {`${format.number(value!)} ${
+          value === 1
+            ? translations.servingSingular
+            : translations.servingPlural
+        }`}
       </Text>
     </>
   );
