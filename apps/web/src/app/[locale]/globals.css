@@ -4,6 +4,25 @@
 @import '@radix-ui/themes/styles.css';
 @import './theme-config.css';
 
+@layer utilities {
+  .h-hero {
+    height: calc(100vh - 73px);
+    height: calc(100svh - 73px);
+  }
+
+  @media (min-width: 1024px) {
+    .h-hero {
+      height: calc((100vh - 73px) / 2);
+      height: calc((100svh - 73px) / 2);
+    }
+  }
+
+  .min-h-screen {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+}
+
 #CookiebotWidget {
   bottom: 16px !important;
   left: 16px !important;

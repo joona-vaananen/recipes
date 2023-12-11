@@ -17,14 +17,14 @@ export const ThemeSwitcherClient = ({
   ...props
 }: ThemeSwitcherClientProps) => {
   const [isMounted, setIsMounted] = useState(false);
-  const { theme = 'light', setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
   const onClick = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
+    setTheme(resolvedTheme === 'light' ? 'dark' : 'light');
   };
 
   return (
@@ -36,7 +36,7 @@ export const ThemeSwitcherClient = ({
     >
       {isMounted ? (
         <AccessibleIcon label={translations.toggle}>
-          {theme === 'light' ? (
+          {resolvedTheme === 'light' ? (
             <Sun className={'h-5 w-5'} />
           ) : (
             <Moon className={'h-5 w-5'} />

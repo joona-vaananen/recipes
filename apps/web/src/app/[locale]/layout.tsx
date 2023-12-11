@@ -61,7 +61,7 @@ const Layout = async ({ children, params }: LayoutProps) => {
           messages={(({ Error }) => ({ Error }))(messages)}
           timeZone={TIME_ZONE}
         >
-          <Flex className={'min-h-[100dvh]'} direction={'column'}>
+          <Flex className={'min-h-screen'} direction={'column'}>
             <Header
               items={header?.attributes.items}
               locale={locale}
