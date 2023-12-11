@@ -49,6 +49,7 @@ export const RecipeSearchInput = ({
         onChange={onChange}
         placeholder={translations.inputPlaceholder}
         ref={ref}
+        size={'3'}
         type={'search'}
       />
     </TextField.Root>

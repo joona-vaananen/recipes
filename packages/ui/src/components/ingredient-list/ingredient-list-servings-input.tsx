@@ -38,6 +38,7 @@ export const IngredientListServingsInput = ({
               onBlur={onBlur}
               onChange={onChange}
               ref={ref}
+              size={'3'}
               type={'number'}
               value={value}
             />

@@ -34,6 +34,7 @@ export const CommentFormNameInput = ({
             onBlur={onBlur}
             onChange={onChange}
             ref={ref}
+            size={'3'}
             value={value}
           />
         </TextField.Root>
