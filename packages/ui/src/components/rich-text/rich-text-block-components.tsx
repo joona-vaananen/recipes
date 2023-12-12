@@ -182,17 +182,13 @@ export const richTextBlockComponents = {
     }
 
     if (strikethrough) {
-      return (
-        <Text asChild>
-          <s>{text}</s>
-        </Text>
-      );
+      return <s>{text}</s>;
     }
 
     if (underline) {
-      return <Text className={'underline'}>{text}</Text>;
+      return <span className={'underline'}>{text}</span>;
     }
 
-    return <Text>{text}</Text>;
+    return <>{text}</>;
   },
 } satisfies RichTextBlockComponents;

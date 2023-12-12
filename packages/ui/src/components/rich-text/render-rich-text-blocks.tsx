@@ -23,6 +23,14 @@ export const renderRichTextBlocks = (
     if ('children' in block) {
       const { children, ...props } = block;
 
+      if (
+        children.length === 1 &&
+        children[0].type === 'text' &&
+        children[0].text.length === 0
+      ) {
+        return accumulatedBlocks;
+      }
+
       accumulatedBlocks.push(
         <Component {...props} key={`${block.type}-${index}`}>
           {renderRichTextBlocks(children, components)}
