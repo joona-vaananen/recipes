@@ -24,6 +24,7 @@ export const renderRichTextBlocks = (
       const { children, ...props } = block;
 
       if (
+        block.type === 'paragraph' &&
         children.length === 1 &&
         children[0].type === 'text' &&
         children[0].text.length === 0
