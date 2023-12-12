@@ -6,6 +6,7 @@ import { Search } from 'lucide-react';
 import { useEffect } from 'react';
 import { useController, useFormContext } from 'react-hook-form';
 
+import { cn } from '../../lib/utils/cn';
 import type { RecipeSearchParamsSchema } from './recipe-search-schemas';
 
 interface RecipeSearchInputProps
@@ -16,6 +17,7 @@ interface RecipeSearchInputProps
 }
 
 export const RecipeSearchInput = ({
+  className,
   translations,
   ...props
 }: RecipeSearchInputProps) => {
@@ -34,7 +36,10 @@ export const RecipeSearchInput = ({
   }, [onChange]);
 
   return (
-    <TextField.Root {...props}>
+    <TextField.Root
+      className={cn('w-80 flex-grow sm:flex-grow-0', className)}
+      {...props}
+    >
       <TextField.Slot>
         <Search size={16} />
       </TextField.Slot>

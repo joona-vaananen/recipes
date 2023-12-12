@@ -4,9 +4,6 @@ module.exports = {
     '../../apps/web/src/app/**/*.{ts,tsx}',
     '../../packages/ui/src/components/**/*.{ts,tsx}',
   ],
-  future: {
-    hoverOnlyWhenSupported: true,
-  },
   plugins: [require('tailwindcss-animate')],
   presets: [require('radix-themes-tw').radixThemePreset],
   theme: {

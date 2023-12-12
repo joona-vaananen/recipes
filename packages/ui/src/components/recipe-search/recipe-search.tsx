@@ -101,31 +101,50 @@ export const RecipeSearch = async ({
                 title={title}
                 totalHits={totalHits}
               />
-              <Flex align={'center'} gap={'4'} wrap={'wrap'}>
-                <RecipeSearchDialog
-                  totalHits={totalHits}
-                  translations={{
-                    filters: t('filters'),
-                    openFilters: t('openFilters'),
-                    resetFilters: t('resetFilters'),
-                    showResults: t('showResults'),
+              <Flex
+                align={{
+                  initial: 'start',
+                  sm: 'center',
+                }}
+                direction={{
+                  initial: 'column',
+                  sm: 'row',
+                }}
+                gap={'4'}
+              >
+                <Flex
+                  align={'center'}
+                  gap={'4'}
+                  width={{
+                    initial: '100%',
+                    sm: 'auto',
                   }}
                 >
-                  <Flex asChild direction={'column'} gap={'4'}>
-                    <form>
-                      <RecipeSearchFilters
-                        searchConfig={searchConfig}
-                        facetDistribution={facetDistribution}
-                        filters={filters}
-                      />
-                    </form>
-                  </Flex>
-                </RecipeSearchDialog>
-                <RecipeSearchInput
-                  translations={{
-                    inputPlaceholder: t('inputPlaceholder'),
-                  }}
-                />
+                  <RecipeSearchDialog
+                    totalHits={totalHits}
+                    translations={{
+                      filters: t('filters'),
+                      openFilters: t('openFilters'),
+                      resetFilters: t('resetFilters'),
+                      showResults: t('showResults'),
+                    }}
+                  >
+                    <Flex asChild direction={'column'} gap={'4'}>
+                      <form>
+                        <RecipeSearchFilters
+                          searchConfig={searchConfig}
+                          facetDistribution={facetDistribution}
+                          filters={filters}
+                        />
+                      </form>
+                    </Flex>
+                  </RecipeSearchDialog>
+                  <RecipeSearchInput
+                    translations={{
+                      inputPlaceholder: t('inputPlaceholder'),
+                    }}
+                  />
+                </Flex>
                 {sortOrder ? (
                   <RecipeSearchSortOrder
                     className={'!ml-auto'}

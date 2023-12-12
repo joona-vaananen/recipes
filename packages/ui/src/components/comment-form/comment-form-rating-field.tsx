@@ -57,9 +57,10 @@ export const CommentFormRatingField = ({
                 className={cn({
                   'h-5 w-5': true,
                   'fill-accent-9 stroke-accent-9':
-                    hoverIndex >= 0
-                      ? hoverIndex >= index
-                      : typeof value === 'number' && value > index,
+                    hoverIndex === -1 &&
+                    typeof value === 'number' &&
+                    value > index,
+                  'md:fill-accent-9 md:stroke-accent-9': hoverIndex >= 0,
                 })}
               />
             </AccessibleIcon>
