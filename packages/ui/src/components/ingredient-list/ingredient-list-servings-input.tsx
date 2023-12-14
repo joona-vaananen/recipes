@@ -27,15 +27,14 @@ export const IngredientListServingsInput = ({
   const max = initialServings! * 10;
 
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.value) {
-      onChange(event);
+    if (event.target.value) {
+      event.target.value = `${Math.min(
+        Math.max(parseInt(event.target.value), min),
+        max
+      )}`;
     }
 
-    const value = parseInt(event.target.value);
-
-    if (value >= min && value <= max) {
-      onChange(event);
-    }
+    onChange(event);
   };
 
   return (
