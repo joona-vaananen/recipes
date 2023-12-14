@@ -2,6 +2,7 @@ import { Box, Flex, Heading } from '@radix-ui/themes';
 import { useTranslations } from 'next-intl';
 
 import { IngredientListProvider } from './ingredient-list-context';
+import { IngredientListForm } from './ingredient-list-form';
 import { IngredientListItems } from './ingredient-list-items';
 import { IngredientListServingsInput } from './ingredient-list-servings-input';
 
@@ -32,7 +33,7 @@ export const IngredientList = ({ items, servings }: IngredientListProps) => {
         </Heading>
         <Flex direction={'column'} gap={'6'}>
           <Flex asChild>
-            <form>
+            <IngredientListForm>
               <IngredientListServingsInput
                 translations={{
                   servingPlural: t('servingPlural'),
@@ -40,7 +41,7 @@ export const IngredientList = ({ items, servings }: IngredientListProps) => {
                   servingsLabel: t('servingsLabel'),
                 }}
               />
-            </form>
+            </IngredientListForm>
           </Flex>
           <IngredientListItems items={items} />
         </Flex>
