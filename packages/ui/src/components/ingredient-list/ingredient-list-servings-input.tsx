@@ -23,6 +23,21 @@ export const IngredientListServingsInput = ({
   const { disabled, name, onBlur, onChange, ref, value } = field;
   const format = useFormatter();
 
+  const min = 1;
+  const max = initialServings! * 10;
+
+  const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.value) {
+      onChange(event);
+    }
+
+    const value = parseInt(event.target.value);
+
+    if (value >= min && value <= max) {
+      onChange(event);
+    }
+  };
+
   return (
     <>
       <Text as={'label'} className={'print:hidden'} size={'2'}>
@@ -32,11 +47,11 @@ export const IngredientListServingsInput = ({
             <TextField.Input
               className={'mr-1'}
               disabled={disabled}
-              max={initialServings! * 10}
-              min={1}
+              max={max}
+              min={min}
               name={name}
               onBlur={onBlur}
-              onChange={onChange}
+              onChange={onInputChange}
               ref={ref}
               size={'3'}
               type={'number'}
