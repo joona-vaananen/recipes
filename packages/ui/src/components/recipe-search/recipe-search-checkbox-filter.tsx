@@ -66,9 +66,14 @@ export const RecipeSearchCheckboxFilter = ({
   }
 
   return (
-    <fieldset>
-      <Text asChild mb={'1'} weight={'bold'}>
-        <legend>{label}</legend>
+    <Flex
+      aria-labelledby={`recipe-search-${name}-filter-label`}
+      direction={'column'}
+      gap={'2'}
+      role={'group'}
+    >
+      <Text id={`recipe-search-${name}-filter-label`} weight={'bold'}>
+        {label}
       </Text>
       <Card>
         <Inset clip={'padding-box'}>
@@ -104,6 +109,6 @@ export const RecipeSearchCheckboxFilter = ({
           </ScrollArea>
         </Inset>
       </Card>
-    </fieldset>
+    </Flex>
   );
 };

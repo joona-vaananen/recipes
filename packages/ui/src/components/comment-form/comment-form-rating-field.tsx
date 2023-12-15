@@ -34,9 +34,14 @@ export const CommentFormRatingField = ({
   };
 
   return (
-    <fieldset>
-      <Text asChild mb={'2'} size={'2'}>
-        <legend>{translations.rating}</legend>
+    <Flex
+      aria-labelledby={'comment-form-rating-field-label'}
+      direction={'column'}
+      gap={'2'}
+      role={'group'}
+    >
+      <Text id={'comment-form-rating-field-label'} size={'2'}>
+        {translations.rating}
       </Text>
       <Flex>
         {Array.from({ length: 5 }, (_, index) => (
@@ -63,6 +68,6 @@ export const CommentFormRatingField = ({
           </button>
         ))}
       </Flex>
-    </fieldset>
+    </Flex>
   );
 };
