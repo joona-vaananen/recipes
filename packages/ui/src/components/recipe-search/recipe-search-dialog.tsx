@@ -44,7 +44,7 @@ export const RecipeSearchDialog = ({
         <Inset clip={'padding-box'} my={'5'} side={'x'}>
           <Separator size={'4'} />
           <ScrollArea
-            className={'max-h-[50vh]'}
+            className={'max-h-[40vh]'}
             scrollbars={'vertical'}
             type={'auto'}
           >
@@ -57,7 +57,10 @@ export const RecipeSearchDialog = ({
             initial: 'column',
             xs: 'row',
           }}
-          gap={'4'}
+          gap={{
+            initial: '2',
+            xs: '4'
+          }}
           mt={'4'}
           justify={{
             initial: 'start',

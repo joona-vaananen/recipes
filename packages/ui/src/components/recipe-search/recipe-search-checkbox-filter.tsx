@@ -1,7 +1,6 @@
 'use client';
 
 import {
-  Box,
   Card,
   Checkbox,
   Flex,
@@ -82,7 +81,7 @@ export const RecipeSearchCheckboxFilter = ({
             scrollbars={'vertical'}
             type={'auto'}
           >
-            <Box p={'3'}>
+            <Flex direction={'column'} gap={'4'} p={'4'}>
               {names.map(([name, count], index) => {
                 const [slug] = slugs[index];
 
@@ -105,7 +104,7 @@ export const RecipeSearchCheckboxFilter = ({
                   </Text>
                 );
               })}
-            </Box>
+            </Flex>
           </ScrollArea>
         </Inset>
       </Card>
