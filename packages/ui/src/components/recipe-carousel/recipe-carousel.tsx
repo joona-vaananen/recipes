@@ -195,7 +195,7 @@ export const RecipeCarousel = async ({
                 )}
               </ol>
             </RecipeCarouselClient>
-            <Box className={'sm:hidden'}>
+            <Box className={'mt-2 sm:hidden'}>
               <Button asChild>
                 <Link
                   href={{
