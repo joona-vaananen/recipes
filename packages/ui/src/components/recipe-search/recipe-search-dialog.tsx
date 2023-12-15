@@ -57,10 +57,7 @@ export const RecipeSearchDialog = ({
             initial: 'column',
             xs: 'row',
           }}
-          gap={{
-            initial: '2',
-            xs: '4'
-          }}
+          gap={'4'}
           mt={'4'}
           justify={{
             initial: 'start',

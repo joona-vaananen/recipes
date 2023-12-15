@@ -41,6 +41,7 @@ export const RecipeSearchResults = ({
           md: '3',
         }}
         gap={'4'}
+        mt={'2'}
       >
         <ol>
           {Array.from(
@@ -60,7 +61,7 @@ export const RecipeSearchResults = ({
 
   if (isEmpty) {
     return (
-      <Text as={'p'} size={'5'}>
+      <Text as={'p'} mt={'2'} size={'5'}>
         {translations.noResults}
       </Text>
     );
@@ -75,6 +76,7 @@ export const RecipeSearchResults = ({
         md: '3',
       }}
       gap={'4'}
+      mt={'2'}
     >
       <ol>
         {hits.map(

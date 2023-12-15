@@ -8,6 +8,7 @@ import {
   IconButton,
   Inset,
   Link,
+  Section,
   Separator,
   VisuallyHidden,
 } from '@radix-ui/themes';
@@ -115,57 +116,59 @@ export const HeaderMobileNavigation = ({
             </Flex>
           </Container>
           <Separator size={'4'} />
-          <Container className={'max-w-full'} p={'4'}>
-            <nav className={className} {...props}>
-              <Flex asChild direction={'column'} gap={'4'}>
-                <ul>
-                  <DynamicZone
-                    components={{
-                      'header.home-page-item': ({
-                        label,
-                      }: {
-                        label: string;
-                      }) => (
-                        <li>
-                          <Link asChild>
-                            <NextLink href={'/'}>{label}</NextLink>
-                          </Link>
-                        </li>
-                      ),
-                      'header.page-item': ({
-                        label,
-                        page,
-                      }: {
-                        label: string;
-                        page: { data: { attributes: { slug: string } } };
-                      }) => (
-                        <li>
-                          <Link asChild>
-                            <NextLink href={`/${page.data.attributes.slug}`}>
-                              {label}
-                            </NextLink>
-                          </Link>
-                        </li>
-                      ),
-                      'header.recipe-search-page-item': ({
-                        label,
-                      }: {
-                        label: string;
-                      }) => (
-                        <li>
-                          <Link asChild>
-                            <NextLink href={'/recipes'}>{label}</NextLink>
-                          </Link>
-                        </li>
-                      ),
-                    }}
-                  >
-                    {items}
-                  </DynamicZone>
-                </ul>
-              </Flex>
-            </nav>
-          </Container>
+          <Section size={'2'}>
+            <Container className={'max-w-full'} px={'4'}>
+              <nav className={className} {...props}>
+                <Flex asChild direction={'column'} gap={'4'}>
+                  <ul>
+                    <DynamicZone
+                      components={{
+                        'header.home-page-item': ({
+                          label,
+                        }: {
+                          label: string;
+                        }) => (
+                          <li>
+                            <Link asChild>
+                              <NextLink href={'/'}>{label}</NextLink>
+                            </Link>
+                          </li>
+                        ),
+                        'header.page-item': ({
+                          label,
+                          page,
+                        }: {
+                          label: string;
+                          page: { data: { attributes: { slug: string } } };
+                        }) => (
+                          <li>
+                            <Link asChild>
+                              <NextLink href={`/${page.data.attributes.slug}`}>
+                                {label}
+                              </NextLink>
+                            </Link>
+                          </li>
+                        ),
+                        'header.recipe-search-page-item': ({
+                          label,
+                        }: {
+                          label: string;
+                        }) => (
+                          <li>
+                            <Link asChild>
+                              <NextLink href={'/recipes'}>{label}</NextLink>
+                            </Link>
+                          </li>
+                        ),
+                      }}
+                    >
+                      {items}
+                    </DynamicZone>
+                  </ul>
+                </Flex>
+              </nav>
+            </Container>
+          </Section>
         </Inset>
       </Dialog.Content>
     </Dialog.Root>

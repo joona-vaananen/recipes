@@ -165,7 +165,7 @@ export const RecipeSearch = async ({
                   noResults: t('noResults'),
                 }}
               />
-              <Flex justify={'center'}>
+              <Flex justify={'center'} mt={'2'}>
                 <RecipeSearchPagination
                   page={page}
                   searchParams={parsedSearchParams}
