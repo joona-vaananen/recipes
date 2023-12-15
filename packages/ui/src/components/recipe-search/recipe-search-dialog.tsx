@@ -44,7 +44,7 @@ export const RecipeSearchDialog = ({
         <Inset clip={'padding-box'} my={'5'} side={'x'}>
           <Separator size={'4'} />
           <ScrollArea
-            className={'max-h-[400px]'}
+            className={'max-h-[50vh]'}
             scrollbars={'vertical'}
             type={'auto'}
           >
@@ -52,7 +52,18 @@ export const RecipeSearchDialog = ({
           </ScrollArea>
           <Separator size={'4'} />
         </Inset>
-        <Flex gap="3" mt="4" justify="end">
+        <Flex
+          direction={{
+            initial: 'column',
+            xs: 'row',
+          }}
+          gap={'4'}
+          mt={'4'}
+          justify={{
+            initial: 'start',
+            xs: 'end',
+          }}
+        >
           <Button
             onClick={() => {
               setIsSearching(true);
