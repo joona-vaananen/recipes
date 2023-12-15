@@ -128,7 +128,7 @@ export const RecipeCarousel = async ({
             gap={'4'}
             position={'relative'}
           >
-            <Flex justify={'between'}>
+            <Flex align={'center'} justify={'between'}>
               {title ? (
                 <Heading as={'h2'} size={'7'}>
                   {title}
