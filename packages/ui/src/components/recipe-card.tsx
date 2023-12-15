@@ -1,4 +1,12 @@
-import { AspectRatio, Card, Flex, Grid, Inset, Text } from '@radix-ui/themes';
+import {
+  AspectRatio,
+  Card,
+  Flex,
+  Grid,
+  Heading,
+  Inset,
+  Text,
+} from '@radix-ui/themes';
 import { Star, Timer } from 'lucide-react';
 import { useFormatter } from 'next-intl';
 import Image from 'next/image';
@@ -76,9 +84,9 @@ export const RecipeCard = ({
             params: { slug },
           }}
         >
-          <Text asChild size={'6'}>
-            <h3>{title}</h3>
-          </Text>
+          <Heading as={'h3'} size={'6'} weight={'medium'}>
+            {title}
+          </Heading>
         </Link>
         <Flex
           align={'center'}
