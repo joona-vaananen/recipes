@@ -20,6 +20,7 @@ interface RecipeSearchResultsProps {
   totalHits: number;
   translations: {
     noResults: string;
+    scoreUnit: string;
   };
 }
 
@@ -106,6 +107,7 @@ export const RecipeSearchResults = ({
                 ].join(', ')}
                 slug={slug}
                 title={title}
+                translations={translations}
               />
             </li>
           )

@@ -65,6 +65,7 @@
     "cookieDeclaration": "Evästeilmoitus"
   },
   "RecipeCarousel": {
+    "scoreUnit": "tähteä",
     "viewMore": "Katso lisää"
   },
   "RecipePage": {
@@ -88,7 +89,8 @@
     "page": "Sivu",
     "previousPage": "Edellinen sivu",
     "resetFilters": "Tyhjennä ehdot",
-    "showResults": "Näytä tulokset"
+    "showResults": "Näytä tulokset",
+    "scoreUnit": "tähteä"
   },
   "RecipeTags": {
     "categories": "Kategoria",

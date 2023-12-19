@@ -189,6 +189,9 @@ export const RecipeCarousel = async ({
                         ].join(', ')}
                         slug={slug}
                         title={title}
+                        translations={{
+                          scoreUnit: t('scoreUnit'),
+                        }}
                       />
                     </li>
                   )

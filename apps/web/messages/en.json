@@ -65,6 +65,7 @@
     "cookieDeclaration": "Cookie declaration"
   },
   "RecipeCarousel": {
+    "scoreUnit": "stars",
     "viewMore": "View more"
   },
   "RecipePage": {
@@ -88,7 +89,8 @@
     "page": "Page",
     "previousPage": "Previous page",
     "resetFilters": "Reset filters",
-    "showResults": "Show results"
+    "showResults": "Show results",
+    "scoreUnit": "stars"
   },
   "RecipeTags": {
     "categories": "Category",

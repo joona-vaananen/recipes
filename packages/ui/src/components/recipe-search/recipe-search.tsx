@@ -163,6 +163,7 @@ export const RecipeSearch = async ({
                 totalHits={totalHits}
                 translations={{
                   noResults: t('noResults'),
+                  scoreUnit: t('scoreUnit'),
                 }}
               />
               <Flex justify={'center'} mt={'2'}>
