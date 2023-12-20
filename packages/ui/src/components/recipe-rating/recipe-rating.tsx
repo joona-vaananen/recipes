@@ -19,13 +19,12 @@ export const RecipeRating = ({
 }: RecipeRatingProps) => {
   const t = useTranslations('RecipeRating');
 
-  const rating = { average: averageRating, count: ratingCount };
-
   return (
     <RecipeRatingClient
       anchor={anchor}
+      averageRating={averageRating}
       locale={locale}
-      rating={rating}
+      ratingCount={ratingCount}
       recipe={recipe}
       translations={{
         jumpToCommentForm: t('jumpToCommentForm'),

@@ -10,16 +10,20 @@ import { fetcher } from '../../lib/utils/fetcher';
 import { ScrollTo } from '../scroll-to';
 
 interface Rating {
-  average?: number;
-  count: number;
+  attributes: {
+    averageRating?: number;
+    ratingCount: number;
+  };
+  id: number;
 }
 
 interface RecipeRatingClientProps
   extends React.ComponentPropsWithoutRef<typeof Flex> {
   anchor: string;
-  rating: Rating;
-  recipe: number;
+  averageRating?: number;
   locale: string;
+  ratingCount: number;
+  recipe: number;
   translations: {
     jumpToCommentForm: string;
     ratingNone: string;
@@ -31,13 +35,22 @@ interface RecipeRatingClientProps
 
 export const RecipeRatingClient = ({
   anchor,
+  averageRating: initialAverageRating,
   locale,
-  rating: initialRating,
+  ratingCount: initialRatingCount,
   recipe,
   translations,
   ...props
 }: RecipeRatingClientProps) => {
   const format = useFormatter();
+
+  const initialRating = {
+    attributes: {
+      averageRating: initialAverageRating,
+      ratingCount: initialRatingCount,
+    },
+    id: recipe,
+  };
 
   const getKey = () => {
     return `/api/ratings/${recipe}${stringify(
@@ -70,8 +83,13 @@ export const RecipeRatingClient = ({
     revalidateOnReconnect: false,
   }) as { data: Rating | null };
 
-  const averageRating = rating?.average ?? initialRating?.average;
-  const ratingCount = rating?.count ?? initialRating?.count ?? 0;
+  const averageRating =
+    rating?.attributes?.averageRating ?? initialRating.attributes.averageRating;
+
+  const ratingCount =
+    rating?.attributes?.ratingCount ??
+    initialRating.attributes.ratingCount ??
+    0;
 
   const starCount =
     typeof averageRating === 'number' ? Math.round(averageRating * 2) / 2 : 0;
@@ -112,8 +130,8 @@ export const RecipeRatingClient = ({
         {ratingCount === 0
           ? translations.ratingNone
           : ratingCount === 1
-          ? `${ratingCount} ${translations.ratingSingular}`
-          : `${ratingCount} ${translations.ratingPlural}`}
+            ? `${ratingCount} ${translations.ratingSingular}`
+            : `${ratingCount} ${translations.ratingPlural}`}
       </Text>
     </Flex>
   );

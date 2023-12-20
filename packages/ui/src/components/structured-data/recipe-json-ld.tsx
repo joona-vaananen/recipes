@@ -124,10 +124,16 @@ const createRecipeJsonLd = (recipe: Recipe): WithContext<RecipeSchema> => {
               text: resolveTextFromRichText(item.content as RichTextBlock[]),
             }))
           ),
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: `${recipe.attributes.averageRating}`,
-      ratingCount: `${recipe.attributes.ratingCount}`,
-    },
+    aggregateRating:
+      typeof recipe.attributes.averageRating === 'number' &&
+      typeof recipe.attributes.ratingCount === 'number' &&
+      recipe.attributes.averageRating > 0 &&
+      recipe.attributes.ratingCount > 0
+        ? {
+            '@type': 'AggregateRating',
+            ratingValue: `${recipe.attributes.averageRating}`,
+            ratingCount: `${recipe.attributes.ratingCount}`,
+          }
+        : undefined,
   };
 };

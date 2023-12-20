@@ -69,10 +69,10 @@ export const GET = async (request: NextRequest, context: Context) => {
     }
   }
 
-  let recipe: APIContentTypes['recipes'] | null;
+  let data: APIContentTypes['recipes'] | null;
 
   try {
-    ({ data: recipe } = await apiClient.getOne(
+    ({ data } = await apiClient.getOne(
       {
         contentType: 'recipes',
         id: parsedParams.recipe,
@@ -93,7 +93,7 @@ export const GET = async (request: NextRequest, context: Context) => {
     );
   }
 
-  if (!recipe) {
+  if (!data) {
     return NextResponse.json(
       {
         data: null,
@@ -102,11 +102,6 @@ export const GET = async (request: NextRequest, context: Context) => {
       { status: 404 }
     );
   }
-
-  const data = {
-    average: recipe.attributes.averageRating,
-    count: recipe.attributes.ratingCount,
-  };
 
   return NextResponse.json(
     { data },

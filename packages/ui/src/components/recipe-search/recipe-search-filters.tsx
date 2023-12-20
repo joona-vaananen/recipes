@@ -17,7 +17,7 @@ export const RecipeSearchFilters = ({
   searchConfig,
 }: RecipeSearchFiltersProps) => {
   return (
-    <Flex direction={'column'} gap={'4'} p={'6'} shrink={'0'}>
+    <Flex direction={'column'} gap={'4'} p={'5'} shrink={'0'}>
       <DynamicZone
         components={{
           'recipe-search.checkbox-filter': (props: any) => {
