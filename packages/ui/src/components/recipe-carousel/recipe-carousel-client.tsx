@@ -3,6 +3,8 @@
 import useEmblaCarousel from 'embla-carousel-react';
 import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures';
 
+import { BREAKPOINTS } from '../../constants';
+import { useWindowSize } from '../../hooks/use-window-size';
 import { cn } from '../../lib/utils/cn';
 
 type RecipeCarouselClientProps = React.HTMLAttributes<HTMLDivElement>;
@@ -12,7 +14,12 @@ export const RecipeCarouselClient = ({
   className,
   ...props
 }: RecipeCarouselClientProps) => {
-  const [ref] = useEmblaCarousel({ dragFree: true }, [WheelGesturesPlugin()]);
+  const windowSize = useWindowSize();
+
+  const [ref] = useEmblaCarousel(
+    { dragFree: windowSize.width >= BREAKPOINTS.md },
+    [WheelGesturesPlugin()]
+  );
 
   return (
     <div className={cn('embla', className)} {...props} ref={ref}>

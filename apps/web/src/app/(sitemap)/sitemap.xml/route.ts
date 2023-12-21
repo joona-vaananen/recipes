@@ -1,8 +1,9 @@
 import { BASE_URL } from '@/constants';
 
+// TODO: Uncomment sitemap for dynamic pages, when some exist
 const sitemaps = [
   'sitemap-static.xml',
-  'sitemap-dynamic.xml',
+  // 'sitemap-dynamic.xml',
   'sitemap-recipes.xml',
 ];
 

@@ -33,6 +33,13 @@ export const RecipeSearchProvider = ({
   const router = useRouter();
   const pathname = usePathname();
 
+  const currentUrl = `${pathname}${stringify(defaultValues, {
+    addQueryPrefix: true,
+    arrayFormat: 'repeat',
+    encodeValuesOnly: true,
+    skipNulls: true,
+  })}`;
+
   const recipeSearchForm = useForm<RecipeSearchParamsSchema>({
     defaultValues,
     mode: 'onChange',
@@ -42,17 +49,20 @@ export const RecipeSearchProvider = ({
   const { handleSubmit, watch } = recipeSearchForm;
 
   const onSubmit = throttle((values: RecipeSearchParamsSchema) => {
+    const url = `${pathname}${stringify(values, {
+      addQueryPrefix: true,
+      arrayFormat: 'repeat',
+      encodeValuesOnly: true,
+      skipNulls: true,
+    })}`;
+
+    if (url === currentUrl) {
+      return;
+    }
+
     setIsSearching(true);
 
-    router.push(
-      `${pathname}${stringify(values, {
-        addQueryPrefix: true,
-        arrayFormat: 'repeat',
-        encodeValuesOnly: true,
-        skipNulls: true,
-      })}`,
-      { scroll: false }
-    );
+    router.push(url, { scroll: false });
   }, 500);
 
   useEffect(() => {

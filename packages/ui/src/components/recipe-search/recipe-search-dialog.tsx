@@ -29,7 +29,7 @@ export const RecipeSearchDialog = ({
   translations,
 }: RecipeSearchDialogProps) => {
   const { reset } = useFormContext();
-  const { isSearching, setIsSearching } = useRecipeSearch();
+  const { isSearching } = useRecipeSearch();
 
   return (
     <Dialog.Root>
@@ -66,8 +66,6 @@ export const RecipeSearchDialog = ({
         >
           <Button
             onClick={() => {
-              setIsSearching(true);
-
               reset({
                 category: null,
                 course: null,

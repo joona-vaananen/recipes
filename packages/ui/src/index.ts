@@ -37,6 +37,7 @@ export {
   type CommentFormSchema,
   type CommentFormWithTokenSchema,
 } from './components';
+export { useWindowSize } from './hooks';
 export {
   Link,
   cn,
